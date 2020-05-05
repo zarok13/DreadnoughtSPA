@@ -1,0 +1,76 @@
+/* Drag-And-Drop container */
+#file-uploading-loader {
+  position:absolute;
+  width:500px;
+  height:600px;
+  margin:-250px auto auto -250px;
+  top:100%;
+  left:50%;
+  text-align:center;
+}
+#dreadnought-file-store {
+  border: #3ba3ed dashed 2px;
+  margin: 20px;
+}
+.drag-and-drop-container {
+  position: relative;
+  display: flex;
+  width: 100%;
+  padding: 2px;
+  background: #f2f4f5;
+  text-align: center;
+  overflow: hidden;
+}
+#drag-and-drop-field {
+  opacity: 0;
+  width: 100%;
+  padding: 120px 0 120px 1200px;
+  line-height: 0;
+  cursor: pointer;
+  left: -20px;
+}
+.drag-and-drop-title {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-top: 10%;
+  color: #1f6fb2;
+}
+
+/* Uploaded files */
+.uploaded_files {
+  margin-top: 30px
+}
+.media_files {
+  margin-left: 20px;
+}
+.files_effects:hover embed {
+  transform: scale(1.5);
+  transition-duration: 500ms;
+  transition-timing-function: ease-out;
+}
+.files_effects embed {
+  border-radius: 25px;
+  transform: scale(1.0, 1.0);
+  transition-duration: 500ms;
+  transition-timing-function: ease-out;
+  //margin: auto;
+}
+.file_icons {
+  position: absolute;
+  top: 70px;
+  left: 25px;
+  right: 50px;
+  width: 100px;
+  opacity: 0;
+}
+.file_icons > li > a{
+  cursor: pointer;
+}
+.files_effects:hover .file_icons {
+  bottom: 0;
+  opacity: 1;
+}
+.animate {
+  transition: all 0.3s ease-in-out;
+}

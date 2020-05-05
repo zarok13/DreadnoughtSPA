@@ -1,0 +1,35 @@
+// 'attach_file' form
+div.input_icon_group {
+  display: flex;
+}
+input[type=text].text_upload {
+  padding-left: 37px;
+}
+a.upload_file_icons {
+  position: absolute;
+}
+a.upload_file_icons.attach {
+  margin-left: 5px;
+  margin-top: 8px;
+  color: darkgreen;
+  transition: opacity .50s ease-in-out;
+  display: none;
+}
+a.upload_file_icons.view {
+  margin-left: 5px;
+  margin-top: 6px;
+  color: orangered;
+  transition: opacity .50s ease-in-out;
+  display: none;
+}
+a.upload_file_icons.clear {
+  right: 0;
+  margin-right: 28px;
+  margin-top: 7px;
+  color: #a50e09;
+  transition: opacity .50s ease-in-out;
+  display: none;
+}
+a.upload_file_icons:hover {
+  opacity: 0.6;
+}

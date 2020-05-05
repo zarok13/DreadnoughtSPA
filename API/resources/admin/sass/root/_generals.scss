@@ -1,0 +1,92 @@
+/* generals */
+textarea {
+  resize: none;
+}
+#image-loader {
+  position:fixed;
+  width:500px;
+  height:600px;
+  margin:-300px auto auto -250px;
+  top:60%;
+  left:50%;
+  text-align:center;
+}
+
+/* navbar panel costumize */
+.navbar-expand .navbar-nav .nav-link {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+/* dreadnought table color */
+.dreadnought-table thead {
+  background: #6e9fc4;
+}
+
+.dreadnought-table tfoot {
+  background: #b3b3b3;
+}
+
+.dreadnought-table tbody tr {
+  color: #404040;
+}
+/* end dreadnought table color */
+
+/*manual sort visual effects*/
+#sortable tr:hover {
+  background-color: #0094ff;
+  color: #fff;
+}
+#sortable td {
+  font-size: 1em;
+  line-height: 1.1em;
+  border: none !important;
+}
+#non-sortable tr:hover {
+  background-color: #0094ff;
+  color: #fff;
+}
+#non-sortable td {
+  font-size: 1em;
+  line-height: 1.1em;
+  border: none !important;
+}
+
+// background highlight for non-sortable/dataTable table
+table.dreadnought-table tbody tr:nth-child(2n) td.sorting_1 {
+  background: linear-gradient(to right, #e27d46, white);
+}
+
+// background highlight for sortable table
+table.dreadnought-table tbody#sortable tr:nth-child(2n) {
+  background: linear-gradient(to right, #e27d46, white);
+}
+
+/* page edit elements */
+.page-edit-right-column {
+  margin-top:31px;
+  border-left: #c9c9c9 solid 1px;
+}
+
+/* input stylize */
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+.editor-shadow {
+  border-color: rgba(126, 239, 104, 0.8);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6);
+  outline: 0 none;
+}
