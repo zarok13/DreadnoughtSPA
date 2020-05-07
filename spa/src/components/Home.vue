@@ -33,25 +33,7 @@
       <!-- Section 1 -->
       <section class="section background-white">
         <div class="line">
-          <div class="margin">
-            <div class="s-12 m-12 l-4 margin-m-bottom">
-              <img class="margin-bottom" src="img/img-01.jpg" alt />
-              <h2 class="text-thin">Clean Design</h2>
-              <p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat.</p>
-              <a class="text-more-info text-primary-hover" href="/">Read more</a>
-            </div>
-            <div class="s-12 m-12 l-4 margin-m-bottom">
-              <img class="margin-bottom" src="img/img-02.jpg" alt />
-              <h2 class="text-thin">Valid code</h2>
-              <p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat.</p>
-              <a class="text-more-info text-primary-hover" href="/">Read more</a>
-            </div>
-            <div class="s-12 m-12 l-4 margin-m-bottom">
-              <img class="margin-bottom" src="img/img-03.jpg" alt />
-              <h2 class="text-thin">Totally free</h2>
-              <p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat.</p>
-              <a class="text-more-info text-primary-hover" href="/">Read more</a>
-            </div>
+          <div class="margin" v-html="getIntro1.data">
           </div>
         </div>
       </section>
@@ -59,43 +41,14 @@
       <!-- Section 2 -->
       <section class="section background-primary text-center">
         <div class="line">
-          <div class="s-12 m-10 l-8 center">
-            <h2 class="headline text-thin text-s-size-30">We are Web Design Heroes</h2>
-            <p class="text-size-20">
-              Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie
-              consequat,
-              vel illum dolore eu feugiat nulla facilisis
-            </p>
+          <div class="s-12 m-10 l-8 center" v-html="getIntro2.data">
           </div>
         </div>
       </section>
 
       <!-- Section 3 -->
       <section class="section background-white">
-        <div class="full-width text-center">
-          <img
-            class="center margin-bottom-30"
-            style="margin-top: -210px;"
-            src="../assets/img/bio.png"
-            alt
-          />
-          <div class="line">
-            <h2 class="headline text-thin text-s-size-30">
-              Fully
-              <span class="text-primary">Responsive</span> HTML5
-              Template
-            </h2>
-            <p class="text-size-20 text-s-size-16 text-thin">
-              Duis autem vel eum iriure dolor in hendrerit in vulputate
-              velit
-              esse molestie consequat, vel illum dolore eu feugiat nulla facilisis. Duis autem vel eum iriure dolor in
-              hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis
-            </p>
-            <i class="icon-more_node_links icon2x text-primary margin-top-bottom-10"></i>
-            <p
-              class="text-size-20 text-s-size-16 text-thin text-primary"
-            >Try resize your browser window</p>
-          </div>
+        <div class="full-width text-center" v-html="getIntro3.data">
         </div>
       </section>
       <hr class="break margin-top-bottom-0" />
@@ -259,7 +212,7 @@
 import Header from "../components/blocks/Header";
 import Footer from "../components/blocks/Footer";
 import { owlCarousel } from "../assets/js/template-scripts";
-import { GET_SLIDER } from '../store/modules/dreadnought.store';
+import { GET_SLIDER, GET_INTRO1, GET_INTRO2, GET_INTRO3 } from '../store/modules/dreadnought.store';
 export default {
   name: "home",
   components: {
@@ -270,11 +223,24 @@ export default {
     getSlider: function() {
       return this.$store.getters.getSlider;
     },
+    getIntro1: function() {
+      return this.$store.getters.getIntro1;
+    },
+    getIntro2: function() {
+      return this.$store.getters.getIntro2;
+    },
+    getIntro3: function() {
+      return this.$store.getters.getIntro3;
+    },
   },
-  created(){
+  beforeCreate(){
     this.$store.dispatch(GET_SLIDER);
   },
-  mounted() {},
+  mounted() {
+    this.$store.dispatch(GET_INTRO1);
+    this.$store.dispatch(GET_INTRO2);
+    this.$store.dispatch(GET_INTRO3);
+  },
   updated() {
     this.initSlider();
   },
