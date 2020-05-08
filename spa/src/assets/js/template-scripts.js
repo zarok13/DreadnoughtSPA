@@ -12,8 +12,8 @@ export function owlCarousel() {
                 autoplay: true,
                 autoplayTimeout: 4000
             });
-            var owl2 = $('.carousel-fade-transition');
-            owl2.owlCarousel({
+            owl = $('.carousel-fade-transition');
+            owl.owlCarousel({
                 nav: true,
                 dots: true,
                 items: 1,

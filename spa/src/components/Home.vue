@@ -61,14 +61,15 @@
             <span class="text-primary">Blog</span>
           </h2>
           <div class="carousel-default owl-carousel carousel-wide-arrows">
-            <div class="item">
+
+            <div class="item" v-for="(item, index) in blogPart1" v-bind:key="index">
               <div class="margin">
                 <div class="s-12 m-12 l-6">
                   <div class="image-border-radius margin-m-bottom">
                     <div class="margin">
                       <div class="s-12 m-12 l-4 margin-m-bottom">
                         <a class="image-hover-zoom" href="/">
-                          <img src="img/blog-05.jpg" alt />
+                          <img v-bind:src="$parent.getApiUrl + 'storage/' + item.image" alt />
                         </a>
                       </div>
                       <div class="s-12 m-12 l-8 margin-m-bottom">
@@ -76,20 +77,20 @@
                           <a
                             class="text-dark text-primary-hover"
                             href="/"
-                          >Lorem Ipsum Dolor sit Amet</a>
+                          >{{ item.title }}</a>
                         </h3>
-                        <p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat.</p>
+                        <p v-html="item.text"></p>
                         <a class="text-more-info text-primary-hover" href="/">Read more</a>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="s-12 m-12 l-6">
+                <div class="s-12 m-12 l-6" v-if="containsKey(blogPart2, parseInt(index) + 1)">
                   <div class="image-border-radius">
                     <div class="margin">
                       <div class="s-12 m-12 l-4 margin-m-bottom">
                         <a class="image-hover-zoom" href="/">
-                          <img src="img/blog-03.jpg" alt />
+                          <img v-bind:src="$parent.getApiUrl + 'storage/' + blogPart2[parseInt(index) + 1].image" alt />
                         </a>
                       </div>
                       <div class="s-12 m-12 l-8">
@@ -97,101 +98,9 @@
                           <a
                             class="text-dark text-primary-hover"
                             href="/"
-                          >Lorem Ipsum Dolor sit Amet</a>
+                          >{{ blogPart2[parseInt(index) + 1].title }}</a>
                         </h3>
-                        <p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat.</p>
-                        <a class="text-more-info text-primary-hover" href="/">Read more</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="item">
-              <div class="margin">
-                <div class="s-12 m-12 l-6">
-                  <div class="image-border-radius margin-m-bottom">
-                    <div class="margin">
-                      <div class="s-12 m-12 l-4 margin-m-bottom">
-                        <a class="image-hover-zoom" href="/">
-                          <img src="img/blog-04.jpg" alt />
-                        </a>
-                      </div>
-                      <div class="s-12 m-12 l-8 margin-m-bottom">
-                        <h3>
-                          <a
-                            class="text-dark text-primary-hover"
-                            href="/"
-                          >Lorem Ipsum Dolor sit Amet</a>
-                        </h3>
-                        <p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat.</p>
-                        <a class="text-more-info text-primary-hover" href="/">Read more</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="s-12 m-12 l-6">
-                  <div class="image-border-radius">
-                    <div class="margin">
-                      <div class="s-12 m-12 l-4 margin-m-bottom">
-                        <a class="image-hover-zoom" href="/">
-                          <img src="img/blog-02.jpg" alt />
-                        </a>
-                      </div>
-                      <div class="s-12 m-12 l-8">
-                        <h3>
-                          <a
-                            class="text-dark text-primary-hover"
-                            href="/"
-                          >Lorem Ipsum Dolor sit Amet</a>
-                        </h3>
-                        <p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat.</p>
-                        <a class="text-more-info text-primary-hover" href="/">Read more</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="item">
-              <div class="margin">
-                <div class="s-12 m-12 l-6">
-                  <div class="image-border-radius margin-m-bottom">
-                    <div class="margin">
-                      <div class="s-12 m-12 l-4 margin-m-bottom">
-                        <a class="image-hover-zoom" href="/">
-                          <img src="img/blog-01.jpg" alt />
-                        </a>
-                      </div>
-                      <div class="s-12 m-12 l-8 margin-m-bottom">
-                        <h3>
-                          <a
-                            class="text-dark text-primary-hover"
-                            href="/"
-                          >Lorem Ipsum Dolor sit Amet</a>
-                        </h3>
-                        <p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat.</p>
-                        <a class="text-more-info text-primary-hover" href="/">Read more</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="s-12 m-12 l-6">
-                  <div class="image-border-radius">
-                    <div class="margin">
-                      <div class="s-12 m-12 l-4 margin-m-bottom">
-                        <a class="image-hover-zoom" href="/">
-                          <img src="img/blog-06.jpg" alt />
-                        </a>
-                      </div>
-                      <div class="s-12 m-12 l-8">
-                        <h3>
-                          <a
-                            class="text-dark text-primary-hover"
-                            href="/"
-                          >Lorem Ipsum Dolor sit Amet</a>
-                        </h3>
-                        <p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat.</p>
+                        <p v-html="blogPart2[parseInt(index) + 1].text"></p>
                         <a class="text-more-info text-primary-hover" href="/">Read more</a>
                       </div>
                     </div>
@@ -212,7 +121,7 @@
 import Header from "../components/blocks/Header";
 import Footer from "../components/blocks/Footer";
 import { owlCarousel } from "../assets/js/template-scripts";
-import { GET_SLIDER, GET_INTRO1, GET_INTRO2, GET_INTRO3 } from '../store/modules/dreadnought.store';
+import { GET_SLIDER, GET_INTRO1, GET_INTRO2, GET_INTRO3, BLOG_LIST } from '../store/modules/dreadnought.store';
 export default {
   name: "home",
   components: {
@@ -232,9 +141,16 @@ export default {
     getIntro3: function() {
       return this.$store.getters.getIntro3;
     },
+    blogPart1: function() {
+      return this.$store.getters.blogPart1;
+    },
+    blogPart2: function() {
+      return this.$store.getters.blogPart2;
+    },
   },
-  beforeCreate(){
+  created(){
     this.$store.dispatch(GET_SLIDER);
+    this.$store.dispatch(BLOG_LIST);
   },
   mounted() {
     this.$store.dispatch(GET_INTRO1);
@@ -246,7 +162,10 @@ export default {
   },
   methods: {
     initSlider(){
-        owlCarousel();
+      owlCarousel();
+    },
+    containsKey(obj, key ) {
+      return typeof obj[key] !== 'undefined';
     }
   }
 };
