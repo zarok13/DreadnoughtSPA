@@ -33,10 +33,10 @@
                                         {{ $item->title }}
                                         <div style="position:absolute; top:-6px; right:0px;">
                                             <a style="text-align:right"
-                                               href="{{ route($moduleName.'.edit', $item->lang_id) }}"><i
+                                               href="{{ route($moduleName.'.edit', $item->id) }}"><i
                                                         class="fas fa-edit btn btn-warning fa-sm mr-1"></i></a>
                                             <a style="text-align:right"
-                                               href="{{ route($moduleName.'.delete', $item->lang_id) }}"><i
+                                               href="{{ route($moduleName.'.delete', $item->id) }}"><i
                                                         class="fas fa-trash btn btn-danger fa-sm ml-1"></i></a>
                                         </div>
                                     </div>

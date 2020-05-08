@@ -11,7 +11,6 @@
         'autofocus' => true,
     ]
 ])
-
 @include('admin.applets.forms.text',[
     'name' => 'slug',
     'label' => 'Slug',
@@ -21,7 +20,6 @@
         'disabled' => true,
     ]
 ])
-
 @include('admin.applets.forms.select',[
     'name' => 'page_type_id',
     'label' => 'Type of Page',
@@ -29,7 +27,6 @@
     'selected' => !empty($array) ? $array->page_type_id : null,
     'data_url' => route('pages.templateGroup'),
 ])
-
 @include('admin.applets.forms.select',[
    'name' => 'page_template_id',
    'label' => 'Template of Page',

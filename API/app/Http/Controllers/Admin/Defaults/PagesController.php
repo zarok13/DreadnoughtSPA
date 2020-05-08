@@ -91,8 +91,8 @@ class PagesController extends Controller
         perms($this->data['modules'], $this->moduleName, __FUNCTION__);
 
         $this->data['title'] .= getActionIcon(__FUNCTION__);
-        $this->data['item'] = $page->whereLangId($id)->first();
-        $this->data['templateList'] = $this->getTemplates($this->data['item']->page_template_id);
+        $this->data['item'] = $page->find($id);
+        $this->data['templateList'] = $this->getTemplates($this->data['item']->page_type_id);
         return view($this->viewTemplate . '.edit', $this->data);
     }
 
@@ -122,7 +122,7 @@ class PagesController extends Controller
     {
         perms($this->data['modules'], $this->moduleName, __FUNCTION__);
 
-        $menu = (MODELS_PATH . ucfirst($this->modelName))::findOrFail($id);
+        $menu = (MODELS_PATH . ucfirst($this->modelName))::find($id);
         $menu->delete();
         return back();
     }

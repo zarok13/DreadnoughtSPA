@@ -29,6 +29,7 @@ class ArticlesController extends Controller
         $this->viewTemplate .= '.' . $this->moduleName;
         $this->data['moduleName'] = $this->moduleName;
         $this->data['title'] = trans('default.' . $this->moduleName);
+        $this->data['dataTable'] = true;
     }
 
 
@@ -76,8 +77,9 @@ class ArticlesController extends Controller
         $filteredRequest['page_id'] = $pageID;
         $filteredRequest['slug'] = Slug::create('articles', 'title');
         $this->addMainLang($this->modelName, $filteredRequest);
+
         $this->data['module'] = $this->moduleName;
-        return redirect(route($this->moduleName))->with('successCreate', DATABASE_ACTION_CREATE);
+        return redirect(route($this->moduleName, $pageID))->with('successCreate', DATABASE_ACTION_CREATE);
     }
 
     /**
@@ -91,7 +93,7 @@ class ArticlesController extends Controller
 
         $this->data['title'] .= getActionIcon(__FUNCTION__);
         $this->data['ID'] = $ID;
-        $this->data['item'] = $article->whereLangId($ID)->first();
+        $this->data['item'] = $article->find($ID);
         $this->data['template'] = $this->data['item']->page->template_type;
         return view($this->viewTemplate . '.edit', $this->data);
     }
@@ -122,7 +124,7 @@ class ArticlesController extends Controller
     {
         perms($this->data['modules'], $this->moduleName, __FUNCTION__);
 
-        $menu = (MODELS_PATH . ucfirst($this->modelName))::findOrFail($id);
+        $menu = (MODELS_PATH . ucfirst($this->modelName))::find($id);
         $menu->delete();
         return back();
     }

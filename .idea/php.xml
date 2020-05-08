@@ -85,6 +85,7 @@
       <path value="$PROJECT_DIR$/API/vendor/symfony/http-foundation" />
       <path value="$PROJECT_DIR$/API/vendor/symfony/translation-contracts" />
       <path value="$PROJECT_DIR$/API/vendor/tijsverkoyen/css-to-inline-styles" />
+      <path value="$PROJECT_DIR$/API/vendor/webwizo/laravel-shortcodes" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.1" />

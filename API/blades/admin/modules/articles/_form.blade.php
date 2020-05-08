@@ -13,29 +13,6 @@
     ]
 ])
 
-@include('admin.applets.forms.text',[
-    'name' => 'slug',
-    'label' => 'Slug',
-    'array'=>$array,
-    'params' => [
-        'class' => 'form-control text',
-        'disabled' => true,
-    ]
-])
-
-@if($template == 'services')
-    @include('admin.applets.forms.textarea',[
-        'name'=>'desc',
-        'label'=>'Description',
-        'array'=>$array,
-        'params' => [
-            'class' => 'form-control',
-            'placeholder' => 'Type your description here...',
-            'rows' => 5
-        ]
-    ])
-@endif
-
 @include('admin.applets.forms.editor',[
     'name' => 'text',
     'label' => 'Text',

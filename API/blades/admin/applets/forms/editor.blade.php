@@ -1,10 +1,12 @@
+<script src="{{ asset('blade_components/admin/js/tinymce.min.js') }}" referrerpolicy="origin"></script>
 @if(!isset($ajaxRequest))
-    <script src="{{ asset('blade_components/admin/js/tinymce.min.js') }}" referrerpolicy="origin"></script>
     <script>
         tinymce.init({
             selector: 'textarea.editor',
             theme: 'silver',
             height: 400,
+            forced_root_block : '',
+            force_p_newlines : false,
             plugins: 'print preview searchreplace autolink directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists textcolor wordcount imagetools contextmenu colorpicker textpattern help code',
             toolbar: 'insertfile undo redo | styleselect | bold italic strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons | pagebreak | removeformat | template | code',
             templates: [
@@ -18,7 +20,7 @@
     if(isset($placeholder) && !empty($placeholder)){
         $currentPlaceholder = $placeholder;
     }
-    $params['placeholder'] = $placeholder;
+    $params['placeholder'] = $currentPlaceholder;
     $params['class'] = 'form-control editor';
     $params['rows'] = 5;
     $value = isset($array) ? $array[$name] : null;

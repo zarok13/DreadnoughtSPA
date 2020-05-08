@@ -17,11 +17,11 @@
                         <col width="60">
                         <col width="180">
                         <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Keyword</th>
-                                <th>Description</th>
-                            </tr>
+                        <tr>
+                            <th>Date</th>
+                            <th>Keyword</th>
+                            <th>Description</th>
+                        </tr>
                         </thead>
                         <tbody id="non-sortable">
                         @foreach($items as $index => $item)

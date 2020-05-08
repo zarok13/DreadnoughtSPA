@@ -180,6 +180,7 @@ return [
         App\Providers\HelperFieldsServiceProvider::class,
         App\Providers\SlugServiceProvider::class,
         App\Providers\ModulePermsServiceProvider::class,
+        App\Providers\ShortcodesServiceProvider::class,
     ],
 
     /*
@@ -232,6 +233,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'Shortcode' => Webwizo\Shortcodes\Facades\Shortcode::class,
     ],
 
 ];

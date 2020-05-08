@@ -81,7 +81,7 @@ class HelperFieldsController extends Controller
         perms($this->data['modules'], $this->moduleName, __FUNCTION__);
 
         $this->data['title'] .= getActionIcon(__FUNCTION__);
-        $this->data['item'] = $helperField->find($id)->toArray();
+        $this->data['item'] = $helperField->find($id);
         return view($this->viewTemplate . '.edit', $this->data);
     }
 

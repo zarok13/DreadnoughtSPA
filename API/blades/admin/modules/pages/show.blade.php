@@ -42,10 +42,10 @@
                                                title="Edit page content"><i
                                                         class="fas fa-align-justify btn btn-secondary fa-sm mr-2"></i></a>
                                             <a style="text-align:right"
-                                               href="{{ route($moduleName.'.edit', $item->lang_id) }}"
+                                               href="{{ route($moduleName.'.edit', $item->id) }}"
                                                title="Edit item"><i class="fas fa-edit btn btn-warning fa-sm mr-1"></i></a>
                                             <a style="text-align:right"
-                                               href="{{ route($moduleName.'.delete', $item->lang_id) }}"
+                                               href="{{ route($moduleName.'.delete', $item->id) }}"
                                                title="Remove item"><i
                                                         class="fas fa-trash btn btn-danger fa-sm ml-1"></i></a>
                                         </div>

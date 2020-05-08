@@ -87,6 +87,7 @@
       <excludeFolder url="file://$MODULE_DIR$/API/vendor/tijsverkoyen/css-to-inline-styles" />
       <excludeFolder url="file://$MODULE_DIR$/API/vendor/vlucas/phpdotenv" />
       <excludeFolder url="file://$MODULE_DIR$/API/vendor/webmozart/assert" />
+      <excludeFolder url="file://$MODULE_DIR$/API/vendor/webwizo/laravel-shortcodes" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

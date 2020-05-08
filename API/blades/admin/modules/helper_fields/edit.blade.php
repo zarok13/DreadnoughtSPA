@@ -36,5 +36,4 @@
         </div>
     </div>
 </div>
-<script src="{{ asset('blade_components/admin/js/tinymce.min.js') }}" referrerpolicy="origin"></script>
 @endsection
