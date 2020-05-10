@@ -68,36 +68,8 @@
               <li>
                 <router-link class="nav-link" to="/">Home</router-link>
               </li>
-              <li>
-                <router-link class="nav-link" to="/products">Products</router-link>
-              </li>
-              <li>
-                <a>Services</a>
-                <ul>
-                  <li>
-                    <a>Service 1</a>
-                    <ul>
-                      <li>
-                        <a>Service 1 A</a>
-                      </li>
-                      <li>
-                        <a>Service 1 B</a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li>
-                    <a>Service 2</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <router-link class="nav-link" to="/about">About</router-link>
-              </li>
-              <li>
-                <router-link class="nav-link" to="/gallery">Gallery</router-link>
-              </li>
-              <li>
-                <router-link class="nav-link" to="/contact">Contact</router-link>
+              <li v-for="(item, index) in getApiRoutes" v-bind:key="index" stagger="5000">
+                <router-link class="nav-link" :to="item.path">{{ item.name }}</router-link>
               </li>
             </ul>
           </div>
@@ -108,12 +80,12 @@
 </template>
 <script>
 export default {
-  name: "header_block"
-  //   data() {
-  //     return {
-  //       title: "Gallery"
-  //     };
-  //   }
+  name: "header_block",
+  computed: {
+    getApiRoutes: function() {
+      return this.$store.getters.getApiRoutes;
+    }
+  }
 };
 </script>
 <style scoped>

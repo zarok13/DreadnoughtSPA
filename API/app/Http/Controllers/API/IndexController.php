@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 
 use App\Article;
+use App\Menu;
 use App\Slider;
 use Webwizo\Shortcodes\Facades\Shortcode;
 
@@ -112,6 +113,39 @@ class IndexController extends Controller
                 'status' => true,
                 'data_1' => $part1,
                 'data_2' => $part2,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage(),
+            ]);
+        }
+    }
+
+    /**
+     * @param Menu $menu
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function menu(Menu $menu)
+    {
+        try {
+            $menu = $menu->select('menu.title', 'pages.slug', 'pages.page_type_id', 'pages.page_template_id', 'pages.lang_id')
+                ->join('pages', 'pages.lang_id', '=', 'menu.page_id', 'left')
+                ->where('menu.lang', $this->lang)
+                ->where('pages.slug', '!=', null)
+                ->orderBy('menu.sort', 'asc')
+                ->get()->toArray();
+            foreach ($menu as $index => $item){
+                if( is_numeric($item['page_type_id']) ){
+                    $menu[$index]['page_type'] = setting('pageTypes')[$item['page_type_id']];
+                    $menu[$index]['page_template'] = setting('pageTemplates')[$item['page_type_id']][$item['page_template_id']];
+                    unset($menu[$index]['page_type_id']);
+                    unset($menu[$index]['page_template_id']);
+                }
+            }
+            return response()->json([
+                'status' => true,
+                'data' => $menu,
             ]);
         } catch (\Exception $e) {
             return response()->json([

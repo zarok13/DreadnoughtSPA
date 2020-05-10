@@ -18,9 +18,7 @@
                       <p
                         class="text-white text-s-size-20 text-m-size-40 text-l-size-60 margin-bottom-40 text-thin text-line-height-1"
                       >{{ item.title }}</p>
-                      <p class="text-white text-size-16 margin-bottom-40">
-                        {{ item.sub_title }}
-                      </p>
+                      <p class="text-white text-size-16 margin-bottom-40">{{ item.sub_title }}</p>
                     </div>
                   </div>
                 </div>
@@ -33,23 +31,20 @@
       <!-- Section 1 -->
       <section class="section background-white">
         <div class="line">
-          <div class="margin" v-html="getIntro1.data">
-          </div>
+          <div class="margin" v-html="getIntro1.data"></div>
         </div>
       </section>
 
       <!-- Section 2 -->
       <section class="section background-primary text-center">
         <div class="line">
-          <div class="s-12 m-10 l-8 center" v-html="getIntro2.data">
-          </div>
+          <div class="s-12 m-10 l-8 center" v-html="getIntro2.data"></div>
         </div>
       </section>
 
       <!-- Section 3 -->
       <section class="section background-white">
-        <div class="full-width text-center" v-html="getIntro3.data">
-        </div>
+        <div class="full-width text-center" v-html="getIntro3.data"></div>
       </section>
       <hr class="break margin-top-bottom-0" />
 
@@ -61,7 +56,6 @@
             <span class="text-primary">Blog</span>
           </h2>
           <div class="carousel-default owl-carousel carousel-wide-arrows">
-
             <div class="item" v-for="(item, index) in blogPart1" v-bind:key="index">
               <div class="margin">
                 <div class="s-12 m-12 l-6">
@@ -74,10 +68,7 @@
                       </div>
                       <div class="s-12 m-12 l-8 margin-m-bottom">
                         <h3>
-                          <a
-                            class="text-dark text-primary-hover"
-                            href="/"
-                          >{{ item.title }}</a>
+                          <a class="text-dark text-primary-hover" href="/">{{ item.title }}</a>
                         </h3>
                         <p v-html="item.text"></p>
                         <a class="text-more-info text-primary-hover" href="/">Read more</a>
@@ -90,7 +81,10 @@
                     <div class="margin">
                       <div class="s-12 m-12 l-4 margin-m-bottom">
                         <a class="image-hover-zoom" href="/">
-                          <img v-bind:src="$parent.getApiUrl + 'storage/' + blogPart2[parseInt(index) + 1].image" alt />
+                          <img
+                            v-bind:src="$parent.getApiUrl + 'storage/' + blogPart2[parseInt(index) + 1].image"
+                            alt
+                          />
                         </a>
                       </div>
                       <div class="s-12 m-12 l-8">
@@ -121,7 +115,14 @@
 import Header from "../components/blocks/Header";
 import Footer from "../components/blocks/Footer";
 import { owlCarousel } from "../assets/js/template-scripts";
-import { GET_SLIDER, GET_INTRO1, GET_INTRO2, GET_INTRO3, BLOG_LIST } from '../store/modules/dreadnought.store';
+import {
+  GET_SLIDER,
+  GET_INTRO1,
+  GET_INTRO2,
+  GET_INTRO3,
+  BLOG_LIST
+} from "../store/modules/dreadnought.store";
+
 export default {
   name: "home",
   components: {
@@ -146,9 +147,9 @@ export default {
     },
     blogPart2: function() {
       return this.$store.getters.blogPart2;
-    },
+    }
   },
-  created(){
+  created() {
     this.$store.dispatch(GET_SLIDER);
     this.$store.dispatch(BLOG_LIST);
   },
@@ -158,20 +159,20 @@ export default {
     this.$store.dispatch(GET_INTRO3);
   },
   updated() {
-    this.initSlider();
+    this.initCarousel();
   },
   methods: {
-    initSlider(){
-      owlCarousel();
+    initCarousel() {
+      setTimeout(function() {
+        owlCarousel();
+      }, 1500);
     },
-    containsKey(obj, key ) {
-      return typeof obj[key] !== 'undefined';
+    containsKey(obj, key) {
+      return typeof obj[key] !== "undefined";
     }
   }
 };
-
 </script>
-
 
 <style scoped>
 </style>
