@@ -1,4 +1,8 @@
 import Axios from "axios"
+
+// global api url
+export const API_URL = 'http://localhost:8000/api'
+
 // define app store actions names
 export const GET_SLIDER = 'getSlider'
 export const GET_INTRO1 = 'getIntro1'
@@ -17,7 +21,6 @@ const SET_API_ROUTES = 'setApiRoutes'
 
 // initial app state
 const state = {
-    apiUrl: 'http://localhost:8000/',
     slider: [],
     intro1: '',
     intro2: '',
@@ -29,9 +32,6 @@ const state = {
 
 
 const getters = {
-    getApiUrl(state) {
-        return state.apiUrl
-    },
     getSlider(state) {
         return state.slider
     },
@@ -57,8 +57,8 @@ const getters = {
 
 // app store actions
 const actions = {
-    [GET_SLIDER](state) {
-        Axios.get(state.state.apiUrl + 'api/slider')
+    async [GET_SLIDER](state) {
+        await Axios.get(API_URL + '/slider')
             .then(data => {
                 let slider = data.data
                 state.commit(SET_SLIDER, slider)
@@ -67,8 +67,18 @@ const actions = {
                 console.log(error);
             })
     },
+    async [BLOG_LIST](state) {
+        await Axios.get(API_URL + '/blog_list')
+            .then(data => {
+                let blogList = data.data;
+                state.commit(SET_BLOG_LIST, blogList)
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    },
     [GET_INTRO1](state) {
-        Axios.get(state.state.apiUrl + 'api/intro_section_1')
+        Axios.get(API_URL + '/intro_section_1')
             .then(data => {
                 let intro = data.data
                 state.commit(SET_INTRO1, intro)
@@ -78,7 +88,7 @@ const actions = {
             })
     },
     [GET_INTRO2](state) {
-        Axios.get(state.state.apiUrl + 'api/intro_section_2')
+        Axios.get(API_URL + '/intro_section_2')
             .then(data => {
                 let intro = data.data
                 state.commit(SET_INTRO2, intro)
@@ -88,20 +98,10 @@ const actions = {
             })
     },
     [GET_INTRO3](state) {
-        Axios.get(state.state.apiUrl + 'api/intro_section_3')
+        Axios.get(API_URL + '/intro_section_3')
             .then(data => {
                 let intro = data.data
                 state.commit(SET_INTRO3, intro)
-            })
-            .catch(error => {
-                console.log(error);
-            })
-    },
-    [BLOG_LIST](state) {
-        Axios.get(state.state.apiUrl + 'api/blog_list')
-            .then(data => {
-                let blogList = data.data;
-                state.commit(SET_BLOG_LIST, blogList)
             })
             .catch(error => {
                 console.log(error);
@@ -130,7 +130,7 @@ const mutations = {
         state.blogPart1 = blogList.data_1;
         state.blogPart2 = blogList.data_2;
     },
-    setApiRoutes(state, routeList) {
+    [SET_API_ROUTES](state, routeList) {
         state.apiRoutes = routeList;
     },
 }

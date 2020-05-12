@@ -15,11 +15,6 @@ const router = new Router({
     ]
 })
 
-
-// function initCarousel() {
-//   setTimeout(function () {
-//   }, 2000);
-// }
 // router.beforeEach((to, from, next) => {
 //   if (to.name === 'home'){
 //     alert('fsdf');

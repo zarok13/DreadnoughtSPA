@@ -11,7 +11,7 @@
           >
             <div class="item" v-for="(item, index) in getSlider.data" v-bind:key="index">
               <div class="s-12 center">
-                <img v-bind:src="$parent.getApiUrl + 'storage/' + item.src " alt />
+                <img v-bind:src="apiUrl.substring(0, apiUrl.length - 3) + 'storage/' + item.src " alt />
                 <div class="carousel-content">
                   <div class="padding-2x">
                     <div class="s-12 m-12 l-8">
@@ -63,7 +63,7 @@
                     <div class="margin">
                       <div class="s-12 m-12 l-4 margin-m-bottom">
                         <a class="image-hover-zoom" href="/">
-                          <img v-bind:src="$parent.getApiUrl + 'storage/' + item.image" alt />
+                          <img v-bind:src="apiUrl.substring(0, apiUrl.length - 3) + 'storage/' + item.image" alt />
                         </a>
                       </div>
                       <div class="s-12 m-12 l-8 margin-m-bottom">
@@ -82,7 +82,7 @@
                       <div class="s-12 m-12 l-4 margin-m-bottom">
                         <a class="image-hover-zoom" href="/">
                           <img
-                            v-bind:src="$parent.getApiUrl + 'storage/' + blogPart2[parseInt(index) + 1].image"
+                            v-bind:src="apiUrl.substring(0, apiUrl.length - 3) + 'storage/' + blogPart2[parseInt(index) + 1].image"
                             alt
                           />
                         </a>
@@ -114,8 +114,9 @@
 <script>
 import Header from "../components/blocks/Header";
 import Footer from "../components/blocks/Footer";
-import { owlCarousel } from "../assets/js/template-scripts";
+import { initSliderCarousel, initBlogCarousel } from "../assets/js/init_carousel";
 import {
+  API_URL,
   GET_SLIDER,
   GET_INTRO1,
   GET_INTRO2,
@@ -128,6 +129,11 @@ export default {
   components: {
     Header,
     Footer
+  },
+  data() {
+    return {
+      apiUrl: API_URL
+    }
   },
   computed: {
     getSlider: function() {
@@ -149,24 +155,16 @@ export default {
       return this.$store.getters.blogPart2;
     }
   },
-  created() {
-    this.$store.dispatch(GET_SLIDER);
-    this.$store.dispatch(BLOG_LIST);
-  },
-  mounted() {
+  async mounted() {
+    await this.$store.dispatch(GET_SLIDER);
+    initSliderCarousel();
+    await this.$store.dispatch(BLOG_LIST);
+    initBlogCarousel();
     this.$store.dispatch(GET_INTRO1);
     this.$store.dispatch(GET_INTRO2);
     this.$store.dispatch(GET_INTRO3);
   },
-  updated() {
-    this.initCarousel();
-  },
   methods: {
-    initCarousel() {
-      setTimeout(function() {
-        owlCarousel();
-      }, 1500);
-    },
     containsKey(obj, key) {
       return typeof obj[key] !== "undefined";
     }

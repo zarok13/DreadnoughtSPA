@@ -3,24 +3,22 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import Axios from 'axios';
-import Delay from 'vue-delay'
 import About from "./components/About";
 import Product from "./components/Product";
 import Contact from "./components/Contact";
 import Gallery from "./components/Gallery";
-import { GET_API_ROUTES } from './store/modules/dreadnought.store'
+import { API_URL, GET_API_ROUTES } from './store/modules/dreadnought.store'
 
-Vue.use(Delay)
 Vue.config.productionTip = false
-
 Vue.prototype.$renderRoutes = [];
+
 new Vue({
   render: h => h(App),
   router,
   store,
   methods: {
     getDynamicRoutes() {
-      Axios.get('http://localhost:8000/api/menu')
+      Axios.get(API_URL + '/menu')
         .then(data => {
           this.processData(data);
         })
