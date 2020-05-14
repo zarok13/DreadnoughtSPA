@@ -1,5 +1,15 @@
 import Axios from "axios"
 
+// helper functions
+function parseDataFromLocalStorage(state, name, mutation){
+    if (localStorage[name] && localStorage[name] !== 'undefined') {
+        let parsedData = JSON.parse(localStorage[name]);
+        state.commit(mutation, parsedData);
+        return true;
+    }
+    return false;
+}
+
 // global api url
 export const API_URL = 'http://localhost:8000/api'
 
@@ -12,14 +22,14 @@ export const BLOG_LIST = 'blogList'
 export const GET_API_ROUTES = 'getApiRoutes'
 
 // define app store mutations names
-const SET_SLIDER = 'setSlider'
+export const SET_SLIDER = 'setSlider'
 const SET_INTRO1 = 'setIntro1'
 const SET_INTRO2 = 'setIntro2'
 const SET_INTRO3 = 'setIntro3'
 const SET_BLOG_LIST = 'setBlogList'
 const SET_API_ROUTES = 'setApiRoutes'
 
-// initial app state
+// init app state
 const state = {
     slider: [],
     intro1: '',
@@ -30,7 +40,7 @@ const state = {
     apiRoutes: []
 }
 
-
+// init app getters
 const getters = {
     getSlider(state) {
         return state.slider
@@ -58,24 +68,34 @@ const getters = {
 // app store actions
 const actions = {
     async [GET_SLIDER](state) {
-        await Axios.get(API_URL + '/slider')
-            .then(data => {
-                let slider = data.data
-                state.commit(SET_SLIDER, slider)
-            })
-            .catch(error => {
-                console.log(error);
-            })
+        if (await parseDataFromLocalStorage(state, GET_SLIDER, SET_SLIDER)) {
+            console.log('slider parsed from local storage');
+        } else {
+            await Axios.get(API_URL + '/slider')
+                .then(data => {
+                    let slider = data.data
+                    state.commit(SET_SLIDER, slider)
+                    localStorage.setItem(GET_SLIDER, JSON.stringify(slider));
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+        }
     },
     async [BLOG_LIST](state) {
-        await Axios.get(API_URL + '/blog_list')
-            .then(data => {
-                let blogList = data.data;
-                state.commit(SET_BLOG_LIST, blogList)
-            })
-            .catch(error => {
-                console.log(error);
-            })
+        if (await parseDataFromLocalStorage(state, BLOG_LIST, SET_BLOG_LIST)) {
+            console.log('blog parsed from local storage');
+        } else {
+            await Axios.get(API_URL + '/blog_list')
+                .then(data => {
+                    let blogList = data.data;
+                    state.commit(SET_BLOG_LIST, blogList)
+                    localStorage.setItem(BLOG_LIST, JSON.stringify(blogList));
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+        }
     },
     [GET_INTRO1](state) {
         Axios.get(API_URL + '/intro_section_1')
@@ -127,8 +147,8 @@ const mutations = {
         state.intro3 = intro;
     },
     [SET_BLOG_LIST](state, blogList) {
-        state.blogPart1 = blogList.data_1;
-        state.blogPart2 = blogList.data_2;
+        state.blogPart1 = blogList.blogPart1;
+        state.blogPart2 = blogList.blogPart2;
     },
     [SET_API_ROUTES](state, routeList) {
         state.apiRoutes = routeList;

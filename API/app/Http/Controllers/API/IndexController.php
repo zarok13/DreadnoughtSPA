@@ -111,8 +111,8 @@ class IndexController extends Controller
             }
             return response()->json([
                 'status' => true,
-                'data_1' => $part1,
-                'data_2' => $part2,
+                'blogPart1' => $part1,
+                'blogPart2' => $part2,
             ]);
         } catch (\Exception $e) {
             return response()->json([
