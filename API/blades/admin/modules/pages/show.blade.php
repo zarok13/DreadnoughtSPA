@@ -41,13 +41,17 @@
                                                href="{{ getPageTypeUrl($item->page_type_id, $item->lang_id) }}"
                                                title="Edit page content"><i
                                                         class="fas fa-align-justify btn btn-secondary fa-sm mr-2"></i></a>
-                                            <a style="text-align:right"
-                                               href="{{ route($moduleName.'.edit', $item->id) }}"
-                                               title="Edit item"><i class="fas fa-edit btn btn-warning fa-sm mr-1"></i></a>
-                                            <a style="text-align:right"
-                                               href="{{ route($moduleName.'.delete', $item->id) }}"
-                                               title="Remove item"><i
-                                                        class="fas fa-trash btn btn-danger fa-sm ml-1"></i></a>
+                                            <a href="{{ route($moduleName.'.edit', $item->lang_id) }}">
+                                                <span class="btn btn-warning">
+                                                    <i class="fas fa-edit"></i>
+                                                </span>
+                                            </a>
+                                            &nbsp;&nbsp;&nbsp;
+                                            <a href="{{ route($moduleName.'.delete', $item->lang_id) }}">
+                                                <span class="btn btn-danger">
+                                                    <i class="fas fa-trash"></i>
+                                                </span>
+                                            </a>
                                         </div>
                                     </div>
                                 </td>

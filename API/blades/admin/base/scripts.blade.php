@@ -11,17 +11,6 @@
 </script>
 <!-- overlayScrollbars -->
 <script src="{{ asset('blade_components/admin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
-<!-- ChartJS -->
-<script src="{{ asset('blade_components/admin/plugins/chart.js/Chart.min.js') }}"></script>
-<!-- Sparkline -->
-<script src="{{ asset('blade_components/admin/plugins/sparklines/sparkline.js') }}"></script>
-<!-- jQuery Knob Chart -->
-<script src="{{ asset('blade_components/admin/plugins/jquery-knob/jquery.knob.min.js') }}"></script>
-<!-- daterangepicker -->
-<script src="{{ asset('blade_components/admin/plugins/moment/moment.min.js') }}"></script>
-<script src="{{ asset('blade_components/admin/plugins/daterangepicker/daterangepicker.js') }}"></script>
-<!-- Tempusdominus Bootstrap 4 -->
-<script src="{{ asset('blade_components/admin/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
 <!-- toastr -->
 <script src="{{ asset('blade_components/admin/plugins/toastr/toastr.min.js') }}"></script>
 <!-- sweetalert2 -->

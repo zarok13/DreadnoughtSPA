@@ -7,17 +7,17 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{ route('administration.roles') }}" title="Administration">
-                <i class="fas fa-users-cog fa-lg btn btn-outline-primary"></i>
+                <span class="btn btn-outline-primary"><i class="fas fa-users-cog fa-lg"></i></span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" target="_blank" href="{{ route('clearCache') }}" title="Cache Cleaner">
-                <i class="fas fa-recycle fa-lg btn btn-outline-success"></i>
+            <a class="nav-link " target="_blank" href="{{ route('clearCache') }}" title="Cache Cleaner">
+                <span class="btn btn-outline-success"><i class="fas fa-recycle fa-lg"></i></span>
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{ route('logout') }}" title="Log out">
-                <i class="fas fa-sign-out-alt fa-lg btn btn-outline-warning"></i>
+                <span class="btn btn-outline-warning"><i class="fas fa-sign-out-alt fa-lg"></i></span>
             </a>
         </li>
     </ul>

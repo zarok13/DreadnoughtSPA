@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -212,17 +212,13 @@ $(document).ready(function () {
             plugins: 'print preview searchreplace autolink directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists textcolor wordcount imagetools contextmenu colorpicker textpattern help code',
             toolbar: 'insertfile undo redo | styleselect | bold italic strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons | pagebreak | removeformat | template | code',
             templates: [{
-              title: 'intro1',
+              title: 'image',
               description: '',
-              content: '[intro1 image="image.jpg" title="About"  desc="description..."][/intro1]'
+              content: '[image src="image.jpg" top_title="About" title="სათაური" desc="მინი აღწერა"][/image]'
             }, {
-              title: 'intro2',
+              title: 'text',
               description: '',
-              content: '[intro2 title="About"  desc="description..."][/intro2]'
-            }, {
-              title: 'intro3',
-              description: '',
-              content: '[intro3 image="image.jpg" title_part1="part1" title_highlighted="..." title_part2="part1"  desc="description..."][/intro3]'
+              content: '[text]content[/text]'
             }]
           });
         } else {
@@ -719,26 +715,14 @@ $(document).ready(function () {
 
 /***/ }),
 
-/***/ "./resources/admin/sass/main.scss":
-/*!****************************************!*\
-  !*** ./resources/admin/sass/main.scss ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ 0:
-/*!***************************************************************************!*\
-  !*** multi ./resources/admin/js/main.js ./resources/admin/sass/main.scss ***!
-  \***************************************************************************/
+/***/ 1:
+/*!******************************************!*\
+  !*** multi ./resources/admin/js/main.js ***!
+  \******************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\www\independent\dreadnoughtSPA\API\resources\admin\js\main.js */"./resources/admin/js/main.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\www\independent\dreadnoughtSPA\API\resources\admin\sass\main.scss */"./resources/admin/sass/main.scss");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\www\independent\dreadnought\resources\admin\js\main.js */"./resources/admin/js/main.js");
 
 
 /***/ })

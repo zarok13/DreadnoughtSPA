@@ -193,6 +193,14 @@ textarea {
   border: none !important;
 }
 
+table.table tbody td span {
+  font-size: 8px;
+}
+
+table.table tbody td span i {
+  font-size: 15px;
+}
+
 table.dreadnought-table tbody tr:nth-child(2n) td.sorting_1 {
   background: linear-gradient(to right, #e27d46, white);
 }

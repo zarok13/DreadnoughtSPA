@@ -16,10 +16,10 @@
                            width="100%">
                         <col width="60">
                         <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Keyword</th>
-                            </tr>
+                        <tr>
+                            <th>Date</th>
+                            <th>Keyword</th>
+                        </tr>
                         </thead>
                         <tbody id="non-sortable">
                         @foreach($items as $index => $item)
@@ -32,12 +32,17 @@
                                     <div style="position:relative">
                                         {{ $item->keyword }}
                                         <div style="position:absolute; top:-6px; right:0px;">
-                                            <a style="text-align:right"
-                                               href="{{ route($moduleName.'.edit', $item->lang_id) }}"><i
-                                                        class="fas fa-edit btn btn-warning fa-sm mr-1"></i></a>
-                                            <a style="text-align:right"
-                                               href="{{ route($moduleName.'.delete', $item->lang_id) }}"><i
-                                                        class="fas fa-trash btn btn-danger fa-sm ml-1"></i></a>
+                                            <a href="{{ route($moduleName.'.edit', $item->lang_id) }}">
+                                                <span class="btn btn-warning">
+                                                    <i class="fas fa-edit"></i>
+                                                </span>
+                                            </a>
+                                            &nbsp;&nbsp;&nbsp;
+                                            <a href="{{ route($moduleName.'.delete', $item->lang_id) }}">
+                                                <span class="btn btn-danger">
+                                                    <i class="fas fa-trash"></i>
+                                                </span>
+                                            </a>
                                         </div>
                                     </div>
                                 </td>
