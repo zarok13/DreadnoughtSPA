@@ -39,14 +39,18 @@
                                         <div class="hideOnMove" style="position:absolute; top:-6px; right:0;">
                                             <a style="text-align:right"
                                                href="{{ getPageTypeUrl($item->page_type_id, $item->lang_id) }}"
-                                               title="Edit page content"><i
-                                                        class="fas fa-align-justify btn btn-secondary fa-sm mr-2"></i></a>
+                                               title="Edit page content">
+                                                <span class="btn btn-secondary">
+                                                    <i class="fas fa-align-justify"></i>
+                                                </span>
+                                            </a>
+                                            &nbsp;&nbsp;
                                             <a href="{{ route($moduleName.'.edit', $item->lang_id) }}">
                                                 <span class="btn btn-warning">
                                                     <i class="fas fa-edit"></i>
                                                 </span>
                                             </a>
-                                            &nbsp;&nbsp;&nbsp;
+                                            &nbsp;&nbsp;
                                             <a href="{{ route($moduleName.'.delete', $item->lang_id) }}">
                                                 <span class="btn btn-danger">
                                                     <i class="fas fa-trash"></i>

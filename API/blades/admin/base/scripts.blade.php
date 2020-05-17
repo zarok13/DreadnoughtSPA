@@ -1,14 +1,9 @@
 <!-- AdminLTE App -->
 <script src="{{ asset('blade_components/admin/js/adminlte.min.js') }}"></script>
-<!-- main -->
+<!-- MAIN -->
 <script src="{{ asset('blade_components/admin/js/main.js') }}"></script>
+
 <!-- Plugins -->
-<!-- jQuery UI 1.11.4 -->
-<script src="{{ asset('blade_components/admin/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>
-    $.widget.bridge('uibutton', $.ui.button)
-</script>
 <!-- overlayScrollbars -->
 <script src="{{ asset('blade_components/admin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
 <!-- toastr -->

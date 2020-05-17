@@ -6,6 +6,9 @@
 
 require('./bootstrap');
 window.Vue = require('vue');
+import 'jquery-ui/ui/disable-selection';
+import 'jquery-ui/ui/widgets/sortable';
+
 
 /**
  * The following block of code may be used to automatically register your
