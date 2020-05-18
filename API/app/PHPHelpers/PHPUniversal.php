@@ -1,6 +1,5 @@
 <?php
 
-use App\Facades\ModulePerms;
 use Illuminate\Support\Facades\Cache;
 
 if (!function_exists('setting')) {
@@ -136,32 +135,6 @@ if (!function_exists('getPageTypeUrl')) {
     }
 }
 
-if (!function_exists('trimText')) {
-    /**
-     * @param $text
-     * @param $length
-     * @return string
-     */
-    function trimText($text, $length)
-    {
-        if (mb_strlen($text) >= $length) {
-            $newLine = null;
-            while ($length) {
-                $newLine = strpos($text, ' ', $length);
-                if (empty($newLine)) {
-                    $length--;
-                } else {
-                    break;
-                }
-            }
-            $length = $newLine + 1;
-            $trimmedTitle = substr($text, 0, $length) . "...";
-            return $trimmedTitle;
-        }
-        return $text;
-    }
-}
-
 if (!function_exists('getPageType')) {
     /**
      * @param $pageType
@@ -215,17 +188,17 @@ if (!function_exists('cacheClear')) {
     }
 }
 
-if (!function_exists('perms')) {
+if (!function_exists('highlightSearchResults')) {
     /**
-     * @param array $methodList
-     * @param $moduleName
-     * @param $method
-     * @param bool $ajax
+     * @param $search_text
+     * @param $content
      * @return mixed
      */
-    function perms(array $methodList, $moduleName, $method, $ajax = false)
+    function highlightSearchResults($search_text, $content)
     {
-        $check = ModulePerms::check($methodList, $moduleName, $method, $ajax);
-        return $check;
+        $content = trim($content);
+        $content = strip_tags($content);
+        $result = str_ireplace($search_text, '<span class="search_highlight">' . $search_text . '</span>', $content);
+        return $result;
     }
 }

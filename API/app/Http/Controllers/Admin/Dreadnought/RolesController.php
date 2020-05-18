@@ -7,12 +7,12 @@ use Illuminate\Http\Request;
 
 class RolesController extends Controller
 {
-    protected $moduleName = 'roles';
     protected $modelName = 'role';
 
     public function __construct()
     {
         parent::__construct();
+        $this->moduleName = 'roles';
         $this->viewTemplate .= '.' . $this->moduleName;
         $this->data['moduleName'] = $this->moduleName;
         $this->data['title'] = trans('default.'.$this->moduleName);

@@ -53,6 +53,7 @@ $(document).ready(function () {
                     text: error,
                     footer: 'Dreadnought Project'
                 });
+
             },
             complete: function () {
                 $(mainWrapper).fadeTo("fast", 1);
@@ -116,9 +117,12 @@ $(document).ready(function () {
                         plugins: 'print preview searchreplace autolink directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists textcolor wordcount imagetools contextmenu colorpicker textpattern help code',
                         toolbar: 'insertfile undo redo | styleselect | bold italic strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons | pagebreak | removeformat | template | code',
                         templates: [
-                            {title: 'intro1', description: '', content: '[intro1 image="image.jpg" title="About"  desc="description..."][/intro1]'},
-                            {title: 'intro2', description: '', content: '[intro2 title="About"  desc="description..."][/intro2]'},
-                            {title: 'intro3', description: '', content: '[intro3 image="image.jpg" title_part1="part1" title_highlighted="..." title_part2="part1"  desc="description..."][/intro3]'},
+                            {
+                                title: 'image',
+                                description: '',
+                                content: '[image src="image.jpg" top_title="About" title="სათაური" desc="მინი აღწერა"][/image]'
+                            },
+                            {title: 'text', description: '', content: '[text]content[/text]'},
                         ],
                     });
                 } else {
@@ -165,10 +169,15 @@ $(document).ready(function () {
                         }
                     },
                     error: function (error) {
+                        let message = error;
+                        if (typeof error.responseJSON.message !== 'undefined') {
+                            message = error.responseJSON.message;
+                        }
+                        console.log(error.responseJSON.message);
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
-                            text: error,
+                            text: message,
                             footer: 'Dreadnought Project'
                         });
                     }

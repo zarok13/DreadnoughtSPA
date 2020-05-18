@@ -19,7 +19,6 @@ class ContactController extends Controller
         sort as ContactSort;
     }
 
-    protected $moduleName = 'contact';
     protected $modelName = 'Marker';
     protected $defaultMarkerCoordinates;
 
@@ -30,12 +29,14 @@ class ContactController extends Controller
     public function __construct()
     {
         parent::__construct();
+        $this->moduleName = 'contact';
         $this->viewTemplate .= '.' . $this->moduleName;
         $this->data['moduleName'] = $this->moduleName;
         $this->data['title'] = trans('default.' . $this->moduleName);
         $this->defaultMarkerCoordinates = setting('defaultMarkerCoordinates');
         $this->data['defaultMarkerCoordinates'] = $this->defaultMarkerCoordinates;
         $this->data['templateTypes'] = array_index_to_value(setting('mapTypeList'));
+        $this->middleware('permission', ['except' => 'getMarkerForm']);
     }
 
     /**
@@ -46,8 +47,6 @@ class ContactController extends Controller
      */
     public function index(Marker $marker, $pageID)
     {
-        perms($this->data['modules'], $this->moduleName, __FUNCTION__);
-
         $this->data['pageID'] = $pageID;
         $this->data['options'] = $this->getDefaultCoordinates($pageID);
         $this->data['markerList'] = $marker->getList($pageID);
@@ -96,8 +95,6 @@ class ContactController extends Controller
     public function saveDataCoordinates($pageID)
     {
         try {
-            perms($this->data['modules'], $this->moduleName, __FUNCTION__,true);
-
             $this->saveMarkerCoordinates();
             $this->saveMapCoordinates($pageID);
             echo json_encode([
@@ -152,8 +149,6 @@ class ContactController extends Controller
     public function updateMarker(Request $request, Marker $marker, $pageID, $markerID = null)
     {
         try {
-            perms($this->data['modules'], $this->moduleName, __FUNCTION__,true);
-
             $this->moduleName = 'markers';
             $this->data['pageID'] = $pageID;
             $filteredRequest = $request->all();
@@ -192,8 +187,6 @@ class ContactController extends Controller
     public function deleteMarker($markerID)
     {
         try {
-            perms($this->data['modules'], $this->moduleName, __FUNCTION__,true);
-
             $marker = Marker::find($markerID);
             $this->data['pageID'] = $marker->page_id;
             Marker::destroy($markerID);

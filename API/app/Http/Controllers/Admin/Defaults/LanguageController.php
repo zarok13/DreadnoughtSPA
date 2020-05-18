@@ -25,10 +25,12 @@ class LanguageController extends Controller
     public function __construct()
     {
         parent::__construct();
+        $this->moduleName = 'languages';
         $this->viewTemplate .= '.' . $this->moduleName;
         $this->data['moduleName'] = $this->moduleName;
         $this->data['title'] = trans('default.'.$this->moduleName);
         $this->data['dataTable'] = true;
+        $this->middleware('permission');
     }
 
     /**
@@ -36,8 +38,6 @@ class LanguageController extends Controller
      */
     public function index()
     {
-        perms($this->data['modules'], $this->moduleName, __FUNCTION__);
-
         $this->data['items'] = Language::lang()->orderBy('created_at', 'desc')->get();
         return view($this->viewTemplate . '.show', $this->data);
     }
@@ -47,8 +47,6 @@ class LanguageController extends Controller
      */
     public function add()
     {
-        perms($this->data['modules'], $this->moduleName, __FUNCTION__);
-
         $this->data['title'] .= getActionIcon( __FUNCTION__);
         return view($this->viewTemplate . '.add', $this->data);
     }
@@ -60,8 +58,6 @@ class LanguageController extends Controller
      */
     public function create(Request $request)
     {
-        perms($this->data['modules'], $this->moduleName, __FUNCTION__);
-
         $this->validate($request, $this->validationArray);
         $filteredRequest = $request->except('_token');
         $filteredRequest['created_at'] = now();
@@ -77,8 +73,6 @@ class LanguageController extends Controller
      */
     public function edit(Language $language, $id)
     {
-        perms($this->data['modules'], $this->moduleName, __FUNCTION__);
-
         $this->data['title'] .= getActionIcon( __FUNCTION__);
         $this->data['item'] = $language->find($id)->toArray();
         return view($this->viewTemplate . '.edit', $this->data);
@@ -92,8 +86,6 @@ class LanguageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        perms($this->data['modules'], $this->moduleName, __FUNCTION__);
-
         $this->validate($request, $this->validationArray);
         $this->updateMainLang($this->modelName, $id, $request->except('_token'));
         $this->data['module'] = $this->moduleName;
@@ -106,8 +98,6 @@ class LanguageController extends Controller
      */
     public function delete($id)
     {
-        perms($this->data['modules'], $this->moduleName, __FUNCTION__);
-
         $menu = (MODELS_PATH . ucfirst($this->modelName))::findOrFail($id);
         $menu->delete();
         return back();

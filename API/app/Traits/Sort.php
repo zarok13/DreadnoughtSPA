@@ -15,7 +15,6 @@ trait Sort
     public function sort(Request $request, $field = "lang_id")
     {
         try {
-            perms($this->data['modules'], $this->moduleName, __FUNCTION__,true);
             if ($request->ajax() && $request->isMethod('post')) {
                 DB::transaction(function () use ($request, $field) {
                     if (!isset($request->sortList) && !is_array($request->sortList)) {

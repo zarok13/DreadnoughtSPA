@@ -11,7 +11,6 @@ class HelperFieldsController extends Controller
 {
     use DatabaseAction;
 
-    protected $moduleName = 'helper_fields';
     protected $modelName = 'helperField';
     protected $validationArray = [
         'keyword' => 'required',
@@ -25,11 +24,13 @@ class HelperFieldsController extends Controller
     public function __construct()
     {
         parent::__construct();
+        $this->moduleName = 'helper_fields';
         $this->viewTemplate .= '.' . $this->moduleName;
         $this->data['moduleName'] = $this->moduleName;
         $this->data['title'] = trans('default.' . $this->moduleName);
         $this->data['typeList'] = setting('helperFieldsType');
         $this->data['dataTable'] = true;
+        $this->middleware('permission', ['except' => ['typeTemplate']]);
     }
 
     /**
@@ -37,8 +38,6 @@ class HelperFieldsController extends Controller
      */
     public function index()
     {
-        perms($this->data['modules'], $this->moduleName, __FUNCTION__);
-
         $this->data['items'] = HelperField::lang()->orderBy('created_at', 'desc')->get();
         return view($this->viewTemplate . '.show', $this->data);
     }
@@ -48,8 +47,6 @@ class HelperFieldsController extends Controller
      */
     public function add()
     {
-        perms($this->data['modules'], $this->moduleName, __FUNCTION__);
-
         $this->data['title'] .= getActionIcon(__FUNCTION__);
         return view($this->viewTemplate . '.add', $this->data);
     }
@@ -61,8 +58,6 @@ class HelperFieldsController extends Controller
      */
     public function create(Request $request)
     {
-        perms($this->data['modules'], $this->moduleName, __FUNCTION__);
-
         $this->validate($request, $this->validationArray);
         $filteredRequest = $request->except('_token');
         $filteredRequest['created_at'] = now();
@@ -78,10 +73,8 @@ class HelperFieldsController extends Controller
      */
     public function edit(HelperField $helperField, $id)
     {
-        perms($this->data['modules'], $this->moduleName, __FUNCTION__);
-
         $this->data['title'] .= getActionIcon(__FUNCTION__);
-        $this->data['item'] = $helperField->find($id);
+        $this->data['item'] = $helperField->find($id)->toArray();
         return view($this->viewTemplate . '.edit', $this->data);
     }
 
@@ -93,8 +86,6 @@ class HelperFieldsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        perms($this->data['modules'], $this->moduleName, __FUNCTION__);
-
         $this->validate($request, $this->validationArray);
         $this->updateMainLang($this->modelName, $id, $request->except('_token'));
         $this->data['module'] = $this->moduleName;
@@ -107,8 +98,6 @@ class HelperFieldsController extends Controller
      */
     public function delete($id)
     {
-        perms($this->data['modules'], $this->moduleName, __FUNCTION__);
-
         $menu = (MODELS_PATH . ucfirst($this->modelName))::findOrFail($id);
         $menu->delete();
         return back();

@@ -13,7 +13,6 @@ class ArticlesController extends Controller
 {
     use DatabaseAction;
 
-    protected $moduleName = 'articles';
     protected $modelName = 'Article';
     protected $validationArray = [
 
@@ -26,10 +25,11 @@ class ArticlesController extends Controller
     public function __construct()
     {
         parent::__construct();
+        $this->moduleName = 'articles';
         $this->viewTemplate .= '.' . $this->moduleName;
         $this->data['moduleName'] = $this->moduleName;
         $this->data['title'] = trans('default.' . $this->moduleName);
-        $this->data['dataTable'] = true;
+        $this->middleware('permission');
     }
 
 
@@ -40,8 +40,6 @@ class ArticlesController extends Controller
      */
     public function index(Article $article, $pageID)
     {
-        perms($this->data['modules'], $this->moduleName, __FUNCTION__);
-
         $this->data['pageID'] = $pageID;
         $this->data['items'] = $article->lang()->where('page_id', $pageID)->orderBy('created_at', 'desc')->get();
         return view($this->viewTemplate . '.show', $this->data);
@@ -53,8 +51,6 @@ class ArticlesController extends Controller
      */
     public function add($pageID)
     {
-        perms($this->data['modules'], $this->moduleName, __FUNCTION__);
-
         $this->data['title'] .= getActionIcon(__FUNCTION__);
         $this->data['pageID'] = $pageID;
         return view($this->viewTemplate . '.add', $this->data);
@@ -68,8 +64,6 @@ class ArticlesController extends Controller
      */
     public function create(Request $request, $pageID)
     {
-        perms($this->data['modules'], $this->moduleName, __FUNCTION__);
-
         $this->validate($request, $this->validationArray);
         $filteredRequest = $request->except('_token');
         $filteredRequest['created_at'] = now();
@@ -77,9 +71,8 @@ class ArticlesController extends Controller
         $filteredRequest['page_id'] = $pageID;
         $filteredRequest['slug'] = Slug::create('articles', 'title');
         $this->addMainLang($this->modelName, $filteredRequest);
-
         $this->data['module'] = $this->moduleName;
-        return redirect(route($this->moduleName, $pageID))->with('successCreate', DATABASE_ACTION_CREATE);
+        return redirect(route($this->moduleName))->with('successCreate', DATABASE_ACTION_CREATE);
     }
 
     /**
@@ -89,11 +82,9 @@ class ArticlesController extends Controller
      */
     public function edit(Article $article, $ID)
     {
-        perms($this->data['modules'], $this->moduleName, __FUNCTION__);
-
         $this->data['title'] .= getActionIcon(__FUNCTION__);
         $this->data['ID'] = $ID;
-        $this->data['item'] = $article->find($ID);
+        $this->data['item'] = $article->whereLangId($ID)->first();
         $this->data['template'] = $this->data['item']->page->template_type;
         return view($this->viewTemplate . '.edit', $this->data);
     }
@@ -106,8 +97,6 @@ class ArticlesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        perms($this->data['modules'], $this->moduleName, __FUNCTION__);
-
         $this->validate($request, $this->validationArray);
         $filteredRequest = $request->except('_token');
         $filteredRequest['slug'] = Slug::create('articles', 'title');
@@ -122,9 +111,7 @@ class ArticlesController extends Controller
      */
     public function delete($id)
     {
-        perms($this->data['modules'], $this->moduleName, __FUNCTION__);
-
-        $menu = (MODELS_PATH . ucfirst($this->modelName))::find($id);
+        $menu = (MODELS_PATH . ucfirst($this->modelName))::findOrFail($id);
         $menu->delete();
         return back();
     }

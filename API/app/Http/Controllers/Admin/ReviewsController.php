@@ -16,7 +16,6 @@ class ReviewsController extends Controller
     use DatabaseAction;
     use Sort;
 
-    protected $moduleName = 'reviews';
     protected $modelName = 'Review';
     protected $validationArray = [
         'name' => 'required',
@@ -31,9 +30,11 @@ class ReviewsController extends Controller
     public function __construct()
     {
         parent::__construct();
+        $this->moduleName = 'reviews';
         $this->viewTemplate .= '.' . $this->moduleName;
         $this->data['moduleName'] = $this->moduleName;
         $this->data['title'] = trans('default.' . $this->moduleName);
+        $this->middleware('permission');
     }
 
     /**
@@ -41,8 +42,6 @@ class ReviewsController extends Controller
      */
     public function index()
     {
-        perms($this->data['modules'], $this->moduleName, __FUNCTION__);
-
         $this->data['items'] = Review::lang()->orderBy('sort', 'asc')->get();
         return view($this->viewTemplate . '.show', $this->data);
     }
@@ -53,8 +52,6 @@ class ReviewsController extends Controller
      */
     public function add()
     {
-        perms($this->data['modules'], $this->moduleName, __FUNCTION__);
-
         $this->data['title'] .= getActionIcon(__FUNCTION__);
         return view($this->viewTemplate . '.add', $this->data);
     }
@@ -66,7 +63,6 @@ class ReviewsController extends Controller
      */
     public function create(Request $request)
     {
-        perms($this->data['modules'], $this->moduleName, __FUNCTION__);
         $this->validate($request, $this->validationArray);
 
         $filteredRequest = $request->except('_token');
@@ -81,8 +77,6 @@ class ReviewsController extends Controller
      */
     public function edit(Review $review, $id)
     {
-        perms($this->data['modules'], $this->moduleName, __FUNCTION__);
-
         $this->data['title'] .= getActionIcon(__FUNCTION__);
         $this->data['item'] = $review->whereLangId($id)->first()->toArray();
         return view($this->viewTemplate . '.edit', $this->data);
@@ -96,8 +90,6 @@ class ReviewsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        perms($this->data['modules'], $this->moduleName, __FUNCTION__);
-
         $this->validate($request, $this->validationArray);
         $filteredRequest = $request->except('_token');
         $this->updateMainLang($this->modelName, $id, $filteredRequest);
@@ -110,8 +102,6 @@ class ReviewsController extends Controller
      */
     public function delete($id)
     {
-        perms($this->data['modules'], $this->moduleName, __FUNCTION__);
-
         $menu = (MODELS_PATH . ucfirst($this->modelName))::where('lang_id', $id)->first();
         $menu->delete();
         return redirect()->route($this->moduleName);

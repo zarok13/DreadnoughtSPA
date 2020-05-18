@@ -16,7 +16,6 @@ class SlidersController extends Controller
     use DatabaseAction;
     use Sort;
 
-    protected $moduleName = 'sliders';
     protected $modelName = 'Slider';
     protected $validationArray = [
         'title' => 'required'
@@ -29,9 +28,11 @@ class SlidersController extends Controller
     public function __construct()
     {
         parent::__construct();
+        $this->moduleName = 'sliders';
         $this->viewTemplate .= '.' . $this->moduleName;
         $this->data['moduleName'] = $this->moduleName;
         $this->data['title'] = trans('default.' . $this->moduleName);
+        $this->middleware('permission');
     }
 
     /**
@@ -39,8 +40,6 @@ class SlidersController extends Controller
      */
     public function index()
     {
-        perms($this->data['modules'], $this->moduleName, __FUNCTION__);
-
         $this->data['items'] = Slider::lang()->orderBy('sort', 'asc')->get();
         return view($this->viewTemplate . '.show', $this->data);
     }
@@ -51,8 +50,6 @@ class SlidersController extends Controller
      */
     public function add()
     {
-        perms($this->data['modules'], $this->moduleName, __FUNCTION__);
-
         $this->data['title'] .= getActionIcon(__FUNCTION__);
         return view($this->viewTemplate . '.add', $this->data);
     }
@@ -64,8 +61,6 @@ class SlidersController extends Controller
      */
     public function create(Request $request)
     {
-        perms($this->data['modules'], $this->moduleName, __FUNCTION__);
-
         $this->validate($request, $this->validationArray);
         $filteredRequest = $request->except('_token');
         $this->addMainLang($this->modelName, $filteredRequest);
@@ -79,8 +74,6 @@ class SlidersController extends Controller
      */
     public function edit(Slider $slider, $id)
     {
-        perms($this->data['modules'], $this->moduleName, __FUNCTION__);
-
         $this->data['title'] .= getActionIcon(__FUNCTION__);
         $this->data['item'] = $slider->whereLangId($id)->first()->toArray();
         return view($this->viewTemplate . '.edit', $this->data);
@@ -94,8 +87,6 @@ class SlidersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        perms($this->data['modules'], $this->moduleName, __FUNCTION__);
-
         $this->validate($request, $this->validationArray);
         $filteredRequest = $request->except('_token');
         $this->updateMainLang($this->modelName, $id, $filteredRequest);
@@ -108,8 +99,6 @@ class SlidersController extends Controller
      */
     public function delete($id)
     {
-        perms($this->data['modules'], $this->moduleName, __FUNCTION__);
-
         $menu = (MODELS_PATH . ucfirst($this->modelName))::where('lang_id', $id)->first();
         $menu->delete();
         return redirect()->route($this->moduleName);
