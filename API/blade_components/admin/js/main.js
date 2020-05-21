@@ -266,17 +266,14 @@ $(document).ready(function () {
             }
           },
           error: function error(_error3) {
-            var message = _error3;
-
-            if (typeof _error3.responseJSON.message !== 'undefined') {
-              message = _error3.responseJSON.message;
+            if (typeof _error3.responseJSON != "undefined") {
+              _error3 = _error3.responseJSON;
             }
 
-            console.log(_error3.responseJSON.message);
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
-              text: message,
+              text: _error3,
               footer: 'Dreadnought Project'
             });
           }

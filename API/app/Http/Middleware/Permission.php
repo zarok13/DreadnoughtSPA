@@ -16,13 +16,13 @@ class Permission
     public function handle($request, Closure $next)
     {
         $moduleName = $request->route()->controller->moduleName;
-        if(empty($request->route()->controller->moduleName)){
+        if (empty($request->route()->controller->moduleName)) {
             throw new \Exception('Empty module name');
         }
-        $methodName = array_search($request->route()->getActionMethod(),config('modules')[$moduleName]['actions']);
-        if(!ModulePerms::check($moduleName, $methodName)) {
-            if($request->ajax() == true){
-                throw new \Exception('Sorry, you don\'t have permissions for this action!');
+        $methodName = array_search($request->route()->getActionMethod(), config('modules')[$moduleName]['actions']);
+        if (!ModulePerms::check($moduleName, $methodName)) {
+            if ($request->ajax() == true) {
+                return response()->json('Sorry, you don\'t have permissions for this action!', 403);
             } else {
                 return redirect()->route('noPermissions');
             }

@@ -169,15 +169,13 @@ $(document).ready(function () {
                         }
                     },
                     error: function (error) {
-                        let message = error;
-                        if (typeof error.responseJSON.message !== 'undefined') {
-                            message = error.responseJSON.message;
+                        if (typeof error.responseJSON != "undefined") {
+                            error = error.responseJSON;
                         }
-                        console.log(error.responseJSON.message);
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
-                            text: message,
+                            text: error,
                             footer: 'Dreadnought Project'
                         });
                     }

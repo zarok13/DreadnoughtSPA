@@ -7,17 +7,17 @@
 
     <!-- Styles -->
     <link type="text/css" rel="stylesheet" href="{{ asset('blade_components/admin/css/app.css') }}">
-    <link href="{{ asset('blade_components/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}"
+    <link href="{{ asset('blade_components/admin/css/dataTables.bootstrap4.min.css') }}"
           rel="stylesheet">
     <link href="{{ asset('blade_components/admin/css/adminlte.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('blade_components/admin/css/main.css') }}">
     <!-- Plugins -->
-    <link href="{{ asset('blade_components/admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}"
+    <link href="{{ asset('blade_components/admin/css/icheck-bootstrap.min.css') }}"
           rel="stylesheet">
-    <link href="{{ asset('blade_components/admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}"
+    <link href="{{ asset('blade_components/admin/css/OverlayScrollbars.min.css') }}"
           rel="stylesheet">
-    <link href="{{ asset('blade_components/admin/plugins/toastr/toastr.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('blade_components/admin/plugins/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('blade_components/admin/css/toastr.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('blade_components/admin/css/sweetalert2.min.css') }}" rel="stylesheet">
     <!-- Icons/Fonts -->
     <link rel="shortcut icon" href="{{ asset('images/admin/favicon.ico') }}">
     <link rel="stylesheet" href="{{ asset('blade_components/admin/css/all.min.css') }}">

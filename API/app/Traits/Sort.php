@@ -11,6 +11,7 @@ trait Sort
     /**
      * @param Request $request
      * @param string $field
+     * @return \Illuminate\Http\JsonResponse
      */
     public function sort(Request $request, $field = "lang_id")
     {
@@ -31,9 +32,9 @@ trait Sort
                 throw new \Exception('error: Http method must be post type.');
             }
         } catch (\Exception $e) {
-            echo json_encode([
-                'status'    => 'error',
-                'message'   => $e->getMessage(),
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage(),
             ]);
         }
     }
@@ -46,8 +47,8 @@ trait Sort
     private function manualSort($langID, $sort, $field)
     {
         DB::table($this->moduleName)
-           ->where($field, $langID)
-           ->update(['sort' => $sort]);
+            ->where($field, $langID)
+            ->update(['sort' => $sort]);
     }
 
     /**
@@ -55,14 +56,14 @@ trait Sort
      * @param bool $lang
      * @return int|mixed
      */
-    private function getMaxSort($sql = '',$lang = true)
+    private function getMaxSort($sql = '', $lang = true)
     {
         $query = DB::table($this->moduleName)
             ->selectRaw('MAX(sort)+1 AS maxSort');
-        if($lang) {
-            $query->where('lang',$this->lang);
+        if ($lang) {
+            $query->where('lang', $this->lang);
         }
-        if(!empty($sql)) {
+        if (!empty($sql)) {
             $query->whereRaw($sql);
         }
         $row = $query->first();
