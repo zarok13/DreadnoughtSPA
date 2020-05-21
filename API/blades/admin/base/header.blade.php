@@ -20,7 +20,7 @@
     <link href="{{ asset('blade_components/admin/plugins/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet">
     <!-- Icons/Fonts -->
     <link rel="shortcut icon" href="{{ asset('images/admin/favicon.ico') }}">
-    <link type="text/css" rel="stylesheet" href="{{ asset('blade_components/admin/css/fonts.css') }}">
+    <link rel="stylesheet" href="{{ asset('blade_components/admin/css/all.min.css') }}">
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
