@@ -202,3 +202,29 @@ if (!function_exists('highlightSearchResults')) {
         return $result;
     }
 }
+
+if (!function_exists('trimText')) {
+    /**
+     * @param $text
+     * @param $length
+     * @return string
+     */
+    function trimText($text, $length)
+    {
+        if (mb_strlen($text) >= $length) {
+            $newLine = null;
+            while ($length) {
+                $newLine = strpos($text, ' ', $length);
+                if (empty($newLine)) {
+                    $length--;
+                } else {
+                    break;
+                }
+            }
+            $length = $newLine + 1;
+            $trimmedTitle = substr($text, 0, $length) . "...";
+            return $trimmedTitle;
+        }
+        return $text;
+    }
+}

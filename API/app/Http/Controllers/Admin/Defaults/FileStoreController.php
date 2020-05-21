@@ -17,7 +17,6 @@ class FileStoreController extends Controller
     use DatabaseAction;
     use Sort;
 
-    protected $moduleName = 'file_store';
     protected $modelName = 'FileStore';
     protected $imageTypeList = [1 => 'jpg', 2 => 'jpeg', 3 => 'gif', 4 => 'png'];
 
@@ -28,6 +27,7 @@ class FileStoreController extends Controller
     public function __construct()
     {
         parent::__construct();
+        $this->moduleName = 'file_store';
         $this->viewTemplate .= '.' . $this->moduleName;
         $this->data['moduleName'] = $this->moduleName;
         $this->data['title'] = trans('default.'.$this->moduleName);
