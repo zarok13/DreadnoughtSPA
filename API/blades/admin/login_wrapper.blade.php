@@ -13,9 +13,9 @@
     <link href="{{ asset('blade_components/admin/css/adminlte.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('blade_components/admin/css/main.css') }}">
     <!-- Plugins -->
-    <link href="{{ asset('blade_components/admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('blade_components/admin/css/icheck-bootstrap.min.css') }}" rel="stylesheet">
     <!-- Icons -->
-    <link href="{{ asset('blade_components/admin/fonts/fontawesome/css/all.css') }}" rel="stylesheet">
+    <link href="{{ asset('blade_components/admin/css/all.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
