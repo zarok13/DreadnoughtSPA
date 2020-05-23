@@ -296,7 +296,7 @@ $(document).ready(function () {
   JQueryUISort(); //file store multiple file upload
 
   $("#dreadnought-file-store").on("change", function (e) {
-    // e.preventDefault();
+    e.preventDefault();
     var url = $(this).data('url');
     var form = $(this)[0];
     var data = new FormData(form);
@@ -351,7 +351,8 @@ $(document).ready(function () {
     });
   }); // delete files from file store
 
-  $('.uploaded_files').on('click', 'a.delete', function () {
+  $('.uploaded_files').on('click', 'a.delete', function (e) {
+    e.preventDefault();
     var url = $(this).data('url');
     var mainWrapper = 'div.wrapper';
     var imageLoader = '#image-loader';

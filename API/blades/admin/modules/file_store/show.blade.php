@@ -15,7 +15,7 @@
                             <h2><i class="fab fa-skyatlas fa-lg"></i> Drag&Drop</h2>
                         </div>
                         {!! Form::file('files[]',[
-                                'class' => 'form-congtrol',
+                                'class' => 'form-control',
                                 'id' => 'drag-and-drop-field',
                                 'accept' => 'application/msword,
                                             application/vnd.ms-excel,
