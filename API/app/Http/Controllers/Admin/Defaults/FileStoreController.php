@@ -30,7 +30,7 @@ class FileStoreController extends Controller
         $this->moduleName = 'file_store';
         $this->viewTemplate .= '.' . $this->moduleName;
         $this->data['moduleName'] = $this->moduleName;
-        $this->data['title'] = trans('default.'.$this->moduleName);
+        $this->data['title'] = trans('default.' . $this->moduleName);
     }
 
     /**
@@ -43,8 +43,18 @@ class FileStoreController extends Controller
     }
 
     /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function smallIndex()
+    {
+        $this->data['items'] = FileStore::lang()->orderBy('created_at', 'desc')->get();
+        return view($this->viewTemplate . '.small_show', $this->data);
+    }
+
+    /**
      * @param Request $request
      * @param FileStore $fileStore
+     * @return \Illuminate\Http\JsonResponse
      * @throws \Throwable
      */
     public function upload(Request $request, FileStore $fileStore)
@@ -58,100 +68,16 @@ class FileStoreController extends Controller
                 $this->imageUpload($file);
             }
             $this->data['new_items'] = $fileStore->lang()->orderBy('created_at', 'desc')->get();
-            echo json_encode([
-                'status' => 'ok',
-                'response' => view($this->viewTemplate . '.uploaded_files_template', $this->data)->render(),
-            ]);
-        } catch (\Exception $e) {
-            echo json_encode([
-                'status' => 'error',
-                'message' => $e->getMessage(),
-            ]);
-        }
-    }
-
-    /**
-     * @param FileStore $fileStore
-     * @param $id
-     * @throws \Throwable
-     */
-    public function delete(FileStore $fileStore, $id)
-    {
-        try {
-            $item = (MODELS_PATH . ucfirst($this->modelName))::findOrFail($id);
-            $file_path = public_path('storage/' . $item->src);
-            unlink($file_path);
-            $item->delete();
-            $this->data['new_items'] = $fileStore->lang()->orderBy('created_at', 'desc')->get();
-            echo json_encode([
-                'status' => 'ok',
-                'response' => view($this->viewTemplate . '.uploaded_files_template', $this->data)->render(),
-            ]);
-        } catch (\Exception $e) {
-            echo json_encode([
-                'status' => 'error',
-                'message' => $e->getMessage(),
-            ]);
-        }
-    }
-
-    /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function smallIndex()
-    {
-        $this->data['items'] = FileStore::lang()->orderBy('created_at', 'desc')->get();
-        $this->data['smallWindow'] = true;
-        return view($this->viewTemplate . '.small_show', $this->data);
-    }
-
-    /**
-     * @param Request $request
-     * @param FileStore $fileStore
-     * @throws \Throwable
-     */
-    public function smallUpload(Request $request, FileStore $fileStore)
-    {
-        try {
-            if (!$request->ajax() && !$request->isMethod('post')) {
-                throw new \Exception('Error: Http request must be post type.');
+            $renderTemplate = 'uploaded_files_template';
+            if (isset($request->smallWindow)) {
+                $this->data['smallWindow'] = $request->smallWindow;
             }
-            $convertedRequest = $request->all();
-            foreach ($convertedRequest['files'] as $file) {
-                $this->imageUpload($file);
-            }
-            $this->data['new_items'] = $fileStore->lang()->orderBy('created_at', 'desc')->get();
-            echo json_encode([
+            return response()->json([
                 'status' => 'ok',
-                'response' => view($this->viewTemplate . '.small_uploaded_files_template', $this->data)->render(),
+                'response' => view($this->viewTemplate . '.' . $renderTemplate, $this->data)->render(),
             ]);
         } catch (\Exception $e) {
-            echo json_encode([
-                'status' => 'error',
-                'message' => $e->getMessage(),
-            ]);
-        }
-    }
-
-    /**
-     * @param FileStore $fileStore
-     * @param $id
-     * @throws \Throwable
-     */
-    public function smallDelete(FileStore $fileStore, $id)
-    {
-        try {
-            $item = (MODELS_PATH . ucfirst($this->modelName))::findOrFail($id);
-            $file_path = public_path('storage/' . $item->src);
-            unlink($file_path);
-            $item->delete();
-            $this->data['new_items'] = $fileStore->lang()->orderBy('created_at', 'desc')->get();
-            echo json_encode([
-                'status' => 'ok',
-                'response' => view($this->viewTemplate . '.small_uploaded_files_template', $this->data)->render(),
-            ]);
-        } catch (\Exception $e) {
-            echo json_encode([
+            return response()->json([
                 'status' => 'error',
                 'message' => $e->getMessage(),
             ]);
@@ -160,6 +86,38 @@ class FileStoreController extends Controller
 
     /**
      * @param Request $request
+     * @param FileStore $fileStore
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function delete(Request $request, FileStore $fileStore, $id)
+    {
+        try {
+            $item = (MODELS_PATH . ucfirst($this->modelName))::findOrFail($id);
+            $file_path = public_path('storage/' . $item->src);
+            unlink($file_path);
+            $item->delete();
+            $this->data['new_items'] = $fileStore->lang()->orderBy('created_at', 'desc')->get();
+            $renderTemplate = 'uploaded_files_template';
+            if ($request->smallWindow == "true") {
+                $this->data['smallWindow'] = $request->smallWindow;
+            }
+            return response()->json([
+                'status' => 'ok',
+                'response' => view($this->viewTemplate . '.' . $renderTemplate, $this->data)->render(),
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage(),
+            ]);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
      * @throws \Throwable
      */
     public function choose(Request $request)
@@ -169,12 +127,12 @@ class FileStoreController extends Controller
         $this->data['params']['class'] = 'form-control attached_file_name text_upload';
         $this->data['params'][] = 'readonly';
         try {
-            echo json_encode([
+            return response()->json([
                 'status' => 'ok',
                 'response' => view($this->viewTemplate . '.attached_file_template', $this->data)->render(),
             ]);
         } catch (\Exception $e) {
-            echo json_encode([
+            return response()->json([
                 'status' => 'error',
                 'message' => $e->getMessage(),
             ]);

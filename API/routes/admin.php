@@ -81,12 +81,9 @@ Route::group(['prefix' => 'admin'], function () use ($lang) {
         Route::post('/' . $lang . '/helper_fields/type_template', 'HelperFieldsController@typeTemplate')->name('helper_fields.typeTemplate');
         // File Store //
         Route::get('/' . $lang . '/file_store', 'FileStoreController@index')->name('file_store');
+        Route::get('/' . $lang . '/small_file_store', 'FileStoreController@smallIndex')->name('small_file_store');
         Route::post('/' . $lang . '/file_store/upload', 'FileStoreController@upload')->name('file_store.upload');
         Route::delete('/' . $lang . '/file_store/delete/{id}', 'FileStoreController@delete')->name('file_store.delete');
-
-        Route::get('/' . $lang . '/small_file_store', 'FileStoreController@smallIndex')->name('small_file_store');
-        Route::post('/' . $lang . '/small_file_store/upload', 'FileStoreController@smallUpload')->name('small_file_store.upload');
-        Route::delete('/' . $lang . '/small_file_store/delete/{id}', 'FileStoreController@smallDelete')->name('small_file_store.delete');
         Route::post('/' . $lang . '/file_store/choose', 'FileStoreController@choose')->name('file_store.choose');
     });
     /* Other Routes */

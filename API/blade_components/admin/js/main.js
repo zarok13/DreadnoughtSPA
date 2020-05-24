@@ -354,13 +354,16 @@ $(document).ready(function () {
   $('.uploaded_files').on('click', 'a.delete', function (e) {
     e.preventDefault();
     var url = $(this).data('url');
+    var smallWindow = this.classList.contains('small_window');
     var mainWrapper = 'div.wrapper';
     var imageLoader = '#image-loader';
     $.ajax({
       url: url,
       type: 'DELETE',
       dataType: 'json',
-      data: {},
+      data: {
+        smallWindow: smallWindow
+      },
       beforeSend: function beforeSend() {
         $(mainWrapper).fadeTo("fast", 0.2);
         $(mainWrapper).css('pointer-events', 'none');

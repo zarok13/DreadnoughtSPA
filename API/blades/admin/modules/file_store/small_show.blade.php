@@ -11,7 +11,7 @@
         <div class="card">
             <div class="card-header">
                 {!! Form::open(['url' => route($moduleName.'.upload'),
-                'data-url' => route('small_'.$moduleName.'.upload'), 'id' => 'dreadnought-file-store', 'files'=>true]) !!}
+                'data-url' => route($moduleName.'.upload'), 'id' => 'dreadnought-file-store', 'files'=>true]) !!}
                 <div class="drag-and-drop-container">
                     <div id="file-uploading-loader" style="display: none;">
                         <img src="{{ statimg('fileUploading.gif', true) }}">
@@ -29,6 +29,7 @@
                                         image/*',
                             'multiple' => true,
                     ]) !!}
+                    {!! Form::hidden('smallWindow', true) !!}
                 </div>
                 {!! Form::close() !!}
             </div>
@@ -55,8 +56,8 @@
                                         <div class="col-sm-6 col-md-6 col-lg-6">
                                             <li class="list-inline-item">
                                                 <a href="javascript:void(0)"
-                                                   data-url="{{ route('small_file_store.delete', ['id' => $item->id]) }}"
-                                                   class="btn btn-danger delete"><i class="fas fa-trash"></i></a>
+                                                   data-url="{{ route('file_store.delete', ['id' => $item->id]) }}"
+                                                   class="btn btn-danger delete small_window"><i class="fas fa-trash"></i></a>
                                             </li>
                                         </div>
                                     </div>
