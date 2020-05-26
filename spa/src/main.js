@@ -18,13 +18,20 @@ new Vue({
   store,
   methods: {
     getDynamicRoutes() {
-      Axios.get(API_URL + '/menu')
-        .then(data => {
-          this.processData(data);
-        })
-        .catch(error => {
-          console.log(error);
-        })
+      if (localStorage[GET_API_ROUTES] && localStorage[GET_API_ROUTES] !== 'undefined') {
+        let parsedData = JSON.parse(localStorage[GET_API_ROUTES]);
+        this.processData(parsedData);
+        console.log('routes parsed from local storage');
+      } else {
+        Axios.get(API_URL + '/menu')
+          .then(data => {
+            this.processData(data);
+            localStorage.setItem(GET_API_ROUTES, JSON.stringify(data));
+          })
+          .catch(error => {
+            console.log(error);
+          })
+      }
     },
     processData(data) {
       data.data.data.forEach(this.createAndAppendRoute)
