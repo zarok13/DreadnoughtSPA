@@ -1,14 +1,6 @@
 import Axios from "axios"
-
-// helper functions
-function parseDataFromLocalStorage(state, name, mutation){
-    if (localStorage[name] && localStorage[name] !== 'undefined') {
-        let parsedData = JSON.parse(localStorage[name]);
-        state.commit(mutation, parsedData);
-        return true;
-    }
-    return false;
-}
+import { getDataFromLocalStorage } from "../../helpers/init_local_storage"
+import { getExpireDate } from "../../helpers/expire_date"
 
 // global api url
 export const API_URL = 'http://localhost:8000/api'
@@ -68,13 +60,14 @@ const getters = {
 // app store actions
 const actions = {
     async [GET_SLIDER](state) {
-        if (await parseDataFromLocalStorage(state, GET_SLIDER, SET_SLIDER)) {
+        if (await getDataFromLocalStorage(state, GET_SLIDER, SET_SLIDER)) {
             console.log('slider parsed from local storage');
         } else {
             await Axios.get(API_URL + '/slider')
                 .then(data => {
                     let slider = data.data
                     state.commit(SET_SLIDER, slider)
+                    slider.expire_date = getExpireDate(2);
                     localStorage.setItem(GET_SLIDER, JSON.stringify(slider));
                 })
                 .catch(error => {
@@ -83,13 +76,14 @@ const actions = {
         }
     },
     async [BLOG_LIST](state) {
-        if (await parseDataFromLocalStorage(state, BLOG_LIST, SET_BLOG_LIST)) {
+        if (await getDataFromLocalStorage(state, BLOG_LIST, SET_BLOG_LIST)) {
             console.log('blog parsed from local storage');
         } else {
             await Axios.get(API_URL + '/blog_list')
                 .then(data => {
                     let blogList = data.data;
                     state.commit(SET_BLOG_LIST, blogList)
+                    blogList.expire_date = getExpireDate(2);
                     localStorage.setItem(BLOG_LIST, JSON.stringify(blogList));
                 })
                 .catch(error => {

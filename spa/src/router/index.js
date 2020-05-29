@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '../components/Home'
 
-
 Vue.use(Router)
 const router = new Router({
     mode: 'hash',
@@ -14,16 +13,5 @@ const router = new Router({
         }
     ]
 })
-
-// router.beforeEach((to, from, next) => {
-//   if (to.name === 'home'){
-//     alert('fsdf');
-//     next()
-//     initCarousel();
-//   }
-//   else{
-//     next()
-//   }
-// })
 
 export default router;
