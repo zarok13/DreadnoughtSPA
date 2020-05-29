@@ -21,25 +21,24 @@
           <div class="margin">
             <!-- Collumn 1 -->
             <div class="s-12 m-12 l-4 margin-m-bottom-2x">
-              <h4 class="text-uppercase text-strong">Our Philosophy</h4>
+              <h4 class="text-uppercase text-strong">{{getFooter.data.title1}}</h4>
               <p class="text-size-20">
                 <em>
-                  "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
-                  euismod tincidunt."
+                  "{{getFooter.data.quote}}"
                 </em>
               </p>
               <p></p>
               <div class="line">
-                <h4 class="text-uppercase text-strong margin-top-30">About Our Company</h4>
+                <h4 class="text-uppercase text-strong margin-top-30">{{getFooter.data.title2}}</h4>
                 <div class="margin">
                   <div class="s-12 m-12 l-4 margin-m-bottom">
-                    <a class="image-hover-zoom" href="/">
-                      <img src="img/blog-04.jpg" alt />
+                    <a class="image-hover-zoom" href="javascript:void(0)">
+                      <img v-bind:src="getFooter.data.image" alt />
                     </a>
                   </div>
                   <div class="s-12 m-12 l-8 margin-m-bottom">
-                    <p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat.</p>
-                    <a class="text-more-info text-primary-hover" href="/">Read more</a>
+                    <p>{{getFooter.data.desc}}</p>
+                    <router-link class="text-more-info text-primary-hover" to="/contacts">Read more</router-link>
                   </div>
                 </div>
               </div>
@@ -47,14 +46,14 @@
 
             <!-- Collumn 2 -->
             <div class="s-12 m-12 l-4 margin-m-bottom-2x">
-              <h4 class="text-uppercase text-strong">Contact Us</h4>
+              <h4 class="text-uppercase text-strong">{{getFooter.data.contactUs}}</h4>
               <div class="line">
                 <div class="s-1 m-1 l-1 text-center">
                   <i class="icon-placepin text-primary text-size-12"></i>
                 </div>
                 <div class="s-11 m-11 l-11 margin-bottom-10">
                   <p>
-                    <b>Adress:</b> Responsive Street 7, London, UK
+                    <b>{{getFooter.data.address}}:</b> {{getFooter.data.addressValue}}
                   </p>
                 </div>
               </div>
@@ -64,8 +63,8 @@
                 </div>
                 <div class="s-11 m-11 l-11 margin-bottom-10">
                   <p>
-                    <a href="/" class="text-primary-hover">
-                      <b>E-mail:</b> contact@sampledomain.com
+                    <a :href="'mailto:'+getFooter.data.emailValue" class="text-primary-hover">
+                      <b>{{getFooter.data.email}}:</b> {{getFooter.data.emailValue}}
                     </a>
                   </p>
                 </div>
@@ -76,7 +75,7 @@
                 </div>
                 <div class="s-11 m-11 l-11 margin-bottom-10">
                   <p>
-                    <b>Phone:</b> 0700 000 987
+                    <b>{{getFooter.data.phone}}:</b> {{getFooter.data.phoneValue}}
                   </p>
                 </div>
               </div>
@@ -86,7 +85,7 @@
                 </div>
                 <div class="s-11 m-11 l-11 margin-bottom-10">
                   <p>
-                    <a href="/" class="text-primary-hover">
+                    <a :href="getFooter.data.twitterUrl" target="_blank" class="text-primary-hover">
                       <b>Twitter</b>
                     </a>
                   </p>
@@ -98,7 +97,7 @@
                 </div>
                 <div class="s-11 m-11 l-11">
                   <p>
-                    <a href="/" class="text-primary-hover">
+                    <a :href="getFooter.data.facebookUrl" target="_blank" class="text-primary-hover">
                       <b>Facebook</b>
                     </a>
                   </p>
@@ -178,8 +177,23 @@
   </div>
 </template>
 <script>
+import { API_URL, GET_FOOTER } from "../../store/modules/dreadnought.store";
+
 export default {
-  name: "footer_block"
+  name: "footer_block",
+  data() {
+    return {
+      apiUrl: API_URL
+    }
+  },
+  computed: {
+    getFooter: function() {
+      return this.$store.getters.getFooter;
+    },
+  },
+  mounted() {
+    this.$store.dispatch(GET_FOOTER);
+  },
   //   data() {
   //     return {
   //       title: "Gallery"

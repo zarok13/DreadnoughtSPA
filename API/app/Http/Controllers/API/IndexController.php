@@ -162,14 +162,34 @@ class IndexController extends Controller
     {
         try {
             $data = [];
-            $footerTitle1 = lang('footer_our_philosophy');
-            $footerQuote = hel_field('footer_quote');
-            $footerTitle2 = lang('about_our_company');
-            $footerDesc = hel_field('footer_desc');
-            $data['footerTitle1'] = $footerTitle1;
-            $data['footerQuote'] = $footerQuote;
-            $data['footerTitle2'] = $footerTitle2;
-            $data['footerDesc'] = $footerDesc;
+            $title1 = lang('footer_our_philosophy');
+            $quote = hel_field('footer_quote');
+            $title2 = lang('about_our_company');
+            $image = file_store_url(hel_field('footer_image'));
+            $desc = hel_field('footer_desc');
+            $contactUs = lang('contact_us');
+            $address = lang('address');
+            $email = lang('email');
+            $phone = lang('phone');
+            $twitterUrl = hel_field('twitter_url');
+            $facebookUrl = hel_field('facebook_url');
+            $addressValue = hel_field('address');
+            $emailValue = hel_field('email');
+            $phoneValue = hel_field('phone');
+            $data['title1'] = $title1;
+            $data['quote'] = $quote;
+            $data['title2'] = $title2;
+            $data['image'] = $image;
+            $data['desc'] = $desc;
+            $data['contactUs'] = $contactUs;
+            $data['address'] = $address;
+            $data['email'] = $email;
+            $data['phone'] = $phone;
+            $data['twitterUrl'] = $twitterUrl;
+            $data['facebookUrl'] = $facebookUrl;
+            $data['addressValue'] = $addressValue;
+            $data['emailValue'] = $emailValue;
+            $data['phoneValue'] = $phoneValue;
             return response()->json([
                 'status' => true,
                 'data' => $data,

@@ -6,20 +6,22 @@ import { getExpireDate } from "../../helpers/expire_date"
 export const API_URL = 'http://localhost:8000/api'
 
 // define app store actions names
+export const GET_API_ROUTES = 'getApiRoutes'
 export const GET_SLIDER = 'getSlider'
+export const BLOG_LIST = 'blogList'
 export const GET_INTRO1 = 'getIntro1'
 export const GET_INTRO2 = 'getIntro2'
 export const GET_INTRO3 = 'getIntro3'
-export const BLOG_LIST = 'blogList'
-export const GET_API_ROUTES = 'getApiRoutes'
+export const GET_FOOTER = 'getFooter'
 
 // define app store mutations names
+const SET_API_ROUTES = 'setApiRoutes'
 export const SET_SLIDER = 'setSlider'
+const SET_BLOG_LIST = 'setBlogList'
 const SET_INTRO1 = 'setIntro1'
 const SET_INTRO2 = 'setIntro2'
 const SET_INTRO3 = 'setIntro3'
-const SET_BLOG_LIST = 'setBlogList'
-const SET_API_ROUTES = 'setApiRoutes'
+const SET_FOOTER = 'setFooter'
 
 // init app state
 const state = {
@@ -29,7 +31,8 @@ const state = {
     intro3: '',
     blogPart1: [],
     blogPart2: [],
-    apiRoutes: []
+    apiRoutes: [],
+    footer: [],
 }
 
 // init app getters
@@ -55,10 +58,16 @@ const getters = {
     getApiRoutes(state) {
         return state.apiRoutes
     },
+    getFooter(state) {
+        return state.footer;
+    },
 }
 
 // app store actions
 const actions = {
+    [GET_API_ROUTES](state, routeList) {
+        state.commit(SET_API_ROUTES, routeList)
+    },
     async [GET_SLIDER](state) {
         if (await getDataFromLocalStorage(state, GET_SLIDER, SET_SLIDER)) {
             console.log('slider parsed from local storage');
@@ -121,13 +130,23 @@ const actions = {
                 console.log(error);
             })
     },
-    [GET_API_ROUTES](state, routeList) {
-        state.commit(SET_API_ROUTES, routeList)
+    [GET_FOOTER](state) {
+        Axios.get(API_URL + '/footer')
+            .then(data => {
+                let footer = data.data
+                state.commit(SET_FOOTER, footer)
+            })
+            .catch(error => {
+                console.log(error);
+            })
     }
 }
 
 // app store mutations
 const mutations = {
+    [SET_API_ROUTES](state, routeList) {
+        state.apiRoutes = routeList;
+    },
     [SET_SLIDER](state, slider) {
         state.slider = slider;
     },
@@ -144,8 +163,8 @@ const mutations = {
         state.blogPart1 = blogList.blogPart1;
         state.blogPart2 = blogList.blogPart2;
     },
-    [SET_API_ROUTES](state, routeList) {
-        state.apiRoutes = routeList;
+    [SET_FOOTER](state, footer) {
+        state.footer = footer;
     },
 }
 
