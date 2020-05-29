@@ -29,22 +29,17 @@
             <div class="right">
               <ul class="top-bar-social right">
                 <li>
-                  <a href="/">
+                  <a href="https://facebook.com">
                     <i class="icon-facebook_circle text-orange-hover"></i>
                   </a>
                 </li>
                 <li>
-                  <a href="/">
+                  <a href="https://twitter.com">
                     <i class="icon-twitter_circle text-orange-hover"></i>
                   </a>
                 </li>
                 <li>
-                  <a href="/">
-                    <i class="icon-google_plus_circle text-orange-hover"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="/">
+                  <a href="https://instagram.com">
                     <i class="icon-instagram_circle text-orange-hover"></i>
                   </a>
                 </li>

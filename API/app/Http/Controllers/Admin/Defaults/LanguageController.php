@@ -14,7 +14,6 @@ class LanguageController extends Controller
 {
     use DatabaseAction;
 
-    protected $moduleName = 'languages';
     protected $modelName = 'language';
     protected $validationArray = [];
 

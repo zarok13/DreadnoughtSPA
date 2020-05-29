@@ -4,16 +4,13 @@
     <footer>
       <!-- Social -->
       <div class="background-primary padding text-center">
-        <a href="/">
+        <a href="https://facebook.com" target="_blank">
           <i class="icon-facebook_circle icon2x text-white"></i>
         </a>
-        <a href="/">
+        <a href="https://twitter.com" target="_blank">
           <i class="icon-twitter_circle icon2x text-white"></i>
         </a>
-        <a href="/">
-          <i class="icon-google_plus_circle icon2x text-white"></i>
-        </a>
-        <a href="/">
+        <a href="https://instagram.com" target="_blank">
           <i class="icon-instagram_circle icon2x text-white"></i>
         </a>
       </div>

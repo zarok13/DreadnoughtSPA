@@ -15,6 +15,39 @@ class IndexController extends Controller
     ];
 
     /**
+     * @param Menu $menu
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function menu(Menu $menu)
+    {
+        try {
+            $menu = $menu->select('menu.title', 'pages.slug', 'pages.page_type_id', 'pages.page_template_id', 'pages.lang_id')
+                ->join('pages', 'pages.lang_id', '=', 'menu.page_id', 'left')
+                ->where('menu.lang', $this->lang)
+                ->where('pages.slug', '!=', null)
+                ->orderBy('menu.sort', 'asc')
+                ->get()->toArray();
+            foreach ($menu as $index => $item){
+                if( is_numeric($item['page_type_id']) ){
+                    $menu[$index]['page_type'] = setting('pageTypes')[$item['page_type_id']];
+                    $menu[$index]['page_template'] = setting('pageTemplates')[$item['page_type_id']][$item['page_template_id']];
+                    unset($menu[$index]['page_type_id']);
+                    unset($menu[$index]['page_template_id']);
+                }
+            }
+            return response()->json([
+                'status' => true,
+                'data' => $menu,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage(),
+            ]);
+        }
+    }
+
+    /**
      * @param Slider $slider
      * @return \Illuminate\Http\JsonResponse
      */
@@ -123,29 +156,23 @@ class IndexController extends Controller
     }
 
     /**
-     * @param Menu $menu
      * @return \Illuminate\Http\JsonResponse
      */
-    public function menu(Menu $menu)
+    public function getFooter()
     {
         try {
-            $menu = $menu->select('menu.title', 'pages.slug', 'pages.page_type_id', 'pages.page_template_id', 'pages.lang_id')
-                ->join('pages', 'pages.lang_id', '=', 'menu.page_id', 'left')
-                ->where('menu.lang', $this->lang)
-                ->where('pages.slug', '!=', null)
-                ->orderBy('menu.sort', 'asc')
-                ->get()->toArray();
-            foreach ($menu as $index => $item){
-                if( is_numeric($item['page_type_id']) ){
-                    $menu[$index]['page_type'] = setting('pageTypes')[$item['page_type_id']];
-                    $menu[$index]['page_template'] = setting('pageTemplates')[$item['page_type_id']][$item['page_template_id']];
-                    unset($menu[$index]['page_type_id']);
-                    unset($menu[$index]['page_template_id']);
-                }
-            }
+            $data = [];
+            $footerTitle1 = lang('footer_our_philosophy');
+            $footerQuote = hel_field('footer_quote');
+            $footerTitle2 = lang('about_our_company');
+            $footerDesc = hel_field('footer_desc');
+            $data['footerTitle1'] = $footerTitle1;
+            $data['footerQuote'] = $footerQuote;
+            $data['footerTitle2'] = $footerTitle2;
+            $data['footerDesc'] = $footerDesc;
             return response()->json([
                 'status' => true,
-                'data' => $menu,
+                'data' => $data,
             ]);
         } catch (\Exception $e) {
             return response()->json([
