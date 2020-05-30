@@ -13,6 +13,7 @@ export const GET_INTRO1 = 'getIntro1'
 export const GET_INTRO2 = 'getIntro2'
 export const GET_INTRO3 = 'getIntro3'
 export const GET_FOOTER = 'getFooter'
+export const SEND_MAIL = 'sendMail'
 
 // define app store mutations names
 const SET_API_ROUTES = 'setApiRoutes'
@@ -130,8 +131,8 @@ const actions = {
                 console.log(error);
             })
     },
-    [GET_FOOTER](state) {
-        Axios.get(API_URL + '/footer')
+    async [GET_FOOTER](state) {
+        await Axios.get(API_URL + '/footer')
             .then(data => {
                 let footer = data.data
                 state.commit(SET_FOOTER, footer)
@@ -139,7 +140,18 @@ const actions = {
             .catch(error => {
                 console.log(error);
             })
-    }
+    },
+    [SEND_MAIL]() {
+        Axios.post(API_URL + '/send_mail', [])
+            .then((response) => {
+                // let intro = data.data
+                // state.commit(SET_INTRO2, intro)
+                console.log(response);
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    },
 }
 
 // app store mutations

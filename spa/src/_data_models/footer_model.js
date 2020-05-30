@@ -1,0 +1,16 @@
+export const footerData = {
+    title1: '',
+    title2: '',
+    quote: '',
+    image: '',
+    desc: '',
+    contactUs: '',
+    address: '',
+    addressValue: '',
+    email: '',
+    emailValue: '',
+    phone: '',
+    phoneValue: '',
+    facebookUrl: '',
+    twitterUrl: '',
+};

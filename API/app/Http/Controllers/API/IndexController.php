@@ -7,6 +7,7 @@ use App\Article;
 use App\Menu;
 use App\Slider;
 use Webwizo\Shortcodes\Facades\Shortcode;
+use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
@@ -193,6 +194,22 @@ class IndexController extends Controller
             return response()->json([
                 'status' => true,
                 'data' => $data,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage(),
+            ]);
+        }
+    }
+
+    public function sendMail(Request $request)
+    {
+        try {
+            dd($request->all());
+            return response()->json([
+                'status' => true,
+                'data' => '',
             ]);
         } catch (\Exception $e) {
             return response()->json([
