@@ -8,6 +8,8 @@ use App\Menu;
 use App\Slider;
 use Webwizo\Shortcodes\Facades\Shortcode;
 use Illuminate\Http\Request;
+use App\Mail\Message;
+use Illuminate\Support\Facades\Mail;
 
 class IndexController extends Controller
 {
@@ -163,34 +165,21 @@ class IndexController extends Controller
     {
         try {
             $data = [];
-            $title1 = lang('footer_our_philosophy');
-            $quote = hel_field('footer_quote');
-            $title2 = lang('about_our_company');
-            $image = file_store_url(hel_field('footer_image'));
-            $desc = hel_field('footer_desc');
-            $contactUs = lang('contact_us');
-            $address = lang('address');
-            $email = lang('email');
-            $phone = lang('phone');
-            $twitterUrl = hel_field('twitter_url');
-            $facebookUrl = hel_field('facebook_url');
-            $addressValue = hel_field('address');
-            $emailValue = hel_field('email');
-            $phoneValue = hel_field('phone');
-            $data['title1'] = $title1;
-            $data['quote'] = $quote;
-            $data['title2'] = $title2;
-            $data['image'] = $image;
-            $data['desc'] = $desc;
-            $data['contactUs'] = $contactUs;
-            $data['address'] = $address;
-            $data['email'] = $email;
-            $data['phone'] = $phone;
-            $data['twitterUrl'] = $twitterUrl;
-            $data['facebookUrl'] = $facebookUrl;
-            $data['addressValue'] = $addressValue;
-            $data['emailValue'] = $emailValue;
-            $data['phoneValue'] = $phoneValue;
+            $data['title1'] = lang('footer_our_philosophy');
+            $data['quote'] = hel_field('footer_quote');
+            $data['title2'] = lang('about_our_company');
+            $data['image'] = file_store_url(hel_field('footer_image'));
+            $data['desc'] = hel_field('footer_desc');
+            $data['contactUs'] = lang('contact_us');
+            $data['address'] = lang('address');
+            $data['email'] = lang('email');
+            $data['phone'] = lang('phone');
+            $data['twitterUrl'] = hel_field('twitter_url');
+            $data['facebookUrl'] = hel_field('facebook_url');
+            $data['addressValue'] = hel_field('address');
+            $data['emailValue'] = hel_field('email');
+            $data['phoneValue'] = hel_field('phone');
+            
             return response()->json([
                 'status' => true,
                 'data' => $data,
@@ -203,19 +192,44 @@ class IndexController extends Controller
         }
     }
 
-    public function sendMail(Request $request)
+    public function sendMessage(Request $request)
     {
         try {
-            dd($request->all());
             return response()->json([
                 'status' => true,
-                'data' => '',
+                'data' => $request->email,
             ]);
+            if($this->sendMail($request->all())) {
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Message successfully sent',
+                ]);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Message not sent',
+                ]);
+            }
         } catch (\Exception $e) {
             return response()->json([
                 'status' => false,
                 'message' => $e->getMessage(),
             ]);
         }
+    }
+
+    /**
+     * @param $request
+     * @return bool
+     */
+    protected function sendMail($request)
+    {
+        Mail::to(hel_field('email'))
+            ->send(new Message($request));
+
+        if(count(Mail::failures()) > 0) {
+            return false;
+        }
+        return true;
     }
 }

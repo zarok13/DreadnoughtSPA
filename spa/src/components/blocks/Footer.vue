@@ -113,11 +113,8 @@
                 <li style="color:red" v-for="(error, index) in errors" :key="index">{{ error }}</li>
               </ul>
               <form 
-                id="app"
                 class="customform text-white"
-                @submit="validateForm"
-                :action="apiUrl + '/footer'"
-                method="POST"
+                
               >
                 <div class="line">
                   <div class="margin">
@@ -134,6 +131,7 @@
                     <div class="s-12 m-12 l-6">
                       <input
                         name="name"
+                        v-model="name"
                         class="name border-radius"
                         placeholder="Your name"
                         title="Your name"
@@ -154,8 +152,7 @@
                 <div class="s-12">
                   <button
                     class="submit-form button background-primary border-radius text-white"
-                    type="submit"
-                  >Submit Button</button>
+                    @click.prevent="sendMessage()">Submit Button</button>
                 </div>
               </form>
             </div>
@@ -201,6 +198,7 @@ export default {
       errors: [],
       email: null,
       message: null,
+      name: null
     }
   },
   computed: {
@@ -213,10 +211,14 @@ export default {
     this.initData();
   },
   methods: {
-    validateForm(e) {
-      e.preventDefault();
+    sendMessage() {
+      if (!this.validateForm().length) {
+        var formData = {email: this.email, name: this.name, message: this.message}
+        this.send(formData);
+      }
+    },
+    validateForm() {
       this.errors = [];
-
       if (!this.email) {
         this.errors.push('Email required.');
       } else if (!this.validEmail(this.email)) {
@@ -226,36 +228,22 @@ export default {
       if (!this.message) {
         this.errors.push('Message required.');
       }
-
-
-      if (!this.errors.length) {
-        this.sendMail();
-      }
-
-      
+      return this.errors;
     },
     validEmail: function (email) {
       var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
     },
-    sendMail() {
-      this.$store.dispatch(SEND_MAIL);
+    send(formData) {
+      const dataForm = new FormData();
+      dataForm.append('email', formData.email);
+      dataForm.append('name', formData.name);
+      dataForm.append('message', formData.message);
+
+      this.$store.dispatch(SEND_MAIL, dataForm);
     },
     initData() {
-      footerData.title1 = this.getFooter.data.title1;
-      footerData.title2 = this.getFooter.data.title2;
-      footerData.quote = this.getFooter.data.quote;
-      footerData.image = this.getFooter.data.image;
-      footerData.desc = this.getFooter.data.desc;
-      footerData.contactUs = this.getFooter.data.contactUs;
-      footerData.address = this.getFooter.data.address;
-      footerData.addressValue = this.getFooter.data.addressValue;
-      footerData.email = this.getFooter.data.email;
-      footerData.emailValue = this.getFooter.data.emailValue;
-      footerData.phone = this.getFooter.data.phone;
-      footerData.phoneValue = this.getFooter.data.phoneValue;
-      footerData.twitterUrl = this.getFooter.data.twitterUrl;
-      footerData.facebookUrl = this.getFooter.data.facebookUrl;
+      this.footerData = this.getFooter.data;
     }
   }
 };

@@ -15,5 +15,5 @@ Route::group(['namespace' => 'API'], function () {
     Route::get('/blog_list', 'IndexController@blogList');
     Route::get('/footer', 'IndexController@getFooter');
 
-    Route::post('/send_mail', 'IndexController@sendMail');
+    Route::post('/send_message', 'IndexController@sendMessage');
 });

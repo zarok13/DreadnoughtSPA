@@ -1,6 +1,12 @@
 // check expire date
 export function checkExpireDate(parsedData) {
-    if (parsedData.expire_date > getTodayDate()) {
+    // convert to date format with Date constructor
+    var parts = parsedData.expire_date.split("-");
+    var expireDate = new Date(parts[2], parts[1] - 1, parts[0]);
+    parts = getTodayDate().split("-");
+    var todayDate = new Date(parts[2], parts[1] - 1, parts[0]);
+
+    if (expireDate > todayDate) {
         return true;
     }
     return false;

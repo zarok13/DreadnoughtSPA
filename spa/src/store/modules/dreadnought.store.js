@@ -132,21 +132,25 @@ const actions = {
             })
     },
     async [GET_FOOTER](state) {
-        await Axios.get(API_URL + '/footer')
-            .then(data => {
-                let footer = data.data
-                state.commit(SET_FOOTER, footer)
-            })
-            .catch(error => {
-                console.log(error);
-            })
+        if (await getDataFromLocalStorage(state, GET_FOOTER, SET_FOOTER)) {
+            console.log('footer parsed from local storage');
+        } else {
+            await Axios.get(API_URL + '/footer')
+                .then(data => {
+                    let footer = data.data
+                    state.commit(SET_FOOTER, footer)
+                    footer.expire_date = getExpireDate(2);
+                    localStorage.setItem(GET_FOOTER, JSON.stringify(footer));
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+        }
     },
-    [SEND_MAIL]() {
-        Axios.post(API_URL + '/send_mail', [])
-            .then((response) => {
-                // let intro = data.data
-                // state.commit(SET_INTRO2, intro)
-                console.log(response);
+    [SEND_MAIL](state, messageData) {
+        Axios.post(API_URL + '/send_message', messageData)
+            .then( data => {
+                console.log(data);
             })
             .catch(error => {
                 console.log(error);
