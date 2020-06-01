@@ -63,8 +63,14 @@
               <li>
                 <router-link class="nav-link" to="/">Home</router-link>
               </li>
+              
               <li v-for="(item, index) in getApiRoutes" v-bind:key="index" stagger="5000">
-                <router-link class="nav-link" :to="item.path">{{ item.name }}</router-link>
+                <span v-if="item.path !== '/null'">
+                  <router-link class="nav-link" :to="item.path">{{ item.name }}</router-link>
+                </span>
+                <span v-else>
+                  <a href="javascript:void(0)">{{ item.name }}</a>
+                </span>
               </li>
             </ul>
           </div>

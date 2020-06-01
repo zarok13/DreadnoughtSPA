@@ -10,6 +10,7 @@ use Webwizo\Shortcodes\Facades\Shortcode;
 use Illuminate\Http\Request;
 use App\Mail\Message;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\DB;
 
 class IndexController extends Controller
 {
@@ -24,10 +25,17 @@ class IndexController extends Controller
     public function menu(Menu $menu)
     {
         try {
-            $menu = $menu->select('menu.title', 'pages.slug', 'pages.page_type_id', 'pages.page_template_id', 'pages.lang_id')
+            $menu = $menu->select(
+                'menu.id', 
+                'menu.title', 
+                'pages.slug', 
+                'pages.page_type_id', 
+                'pages.page_template_id',
+                'menu.parent_id'
+            )
                 ->join('pages', 'pages.lang_id', '=', 'menu.page_id', 'left')
                 ->where('menu.lang', $this->lang)
-                ->where('pages.slug', '!=', null)
+                ->where('menu.title', '!=', 'Home')
                 ->orderBy('menu.sort', 'asc')
                 ->get()->toArray();
             foreach ($menu as $index => $item){
@@ -192,6 +200,10 @@ class IndexController extends Controller
         }
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function sendMessage(Request $request)
     {
         try {

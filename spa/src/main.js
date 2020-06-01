@@ -47,12 +47,15 @@ new Vue({
       if (item.page_type === 'gallery') {
         currentComponent = Gallery;
       }
-      let newRoute = {
-        path: `/${item.slug}`,
-        name: `${item.title}`,
+      if(item.slug !== null){
+        let newRoute = {
+          path: `/${item.slug}`,
+          name: `${item.title}`,
         component: currentComponent,
+        }
+        this.$router.addRoutes([newRoute])
       }
-      this.$router.addRoutes([newRoute])
+      
 
       this.$renderRoutes.push({
         name: `${item.title}`,
