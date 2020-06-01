@@ -247,6 +247,7 @@ export default {
       dataForm.append('name', formData.name);
       dataForm.append('text', formData.text);
       this.$store.commit(SET_LOADER, true);
+      //{email: 'test@test.com', name: 'fsdf', text: 'sdfdgdfhg'}
       await this.$store.dispatch(SEND_MAIL, dataForm);
       this.$store.commit(SET_LOADER, false)
     },
