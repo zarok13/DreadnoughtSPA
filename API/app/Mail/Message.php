@@ -28,9 +28,9 @@ class Message extends Mailable
      */
     public function build()
     {
-        return $this->view('site.applets.mails.contact')
+        return $this->view('admin.applets.api.mails.message')
             ->from($this->data['email'], hel_field('main_title'))
-            ->subject('Contact')
+            ->subject('Message')
             ->with($this->data);
     }
 }

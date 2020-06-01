@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 12, 2020 at 09:14 PM
+-- Generation Time: Jun 01, 2020 at 08:52 AM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.2.12
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `dreadnought`
+-- Database: `vue_spa`
 --
 
 -- --------------------------------------------------------
@@ -52,14 +52,12 @@ CREATE TABLE `articles` (
 --
 
 INSERT INTO `articles` (`id`, `lang`, `lang_id`, `slug`, `title`, `image`, `sub_title`, `desc`, `text`, `meta_desc`, `pin`, `visible`, `page_id`, `user_id`, `created_at`, `updated_at`) VALUES
-(1, 'en', 1, 'test', 'Test', 'images/eARWFP-LTbg.jpg', NULL, NULL, '<h3>hfhdfdfhgfgh df hfg hdf</h3>\r\n<ul>\r\n<li>dasdasd&nbsp;</li>\r\n<li>sgdfgsdfgd sdf gdsfg</li>\r\n<li>sdfgdfgdfg</li>\r\n<li>hfghfghghfg</li>\r\n</ul>', NULL, NULL, NULL, 2, 1, '2020-03-16 05:29:40', '2020-03-22 13:58:47'),
-(2, 'en', 2, 'dfgdfg2', 'te', 'images/product4.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 2, 1, '2020-03-16 05:30:21', '2020-03-19 04:44:20'),
-(3, 'en', 3, 'ert2', 'yrty', 'images/product3.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 2, 1, '2020-03-16 05:34:00', '2020-03-19 04:41:33'),
-(4, 'en', 4, 'asdfdf', 'fasdf', 'images/product2.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 2, 1, '2020-03-16 06:20:19', '2020-03-22 14:59:43'),
-(6, 'en', 5, 'sdfa-sdfasdfdfg-dfgfd-1', 'sdfa sdfasdfdfg dfgfd', 'images/product1.jpg', NULL, NULL, '<p>fsdfsdfg</p>', NULL, NULL, NULL, 2, 1, '2020-03-16 06:28:07', '2020-03-22 16:44:08'),
-(7, 'en', 7, 'service-1', 'Service 1', 'images/service1.jpg', NULL, NULL, '<p>safsadfsdfgsdfgsdfg</p>\r\n<ul>\r\n<li>gsdfgsd dsfg&nbsp;</li>\r\n<li>df gsdg sdf sdfgsdfg</li>\r\n<li>gjghjghj</li>\r\n</ul>', NULL, NULL, NULL, 3, 1, '2020-03-22 14:54:26', NULL),
-(8, 'en', 8, 'service-2', 'Service 2', 'images/service2.jpg', NULL, NULL, '<h3>gsdfg dg dfg fdgsdfgsd</h3>\r\n<ul>\r\n<li>gsdfgdsfg sd&nbsp;</li>\r\n<li>dsg sdfg sdg&nbsp;</li>\r\n</ul>', NULL, NULL, NULL, 3, 1, '2020-03-22 14:55:04', NULL),
-(9, 'en', 9, 'service-3', 'Service 3', 'images/service3.jpg', NULL, 'Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test', '<h3>dfgsdfgsdfgsdfgsdfsgdf gsdf</h3>\r\n<p>dfgsdfgfdgsdf</p>', NULL, NULL, NULL, 3, 1, '2020-03-22 14:55:46', '2020-03-22 16:38:46');
+(14, 'en', 1, 'blog-1', 'Blog 1', 'images/blog-01.jpg', NULL, NULL, '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut ornare risus. Sed condimentum elit lorem, ac varius lacus tincidunt sit amet. Morbi maximus tortor diam, id maximus enim tempus volutpat. Nullam quis ligula condimentum dui convallis accumsan. Cras consequat, sapien sit amet auctor rhoncus, orci nisi posuere velit, in aliquet ipsum dolor eu lorem. Sed in sagittis libero. Quisque a arcu quis lacus mattis dignissim eget id tellus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id velit scelerisque, fermentum enim eget, congue nisl. Nunc tempor nisl nibh, eget ultricies nulla egestas eget. Mauris sit amet vestibulum urna. Praesent mollis scelerisque gravida.</p>\r\n<p>Mauris sapien nulla, dictum et hendrerit a, tincidunt eget nisi. Maecenas eget purus enim. Morbi faucibus elit arcu, vel lobortis sapien eleifend in. Suspendisse non vehicula mi, at tempus velit. In sed ex suscipit, consectetur turpis et, maximus ante. Mauris eu mi quis ante hendrerit ultrices. Nullam semper, magna quis eleifend malesuada, magna sem commodo turpis, vel bibendum ligula neque ut augue. Morbi quis nibh sit amet dolor pellentesque pharetra. Donec bibendum mollis mi, euismod lacinia libero aliquet id. Duis commodo lectus non nulla consequat pretium. Phasellus tristique facilisis ipsum, sed dignissim mi dictum eu. Sed semper, enim quis posuere interdum, velit urna laoreet odio, quis dignissim leo sapien sit amet dui.</p>', NULL, NULL, NULL, 6, 1, '2020-05-08 06:06:49', NULL),
+(16, 'en', 15, 'blog-2', 'Blog 2', 'images/blog-02.jpg', NULL, NULL, '<p>Phasellus pulvinar lectus ullamcorper aliquet iaculis. Nam porttitor sagittis orci, vel ultrices purus finibus quis. Vivamus et magna semper, molestie ipsum ut, semper lectus. Integer bibendum malesuada odio, sed consectetur nisi porta id. Suspendisse quis mattis erat, a pulvinar lectus. Ut sit amet scelerisque magna, quis porta diam. Aliquam erat volutpat. Etiam laoreet nulla non diam gravida, vel accumsan justo tempus. Vestibulum eu convallis libero. Nam et metus orci. Vestibulum accumsan fringilla lorem fringilla viverra. Nam aliquet consequat quam, sit amet aliquam urna viverra sit amet.</p>\r\n<p>Cras bibendum vulputate gravida. Quisque euismod massa vitae est aliquet egestas. Vestibulum eget massa vulputate, blandit metus et, varius urna. Ut semper euismod ipsum, vitae tincidunt felis laoreet eu. Sed in fringilla lacus, ac semper justo. Integer sodales neque imperdiet, dictum dolor sit amet, finibus risus. Fusce a eleifend nulla. Sed in orci vitae neque viverra iaculis ac nec elit. Integer et turpis egestas tellus consequat gravida eu id dui. Curabitur quam augue, accumsan quis laoreet nec, imperdiet id quam. Donec sollicitudin sem purus, et iaculis turpis suscipit sit amet. Duis vel venenatis mauris. In hac habitasse platea dictumst.</p>', NULL, NULL, NULL, 6, 1, '2020-05-08 08:26:02', NULL),
+(17, 'en', 17, 'blog-3', 'Blog 3', 'images/blog-03.jpg', NULL, NULL, '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ut efficitur enim. Donec ac eleifend ante. Nunc volutpat porttitor mauris vel pulvinar. Nunc porta facilisis blandit. Mauris in ipsum nisl. Proin convallis lorem et sem tristique, ac ullamcorper lorem posuere. Nullam a erat eleifend, feugiat tortor sit amet, ornare quam. Aliquam vehicula et neque eu elementum.</p>\r\n<p>Etiam non mi ac urna finibus venenatis. Phasellus odio tellus, maximus et mi nec, suscipit volutpat massa. Curabitur sed dui lobortis sem vehicula egestas. Suspendisse in diam felis. Nulla facilisi. Nullam vitae consequat ex. Etiam interdum id arcu eu sodales. Cras in tellus id erat fermentum commodo nec eget diam. Proin enim orci, varius at diam vitae, tempus tincidunt mauris. Aliquam commodo id nulla nec varius.</p>', NULL, NULL, NULL, 6, 1, '2020-05-08 12:04:41', '2020-05-08 13:55:25'),
+(18, 'en', 18, 'blog-4', 'Blog 4', 'images/blog-04.jpg', NULL, NULL, 'Phasellus quis tincidunt odio, quis fringilla dui. Nunc lacus dolor, interdum a imperdiet ac, blandit vitae odio. Proin fermentum purus id velit posuere viverra. In quis sollicitudin ante. Maecenas eu egestas leo. Proin turpis nulla, placerat sit amet purus a, efficitur commodo urna. Sed accumsan vel nisl vitae elementum. Mauris nisi sapien, accumsan fringilla placerat eu, viverra ut ex. Pellentesque porttitor, ipsum volutpat sodales placerat, lacus odio efficitur nunc, eget fermentum elit nisl sit amet magna. Mauris porttitor sagittis euismod. Praesent porta sagittis est. Aenean tempus pretium pharetra. Suspendisse at erat ac erat malesuada pellentesque vel vitae purus.', NULL, NULL, NULL, 6, 1, '2020-05-08 14:19:07', NULL),
+(19, 'en', 19, 'blog-5', 'Blog 5', 'images/blog-05.jpg', NULL, NULL, 'Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Phasellus gravida pretium ipsum at euismod. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis urna lacinia, ultricies nisl vel, pellentesque ante. Nunc semper dui non ornare tincidunt. Curabitur sapien felis, imperdiet sit amet euismod ut, hendrerit sit amet leo. Morbi et fringilla justo. Mauris condimentum, risus ac posuere rutrum, sem ligula vulputate sem, ut ornare augue massa sit amet augue. Quisque commodo ultricies nunc nec iaculis. Morbi sagittis augue vel dictum venenatis. In eu lacus urna. Nunc convallis justo a velit fringilla vehicula. Morbi lobortis nibh nec est tempus ullamcorper.', NULL, NULL, NULL, 6, 1, '2020-05-08 14:20:10', NULL),
+(20, 'en', 20, 'blog-6', 'Blog 6', 'images/blog-06.jpg', NULL, NULL, 'Duis non facilisis urna. Ut ultrices enim non purus consectetur consectetur. Etiam venenatis dolor dolor, id sodales nunc pharetra tincidunt. Phasellus eget tellus tincidunt, suscipit tortor in, efficitur lacus. Maecenas et orci neque. Aliquam at enim pulvinar, suscipit sapien dapibus, rhoncus sem. Donec posuere leo sed mattis hendrerit. Integer mi tortor, vehicula nec elit sed, dignissim lacinia ante. In hac habitasse platea dictumst. Vestibulum rhoncus rhoncus dui, sollicitudin viverra arcu viverra eu. Phasellus pulvinar ac dolor vel vulputate. Fusce accumsan consectetur diam eget sodales. Curabitur id nisl ac libero bibendum dapibus et eu eros. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam viverra dictum euismod.', NULL, NULL, NULL, 6, 1, '2020-05-08 14:20:35', NULL);
 
 -- --------------------------------------------------------
 
@@ -84,19 +82,19 @@ CREATE TABLE `file_store` (
 --
 
 INSERT INTO `file_store` (`id`, `lang`, `title`, `src`, `type`, `user_id`, `sort`, `created_at`, `updated_at`) VALUES
-(1, 'en', NULL, 'images/9wlIcX6z3Fc.jpg', 'image', 1, 1, '2020-03-11 07:59:38', '2020-03-11 07:59:38'),
-(2, 'en', NULL, 'images/eARWFP-LTbg.jpg', 'image', 1, 1, '2020-03-11 08:00:49', '2020-03-11 08:00:49'),
-(4, 'en', NULL, 'images/product1.jpg', 'image', 1, 1, '2020-03-16 09:18:37', '2020-03-16 09:18:37'),
-(5, 'en', NULL, 'images/product2.jpg', 'image', 1, 1, '2020-03-19 04:31:28', '2020-03-19 04:31:28'),
-(6, 'en', NULL, 'images/product3.jpg', 'image', 1, 1, '2020-03-19 04:41:19', '2020-03-19 04:41:19'),
-(7, 'en', NULL, 'images/product4.jpg', 'image', 1, 1, '2020-03-19 04:44:15', '2020-03-19 04:44:15'),
-(8, 'en', NULL, 'images/service1.jpg', 'image', 1, 1, '2020-03-22 14:54:07', '2020-03-22 14:54:07'),
-(9, 'en', NULL, 'images/service2.jpg', 'image', 1, 1, '2020-03-22 14:54:07', '2020-03-22 14:54:07'),
-(10, 'en', NULL, 'images/service3.jpg', 'image', 1, 1, '2020-03-22 14:54:07', '2020-03-22 14:54:07'),
-(12, 'en', NULL, 'images/Penguins.jpg', 'image', 1, 1, '2020-03-22 16:50:44', '2020-03-22 16:50:44'),
-(13, 'en', NULL, 'images/slide1.png', 'image', 1, 1, '2020-04-12 13:58:30', '2020-04-12 13:58:30'),
-(14, 'en', NULL, 'images/testimonial1.jpg', 'image', 1, 1, '2020-04-12 14:58:17', '2020-04-12 14:58:17'),
-(15, 'en', NULL, 'images/testimonial2.jpg', 'image', 1, 1, '2020-04-12 14:58:21', '2020-04-12 14:58:21');
+(1, 'en', NULL, 'images/01-boxed.jpg', 'image', 1, 1, '2020-05-05 10:38:43', '2020-05-05 10:38:43'),
+(2, 'en', NULL, 'images/beaches_panoramic2.jpg', 'image', 1, 1, '2020-05-05 10:38:57', '2020-05-05 10:38:57'),
+(3, 'en', NULL, 'images/Tulips.jpg', 'image', 1, 1, '2020-05-06 10:07:22', '2020-05-06 10:07:22'),
+(4, 'en', NULL, 'images/img-01.jpg', 'image', 1, 1, '2020-05-06 15:46:39', '2020-05-06 15:46:39'),
+(5, 'en', NULL, 'images/img-02.jpg', 'image', 1, 1, '2020-05-06 15:46:40', '2020-05-06 15:46:40'),
+(6, 'en', NULL, 'images/img-03.jpg', 'image', 1, 1, '2020-05-06 15:46:40', '2020-05-06 15:46:40'),
+(7, 'en', NULL, 'images/bio.png', 'image', 1, 1, '2020-05-07 08:33:41', '2020-05-07 08:33:41'),
+(8, 'en', NULL, 'images/blog-01.jpg', 'image', 1, 1, '2020-05-08 05:59:33', '2020-05-08 05:59:33'),
+(9, 'en', NULL, 'images/blog-02.jpg', 'image', 1, 1, '2020-05-08 08:25:55', '2020-05-08 08:25:55'),
+(10, 'en', NULL, 'images/blog-03.jpg', 'image', 1, 1, '2020-05-08 12:04:34', '2020-05-08 12:04:34'),
+(11, 'en', NULL, 'images/blog-04.jpg', 'image', 1, 1, '2020-05-08 14:19:00', '2020-05-08 14:19:00'),
+(12, 'en', NULL, 'images/blog-05.jpg', 'image', 1, 1, '2020-05-08 14:20:06', '2020-05-08 14:20:06'),
+(13, 'en', NULL, 'images/blog-06.jpg', 'image', 1, 1, '2020-05-08 14:20:30', '2020-05-08 14:20:30');
 
 -- --------------------------------------------------------
 
@@ -127,7 +125,17 @@ INSERT INTO `helper_fields` (`id`, `lang`, `lang_id`, `keyword`, `value`, `descr
 (5, 'en', 5, 'email', 'test@test.com', 'Contact\'s Email address', 1, '2020-03-14 13:16:53', NULL),
 (6, 'en', 6, 'products_page_id', '2', 'Products page id', 1, '2020-03-16 06:57:22', NULL),
 (7, 'en', 7, 'services_page_id', '3', 'Services page ID', 1, '2020-03-22 16:11:20', NULL),
-(8, 'en', 8, 'main_title', 'Test Title', 'Project main title', 1, '2020-04-01 15:37:40', NULL);
+(8, 'en', 8, 'main_title', 'Test Title', 'Project main title', 1, '2020-04-01 15:37:40', NULL),
+(9, 'en', 9, 'intro1', '[intro1 image=\"img-01.jpg\" title=\"Clean Design\" desc=\"Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat.\"][/intro1] [intro1 image=\"img-02.jpg\" title=\"Valid code\" desc=\"Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat.\"][/intro1] [intro1 image=\"img-03.jpg\" title=\"Totally free\" desc=\"Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat.\"][/intro1]', 'Home page intro section 1', 3, '2020-05-06 10:07:56', '2020-05-07 07:52:35'),
+(10, 'en', 10, 'intro2', '[intro2 title=\"We are Web Design Heroes`\" desc=\"Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis\"][/intro2]', 'Home page intro section 2', 3, '2020-05-07 08:23:14', '2020-05-07 08:25:33'),
+(11, 'en', 11, 'intro3', '[intro3 image=\"bio.png\" title_part1=\"Fully\" title_highlighted=\"Responsive\" title_part2=\"HTML5 Template\" desc=\"Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis\"][/intro3]', 'Home page intro section 3', 3, '2020-05-07 08:43:20', '2020-05-08 08:10:58'),
+(12, 'en', 12, 'blog_page_id', '6', 'Blog page ID', 1, '2020-05-08 07:06:39', NULL),
+(13, 'en', 13, 'facebook_url', 'http://www.facebook.com/Google', 'facebook url', 1, '2020-05-29 07:06:49', '2020-05-29 08:53:53'),
+(14, 'en', 14, 'twitter_url', 'http://twitter.com', 'twitter url', 1, '2020-05-29 07:07:49', '2020-05-29 08:55:29'),
+(15, 'en', 15, 'instagram_url', 'instagram.com', 'instagram url', 1, '2020-05-29 07:17:08', NULL),
+(16, 'en', 16, 'footer_quote', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.', 'footer quote', 2, '2020-05-29 07:28:35', NULL),
+(17, 'en', 17, 'footer_desc', 'Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat.', 'footer description', 2, '2020-05-29 07:30:30', NULL),
+(18, 'en', 18, 'footer_image', 'images/blog-04.jpg', 'footer image', 4, '2020-05-29 08:25:42', NULL);
 
 -- --------------------------------------------------------
 
@@ -164,7 +172,12 @@ INSERT INTO `languages` (`id`, `lang`, `lang_id`, `keyword`, `value`, `hidden`, 
 (17, 'en', 17, 'name', 'Name', 0, '2020-04-05 05:09:36', NULL),
 (18, 'en', 18, 'email', 'Email', 0, '2020-04-05 05:09:44', NULL),
 (19, 'en', 19, 'mail_sent', 'Mail sent successfully', 0, '2020-04-05 05:14:36', NULL),
-(20, 'en', 20, 'reviews', 'Reviews', 0, '2020-04-12 14:37:07', NULL);
+(20, 'en', 20, 'reviews', 'Reviews', 0, '2020-04-12 14:37:07', NULL),
+(21, 'en', 21, 'intro_section3_bottom_text', 'Try resize your browser window', 0, '2020-05-07 08:48:34', NULL),
+(22, 'en', 22, 'footer_our_philosophy', 'OUR PHILOSOPHY', 0, '2020-05-29 07:25:23', NULL),
+(23, 'en', 23, 'about_our_company', 'ABOUT OUR COMPANY', 0, '2020-05-29 07:27:23', NULL),
+(24, 'en', 24, 'contact_us', 'Contact Us', 0, '2020-05-29 08:44:48', NULL),
+(25, 'en', 25, 'phone', 'Phone', 0, '2020-05-29 08:47:48', NULL);
 
 -- --------------------------------------------------------
 
@@ -241,11 +254,10 @@ CREATE TABLE `menu` (
 --
 
 INSERT INTO `menu` (`id`, `lang`, `lang_id`, `title`, `main`, `page_id`, `parent_id`, `hidden`, `sort`, `created_at`, `updated_at`) VALUES
-(17, 'en', 16, 'Services', 0, 3, NULL, 0, 3, NULL, '2020-03-22 15:52:42'),
 (18, 'en', 18, 'Products', 0, 2, NULL, 0, 2, NULL, '2020-03-19 04:43:21'),
 (20, 'en', 20, 'Contacts', 0, 5, NULL, 0, 4, NULL, '2020-03-25 08:00:02'),
 (23, 'en', 23, 'Home', 1, NULL, NULL, 0, 1, NULL, NULL),
-(25, 'en', 24, 'About Us', 0, 1, NULL, 0, 5, NULL, '2020-04-07 16:36:40');
+(25, 'en', 24, 'About Us', 0, 1, NULL, 0, 3, NULL, '2020-04-07 16:36:40');
 
 -- --------------------------------------------------------
 
@@ -313,9 +325,9 @@ CREATE TABLE `pages` (
 
 INSERT INTO `pages` (`id`, `lang`, `lang_id`, `slug`, `title`, `desc`, `text`, `main_image`, `hidden`, `sort`, `user_id`, `page_type_id`, `page_template_id`, `created_at`, `updated_at`) VALUES
 (1, 'en', 1, 'about_us', 'About', NULL, '<h3 style=\"text-align: left;\"><span style=\"font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; text-align: justify; background-color: #ffffff;\">&nbsp; &nbsp; &nbsp;Sed id lacinia nibh. Maecenas sit amet venenatis dolor. Curabitur congue consectetur tellus in fermentum. Cras ac aliquet sem, vitae dapibus quam. Sed ultricies fermentum leo vitae volutpat. Vivamus condimentum, purus vel maximus fringilla, lacus lorem posuere orci, in dapibus ipsum diam eu eros. Proin velit orci, congue ac tincidunt a, bibendum et libero.</span></h3>\r\n<p style=\"text-align: left;\">&nbsp; &nbsp; &nbsp; Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sollicitudin gravida tellus, vel hendrerit lectus sagittis semper. Nunc vitae rutrum tortor. Maecenas sollicitudin varius mauris, nec commodo ipsum mattis vitae. Curabitur efficitur nulla at scelerisque iaculis. Mauris id urna neque. Nullam eget placerat ante. In tempus felis at dapibus molestie. Duis porta, urna non mattis vestibulum, nulla quam auctor nibh, in sagittis ipsum lectus vel ligula. Ut mi quam, ullamcorper vel nisl sed, iaculis varius lectus. Maecenas posuere, enim finibus fermentum ornare, eros ligula ornare libero, vel interdum odio dui non eros. Proin feugiat nunc at est auctor feugiat.</p>\r\n<ul>\r\n<li style=\"text-align: left;\">one</li>\r\n<li style=\"text-align: left;\">two</li>\r\n<li style=\"text-align: left;\">three</li>\r\n</ul>\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; background-color: #ffffff;\">&nbsp;</p>', 'images/Penguins.jpg', 0, 4, 1, 0, 0, NULL, '2020-03-22 16:50:49'),
-(2, 'en', 2, 'products', 'Products', NULL, NULL, NULL, 0, 1, 1, 1, 1, NULL, '2020-03-22 15:07:10'),
-(4, 'en', 3, 'services', 'Services', NULL, NULL, NULL, 0, 2, 1, 1, 2, NULL, NULL),
-(5, 'en', 5, 'contacts', 'Contacts', NULL, NULL, NULL, 0, 3, 1, 2, 0, NULL, NULL);
+(2, 'en', 2, 'products', 'Products', NULL, NULL, NULL, 0, 2, 1, 1, 1, NULL, '2020-03-22 15:07:10'),
+(5, 'en', 5, 'contacts', 'Contacts', NULL, NULL, NULL, 0, 3, 1, 2, 0, NULL, NULL),
+(7, 'en', 6, 'blog', 'Blog', NULL, NULL, NULL, 0, 1, 1, 1, 2, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -376,7 +388,7 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `title`, `permissions`, `created_at`, `updated_at`) VALUES
-(1, 'administrator', '{\"menu\":{\"1\":\"1\",\"2\":\"1\",\"3\":\"1\",\"4\":\"1\",\"5\":\"1\",\"6\":\"1\",\"7\":\"1\",\"8\":\"1\"},\"pages\":{\"1\":\"1\",\"2\":\"1\",\"3\":\"1\",\"4\":\"1\",\"5\":\"1\",\"6\":\"1\",\"7\":\"1\",\"8\":\"1\",\"9\":\"1\",\"10\":\"1\"},\"sliders\":{\"1\":\"1\",\"2\":\"1\",\"3\":\"1\",\"4\":\"1\",\"5\":\"1\",\"6\":\"1\",\"7\":\"1\",\"8\":\"1\"},\"reviews\":{\"1\":\"1\",\"2\":\"1\",\"3\":\"1\",\"4\":\"1\",\"5\":\"1\",\"6\":\"1\",\"7\":\"1\",\"8\":\"1\"},\"articles\":{\"1\":\"1\",\"2\":\"1\",\"3\":\"1\",\"4\":\"1\",\"5\":\"1\",\"6\":\"1\",\"7\":\"1\"},\"contact\":{\"1\":\"1\",\"2\":\"1\",\"3\":\"1\",\"4\":\"1\",\"5\":\"1\"},\"file_store\":{\"1\":\"1\",\"2\":\"1\",\"3\":\"1\"},\"languages\":{\"1\":\"1\",\"2\":\"1\",\"3\":\"1\",\"4\":\"1\",\"5\":\"1\",\"6\":\"1\",\"7\":\"1\"},\"helper_fields\":{\"1\":\"1\",\"2\":\"1\",\"3\":\"1\",\"4\":\"1\",\"5\":\"1\",\"6\":\"1\",\"7\":\"1\"}}', '2019-08-07 16:06:20', '2020-04-12 14:54:06');
+(1, 'administrator', '{\"menu\":{\"1\":\"1\",\"2\":\"1\",\"3\":\"1\",\"4\":\"1\",\"5\":\"1\",\"6\":\"1\",\"7\":\"1\",\"8\":\"1\"},\"pages\":{\"1\":\"1\",\"2\":\"1\",\"3\":\"1\",\"4\":\"1\",\"5\":\"1\",\"6\":\"1\",\"7\":\"1\",\"8\":\"1\",\"9\":\"1\",\"10\":\"0\"},\"sliders\":{\"1\":\"1\",\"2\":\"1\",\"3\":\"1\",\"4\":\"1\",\"5\":\"1\",\"6\":\"1\",\"7\":\"1\",\"8\":\"1\"},\"reviews\":{\"1\":\"1\",\"2\":\"1\",\"3\":\"1\",\"4\":\"1\",\"5\":\"1\",\"6\":\"1\",\"7\":\"1\",\"8\":\"1\"},\"articles\":{\"1\":\"1\",\"2\":\"1\",\"3\":\"1\",\"4\":\"1\",\"5\":\"1\",\"6\":\"1\",\"7\":\"1\"},\"contact\":{\"1\":\"1\",\"2\":\"1\",\"3\":\"1\",\"4\":\"1\",\"5\":\"1\"},\"file_store\":{\"1\":\"1\",\"2\":\"1\",\"3\":\"1\"},\"languages\":{\"1\":\"1\",\"2\":\"1\",\"3\":\"1\",\"4\":\"1\",\"5\":\"1\",\"6\":\"1\",\"7\":\"1\"},\"helper_fields\":{\"1\":\"1\",\"2\":\"1\",\"3\":\"1\",\"4\":\"1\",\"5\":\"1\",\"6\":\"1\",\"7\":\"1\"}}', '2019-08-07 16:06:20', '2020-05-21 11:05:46');
 
 -- --------------------------------------------------------
 
@@ -405,8 +417,8 @@ CREATE TABLE `sliders` (
 --
 
 INSERT INTO `sliders` (`id`, `lang`, `lang_id`, `title`, `sub_title`, `desc`, `src`, `url`, `position`, `visible`, `sort`, `created_at`, `updated_at`) VALUES
-(1, 'en', 1, 'Slider one', 'Slider sub title one', 'Slider description one ...', 'images/slide1.png', 'http://google.com', 1, 1, 2, NULL, NULL),
-(2, 'en', 2, 'Lorem Ipsum', NULL, '<h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h3>\r\n<ul>\r\n<li>- sdf sd sdf;</li>\r\n<li>- sdgdfgdf gdf g;</li>\r\n<li>- gsdfgsdfgdf gdf d dsf gdfg df;</li>\r\n<li>- sahdsf&nbsp; sdfgsdf&nbsp; &nbsp;sdhfsdfsddfgfdg;</li>\r\n<li>- fsdf fdgfdg dgf gf hgfh fghdgh;</li>\r\n</ul>', 'images/slide1.png', 'http://google.com', 1, 1, 1, NULL, '2020-04-12 14:33:17');
+(1, 'en', 1, 'Slider one', 'Slider sub title one', '<p>Slider description one ...</p>', 'images/beaches_panoramic2.jpg', 'http://google.com', 1, 1, 1, NULL, '2020-05-05 11:01:20'),
+(2, 'en', 2, 'Lorem Ipsum', 'Slider sub title two', '<h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h3>', 'images/01-boxed.jpg', 'http://google.com', 1, 1, 2, NULL, '2020-05-05 10:39:16');
 
 -- --------------------------------------------------------
 
@@ -562,25 +574,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `articles`
 --
 ALTER TABLE `articles`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `file_store`
 --
 ALTER TABLE `file_store`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `helper_fields`
 --
 ALTER TABLE `helper_fields`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `languages`
 --
 ALTER TABLE `languages`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `map_coordinates`
@@ -598,7 +610,7 @@ ALTER TABLE `markers`
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -610,7 +622,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `pages`
 --
 ALTER TABLE `pages`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `reviews`

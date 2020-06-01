@@ -23,6 +23,7 @@ const SET_INTRO1 = 'setIntro1'
 const SET_INTRO2 = 'setIntro2'
 const SET_INTRO3 = 'setIntro3'
 const SET_FOOTER = 'setFooter'
+export const SET_LOADER = 'setLoader'
 
 // init app state
 const state = {
@@ -34,6 +35,7 @@ const state = {
     blogPart2: [],
     apiRoutes: [],
     footer: [],
+    loader: false,
 }
 
 // init app getters
@@ -61,6 +63,9 @@ const getters = {
     },
     getFooter(state) {
         return state.footer;
+    },
+    getLoader(state) {
+        return state.loader;
     },
 }
 
@@ -147,10 +152,10 @@ const actions = {
                 })
         }
     },
-    [SEND_MAIL](state, messageData) {
-        Axios.post(API_URL + '/send_message', messageData)
+    async [SEND_MAIL](state, messageData) {
+        await Axios.post(API_URL + '/send_message', messageData)
             .then( data => {
-                console.log(data);
+                console.log(data.data);
             })
             .catch(error => {
                 console.log(error);
@@ -182,6 +187,9 @@ const mutations = {
     [SET_FOOTER](state, footer) {
         state.footer = footer;
     },
+    [SET_LOADER](state, value) {
+        state.loader = value;
+    }
 }
 
 export default {

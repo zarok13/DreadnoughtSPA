@@ -195,10 +195,6 @@ class IndexController extends Controller
     public function sendMessage(Request $request)
     {
         try {
-            return response()->json([
-                'status' => true,
-                'data' => $request->email,
-            ]);
             if($this->sendMail($request->all())) {
                 return response()->json([
                     'status' => true,

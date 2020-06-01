@@ -112,6 +112,9 @@
               <ul>
                 <li style="color:red" v-for="(error, index) in errors" :key="index">{{ error }}</li>
               </ul>
+              <div class="lds-ring" v-if="getLoader">
+                <h2 style="color:yellow">Sending...</h2>
+              </div>
               <form 
                 class="customform text-white"
                 
@@ -142,8 +145,8 @@
                 </div>
                 <div class="s-12">
                   <textarea
-                    name="message"
-                    v-model="message"
+                    name="text"
+                    v-model="text"
                     class="required message border-radius"
                     placeholder="Your message"
                     rows="3"
@@ -186,7 +189,7 @@
   </div>
 </template>
 <script>
-import { API_URL, GET_FOOTER, SEND_MAIL } from "../../store/modules/dreadnought.store";
+import { API_URL, GET_FOOTER, SEND_MAIL, SET_LOADER } from "../../store/modules/dreadnought.store";
 import { footerData } from "../../_data_models/footer_model";
 
 export default {
@@ -197,13 +200,17 @@ export default {
       footerData: footerData,
       errors: [],
       email: null,
-      message: null,
-      name: null
+      text: null,
+      name: null,
+      loading: false
     }
   },
   computed: {
     getFooter: function() {
       return this.$store.getters.getFooter;
+    },
+     getLoader: function() {
+      return this.$store.getters.getLoader;
     },
   },
   async mounted() {
@@ -213,7 +220,7 @@ export default {
   methods: {
     sendMessage() {
       if (!this.validateForm().length) {
-        var formData = {email: this.email, name: this.name, message: this.message}
+        var formData = {email: this.email, name: this.name, text: this.text}
         this.send(formData);
       }
     },
@@ -225,7 +232,7 @@ export default {
         this.errors.push('Valid email required.');
       }
 
-      if (!this.message) {
+      if (!this.text) {
         this.errors.push('Message required.');
       }
       return this.errors;
@@ -234,13 +241,14 @@ export default {
       var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
     },
-    send(formData) {
+    async send(formData) {
       const dataForm = new FormData();
       dataForm.append('email', formData.email);
       dataForm.append('name', formData.name);
-      dataForm.append('message', formData.message);
-
-      this.$store.dispatch(SEND_MAIL, dataForm);
+      dataForm.append('text', formData.text);
+      this.$store.commit(SET_LOADER, true);
+      await this.$store.dispatch(SEND_MAIL, dataForm);
+      this.$store.commit(SET_LOADER, false)
     },
     initData() {
       this.footerData = this.getFooter.data;
