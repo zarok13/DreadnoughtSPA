@@ -18,11 +18,11 @@ new Vue({
   store,
   methods: {
     getDynamicRoutes() {
-      if (localStorage[GET_API_ROUTES] && localStorage[GET_API_ROUTES] !== 'undefined') {
-        let parsedData = JSON.parse(localStorage[GET_API_ROUTES]);
-        this.processData(parsedData);
-        console.log('routes parsed from local storage');
-      } else {
+      // if (localStorage[GET_API_ROUTES] && localStorage[GET_API_ROUTES] !== 'undefined') {
+      //   let parsedData = JSON.parse(localStorage[GET_API_ROUTES]);
+      //   this.processData(parsedData);
+      //   console.log('routes parsed from local storage');
+      // } else {
         Axios.get(API_URL + '/menu')
           .then(data => {
             this.processData(data);
@@ -31,7 +31,7 @@ new Vue({
           .catch(error => {
             console.log(error);
           })
-      }
+      // }
     },
     processData(data) {
       data.data.data.forEach(this.createAndAppendRoute)
@@ -53,14 +53,23 @@ new Vue({
             path: `/${item.slug}`,
             name: `${item.title}`,
           component: currentComponent,
-          }
+          };
           this.$router.addRoutes([newRoute])
         }
         
-        this.$renderRoutes.push({
-          name: `${item.title}`,
-          path: `/${item.slug}`
-        })
+
+        if (item.sub_menu !== 'undefined') {
+          this.$renderRoutes.push({
+            name: `${item.title}`,
+            path: `/${item.slug}`,
+            sub_menu: `${item.sub_menu}`,
+          });
+        } else {
+          this.$renderRoutes.push({
+            name: `${item.title}`,
+            path: `/${item.slug}`
+          });
+        }
       }
     }
   },

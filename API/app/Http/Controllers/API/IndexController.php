@@ -26,10 +26,10 @@ class IndexController extends Controller
     {
         try {
             $menu = $menu->select(
-                'menu.id', 
-                'menu.title', 
-                'pages.slug', 
-                'pages.page_type_id', 
+                'menu.id',
+                'menu.title',
+                'pages.slug',
+                'pages.page_type_id',
                 'pages.page_template_id',
                 'menu.parent_id'
             )
@@ -41,18 +41,17 @@ class IndexController extends Controller
 
 
             foreach ($menu as $index => $item) {
-                if( is_numeric($item['page_type_id']) ){
+                if (is_numeric($item['page_type_id'])) {
                     $menu[$index]['page_type'] = setting('pageTypes')[$item['page_type_id']];
                     $menu[$index]['page_template'] = setting('pageTemplates')[$item['page_type_id']][$item['page_template_id']];
                     unset($menu[$index]['page_type_id']);
                     unset($menu[$index]['page_template_id']);
-                 }
+                }
             }
-             foreach ($menu as $index => $item) {
-                foreach ($menu as  $index2 => $value) {
-                    if($value['parent_id'] == $item['id']){
-                        $menu[$index]['sum_menu'] = $value;
-                        $menu[$index2] = null;
+            foreach ($menu as $index => $item) {
+                foreach ($menu as $index2 => $value) {
+                    if ($value['parent_id'] == $item['id']) {
+                        $menu[$index]['sub_menu'] = $value;
                     }
                 }
             }
@@ -155,12 +154,12 @@ class IndexController extends Controller
             $part2 = [];
             $blogList = Article::where('page_id', hel_field('blog_page_id'))->orderBy('created_at', 'desc')->limit(6)->get()->toArray();
             foreach ($blogList as $index => $blog) {
-                if($index % 2 == 0){
+                if ($index % 2 == 0) {
                     $part1[$index] = $blog;
-                    $part1[$index]['text'] = trimText($part1[$index]['text'],100);
+                    $part1[$index]['text'] = trimText($part1[$index]['text'], 100);
                 } else {
                     $part2[$index] = $blog;
-                    $part2[$index]['text'] = trimText($part2[$index]['text'],100);
+                    $part2[$index]['text'] = trimText($part2[$index]['text'], 100);
                 }
             }
             return response()->json([
@@ -197,7 +196,7 @@ class IndexController extends Controller
             $data['addressValue'] = hel_field('address');
             $data['emailValue'] = hel_field('email');
             $data['phoneValue'] = hel_field('phone');
-            
+
             return response()->json([
                 'status' => true,
                 'data' => $data,
@@ -217,7 +216,7 @@ class IndexController extends Controller
     public function sendMessage(Request $request)
     {
         try {
-            if($this->sendMail($request->all())) {
+            if ($this->sendMail($request->all())) {
                 return response()->json([
                     'status' => true,
                     'message' => 'Message successfully sent',
@@ -245,7 +244,7 @@ class IndexController extends Controller
         Mail::to(hel_field('email'))
             ->send(new Message($request));
 
-        if(count(Mail::failures()) > 0) {
+        if (count(Mail::failures()) > 0) {
             return false;
         }
         return true;
