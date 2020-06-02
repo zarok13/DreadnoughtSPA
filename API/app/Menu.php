@@ -67,4 +67,10 @@ class Menu extends ChildModel
     public function page() {
         return $this->belongsTo('App\Page', 'page_id');
     }
+
+
+    public function getParent($parentID) 
+    {
+        return $this->select('lang_id', 'title')->where('id', $parentID)->first();
+    }
 }

@@ -38,12 +38,22 @@ class IndexController extends Controller
                 ->where('menu.title', '!=', 'Home')
                 ->orderBy('menu.sort', 'asc')
                 ->get()->toArray();
-            foreach ($menu as $index => $item){
+
+
+            foreach ($menu as $index => $item) {
                 if( is_numeric($item['page_type_id']) ){
                     $menu[$index]['page_type'] = setting('pageTypes')[$item['page_type_id']];
                     $menu[$index]['page_template'] = setting('pageTemplates')[$item['page_type_id']][$item['page_template_id']];
                     unset($menu[$index]['page_type_id']);
                     unset($menu[$index]['page_template_id']);
+                 }
+            }
+             foreach ($menu as $index => $item) {
+                foreach ($menu as  $index2 => $value) {
+                    if($value['parent_id'] == $item['id']){
+                        $menu[$index]['sum_menu'] = $value;
+                        $menu[$index2] = null;
+                    }
                 }
             }
             return response()->json([

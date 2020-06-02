@@ -17,17 +17,33 @@
                         <tr>
                             <th>Sort</th>
                             <th>Title</th>
+                            <th>Parent</th>
                         </tr>
                         </thead>
                         <tbody id="sortable" style="cursor: pointer;" data-url="{{ route($moduleName.'.sort') }}">
                         @foreach($items as $item)
                             <tr id="{{$item->lang_id}}" class="ui-state-default">
                                 <td><i class="fas fa-arrows-alt fa-lg"></i> <span
-                                            style="opacity: 0">{{ $item->sort }}</span></td>
+                                            style="opacity: 0">{{ $item->sort }}</sp>
+                                </td>        
+                                <td>
+                                    {{ $item->title }}
+                                </td>
                                 <td>
                                     <div style="position:relative">
-                                        {{ $item->title }}
-                                        <div class="hideOnMove" style="position:absolute; top:-6px; right:0px;">
+                                        @if( $item->parent_id != null)
+                                        @php 
+                                            $parent = $item->getParent($item->parent_id);
+                                        @endphp
+                                         <div class="hideOnMove" style="position:absolute; top:-6px">
+                                        <a href="{{ route($moduleName.'.edit', $parent->lang_id) }}">
+                                                <span class="btn btn-warning" style="font-size: 12px;">
+                                                    {{$parent->title}}
+                                                </span>
+                                            </a>
+                                        </div>
+                                        @endif
+                                        <div class="hideOnMove" style="position:absolute; top:-6px; right:0px;">               
                                             <a href="{{ route($moduleName.'.edit', $item->lang_id) }}">
                                                 <span class="btn btn-warning">
                                                     <i class="fas fa-edit"></i>
@@ -42,6 +58,7 @@
                                         </div>
                                     </div>
                                 </td>
+                                
                             </tr>
                         @endforeach
                         </tbody>
@@ -49,6 +66,7 @@
                         <tr>
                             <th>Sort</th>
                             <th>Title</th>
+                            <th>Parent</th>
                         </tr>
                         </tfoot>
                     </table>

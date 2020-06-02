@@ -38,35 +38,37 @@ new Vue({
     },
     createAndAppendRoute(item) {
       let currentComponent = About;
-      if (item.page_template === 'products') {
-        currentComponent = Product;
-      }
-      if (item.page_type === 'contact') {
-        currentComponent = Contact;
-      }
-      if (item.page_type === 'gallery') {
-        currentComponent = Gallery;
-      }
-      if(item.slug !== null){
-        let newRoute = {
-          path: `/${item.slug}`,
-          name: `${item.title}`,
-        component: currentComponent,
+      if(item !== null){
+         if (item.page_template === 'products') {
+            currentComponent = Product;
         }
-        this.$router.addRoutes([newRoute])
+        if (item.page_type === 'contact') {
+          currentComponent = Contact;
+        }
+        if (item.page_type === 'gallery') {
+          currentComponent = Gallery;
+        }
+        if(item.slug !== null){
+          let newRoute = {
+            path: `/${item.slug}`,
+            name: `${item.title}`,
+          component: currentComponent,
+          }
+          this.$router.addRoutes([newRoute])
+        }
+        
+        this.$renderRoutes.push({
+          name: `${item.title}`,
+          path: `/${item.slug}`
+        })
       }
-      
-
-      this.$renderRoutes.push({
-        name: `${item.title}`,
-        path: `/${item.slug}`
-      })
     }
   },
   created() {
     this.getDynamicRoutes()
   },
   mounted() {
+    console.log( this.$renderRoutes);
     this.$store.dispatch(GET_API_ROUTES, this.$renderRoutes)
   }
 }).$mount('#app')
