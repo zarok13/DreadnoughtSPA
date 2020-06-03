@@ -52,17 +52,20 @@ new Vue({
           let newRoute = {
             path: `/${item.slug}`,
             name: `${item.title}`,
-          component: currentComponent,
+            component: currentComponent,
           };
           this.$router.addRoutes([newRoute])
         }
-        
 
         if (item.sub_menu !== 'undefined') {
+          console.log(item.sub_menu.title);
           this.$renderRoutes.push({
             name: `${item.title}`,
             path: `/${item.slug}`,
-            sub_menu: `${item.sub_menu}`,
+            sub_menu: {
+              name: `${item.sub_menu}`,
+              path: `/${item.sub_menu}`,
+            },
           });
         } else {
           this.$renderRoutes.push({
