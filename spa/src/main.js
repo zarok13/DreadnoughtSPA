@@ -84,15 +84,12 @@ new Vue({
                     this.$router.addRoutes([newRoute])
                 }
             }
-
-
         }
     },
     created() {
         this.getDynamicRoutes()
     },
     mounted() {
-        console.log(this.$renderRoutes);
         this.$store.dispatch(GET_API_ROUTES, this.$renderRoutes)
     }
 }).$mount('#app')
