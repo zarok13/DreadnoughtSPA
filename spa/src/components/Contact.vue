@@ -124,6 +124,11 @@
 <!--      </div>-->
       <!-- MAP -->
       <div class="s-12 grayscale center">
+        <div id="map" class="map" width="100%" height="450">
+          <MglMap :accessToken="accessToken" :mapStyle="mapStyle" />
+        </div>
+        
+
 <!--        <iframe-->
 <!--          src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1459734.5702753505!2d16.91089086619977!3d48.577103681657675!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ssk!2ssk!4v1457640551761"-->
 <!--          width="100%"-->
@@ -133,11 +138,13 @@
 <!--        ></iframe>-->
       </div>
     </main>
-
+<div style="margin-top: 300px"></div>
     <Footer />
   </div>
 </template>
 <script>
+import Mapbox from "mapbox-gl";
+import { MglMap } from "vue-mapbox";
 import Header from "../components/blocks/Header";
 import Footer from "../components/blocks/Footer";
 
@@ -145,13 +152,18 @@ export default {
   name: "contact",
   components: {
     Header,
-    Footer
+    Footer,
+    MglMap
+  },
+  data() {
+    return {
+      accessToken: "pk.eyJ1IjoiemFyb2siLCJhIjoiY2s4Njl5eHpxMDA3dTNubGs5ZDh6ZjJyciJ9.9KM0OsYdbSC3KzlF2tjUEw",
+      mapStyle: "mapbox://styles/mapbox/streets-v9"
+    };
+  },
+  created() {
+    this.mapbox = Mapbox;
   }
-  // data() {
-  //   return {
-  //     title: "Contact"
-  //   };
-  // }
 };
 </script>
 <style scoped>
