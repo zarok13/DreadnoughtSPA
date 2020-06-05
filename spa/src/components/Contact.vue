@@ -118,7 +118,7 @@
               <span>Hello world!</span>
             </Mgl -->Popup>
             <MglMarker :coordinates="markerCoordinates" color="green" >
-              <span slot="marker">mdi-map-marker</span>
+<!--              <span slot="marker">mdi-map-marker</span>-->
             </MglMarker>
           </MglMap>
     </main>
