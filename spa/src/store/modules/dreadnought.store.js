@@ -14,6 +14,7 @@ export const GET_INTRO2 = 'getIntro2'
 export const GET_INTRO3 = 'getIntro3'
 export const GET_FOOTER = 'getFooter'
 export const SEND_MAIL = 'sendMail'
+export const GET_MAPBOX_DATA = 'getMapboxData'
 
 // define app store mutations names
 const SET_API_ROUTES = 'setApiRoutes'
@@ -24,6 +25,7 @@ const SET_INTRO2 = 'setIntro2'
 const SET_INTRO3 = 'setIntro3'
 const SET_FOOTER = 'setFooter'
 export const SET_LOADER = 'setLoader'
+const SET_MAPBOX_DATA = 'setMapboxDate'
 
 // init app state
 const state = {
@@ -36,6 +38,7 @@ const state = {
     apiRoutes: [],
     footer: [],
     loader: false,
+    mapboxData: [],
 }
 
 // init app getters
@@ -66,6 +69,9 @@ const getters = {
     },
     getLoader(state) {
         return state.loader;
+    },
+    getMapbox(state) {
+        return state.mapboxData;
     },
 }
 
@@ -161,6 +167,22 @@ const actions = {
                 console.log(error);
             })
     },
+     async [GET_MAPBOX_DATA](state) {
+        if (await getDataFromLocalStorage(state, GET_MAPBOX_DATA, SET_MAPBOX_DATA)) {
+            console.log('mapbox parsed from local storage');
+        } else {
+             await Axios.get(API_URL + '/mapbox')
+                .then(data => {
+                    let mapbox = data.data
+                    state.commit(SET_MAPBOX_DATA, mapbox)
+                    mapbox.expire_date = getExpireDate(2);
+                    localStorage.setItem(GET_MAPBOX_DATA, JSON.stringify(mapbox));
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+        }
+    },
 }
 
 // app store mutations
@@ -189,6 +211,9 @@ const mutations = {
     },
     [SET_LOADER](state, value) {
         state.loader = value;
+    },
+    [SET_MAPBOX_DATA](state, mapbox) {
+        state.mapboxData = mapbox;
     }
 }
 

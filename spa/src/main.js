@@ -14,7 +14,6 @@ Vue.config.productionTip = false
 Vue.prototype.$renderRoutes = [];
 
 
-
 new Vue({
     render: h => h(App),
     router,

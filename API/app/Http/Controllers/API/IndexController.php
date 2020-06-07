@@ -6,6 +6,8 @@ namespace App\Http\Controllers\API;
 use App\Article;
 use App\Menu;
 use App\Slider;
+use App\MapCoordinate;
+use App\Marker;
 use Webwizo\Shortcodes\Facades\Shortcode;
 use Illuminate\Http\Request;
 use App\Mail\Message;
@@ -200,6 +202,29 @@ class IndexController extends Controller
             return response()->json([
                 'status' => true,
                 'data' => $data,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage(),
+            ]);
+        }
+    }
+
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function mapbox()
+    {
+        try {
+            $contactID = hel_field('contact_id');
+            $mapCoordinates = MapCoordinate::select('lat', 'lng', 'zoom')->where('page_id', $contactID)->first();
+            $markers = Marker::select('lat', 'lng')->lang()->where('page_id', $contactID)->get();
+            $mapboxData['mapCoordinates'] = $mapCoordinates;
+            $mapboxData['markers'] = $markers;
+            return response()->json([
+                'status' => true,
+                'data' => $mapboxData,
             ]);
         } catch (\Exception $e) {
             return response()->json([

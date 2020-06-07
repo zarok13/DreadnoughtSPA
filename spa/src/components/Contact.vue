@@ -106,34 +106,33 @@
         </div>
       </article>
       <!-- MAP -->
-      <MglMap 
-          :accessToken="accessToken" 
-          :mapStyle="mapStyle"
+      <div id="map">
+         <MglMap
+          :accessToken="accessToken"
+          :mapStyle.sync="mapStyle"
           @load="onMapLoaded"
           :attributionControl="false"
-          >
-
-            <MglScaleControl />
-            <!-- <MglPopup :coordinates="markerCoordinates">
-              <span>Hello world!</span>
-            </Mgl -->Popup>
-            <MglMarker :coordinates="markerCoordinates" color="green" >
-<!--              <span slot="marker">mdi-map-marker</span>-->
-            </MglMarker>
-          </MglMap>
+          :scrollZoom="false"
+        >
+    <MglMarker v-for="(item, index) in this.markers" :key="index" :coordinates="[item.lng, item.lat]" color="green" >
+    </MglMarker>
+    <MglNavigationControl position="top-right" />
+  </MglMap>
+      </div>
     </main>
-<div   style="margin-top: 278px"></div>
     <Footer />
   </div>
 </template>
 <script>
-
-// import Mapbox from "mapbox-gl";
-import { MglMap, 
-    MglScaleControl,
-    MglMarker } from "vue-mapbox";
 import Header from "../components/blocks/Header";
 import Footer from "../components/blocks/Footer";
+import { GET_MAPBOX_DATA } from "../store/modules/dreadnought.store";
+import { mapCoordinates } from "../_data_models/mapbox_model";
+import { 
+  MglMap, 
+  MglMarker, 
+  MglNavigationControl
+} from "vue-mapbox";
 
 export default {
   name: "contact",
@@ -141,8 +140,8 @@ export default {
     Header,
     Footer,
     MglMap,
-    MglScaleControl,
-    MglMarker
+    MglMarker,
+    MglNavigationControl
   },
   data() {
     return {
@@ -151,25 +150,45 @@ export default {
       markerCoordinates:[
         44.7, 
         41.7
-      ]
+      ],
+      mapCoordinates: mapCoordinates,
+      markers: []
     };
   },
-  created() {
-    this.map = null;
+  computed: {
+    getMapbox: function() {
+      return this.$store.getters.getMapbox;
+    }
   },
-  methods:{
-     async onMapLoaded(event) {
+  async mounted () {
+    await this.$store.dispatch(GET_MAPBOX_DATA);
+    this.mapCoordinates = this.getMapbox.data.mapCoordinates
+    this.markers = this.getMarkers();
+  },
+  methods: {
+    async onMapLoaded(event) {
       const asyncActions = event.component.actions
-
-      const newParams = await asyncActions.flyTo({
-        center: [44.7, 41.7],
-        zoom: 10,
+      await asyncActions.flyTo({
+        center: [this.mapCoordinates.lng, this.mapCoordinates.lat],
+        zoom: this.mapCoordinates.zoom,
         speed: 1,
       })
-      console.log(newParams)
+    },
+    getMarkers() {
+      let i = 0;
+      let markers = []
+      while(markers.length < this.getMapbox.data.markers.length) {
+        markers[i] = this.getMapbox.data.markers[i];
+        i++;
+      }
+      return markers;
     }
-  }
+  }    
 };
 </script>
 <style scoped>
+#map {
+  width: 100%;
+  height: 300px;
+}
 </style>
