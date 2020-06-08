@@ -59,7 +59,7 @@
                     </div>
                     <div class="top-nav s-12 l-10">
                         <p class="nav-text"></p>
-                        <ul class="right chevron">
+                         <ul class="right chevron">
                             <li>
                                 <router-link class="nav-link" to="/">Home</router-link>
                             </li>
@@ -73,6 +73,20 @@
                                 </ul>
                             </li>
                         </ul>
+                       <!--  <ul class="right chevron">
+                            <li>
+                                <router-link class="nav-link" to="/">Home</router-link>
+                            </li>
+                            <li v-for="(item, index) in getApiRoutes" v-bind:key="index" stagger="5000">
+                                <router-link v-if="item.path !== '/null'" class="nav-link" :to="item.path">{{ item.name }}</router-link>
+                                <a v-else href="javascript:void(0)">{{ item.name }}</a>
+                                <ul v-if="item.children">
+                                    <li>
+                                        <router-link v-if="item.children.path !== '/null'" class="nav-link" :to="item.children.path">{{ item.children.name }}</router-link>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul> -->
                     </div>
                 </div>
             </nav>

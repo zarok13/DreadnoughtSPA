@@ -17,5 +17,9 @@ Route::group(['namespace' => 'API'], function () {
     Route::get('/mapbox', 'IndexController@mapbox');
 
 
+
     Route::post('/send_message', 'IndexController@sendMessage');
+
+
+    Route::get('/test', 'IndexController@testMenu');
 });
