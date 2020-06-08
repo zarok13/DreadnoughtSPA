@@ -27,7 +27,16 @@ new Vue({
             // } else {
             Axios.get(API_URL + '/menu')
                 .then(data => {
+                    this.$renderRoutes.push(data.data);
+                    // console.log(this.$renderRoutes);
                     this.processData(data);
+                    // console.log(this.$renderRoutes);
+                    // this.$renderRoutes.push({
+                    //                     name: `gdfg`,
+                    //                     path: `gdfgfggfd`
+                    //                 });
+                    // let originalData = data.data;
+                    // this.processData(data.data, originalData, 0);
                     localStorage.setItem(GET_API_ROUTES, JSON.stringify(data));
                 })
                 .catch(error => {
@@ -36,9 +45,11 @@ new Vue({
             // }
         },
         processData(data) {
-            data.data.data.forEach(this.createAndAppendRoute)
+            data.data.forEach(this.createAndAppendRoute)
         },
         createAndAppendRoute(item) {
+
+
             let currentComponent = About;
 
             if (item.page_template === PageTypes.products) {
@@ -50,45 +61,22 @@ new Vue({
             if (item.page_type === PageTypes.gallery) {
                 currentComponent = Gallery;
             }
-
-
-            if (typeof(item.sub_menu) === "object") {
-                this.$renderRoutes.push({
-                    name: `${item.title}`,
+            if (item.slug !== null) {
+                let newRoute = {
                     path: `/${item.slug}`,
-                    children: {
-                        name: `${item.sub_menu.title}`,
-                        path: `/${item.sub_menu.slug}`,
-                    },
-                });
-                if (item.slug !== null) {
-                    let newRoute = {
-                        path: `/${item.children.slug}`,
-                        name: `${item.children.title}`,
-                        component: currentComponent,
-                    };
-                    this.$router.addRoutes([newRoute])
-                }
-            } else {
-                this.$renderRoutes.push({
                     name: `${item.title}`,
-                    path: `/${item.slug}`
-                });
-                if (item.slug !== null) {
-                    let newRoute = {
-                        path: `/${item.slug}`,
-                        name: `${item.title}`,
-                        component: currentComponent,
-                    };
-                    this.$router.addRoutes([newRoute])
-                }
+                    component: currentComponent,
+                };
+                this.$router.addRoutes([newRoute])
             }
         }
     },
     created() {
         this.getDynamicRoutes()
+        console.log(this.$renderRoutes);
     },
     mounted() {
+
         this.$store.dispatch(GET_API_ROUTES, this.$renderRoutes)
     }
 }).$mount('#app')

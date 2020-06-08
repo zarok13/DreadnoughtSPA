@@ -7,7 +7,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['namespace' => 'API'], function () {
-    Route::get('/menu', 'IndexController@menu');
+//    Route::get('/menu', 'IndexController@menu');
     Route::get('/slider', 'IndexController@getSlider');
     Route::get('/intro_section_1', 'IndexController@getIntro1');
     Route::get('/intro_section_2', 'IndexController@getIntro2');
@@ -21,5 +21,5 @@ Route::group(['namespace' => 'API'], function () {
     Route::post('/send_message', 'IndexController@sendMessage');
 
 
-    Route::get('/test', 'IndexController@testMenu');
+    Route::get('/menu', 'IndexController@testMenu');
 });

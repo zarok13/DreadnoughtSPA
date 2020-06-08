@@ -59,18 +59,22 @@
                     </div>
                     <div class="top-nav s-12 l-10">
                         <p class="nav-text"></p>
+<!--                        {{ getApiRoutes[0]}}-->
                          <ul class="right chevron">
                             <li>
                                 <router-link class="nav-link" to="/">Home</router-link>
                             </li>
-                            <li v-for="(item, index) in getApiRoutes" v-bind:key="index" stagger="5000">
-                                <router-link v-if="item.path !== '/null'" class="nav-link" :to="item.path">{{ item.name }}</router-link>
-                                <a v-else href="javascript:void(0)">{{ item.name }}</a>
-                                <ul v-if="item.children">
-                                    <li>
-                                        <router-link v-if="item.children.path !== '/null'" class="nav-link" :to="item.children.path">{{ item.children.name }}</router-link>
-                                    </li>
-                                </ul>
+                            <li v-for="(item, index) in getApiRoutes[0]" v-bind:key="index">
+                                {{item}}
+                                <router-link v-if="item.slug !== '/null'" class="nav-link" :to="item.slug">{{ item.title }}</router-link>
+<!--                                <a v-else href="javascript:void(0)">{{ item.title }}</a>-->
+<!--                                {{item.title}}-->
+<!--                                <ul v-if="item.sub_menu">-->
+<!--                                    {{item}}-->
+<!--                                    <li>-->
+<!--                                        <router-link v-if="item.sub_menu.slug !== '/null'" class="nav-link" :to="item.sub_menu.slug">{{ item.sub_menu.title }}</router-link>-->
+<!--                                    </li>-->
+<!--                                </ul>-->
                             </li>
                         </ul>
                        <!--  <ul class="right chevron">

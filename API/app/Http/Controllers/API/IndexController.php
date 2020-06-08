@@ -67,7 +67,7 @@ class IndexController extends Controller
             $item['has_child'] = $count;
             if ($item['has_child'] > 0) {
                 $menu[$i]['sub_menu'] = $this->testMenu($item['lang_id']);
-                dd($this->testMenu($item['lang_id']));
+//                dd($this->testMenu($item['lang_id']));
             }
             $i++;
         }
@@ -79,12 +79,12 @@ class IndexController extends Controller
                     unset($menu[$index]['page_template_id']);
                 }
             }
-        return response()->json([
-                'status' => true,
-                'data' => $menu,
-            ]);
+//        return response()->json([
+//                'status' => true,
+//                'data' => $menu,
+//            ]);
         // dump('fsdf');
-        // return $menu;
+         return $menu;
     }
 
     /**
