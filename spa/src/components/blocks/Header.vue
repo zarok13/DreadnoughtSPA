@@ -59,12 +59,11 @@
                     </div>
                     <div class="top-nav s-12 l-10">
                         <p class="nav-text"></p>
-<!--                        {{ getApiRoutes[0]}}-->
                          <ul class="right chevron">
-                            <li>
-                                <router-link class="nav-link" to="/">Home</router-link>
-                            </li>
-                            <tree-menu :title="test" :nodes="this.renderRoutes[0]" :depth="0" slug="/"></tree-menu>
+<!--                            <li>-->
+<!--                                <router-link class="nav-link" to="/">Home</router-link>-->
+<!--                            </li>-->
+                            <tree-menu title="Home" :nodes="this.renderRoutes[0]" :depth="0" slug="/"></tree-menu>
                             <!-- <li v-for="(item, index) in getApiRoutes[0]" v-bind:key="index"> -->
                                 <!-- {{item}} -->
                                 <!-- <router-link v-if="item.slug !== '/null'" class="nav-link" :to="item.slug">{{ item.title }}</router-link> -->
@@ -103,39 +102,15 @@
 <script>
     import TreeMenu from './TreeMenu.vue';
 
-//     let tree = {
-//   label: 'root',
-//   nodes: [
-//     {
-//       label: 'item1',
-//       nodes: [
-//         {
-//           label: 'item1.1'
-//         },
-//         {
-//           label: 'item1.2',
-//           nodes: [
-//             {
-//               label: 'item1.2.1'
-//             }
-//           ]
-//         }
-//       ]
-//     }, 
-//     {
-//       label: 'item2'  
-//     }
-//   ]
-// }
-let test = ''
-import router from '../../router'
-import Axios from 'axios';
-import About from "../About";
-import Product from "../Product";
-import Contact from "../Contact";
-import Gallery from "../Gallery";
-import {PageTypes} from "../../_data_models/page_types";
-import {API_URL, GET_API_ROUTES} from '../../store/modules/dreadnought.store'
+
+    import router from '../../router'
+    import Axios from 'axios';
+    import About from "../About";
+    import Product from "../Product";
+    import Contact from "../Contact";
+    import Gallery from "../Gallery";
+    import {PageTypes} from "../../_data_models/page_types";
+    import {API_URL, GET_API_ROUTES} from '../../store/modules/dreadnought.store'
     export default {
         name: "header_block",
         components: {
@@ -149,14 +124,11 @@ import {API_URL, GET_API_ROUTES} from '../../store/modules/dreadnought.store'
         data() {
             return {
                 renderRoutes:[],
-                test
             }
         },
         async mounted(){
             await this.getDynamicRoutes()
             this.$store.dispatch(GET_API_ROUTES, this.renderRoutes)
-            
-            console.log(this.renderRoutes);
         },
          methods: {
             async getDynamicRoutes() {
