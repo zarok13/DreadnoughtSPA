@@ -64,7 +64,7 @@
                             <li>
                                 <router-link class="nav-link" to="/">Home</router-link>
                             </li>
-                            <tree-menu :title="test" :nodes="this.renderRoutes[0]" :depth="0"></tree-menu>
+                            <tree-menu :title="test" :nodes="this.renderRoutes[0]" :depth="0" slug="/"></tree-menu>
                             <!-- <li v-for="(item, index) in getApiRoutes[0]" v-bind:key="index"> -->
                                 <!-- {{item}} -->
                                 <!-- <router-link v-if="item.slug !== '/null'" class="nav-link" :to="item.slug">{{ item.title }}</router-link> -->
