@@ -59,11 +59,11 @@
                     </div>
                     <div class="top-nav s-12 l-10">
                         <p class="nav-text"></p>
-                         <ul class="right chevron">
+                         <!-- <ul class="right chevron"> -->
 <!--                            <li>-->
 <!--                                <router-link class="nav-link" to="/">Home</router-link>-->
 <!--                            </li>-->
-                            <tree-menu title="Home" :nodes="this.renderRoutes[0]" :depth="0" slug="/"></tree-menu>
+                            <tree-menu :nodes="this.renderRoutes[0]" is-first></tree-menu>
                             <!-- <li v-for="(item, index) in getApiRoutes[0]" v-bind:key="index"> -->
                                 <!-- {{item}} -->
                                 <!-- <router-link v-if="item.slug !== '/null'" class="nav-link" :to="item.slug">{{ item.title }}</router-link> -->
@@ -76,7 +76,6 @@
 <!--                                    </li>-->
 <!--                                </ul>-->
                             <!-- </li> -->
-                        </ul>
                        <!--  <ul class="right chevron">
                             <li>
                                 <router-link class="nav-link" to="/">Home</router-link>
