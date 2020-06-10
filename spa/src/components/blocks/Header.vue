@@ -59,39 +59,7 @@
                     </div>
                     <div class="top-nav s-12 l-10">
                         <p class="nav-text"></p>
-                         <!-- <ul class="right chevron"> -->
-<!--                            <li>-->
-<!--                                <router-link class="nav-link" to="/">Home</router-link>-->
-<!--                            </li>-->
-                            <tree-menu :nodes="this.renderRoutes[0]" is-first></tree-menu>
-                            <!-- <li v-for="(item, index) in getApiRoutes[0]" v-bind:key="index"> -->
-                                <!-- {{item}} -->
-                                <!-- <router-link v-if="item.slug !== '/null'" class="nav-link" :to="item.slug">{{ item.title }}</router-link> -->
-<!--                                <a v-else href="javascript:void(0)">{{ item.title }}</a>-->
-<!--                                {{item.title}}-->
-<!--                                <ul v-if="item.sub_menu">-->
-<!--                                    {{item}}-->
-<!--                                    <li>-->
-<!--                                        <router-link v-if="item.sub_menu.slug !== '/null'" class="nav-link" :to="item.sub_menu.slug">{{ item.sub_menu.title }}</router-link>-->
-<!--                                    </li>-->
-<!--                                </ul>-->
-                            <!-- </li> -->
-                       <!--  <ul class="right chevron">
-                            <li>
-                                <router-link class="nav-link" to="/">Home</router-link>
-                            </li>
-                            <li v-for="(item, index) in getApiRoutes" v-bind:key="index" stagger="5000">
-                                <router-link v-if="item.path !== '/null'" class="nav-link" :to="item.path">{{ item.name }}</router-link>
-                                <a v-else href="javascript:void(0)">{{ item.name }}</a>
-                                <ul v-if="item.children">
-                                    <li>
-                                        <router-link v-if="item.children.path !== '/null'" class="nav-link" :to="item.children.path">{{ item.children.name }}</router-link>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul> -->
-                        <!-- {{this.renderRoutes}} -->
-                        
+                        <tree-menu :nodes="this.getApiRoutes[0]" is-first></tree-menu>
                     </div>
                 </div>
             </nav>
@@ -100,16 +68,6 @@
 </template>
 <script>
     import TreeMenu from './TreeMenu.vue';
-
-
-    import router from '../../router'
-    import Axios from 'axios';
-    import About from "../About";
-    import Product from "../Product";
-    import Contact from "../Contact";
-    import Gallery from "../Gallery";
-    import {PageTypes} from "../../_data_models/page_types";
-    import {API_URL, GET_API_ROUTES} from '../../store/modules/dreadnought.store'
     export default {
         name: "header_block",
         components: {
@@ -118,66 +76,6 @@
         computed: {
             getApiRoutes: function () {
                 return this.$store.getters.getApiRoutes;
-            }
-        },
-        data() {
-            return {
-                renderRoutes:[],
-            }
-        },
-        async mounted(){
-            await this.getDynamicRoutes();
-            this.$store.dispatch(GET_API_ROUTES, this.renderRoutes);
-        },
-         methods: {
-            async getDynamicRoutes() {
-                // if (localStorage[GET_API_ROUTES] && localStorage[GET_API_ROUTES] !== 'undefined') {
-                //   let parsedData = JSON.parse(localStorage[GET_API_ROUTES]);
-                //   this.processData(parsedData);
-                //   console.log('routes parsed from local storage');
-                // } else {
-                await Axios.get(API_URL + '/menu')
-                    .then(data => {
-                        this.renderRoutes.push(data.data);
-                        // console.log(this.$renderRoutes);
-                        this.processData(data);
-                        // console.log(this.$renderRoutes);
-                        // this.$renderRoutes.push({
-                        //                     name: `gdfg`,
-                        //                     path: `gdfgfggfd`
-                        //                 });
-                        // let originalData = data.data;
-                        // this.processData(data.data, originalData, 0);
-                        // localStorage.setItem(GET_API_ROUTES, JSON.stringify(data));
-                    })
-                    .catch(error => {
-                        console.log(error);
-                    })
-                // }
-            },
-            processData(data) {
-                data.data.forEach(this.createAndAppendRoute)
-            },
-            createAndAppendRoute(item) {
-                let currentComponent = About;
-
-                if (item.page_template === PageTypes.products) {
-                    currentComponent = Product;
-                }
-                if (item.page_type === PageTypes.contact) {
-                    currentComponent = Contact;
-                }
-                if (item.page_type === PageTypes.gallery) {
-                    currentComponent = Gallery;
-                }
-                if (item.slug !== null) {
-                    let newRoute = {
-                        path: `/${item.slug}`,
-                        name: `${item.title}`,
-                        component: currentComponent,
-                    };
-                    router.addRoutes([newRoute])
-                }
             }
         }
     };
