@@ -127,8 +127,8 @@
             }
         },
         async mounted(){
-            await this.getDynamicRoutes()
-            this.$store.dispatch(GET_API_ROUTES, this.renderRoutes)
+            await this.getDynamicRoutes();
+            this.$store.dispatch(GET_API_ROUTES, this.renderRoutes);
         },
          methods: {
             async getDynamicRoutes() {
