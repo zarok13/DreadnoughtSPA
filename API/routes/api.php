@@ -7,7 +7,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['namespace' => 'API'], function () {
-//    Route::get('/menu', 'IndexController@menu');
+    Route::get('/menu', 'IndexController@menu');
     Route::get('/slider', 'IndexController@getSlider');
     Route::get('/intro_section_1', 'IndexController@getIntro1');
     Route::get('/intro_section_2', 'IndexController@getIntro2');
@@ -15,11 +15,7 @@ Route::group(['namespace' => 'API'], function () {
     Route::get('/blog_list', 'IndexController@blogList');
     Route::get('/footer', 'IndexController@getFooter');
     Route::get('/mapbox', 'IndexController@mapbox');
-
-
-
     Route::post('/send_message', 'IndexController@sendMessage');
+    Route::post('/send_contact', 'IndexController@sendContact');
 
-
-    Route::get('/menu', 'IndexController@testMenu');
 });

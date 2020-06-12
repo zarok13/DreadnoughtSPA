@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 
 use App\Article;
+use App\Mail\Contact;
 use App\Menu;
 use App\Slider;
 use App\MapCoordinate;
@@ -20,8 +21,12 @@ class IndexController extends Controller
     protected $validationArray = [
     ];
 
-
-    public function testMenu($parentID = null)
+    /**
+     * @param null $parentID
+     * @return array
+     * @throws \Exception
+     */
+    public function menu($parentID = null)
     {
         // try {
             $query = Menu::select([
@@ -52,9 +57,10 @@ class IndexController extends Controller
        
     }
 
-/**
-     * @param array $items
+    /**
+     * @param $items
      * @return array
+     * @throws \Exception
      */
     private function formatWebMenu($items)
     {
@@ -66,7 +72,7 @@ class IndexController extends Controller
             $count = Menu::where('parent_id', $item['lang_id'])->count();
             $item['has_child'] = $count;
             if ($item['has_child'] > 0) {
-                $menu[$i]['sub_menu'] = $this->testMenu($item['lang_id']);
+                $menu[$i]['sub_menu'] = $this->menu($item['lang_id']);
 //                dd($this->testMenu($item['lang_id']));
             }
             $i++;
@@ -85,56 +91,6 @@ class IndexController extends Controller
 //            ]);
         // dump('fsdf');
          return $menu;
-    }
-
-    /**
-     * @param Menu $menu
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function menu(Menu $menu)
-    {
-        try {
-            $menu = $menu->select(
-                'menu.id',
-                'menu.title',
-                'pages.slug',
-                'pages.page_type_id',
-                'pages.page_template_id',
-                'menu.parent_id'
-            )
-                ->join('pages', 'pages.lang_id', '=', 'menu.page_id', 'left')
-                ->where('menu.lang', $this->lang)
-                ->where('menu.title', '!=', 'Home')
-                ->orderBy('menu.sort', 'asc')
-                ->get()->toArray();
-
-
-            foreach ($menu as $index => $item) {
-                if (is_numeric($item['page_type_id'])) {
-                    $menu[$index]['page_type'] = setting('pageTypes')[$item['page_type_id']];
-                    $menu[$index]['page_template'] = setting('pageTemplates')[$item['page_type_id']][$item['page_template_id']];
-                    unset($menu[$index]['page_type_id']);
-                    unset($menu[$index]['page_template_id']);
-                }
-            }
-            foreach ($menu as $index => $item) {
-                foreach ($menu as $index2 => $value) {
-                    if ($value['parent_id'] == $item['id']) {
-                        $menu[$index]['sub_menu'][$index] = $value;
-                        // unset($menu[$index2]);
-                    }
-                }
-            }
-            return response()->json([
-                'status' => true,
-                'data' => $menu,
-            ]);
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => false,
-                'message' => $e->getMessage(),
-            ]);
-        }
     }
 
     /**
@@ -309,7 +265,7 @@ class IndexController extends Controller
     public function sendMessage(Request $request)
     {
         try {
-            if ($this->sendMail($request->all())) {
+            if ($this->sendMessageMail($request->all())) {
                 return response()->json([
                     'status' => true,
                     'message' => 'Message successfully sent',
@@ -329,14 +285,53 @@ class IndexController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function sendContact(Request $request)
+    {
+        try {
+            if ($this->sendContactMail($request->all())) {
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Contact message successfully sent',
+                ]);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Contact message not sent',
+                ]);
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage(),
+            ]);
+        }
+    }
+
+    /**
      * @param $request
      * @return bool
      */
-    protected function sendMail($request)
+    protected function sendMessageMail($request)
     {
         Mail::to(hel_field('email'))
             ->send(new Message($request));
+        if (count(Mail::failures()) > 0) {
+            return false;
+        }
+        return true;
+    }
 
+    /**
+     * @param $request
+     * @return bool
+     */
+    protected function sendContactMail($request)
+    {
+        Mail::to(hel_field('email'))
+            ->send(new Contact($request));
         if (count(Mail::failures()) > 0) {
             return false;
         }

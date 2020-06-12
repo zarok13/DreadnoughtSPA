@@ -13,9 +13,8 @@ class Contact extends Mailable
     public $data;
 
     /**
-     * Create a new message instance.
-     *
-     * @return void
+     * Contact constructor.
+     * @param $data
      */
     public function __construct($data)
     {
@@ -29,7 +28,7 @@ class Contact extends Mailable
      */
     public function build()
     {
-        return $this->view('site.applets.mails.contact')
+        return $this->view('admin.applets.api.mails.contact')
             ->from($this->data['email'], hel_field('main_title'))
             ->subject('Contact')
             ->with($this->data);
