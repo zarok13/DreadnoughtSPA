@@ -154,7 +154,8 @@
                 </div>
                 <div class="s-12">
                   <button
-                    class="submit-form button background-primary border-radius text-white"
+                    :class="!getLoader ? 'submit-form button background-primary border-radius text-white' : 'submit-form button disabled border-radius text-white'"
+                    :disabled="getLoader"
                     @click.prevent="sendMessage()">Submit Button</button>
                 </div>
               </form>
@@ -199,9 +200,9 @@ export default {
       apiUrl: API_URL,
       footerData: footerData,
       errors: [],
-      email: null,
-      text: null,
-      name: null,
+      email: '',
+      text: '',
+      name: '',
       loading: false
     }
   },
@@ -209,7 +210,7 @@ export default {
     getFooter: function() {
       return this.$store.getters.getFooter;
     },
-     getLoader: function() {
+    getLoader: function() {
       return this.$store.getters.getLoader;
     },
   },
@@ -247,7 +248,6 @@ export default {
       dataForm.append('name', formData.name);
       dataForm.append('text', formData.text);
       this.$store.commit(SET_LOADER, true);
-      //{email: 'test@test.com', name: 'fsdf', text: 'sdfdgdfhg'}
       await this.$store.dispatch(SEND_MAIL, dataForm);
       this.$store.commit(SET_LOADER, false)
     },
@@ -258,4 +258,8 @@ export default {
 };
 </script>
 <style scoped>
+.disabled {
+  background-color: gray;
+  cursor: context-menu;
+}
 </style>

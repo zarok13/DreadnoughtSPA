@@ -14,6 +14,7 @@ export const GET_INTRO2 = 'getIntro2'
 export const GET_INTRO3 = 'getIntro3'
 export const GET_FOOTER = 'getFooter'
 export const SEND_MAIL = 'sendMail'
+export const SEND_CONTACT = 'sendContact'
 export const GET_MAPBOX_DATA = 'getMapboxData'
 
 // define app store mutations names
@@ -167,7 +168,16 @@ const actions = {
                 console.log(error);
             })
     },
-     async [GET_MAPBOX_DATA](state) {
+    async [SEND_CONTACT](state, contactData) {
+        await Axios.post(API_URL + '/send_contact', contactData)
+            .then( data => {
+                console.log(data.data);
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    },
+    async [GET_MAPBOX_DATA](state) {
         if (await getDataFromLocalStorage(state, GET_MAPBOX_DATA, SET_MAPBOX_DATA)) {
             console.log('mapbox parsed from local storage');
         } else {

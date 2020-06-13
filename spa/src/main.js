@@ -3,13 +3,13 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
-    import Axios from 'axios';
-    import About from "./components/About";
-    import Product from "./components/Product";
-    import Contact from "./components/Contact";
-    import Gallery from "./components/Gallery";
-    import {PageTypes} from "./_data_models/page_types";
-    import {API_URL, GET_API_ROUTES} from './store/modules/dreadnought.store'
+import Axios from 'axios';
+import About from "./components/About";
+import Product from "./components/Product";
+import Contact from "./components/Contact";
+import Gallery from "./components/Gallery";
+import {PageTypes} from "./_data_models/page_types";
+import {API_URL, GET_API_ROUTES} from './store/modules/dreadnought.store'
 
 Vue.config.productionTip = false
 Vue.prototype.$renderRoutes = [];
@@ -59,7 +59,7 @@ new Vue({
                     name: `${item.title}`,
                     component: currentComponent,
                 };
-                console.log(newRoute)
+                // console.log(newRoute)
                 this.$router.addRoutes([newRoute])
             }
         }

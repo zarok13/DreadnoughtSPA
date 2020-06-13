@@ -53,12 +53,20 @@
               <!-- Contact Form -->
               <div class="s-12 m-12 l-6">
                 <h2 class="text-uppercase text-strong margin-bottom-30">Contact Us</h2>
+                <h6 v-if="errors.length" style="color:#4287f5">Please correct the following error(s):</h6>
+              <ul>
+                <li style="color:red" v-for="(error, index) in errors" :key="index">{{ error }}</li>
+              </ul>
+              <div class="lds-ring" v-if="getLoader">
+                <h2 style="color:yellow">Sending...</h2>
+              </div>
                 <form class="customform">
                   <div class="line">
                     <div class="margin">
                       <div class="s-12 m-12 l-6">
                         <input
                           name="email"
+                          v-model="email"
                           class="required email border-radius"
                           placeholder="Your e-mail"
                           title="Your e-mail"
@@ -68,6 +76,7 @@
                       <div class="s-12 m-12 l-6">
                         <input
                           name="name"
+                          v-model="name" 
                           class="name border-radius"
                           placeholder="Your name"
                           title="Your name"
@@ -79,6 +88,7 @@
                   <div class="s-12">
                     <input
                       name="subject"
+                      v-model="subject"
                       class="subject border-radius"
                       placeholder="Subject"
                       title="Subject"
@@ -87,7 +97,8 @@
                   </div>
                   <div class="s-12">
                     <textarea
-                      name="message"
+                      name="text"
+                      v-model="text"
                       class="required message border-radius"
                       placeholder="Your message"
                       rows="3"
@@ -95,9 +106,9 @@
                   </div>
                   <div class="s-12 m-12 l-4">
                     <button
-                      class="submit-form button background-primary border-radius text-white"
-                      type="submit"
-                    >Submit Button</button>
+                      :class="!getLoader ? 'submit-form button background-primary border-radius text-white' : 'submit-form button disabled border-radius text-white'"
+                      :disabled="getLoader"
+                      @click.prevent="sendMessage()">Submit Button</button>
                   </div>
                 </form>
               </div>
@@ -133,6 +144,7 @@ import {
   MglMarker, 
   MglNavigationControl
 } from "vue-mapbox";
+import { SEND_CONTACT, SET_LOADER } from "../store/modules/dreadnought.store";
 
 export default {
   name: "contact",
@@ -152,13 +164,22 @@ export default {
         41.7
       ],
       mapCoordinates: mapCoordinates,
-      markers: []
+      markers: [],
+      errors: [],
+      email: '',
+      text: '',
+      subject: '',
+      name: '',
+      loading: false
     };
   },
   computed: {
     getMapbox: function() {
       return this.$store.getters.getMapbox;
-    }
+    },
+    getLoader: function() {
+      return this.$store.getters.getLoader;
+    },
   },
   async mounted () {
     await this.$store.dispatch(GET_MAPBOX_DATA);
@@ -166,6 +187,39 @@ export default {
     this.markers = this.getMarkers();
   },
   methods: {
+    sendMessage() {
+      if (!this.validateForm().length) {
+        var formData = {email: this.email, name: this.name, text: this.text, subject: this.subject}
+        this.send(formData);
+      }
+    },
+    validateForm() {
+      this.errors = [];
+      if (!this.email) {
+        this.errors.push('Email required.');
+      } else if (!this.validEmail(this.email)) {
+        this.errors.push('Valid email required.');
+      }
+
+      if (!this.text) {
+        this.errors.push('Message required.');
+      }
+      return this.errors;
+    },
+    validEmail: function (email) {
+      var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
+    },
+    async send(formData) {
+      const dataForm = new FormData();
+      dataForm.append('email', formData.email);
+      dataForm.append('name', formData.name);
+      dataForm.append('text', formData.text);
+      dataForm.append('subject', formData.subject);
+      this.$store.commit(SET_LOADER, true);
+      await this.$store.dispatch(SEND_CONTACT, dataForm);
+      this.$store.commit(SET_LOADER, false)
+    },
     async onMapLoaded(event) {
       const asyncActions = event.component.actions
       await asyncActions.flyTo({
@@ -190,5 +244,9 @@ export default {
 #map {
   width: 100%;
   height: 300px;
+}
+.disabled {
+  background-color: gray;
+  cursor: context-menu;
 }
 </style>
