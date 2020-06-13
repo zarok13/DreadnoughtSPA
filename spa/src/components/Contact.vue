@@ -21,32 +21,29 @@
                   <i class="icon-placepin background-primary icon-circle-small text-size-20"></i>
                 </div>
                 <div class="margin-left-80 margin-bottom">
-                  <h4 class="text-strong margin-bottom-0">Company Address</h4>
+                  <h4 class="text-strong margin-bottom-0">{{this.contactData.address}}</h4>
                   <p>
-                    Responsive Street 7
-                    <br />London
-                    <br />UK, Europe
+                    {{this.contactData.addressValue}}
+                    <span  style="opacity: 0"><br />d</span>
                   </p>
                 </div>
                 <div class="float-left">
                   <i class="icon-paperplane_ico background-primary icon-circle-small text-size-20"></i>
                 </div>
                 <div class="margin-left-80 margin-bottom">
-                  <h4 class="text-strong margin-bottom-0">E-mail</h4>
+                  <h4 class="text-strong margin-bottom-0">{{this.contactData.email}}</h4>
                   <p>
-                    contact@sampledomain.com
-                    <br />office@sampledomain.com
+                    {{this.contactData.emailValue}}
+                    <span  style="opacity: 0"><br />d</span>
                   </p>
                 </div>
                 <div class="float-left">
                   <i class="icon-smartphone background-primary icon-circle-small text-size-20"></i>
                 </div>
                 <div class="margin-left-80">
-                  <h4 class="text-strong margin-bottom-0">Phone Numbers</h4>
+                  <h4 class="text-strong margin-bottom-0">{{this.contactData.phone}}</h4>
                   <p>
-                    0800 4521 800 50
-                    <br />0450 5896 625 16
-                    <br />0798 6546 465 15
+                    {{this.contactData.phoneValue}}
                   </p>
                 </div>
               </div>
@@ -145,6 +142,7 @@ import {
   MglNavigationControl
 } from "vue-mapbox";
 import { SEND_CONTACT, SET_LOADER } from "../store/modules/dreadnought.store";
+import { footerData } from "../_data_models/footer_model";
 
 export default {
   name: "contact",
@@ -170,7 +168,8 @@ export default {
       text: '',
       subject: '',
       name: '',
-      loading: false
+      loading: false,
+      contactData: footerData
     };
   },
   computed: {
@@ -180,11 +179,15 @@ export default {
     getLoader: function() {
       return this.$store.getters.getLoader;
     },
+    getFooter: function() {
+      return this.$store.getters.getFooter;
+    },
   },
   async mounted () {
     await this.$store.dispatch(GET_MAPBOX_DATA);
     this.mapCoordinates = this.getMapbox.data.mapCoordinates
     this.markers = this.getMarkers();
+    this.contactData = this.getFooter.data;
   },
   methods: {
     sendMessage() {
