@@ -28,7 +28,7 @@ new Vue({
             // } else {
             Axios.get(API_URL + '/menu')
                 .then(data => {
-                    this.processData(data);
+                    this.processData(data.data);
                     this.$renderRoutes.push(data.data);
                     // localStorage.setItem(GET_API_ROUTES, JSON.stringify(data));
                 })
@@ -37,32 +37,34 @@ new Vue({
                 })
             // }
         },
-        processData(data) {
-            data.data.forEach(this.createAndAppendRoute)
+        processData(nodes) {
+            nodes.forEach(item => {
+                console.log(item)
+                let currentComponent = About;
+
+                if (item.page_template === PageTypes.products) {
+                    currentComponent = Product;
+                }
+                if (item.page_type === PageTypes.contact) {
+                    currentComponent = Contact;
+                }
+                if (item.page_type === PageTypes.gallery) {
+                    currentComponent = Gallery;
+                }
+
+                if (item && item.slug !== null) {
+                    let newRoute = {
+                        path: `/${item.slug}`,
+                        name: `${item.title}`,
+                        component: currentComponent,
+                    };
+                    this.$router.addRoutes([newRoute])
+                }
+                if ('sub_menu' in item) {
+                    this.processData(item.sub_menu);
+                }
+            })
         },
-        createAndAppendRoute(item) {
-            let currentComponent = About;
-
-            if (item.page_template === PageTypes.products) {
-                currentComponent = Product;
-            }
-            if (item.page_type === PageTypes.contact) {
-                currentComponent = Contact;
-            }
-            if (item.page_type === PageTypes.gallery) {
-                currentComponent = Gallery;
-            }
-
-            if (item && item.slug !== null) {
-                let newRoute = {
-                    path: `/${item.slug}`,
-                    name: `${item.title}`,
-                    component: currentComponent,
-                };
-                // console.log(newRoute)
-                this.$router.addRoutes([newRoute])
-            }
-        }
     },
     created() {
         this.getDynamicRoutes()
