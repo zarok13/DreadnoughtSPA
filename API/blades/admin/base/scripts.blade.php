@@ -14,7 +14,7 @@
 @if(isset($dataTable) && ($dataTable == true))
     <!-- DataTables -->
     <script src="{{ asset('blade_components/admin/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('blade_components/admin/js/dataTables.bootstrap4.js') }}"></script>
+    <script src="{{ asset('blade_components/admin/js/dataTables.bootstrap4.min.js') }}"></script>
     <script>
         $("#dreadnoughtDataTable").DataTable({});
     </script>
