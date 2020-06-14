@@ -16,6 +16,7 @@ export const GET_FOOTER = 'getFooter'
 export const SEND_MAIL = 'sendMail'
 export const SEND_CONTACT = 'sendContact'
 export const GET_MAPBOX_DATA = 'getMapboxData'
+export const GET_STATIC_CONTENT = 'getStaticContent'
 
 // define app store mutations names
 const SET_API_ROUTES = 'setApiRoutes'
@@ -27,6 +28,7 @@ const SET_INTRO3 = 'setIntro3'
 const SET_FOOTER = 'setFooter'
 export const SET_LOADER = 'setLoader'
 const SET_MAPBOX_DATA = 'setMapboxDate'
+const SET_STATIC_CONTENT = 'setStaticContent'
 
 // init app state
 const state = {
@@ -40,6 +42,7 @@ const state = {
     footer: [],
     loader: false,
     mapboxData: [],
+    staticContent: { },
 }
 
 // init app getters
@@ -73,6 +76,9 @@ const getters = {
     },
     getMapbox(state) {
         return state.mapboxData;
+    },
+    getStaticContent(state) {
+        return state.staticContent;
     },
 }
 
@@ -193,6 +199,16 @@ const actions = {
                 })
         }
     },
+    async [GET_STATIC_CONTENT](state, slug) {
+        await Axios.get(API_URL + '/static_content', {params: {slug: slug } })
+            .then(data => {
+                let content = data.data
+                state.commit(SET_STATIC_CONTENT, content)
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    },
 }
 
 // app store mutations
@@ -224,6 +240,9 @@ const mutations = {
     },
     [SET_MAPBOX_DATA](state, mapbox) {
         state.mapboxData = mapbox;
+    },
+    [SET_STATIC_CONTENT](state, content) {
+        state.staticContent = content;
     }
 }
 

@@ -9,6 +9,7 @@ use App\Menu;
 use App\Slider;
 use App\MapCoordinate;
 use App\Marker;
+use App\Page;
 use Webwizo\Shortcodes\Facades\Shortcode;
 use Illuminate\Http\Request;
 use App\Mail\Message;
@@ -17,9 +18,6 @@ use Illuminate\Support\Facades\DB;
 
 class IndexController extends Controller
 {
-
-    protected $validationArray = [
-    ];
 
     /**
      * @param null $parentID
@@ -91,6 +89,26 @@ class IndexController extends Controller
 //            ]);
         // dump('fsdf');
          return $menu;
+    }
+
+    /**
+     * @param Page $pages
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function staticContent(Page $pages)
+    {
+        try {
+            $pages = $pages->lang()->where('slug', $_GET['slug'])->first();
+            return response()->json([
+                'status' => true,
+                'data' => $pages,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage(),
+            ]);
+        }
     }
 
     /**
