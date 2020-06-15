@@ -20,13 +20,13 @@ new Vue({
     router,
     store,
     methods: {
-        getDynamicRoutes() {
+        async getDynamicRoutes() {
             // if (localStorage[GET_API_ROUTES] && localStorage[GET_API_ROUTES] !== 'undefined') {
             //   let parsedData = JSON.parse(localStorage[GET_API_ROUTES]);
             //   this.processData(parsedData);
             //   console.log('routes parsed from local storage');
             // } else {
-            Axios.get(API_URL + '/menu')
+            await Axios.get(API_URL + '/menu')
                 .then(data => {
                     this.processData(data.data);
                     this.$renderRoutes.push(data.data);
@@ -66,10 +66,8 @@ new Vue({
             })
         },
     },
-    created() {
-        this.getDynamicRoutes()
-    },
-    mounted() {
+    async mounted() {
+        await this.getDynamicRoutes()
         this.$store.dispatch(GET_API_ROUTES, this.$renderRoutes)
     }
 }).$mount('#app')
