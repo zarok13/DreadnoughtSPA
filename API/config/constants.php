@@ -17,3 +17,6 @@ if (!defined('PAGE_TYPE_CONTACT')) define('PAGE_TYPE_CONTACT', 'contact');
 if (!defined('DATABASE_ACTION_CREATE')) define('DATABASE_ACTION_CREATE', 'An item has been created.');
 if (!defined('DATABASE_ACTION_UPDATE')) define('DATABASE_ACTION_UPDATE', 'An item has been updated.');
 if (!defined('DATABASE_ACTION_REMOVE')) define('DATABASE_ACTION_REMOVE', 'An item has been removed.');
+
+if (!defined('EMAIL_REGEX')) define('EMAIL_REGEX', 'regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix');
+
