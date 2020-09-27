@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App;
 
 
@@ -13,24 +14,23 @@ class Article extends ChildModel
     }
 
     /**
-     * @param $pageID
+     * @param int $pageID
      * @return mixed
      */
-    public function Items($pageID)
+    public function Items(int $pageID)
     {
-        $query = $this->where('page_id', $pageID);
-        return $query->orderBy('created_at', 'desc')
-            ->get();
+        return self::where('page_id', $pageID)->orderBy('created_at', 'desc')->get();
     }
 
     /**
-     * @param $langID
-     * @param $secondSlug
+     * @param int $langID
+     * @param string $secondSlug
+     *
      * @return mixed
      */
-    public function otherItems($langID, $secondSlug)
+    public function otherItems(int $langID, string $secondSlug)
     {
-        return $this->lang()
+        return self::lang()
             ->where('page_id', $langID)
             ->where('slug', '!=', $secondSlug)
             ->orderBy('created_at', 'desc')

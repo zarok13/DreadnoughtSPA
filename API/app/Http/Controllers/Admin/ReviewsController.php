@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Validation\ValidationException;
+use Illuminate\View\View;
 
 class ReviewsController extends Controller
 {
@@ -25,7 +26,6 @@ class ReviewsController extends Controller
 
     /**
      * MenuController constructor.
-     * @throws \Exception
      */
     public function __construct()
     {
@@ -34,13 +34,12 @@ class ReviewsController extends Controller
         $this->viewTemplate .= '.' . $this->moduleName;
         $this->data['moduleName'] = $this->moduleName;
         $this->data['title'] = trans('default.' . $this->moduleName);
-        $this->middleware('permission');
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(): View
     {
         $this->data['items'] = Review::lang()->orderBy('sort', 'asc')->get();
         return view($this->viewTemplate . '.show', $this->data);
@@ -52,7 +51,6 @@ class ReviewsController extends Controller
      */
     public function add()
     {
-        $this->data['title'] .= getActionIcon(__FUNCTION__);
         return view($this->viewTemplate . '.add', $this->data);
     }
 
@@ -71,24 +69,24 @@ class ReviewsController extends Controller
     }
 
     /**
-     * @param Review $review
-     * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param \App\Review $review
+     * @param int $id
+     *
+     * @return \Illuminate\View\View
      */
-    public function edit(Review $review, $id)
+    public function edit(Review $review, int $id): View
     {
-        $this->data['title'] .= getActionIcon(__FUNCTION__);
         $this->data['item'] = $review->whereLangId($id)->first()->toArray();
         return view($this->viewTemplate . '.edit', $this->data);
     }
 
     /**
-     * @param Request $request
-     * @param $id
-     * @return RedirectResponse
-     * @throws ValidationException
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id): RedirectResponse
     {
         $this->validate($request, $this->validationArray);
         $filteredRequest = $request->except('_token');
@@ -97,10 +95,11 @@ class ReviewsController extends Controller
     }
 
     /**
-     * @param $id
-     * @return RedirectResponse
+     * @param int $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function delete($id)
+    public function delete(int $id): RedirectResponse
     {
         $menu = (MODELS_PATH . ucfirst($this->modelName))::where('lang_id', $id)->first();
         $menu->delete();

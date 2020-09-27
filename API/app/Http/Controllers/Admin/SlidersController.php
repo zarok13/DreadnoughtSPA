@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Validation\ValidationException;
+use Illuminate\View\View;
 
 class SlidersController extends Controller
 {
@@ -22,8 +23,7 @@ class SlidersController extends Controller
     ];
 
     /**
-     * MenuController constructor.
-     * @throws \Exception
+     * SlidersController constructor.
      */
     public function __construct()
     {
@@ -32,34 +32,32 @@ class SlidersController extends Controller
         $this->viewTemplate .= '.' . $this->moduleName;
         $this->data['moduleName'] = $this->moduleName;
         $this->data['title'] = trans('default.' . $this->moduleName);
-        $this->middleware('permission');
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(): View
     {
         $this->data['items'] = Slider::lang()->orderBy('sort', 'asc')->get();
         return view($this->viewTemplate . '.show', $this->data);
     }
 
     /**
-     * @param Menu $menu
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param \App\Menu $menu
+     * @return \Illuminate\View\View
      */
-    public function add()
+    public function add(): View
     {
-        $this->data['title'] .= getActionIcon(__FUNCTION__);
         return view($this->viewTemplate . '.add', $this->data);
     }
 
     /**
-     * @param Request $request
-     * @return RedirectResponse|Redirector
-     * @throws ValidationException
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function create(Request $request)
+    public function create(Request $request): RedirectResponse
     {
         $this->validate($request, $this->validationArray);
         $filteredRequest = $request->except('_token');
@@ -68,24 +66,24 @@ class SlidersController extends Controller
     }
 
     /**
-     * @param Slider $slider
-     * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param \App\Slider $slider
+     * @param int $id
+     *
+     * @return \Illuminate\View\View
      */
-    public function edit(Slider $slider, $id)
+    public function edit(Slider $slider, int $id): View
     {
-        $this->data['title'] .= getActionIcon(__FUNCTION__);
         $this->data['item'] = $slider->whereLangId($id)->first()->toArray();
         return view($this->viewTemplate . '.edit', $this->data);
     }
 
     /**
-     * @param Request $request
-     * @param $id
-     * @return RedirectResponse
-     * @throws ValidationException
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id):RedirectResponse
     {
         $this->validate($request, $this->validationArray);
         $filteredRequest = $request->except('_token');
@@ -94,10 +92,11 @@ class SlidersController extends Controller
     }
 
     /**
-     * @param $id
-     * @return RedirectResponse
+     * @param int $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function delete($id)
+    public function delete(int $id):RedirectResponse
     {
         $menu = (MODELS_PATH . ucfirst($this->modelName))::where('lang_id', $id)->first();
         $menu->delete();

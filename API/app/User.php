@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -32,10 +31,20 @@ class User extends Authenticatable
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return relation
      */
     public function role()
     {
-        return $this->belongsTo('App\Role','role_id');
+        return $this->belongsTo('App\Role', 'role_id');
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAdmin(): bool
+    {
+        if ($this->role->title == ADMINISTRATOR)
+            return true;
+        return false;
     }
 }

@@ -3,15 +3,16 @@
 namespace App\Http\Controllers\Admin\Defaults;
 
 use App\Facades\Slug;
+use App\FileStoreRef;
 use App\Http\Controllers\Admin\Dreadnought\Controller;
 use App\Page;
 use App\Traits\DatabaseAction;
 use App\Traits\Sort;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Session;
+use Illuminate\View\View;
 
 class PagesController extends Controller
 {
@@ -24,8 +25,7 @@ class PagesController extends Controller
     ];
 
     /**
-     * PagesController constructor.
-     * @throws \Exception
+     * PagesController __construct
      */
     public function __construct()
     {
@@ -35,35 +35,32 @@ class PagesController extends Controller
         $this->data['moduleName'] = $this->moduleName;
         $this->data['typeList'] = setting('pageTypes');
         $this->data['title'] = trans('default.' . $this->moduleName);
-        $this->middleware('permission', ['except' => ['templateGroup']]);
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(): View
     {
         $this->data['items'] = Page::lang()->orderBy('sort', 'asc')->get();
         return view($this->viewTemplate . '.show', $this->data);
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @throws \Exception
+     * @return \Illuminate\View\View
      */
-    public function add()
+    public function add(): View
     {
-        $this->data['title'] .= getActionIcon(__FUNCTION__);
         $this->data['templateList'] = $this->getTemplates();
         return view($this->viewTemplate . '.add', $this->data);
     }
 
     /**
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     * @throws \Illuminate\Validation\ValidationException
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function create(Request $request)
+    public function create(Request $request): RedirectResponse
     {
         $this->validate($request, $this->validationArray);
         $filteredRequest = $request->except('_token');
@@ -72,30 +69,30 @@ class PagesController extends Controller
         $filteredRequest['sort'] = $this->getMaxSort();
         $this->addMainLang('page', $filteredRequest);
         $this->data['module'] = $this->moduleName;
+
         return redirect(route($this->moduleName))->with('successCreate', DATABASE_ACTION_CREATE);
     }
 
     /**
-     * @param Page $page
-     * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @throws \Exception
+     * @param \App\Page $page
+     * @param int $id
+     *
+     * @return \Illuminate\View\View
      */
-    public function edit(Page $page, $id)
+    public function edit(Page $page, int $id): View
     {
-        $this->data['title'] .= getActionIcon(__FUNCTION__);
         $this->data['item'] = $page->whereLangId($id)->first();
         $this->data['templateList'] = $this->getTemplates($this->data['item']->page_template_id);
         return view($this->viewTemplate . '.edit', $this->data);
     }
 
     /**
-     * @param Request $request
-     * @param $id
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     * @throws \Illuminate\Validation\ValidationException
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id): RedirectResponse
     {
         $this->validate($request, $this->validationArray);
         $filteredRequest = $request->except('_token');
@@ -106,35 +103,48 @@ class PagesController extends Controller
     }
 
     /**
-     * @param $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function delete($id)
+    public function delete(int $id): RedirectResponse
     {
         $menu = (MODELS_PATH . ucfirst($this->modelName))::findOrFail($id);
         $menu->delete();
-        return back();
+        return redirect()->back();
     }
 
     /**
-     * @param $id
-     * @param Page $page
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param \App\Page $page
+     * @param int $id
+     *
+     * @return \Illuminate\View\View
      */
-    public function editPage($id, Page $page)
+    public function editPage(Page $page, int $id): View
     {
-        $this->data['title'] .= getActionIcon(__FUNCTION__);
         $this->data['item'] = $page->whereLangId($id)->first();
+        $this->data['referenceType'] = setting('fileStoreReferenceType')['pages'];
+        $this->data['referenceID'] = $id;
+        $this->data['flashData'] = $this->saveFlashData([
+            'action' => __FUNCTION__,
+            'reference_id' => $this->data['referenceID'],
+            'reference_type' => $this->data['referenceType'],
+        ]);
+
+        $this->data['items'] = FileStoreRef::where('lang', $this->lang)
+            ->where('reference_type', $this->data['referenceType'])
+            ->where('reference_id', $this->data['referenceID'])->get();
+
         return view($this->viewTemplate . '.edit_page', $this->data);
     }
 
     /**
-     * @param Request $request
-     * @param $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     *
      * @return \Illuminate\Http\RedirectResponse
-     * @throws \Illuminate\Validation\ValidationException
      */
-    public function updatePage(Request $request, $id)
+    public function updatePage(Request $request, int $id): RedirectResponse
     {
         $this->validate($request, $this->validationArray);
         $convertedRequest = $request->except('_token', 'file');
@@ -144,20 +154,21 @@ class PagesController extends Controller
     }
 
     /**
-     * @throws \Throwable
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function templateGroup()
+    public function templateGroup(Request $request): JsonResponse
     {
         $this->jsonHeaders();
         try {
-            $pageType = Input::post('page_type');
-            $this->data['templateGroup'] = $this->getTemplates($pageType);
-            echo json_encode([
+            $this->data['templateGroup'] = $this->getTemplates($request->page_type);
+            return response()->json([
                 'status' => 'ok',
                 'response' => view($this->viewTemplate . '.template_group', $this->data)->render(),
             ]);
         } catch (\Exception $e) {
-            echo json_encode([
+            return response()->json([
                 'status' => 'error',
                 'message' => $e->getMessage(),
             ]);
@@ -166,10 +177,10 @@ class PagesController extends Controller
 
     /**
      * @param int $groupID
-     * @return mixed
-     * @throws \Exception
+     *
+     * @return array
      */
-    public static function getTemplates($groupID = 0)
+    public static function getTemplates(int $groupID = 0): array
     {
         return setting('pageTemplates')[$groupID];
     }

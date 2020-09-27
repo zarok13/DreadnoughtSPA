@@ -9,8 +9,9 @@ use App\MapCoordinate;
 use App\Marker;
 use App\Traits\DatabaseAction;
 use App\Traits\Sort;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
+use Illuminate\View\View;
 
 class ContactController extends Controller
 {
@@ -23,8 +24,7 @@ class ContactController extends Controller
     protected $defaultMarkerCoordinates;
 
     /**
-     * ContactController constructor.
-     * @throws \Exception
+     * ContactController __construct
      */
     public function __construct()
     {
@@ -36,16 +36,15 @@ class ContactController extends Controller
         $this->defaultMarkerCoordinates = setting('defaultMarkerCoordinates');
         $this->data['defaultMarkerCoordinates'] = $this->defaultMarkerCoordinates;
         $this->data['templateTypes'] = array_index_to_value(setting('mapTypeList'));
-        $this->middleware('permission', ['except' => 'getMarkerForm']);
     }
 
     /**
-     * @param Marker $marker
-     * @param $pageID
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @throws \Exception
+     * @param \App\Marker $marker
+     * @param int $pageID
+     *
+     * @return \Illuminate\View\View
      */
-    public function index(Marker $marker, $pageID)
+    public function index(Marker $marker, int $pageID): View
     {
         $this->data['pageID'] = $pageID;
         $this->data['options'] = $this->getDefaultCoordinates($pageID);
@@ -57,14 +56,14 @@ class ContactController extends Controller
         return view($this->viewTemplate . '.show', $this->data);
     }
 
-
     /**
-     * @param Marker $marker
-     * @param $pageID
-     * @param null $markerID
-     * @throws \Throwable
+     * @param \App\Marker $marker
+     * @param int $pageID
+     * @param int $markerID
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function getMarkerForm(Marker $marker, $pageID, $markerID = null)
+    public function getMarkerForm(Marker $marker, int $pageID, int $markerID = null): JsonResponse
     {
         try {
             $this->data['modalTitle'] = 'Add';
@@ -76,32 +75,34 @@ class ContactController extends Controller
             $this->data['options'] = $this->getDefaultCoordinates($pageID);
             $this->data['markerList'] = $marker->getList($pageID);
 
-            echo json_encode([
+            return response()->json([
                 'status' => 'ok',
                 'response' => view('admin.modules.contact._form', $this->data)->render(),
             ]);
         } catch (\Exception $e) {
-            echo json_encode([
+            return response()->json([
                 'status' => 'error',
                 'message' => $e->getMessage(),
             ]);
         }
-
     }
 
     /**
-     * @param $pageID
+     * @param \Illuminate\Http\Request $request
+     * @param int $pageID
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function saveDataCoordinates($pageID)
+    public function saveDataCoordinates(Request $request, int $pageID): JsonResponse
     {
         try {
-            $this->saveMarkerCoordinates();
-            $this->saveMapCoordinates($pageID);
-            echo json_encode([
+            $this->saveMarkerCoordinates($request);
+            $this->saveMapCoordinates($request, $pageID);
+            return response()->json([
                 'status' => 'ok',
             ]);
         } catch (\Exception $e) {
-            echo json_encode([
+            return response()->json([
                 'status' => 'error',
                 'message' => $e->getMessage(),
             ]);
@@ -109,27 +110,31 @@ class ContactController extends Controller
     }
 
     /**
-     * @param $pageID
-     * @throws \Exception
+     * @param \Illuminate\Http\Request $request
+     * @param int $pageID
+     *
+     * @return void
      */
-    public function saveMapCoordinates($pageID)
+    public function saveMapCoordinates(Request $request, int $pageID): void
     {
         MapCoordinate::where('page_id', $pageID)->delete();
         $mapCoordinate = new MapCoordinate();
-        $mapCoordinate->lat = Input::post('lat');
-        $mapCoordinate->lng = Input::post('lng');
-        $mapCoordinate->zoom = Input::post('zoom');
-        $mapCoordinate->template_type = array_search(Input::post('template_type'), setting('mapTypeList'));
+        $mapCoordinate->lat = $request->lat;
+        $mapCoordinate->lng = $request->lng;
+        $mapCoordinate->zoom = $request->zoom;
+        $mapCoordinate->template_type = array_search($request->template_type, setting('mapTypeList'));
         $mapCoordinate->page_id = $pageID;
         $mapCoordinate->save();
     }
 
     /**
+     * @param \Illuminate\Http\Request $request
+     *
      * @return bool
      */
-    protected function saveMarkerCoordinates()
+    protected function saveMarkerCoordinates(Request $request): bool
     {
-        $coordinates = !empty(Input::post('coordinates')) ? Input::post('coordinates') : [];
+        $coordinates = !empty($request->coordinates) ? $request->coordinates : [];
         foreach ($coordinates as $id => $item) {
             Marker::where('id', $id)->update([
                 'lat' => $item['lat'],
@@ -140,13 +145,14 @@ class ContactController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @param Marker $marker
-     * @param $pageID
-     * @param null $markerID
-     * @throws \Throwable
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Marker $marker
+     * @param int $pageID
+     * @param int $markerID
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function updateMarker(Request $request, Marker $marker, $pageID, $markerID = null)
+    public function updateMarker(Request $request, Marker $marker, int $pageID, int $markerID = null): JsonResponse
     {
         try {
             $this->moduleName = 'markers';
@@ -166,25 +172,25 @@ class ContactController extends Controller
             $this->data['options'] = $this->getDefaultCoordinates($pageID);
             cacheClear();
 
-            echo json_encode([
+            return response()->json([
                 'status' => 'ok',
                 'response' => view('admin.modules.contact.marker_list', $this->data)->render(),
                 'response2' => view('admin.modules.contact.map_box', $this->data)->render(),
             ]);
         } catch (\Exception $e) {
-            echo json_encode([
+            return response()->json([
                 'status' => 'error',
                 'message' => $e->getMessage(),
             ]);
         }
     }
 
-
     /**
-     * @param $markerID
-     * @throws \Throwable
+     * @param int $markerID
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function deleteMarker($markerID)
+    public function deleteMarker(int $markerID): JsonResponse
     {
         try {
             $marker = Marker::find($markerID);
@@ -193,26 +199,25 @@ class ContactController extends Controller
             $this->data['options'] = $this->getDefaultCoordinates($marker->page_id);
             $this->data['markerList'] = (new Marker())->getList($this->data['pageID']);
 
-            echo json_encode([
+            return response()->json([
                 'status' => 'ok',
                 'response' => view('admin.modules.contact.marker_list', $this->data)->render(),
                 'response2' => view('admin.modules.contact.map_box', $this->data)->render(),
             ]);
         } catch (\Exception $e) {
-            echo json_encode([
+            return response()->json([
                 'status' => 'error',
                 'message' => $e->getMessage(),
             ]);
         }
-
     }
 
     /**
-     * @param null $pageID
-     * @return mixed
-     * @throws \Exception
+     * @param int $pageID
+     *
+     * @return array
      */
-    protected function getDefaultCoordinates($pageID = null)
+    protected function getDefaultCoordinates(int $pageID = null): array
     {
         $coordinates = MapCoordinate::where('page_id', $pageID)->first();
         if (!empty($coordinates)) {
@@ -230,7 +235,9 @@ class ContactController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return void
      */
     public function sort(Request $request)
     {

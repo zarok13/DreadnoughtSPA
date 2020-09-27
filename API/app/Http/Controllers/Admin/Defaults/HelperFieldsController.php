@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Admin\Defaults;
 use App\HelperField;
 use App\Http\Controllers\Admin\Dreadnought\Controller;
 use App\Traits\DatabaseAction;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class HelperFieldsController extends Controller
 {
@@ -18,8 +21,7 @@ class HelperFieldsController extends Controller
     ];
 
     /**
-     * LanguageController constructor.
-     * @throws \Exception
+     * HelperFieldsController __construct
      */
     public function __construct()
     {
@@ -30,33 +32,31 @@ class HelperFieldsController extends Controller
         $this->data['title'] = trans('default.' . $this->moduleName);
         $this->data['typeList'] = setting('helperFieldsType');
         $this->data['dataTable'] = true;
-        $this->middleware('permission', ['except' => ['typeTemplate']]);
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(): View
     {
         $this->data['items'] = HelperField::lang()->orderBy('created_at', 'desc')->get();
         return view($this->viewTemplate . '.show', $this->data);
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\View\View
      */
-    public function add()
+    public function add(): View
     {
-        $this->data['title'] .= getActionIcon(__FUNCTION__);
         return view($this->viewTemplate . '.add', $this->data);
     }
 
     /**
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     * @throws \Illuminate\Validation\ValidationException
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function create(Request $request)
+    public function create(Request $request): RedirectResponse
     {
         $this->validate($request, $this->validationArray);
         $filteredRequest = $request->except('_token');
@@ -67,24 +67,24 @@ class HelperFieldsController extends Controller
     }
 
     /**
-     * @param HelperField $helperField
-     * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param \App\HelperField $helperField
+     * @param int $id
+     *
+     * @return void
      */
-    public function edit(HelperField $helperField, $id)
+    public function edit(HelperField $helperField, int $id)
     {
-        $this->data['title'] .= getActionIcon(__FUNCTION__);
         $this->data['item'] = $helperField->find($id)->toArray();
         return view($this->viewTemplate . '.edit', $this->data);
     }
 
     /**
-     * @param Request $request
-     * @param $id
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     * @throws \Illuminate\Validation\ValidationException
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id): RedirectResponse
     {
         $this->validate($request, $this->validationArray);
         $this->updateMainLang($this->modelName, $id, $request->except('_token'));
@@ -93,22 +93,24 @@ class HelperFieldsController extends Controller
     }
 
     /**
-     * @param $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function delete($id)
+    public function delete(int $id): RedirectResponse
     {
         $menu = (MODELS_PATH . ucfirst($this->modelName))::findOrFail($id);
         $menu->delete();
-        return back();
+        return redirect()->back();
     }
 
     /**
-     * @param Request $request
-     * @param HelperField $helperField
-     * @throws \Throwable
+     * @param \Illuminate\Http\Request $request
+     * @param \App\HelperField $helperField
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function typeTemplate(Request $request, HelperField $helperField)
+    public function typeTemplate(Request $request, HelperField $helperField): JsonResponse
     {
         try {
             $this->data['typeTemplate'] = $request->type;
@@ -118,12 +120,12 @@ class HelperFieldsController extends Controller
             } else {
                 $this->data['array'] = null;
             };
-            echo json_encode([
+            return response()->json([
                 'status' => 'ok',
                 'response' => view($this->viewTemplate . '._type_template', $this->data)->render(),
             ]);
         } catch (\Exception $e) {
-            echo json_encode([
+            return response()->json([
                 'status' => 'error',
                 'message' => $e->getMessage(),
             ]);

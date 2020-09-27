@@ -3,9 +3,10 @@
 namespace App\Http\Middleware;
 
 use App\Facades\ModulePerms;
+use App\Http\Controllers\Admin\Dreadnought\Controller;
 use Closure;
 
-class Permission
+class Permission extends Controller
 {
     /**
      * @param $request
@@ -16,11 +17,14 @@ class Permission
     public function handle($request, Closure $next)
     {
         $moduleName = $request->route()->controller->moduleName;
-        if (empty($request->route()->controller->moduleName)) {
-            throw new \Exception('Empty module name');
-        }
-        $methodName = array_search($request->route()->getActionMethod(), config('modules')[$moduleName]['actions']);
-        if (!ModulePerms::check($moduleName, $methodName)) {
+        $methodName = $this->checkForAliases($request->route()->getActionMethod());
+
+        $rolledMethod = array_search($methodName, config('modules')[$moduleName]['actions']);
+
+        if (empty($rolledMethod))
+            return true;
+
+        if (!ModulePerms::check($moduleName, $rolledMethod)) {
             if ($request->ajax() == true) {
                 return response()->json('Sorry, you don\'t have permissions for this action!', 403);
             } else {
@@ -28,5 +32,26 @@ class Permission
             }
         }
         return $next($request);
+    }
+
+    /**
+     * @param $methodName
+     * @return string
+     */
+    protected function checkForAliases($methodName)
+    {
+        switch ($methodName) {
+            case 'update':
+                return 'edit';
+                break;
+            case 'create':
+                return 'add';
+                break;
+            case 'updatePage':
+                return 'editPage';
+                break;
+            default:
+                return $methodName;
+        }
     }
 }

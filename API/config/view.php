@@ -14,7 +14,7 @@ return [
     */
 
     'paths' => [
-        base_path('blades'),
+        base_path('views'),
     ],
 
     /*

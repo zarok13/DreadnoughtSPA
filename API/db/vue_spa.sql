@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 01, 2020 at 08:52 AM
+-- Generation Time: Sep 27, 2020 at 11:06 PM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.2.12
 
@@ -62,12 +62,26 @@ INSERT INTO `articles` (`id`, `lang`, `lang_id`, `slug`, `title`, `image`, `sub_
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `failed_jobs`
+--
+
+CREATE TABLE `failed_jobs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `file_store`
 --
 
 CREATE TABLE `file_store` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `lang` char(2) COLLATE utf8mb4_unicode_ci NOT NULL,
   `title` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `src` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `type` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -81,20 +95,36 @@ CREATE TABLE `file_store` (
 -- Dumping data for table `file_store`
 --
 
-INSERT INTO `file_store` (`id`, `lang`, `title`, `src`, `type`, `user_id`, `sort`, `created_at`, `updated_at`) VALUES
-(1, 'en', NULL, 'images/01-boxed.jpg', 'image', 1, 1, '2020-05-05 10:38:43', '2020-05-05 10:38:43'),
-(2, 'en', NULL, 'images/beaches_panoramic2.jpg', 'image', 1, 1, '2020-05-05 10:38:57', '2020-05-05 10:38:57'),
-(3, 'en', NULL, 'images/Tulips.jpg', 'image', 1, 1, '2020-05-06 10:07:22', '2020-05-06 10:07:22'),
-(4, 'en', NULL, 'images/img-01.jpg', 'image', 1, 1, '2020-05-06 15:46:39', '2020-05-06 15:46:39'),
-(5, 'en', NULL, 'images/img-02.jpg', 'image', 1, 1, '2020-05-06 15:46:40', '2020-05-06 15:46:40'),
-(6, 'en', NULL, 'images/img-03.jpg', 'image', 1, 1, '2020-05-06 15:46:40', '2020-05-06 15:46:40'),
-(7, 'en', NULL, 'images/bio.png', 'image', 1, 1, '2020-05-07 08:33:41', '2020-05-07 08:33:41'),
-(8, 'en', NULL, 'images/blog-01.jpg', 'image', 1, 1, '2020-05-08 05:59:33', '2020-05-08 05:59:33'),
-(9, 'en', NULL, 'images/blog-02.jpg', 'image', 1, 1, '2020-05-08 08:25:55', '2020-05-08 08:25:55'),
-(10, 'en', NULL, 'images/blog-03.jpg', 'image', 1, 1, '2020-05-08 12:04:34', '2020-05-08 12:04:34'),
-(11, 'en', NULL, 'images/blog-04.jpg', 'image', 1, 1, '2020-05-08 14:19:00', '2020-05-08 14:19:00'),
-(12, 'en', NULL, 'images/blog-05.jpg', 'image', 1, 1, '2020-05-08 14:20:06', '2020-05-08 14:20:06'),
-(13, 'en', NULL, 'images/blog-06.jpg', 'image', 1, 1, '2020-05-08 14:20:30', '2020-05-08 14:20:30');
+INSERT INTO `file_store` (`id`, `title`, `src`, `type`, `user_id`, `sort`, `created_at`, `updated_at`) VALUES
+(1, NULL, 'images/01-boxed.jpg', 'image', 1, 1, '2020-05-05 10:38:43', '2020-05-05 10:38:43'),
+(2, NULL, 'images/beaches_panoramic2.jpg', 'image', 1, 1, '2020-05-05 10:38:57', '2020-05-05 10:38:57'),
+(3, NULL, 'images/Tulips.jpg', 'image', 1, 1, '2020-05-06 10:07:22', '2020-05-06 10:07:22'),
+(4, NULL, 'images/img-01.jpg', 'image', 1, 1, '2020-05-06 15:46:39', '2020-05-06 15:46:39'),
+(5, NULL, 'images/img-02.jpg', 'image', 1, 1, '2020-05-06 15:46:40', '2020-05-06 15:46:40'),
+(6, NULL, 'images/img-03.jpg', 'image', 1, 1, '2020-05-06 15:46:40', '2020-05-06 15:46:40'),
+(7, NULL, 'images/bio.png', 'image', 1, 1, '2020-05-07 08:33:41', '2020-05-07 08:33:41'),
+(8, NULL, 'images/blog-01.jpg', 'image', 1, 1, '2020-05-08 05:59:33', '2020-05-08 05:59:33'),
+(9, NULL, 'images/blog-02.jpg', 'image', 1, 1, '2020-05-08 08:25:55', '2020-05-08 08:25:55'),
+(10, NULL, 'images/blog-03.jpg', 'image', 1, 1, '2020-05-08 12:04:34', '2020-05-08 12:04:34'),
+(11, NULL, 'images/blog-04.jpg', 'image', 1, 1, '2020-05-08 14:19:00', '2020-05-08 14:19:00'),
+(12, NULL, 'images/blog-05.jpg', 'image', 1, 1, '2020-05-08 14:20:06', '2020-05-08 14:20:06'),
+(13, NULL, 'images/blog-06.jpg', 'image', 1, 1, '2020-05-08 14:20:30', '2020-05-08 14:20:30');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `file_store_refs`
+--
+
+CREATE TABLE `file_store_refs` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `lang` char(2) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `file_id` bigint(20) UNSIGNED NOT NULL,
+  `reference_id` int(11) NOT NULL,
+  `reference_type` tinyint(3) UNSIGNED NOT NULL,
+  `sort` smallint(6) NOT NULL DEFAULT '1',
+  `pin` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -135,7 +165,8 @@ INSERT INTO `helper_fields` (`id`, `lang`, `lang_id`, `keyword`, `value`, `descr
 (15, 'en', 15, 'instagram_url', 'instagram.com', 'instagram url', 1, '2020-05-29 07:17:08', NULL),
 (16, 'en', 16, 'footer_quote', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.', 'footer quote', 2, '2020-05-29 07:28:35', NULL),
 (17, 'en', 17, 'footer_desc', 'Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat.', 'footer description', 2, '2020-05-29 07:30:30', NULL),
-(18, 'en', 18, 'footer_image', 'images/blog-04.jpg', 'footer image', 4, '2020-05-29 08:25:42', NULL);
+(18, 'en', 18, 'footer_image', 'images/blog-04.jpg', 'footer image', 4, '2020-05-29 08:25:42', NULL),
+(19, 'en', 19, 'contact_id', '5', 'Contact page id', 1, '2020-06-07 08:17:52', NULL);
 
 -- --------------------------------------------------------
 
@@ -254,10 +285,15 @@ CREATE TABLE `menu` (
 --
 
 INSERT INTO `menu` (`id`, `lang`, `lang_id`, `title`, `main`, `page_id`, `parent_id`, `hidden`, `sort`, `created_at`, `updated_at`) VALUES
-(18, 'en', 18, 'Products', 0, 2, NULL, 0, 2, NULL, '2020-03-19 04:43:21'),
-(20, 'en', 20, 'Contacts', 0, 5, NULL, 0, 4, NULL, '2020-03-25 08:00:02'),
+(18, 'en', 18, 'Products', 0, 2, NULL, 0, 6, NULL, '2020-03-19 04:43:21'),
+(20, 'en', 20, 'Contacts', 0, 5, NULL, 0, 9, NULL, '2020-03-25 08:00:02'),
 (23, 'en', 23, 'Home', 1, NULL, NULL, 0, 1, NULL, NULL),
-(25, 'en', 24, 'About Us', 0, 1, NULL, 0, 3, NULL, '2020-04-07 16:36:40');
+(25, 'en', 25, 'About Us', 0, 1, NULL, 0, 7, NULL, '2020-06-08 02:25:00'),
+(26, 'en', 26, 'Parent', 0, NULL, NULL, 0, 2, NULL, NULL),
+(27, 'en', 27, 'test', 0, NULL, 26, 0, 3, NULL, NULL),
+(28, 'en', 28, 'test2', 0, NULL, 26, 0, 4, NULL, NULL),
+(29, 'en', 29, 'Service 1', 0, NULL, 27, 0, 5, NULL, '2020-06-10 17:04:14'),
+(30, 'en', 30, 'Info', 0, 8, 25, 0, 8, NULL, '2020-06-14 12:19:34');
 
 -- --------------------------------------------------------
 
@@ -293,7 +329,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (40, '2020_03_23_205743_create_markers_table', 16),
 (43, '2020_03_29_162657_create_map_coordinates_table', 17),
 (46, '2020_04_11_211225_create_sliders_table', 18),
-(47, '2020_04_12_184223_create_reviews_table', 19);
+(47, '2020_04_12_184223_create_reviews_table', 19),
+(48, '2019_08_19_000000_create_failed_jobs_table', 20),
+(49, '2020_09_06_202520_create_file_store_refs_table', 20);
 
 -- --------------------------------------------------------
 
@@ -324,10 +362,11 @@ CREATE TABLE `pages` (
 --
 
 INSERT INTO `pages` (`id`, `lang`, `lang_id`, `slug`, `title`, `desc`, `text`, `main_image`, `hidden`, `sort`, `user_id`, `page_type_id`, `page_template_id`, `created_at`, `updated_at`) VALUES
-(1, 'en', 1, 'about_us', 'About', NULL, '<h3 style=\"text-align: left;\"><span style=\"font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; text-align: justify; background-color: #ffffff;\">&nbsp; &nbsp; &nbsp;Sed id lacinia nibh. Maecenas sit amet venenatis dolor. Curabitur congue consectetur tellus in fermentum. Cras ac aliquet sem, vitae dapibus quam. Sed ultricies fermentum leo vitae volutpat. Vivamus condimentum, purus vel maximus fringilla, lacus lorem posuere orci, in dapibus ipsum diam eu eros. Proin velit orci, congue ac tincidunt a, bibendum et libero.</span></h3>\r\n<p style=\"text-align: left;\">&nbsp; &nbsp; &nbsp; Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sollicitudin gravida tellus, vel hendrerit lectus sagittis semper. Nunc vitae rutrum tortor. Maecenas sollicitudin varius mauris, nec commodo ipsum mattis vitae. Curabitur efficitur nulla at scelerisque iaculis. Mauris id urna neque. Nullam eget placerat ante. In tempus felis at dapibus molestie. Duis porta, urna non mattis vestibulum, nulla quam auctor nibh, in sagittis ipsum lectus vel ligula. Ut mi quam, ullamcorper vel nisl sed, iaculis varius lectus. Maecenas posuere, enim finibus fermentum ornare, eros ligula ornare libero, vel interdum odio dui non eros. Proin feugiat nunc at est auctor feugiat.</p>\r\n<ul>\r\n<li style=\"text-align: left;\">one</li>\r\n<li style=\"text-align: left;\">two</li>\r\n<li style=\"text-align: left;\">three</li>\r\n</ul>\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; background-color: #ffffff;\">&nbsp;</p>', 'images/Penguins.jpg', 0, 4, 1, 0, 0, NULL, '2020-03-22 16:50:49'),
+(1, 'en', 1, 'about_us', 'About Us', NULL, '<h2 style=\"text-align: left;\">Investigationes demonstraverunt lectores</h2>\r\n<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.<br />Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>\r\n<p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.<br /><br /></p>\r\n<blockquote>Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima.</blockquote>\r\n<p><br />Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; background-color: #ffffff;\">&nbsp;</p>', 'images/Penguins.jpg', 0, 4, 1, 0, 0, NULL, '2020-06-14 10:33:33'),
 (2, 'en', 2, 'products', 'Products', NULL, NULL, NULL, 0, 2, 1, 1, 1, NULL, '2020-03-22 15:07:10'),
 (5, 'en', 5, 'contacts', 'Contacts', NULL, NULL, NULL, 0, 3, 1, 2, 0, NULL, NULL),
-(7, 'en', 6, 'blog', 'Blog', NULL, NULL, NULL, 0, 1, 1, 1, 2, NULL, NULL);
+(7, 'en', 6, 'blog', 'Blog', NULL, NULL, NULL, 0, 1, 1, 1, 2, NULL, NULL),
+(8, 'en', 8, 'info', 'Info', NULL, 'Info page', NULL, 0, 5, 1, 0, 0, NULL, '2020-06-14 10:44:24');
 
 -- --------------------------------------------------------
 
@@ -388,7 +427,7 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `title`, `permissions`, `created_at`, `updated_at`) VALUES
-(1, 'administrator', '{\"menu\":{\"1\":\"1\",\"2\":\"1\",\"3\":\"1\",\"4\":\"1\",\"5\":\"1\",\"6\":\"1\",\"7\":\"1\",\"8\":\"1\"},\"pages\":{\"1\":\"1\",\"2\":\"1\",\"3\":\"1\",\"4\":\"1\",\"5\":\"1\",\"6\":\"1\",\"7\":\"1\",\"8\":\"1\",\"9\":\"1\",\"10\":\"0\"},\"sliders\":{\"1\":\"1\",\"2\":\"1\",\"3\":\"1\",\"4\":\"1\",\"5\":\"1\",\"6\":\"1\",\"7\":\"1\",\"8\":\"1\"},\"reviews\":{\"1\":\"1\",\"2\":\"1\",\"3\":\"1\",\"4\":\"1\",\"5\":\"1\",\"6\":\"1\",\"7\":\"1\",\"8\":\"1\"},\"articles\":{\"1\":\"1\",\"2\":\"1\",\"3\":\"1\",\"4\":\"1\",\"5\":\"1\",\"6\":\"1\",\"7\":\"1\"},\"contact\":{\"1\":\"1\",\"2\":\"1\",\"3\":\"1\",\"4\":\"1\",\"5\":\"1\"},\"file_store\":{\"1\":\"1\",\"2\":\"1\",\"3\":\"1\"},\"languages\":{\"1\":\"1\",\"2\":\"1\",\"3\":\"1\",\"4\":\"1\",\"5\":\"1\",\"6\":\"1\",\"7\":\"1\"},\"helper_fields\":{\"1\":\"1\",\"2\":\"1\",\"3\":\"1\",\"4\":\"1\",\"5\":\"1\",\"6\":\"1\",\"7\":\"1\"}}', '2019-08-07 16:06:20', '2020-05-21 11:05:46');
+(1, 'administrator', '{\"menu\":{\"read\":\"1\",\"write\":\"1\",\"edit\":\"1\",\"delete\":\"1\",\"sort\":\"1\"},\"pages\":{\"read\":\"1\",\"write\":\"1\",\"edit\":\"1\",\"delete\":\"1\",\"sort\":\"1\",\"editPage\":\"1\"},\"sliders\":{\"read\":\"1\",\"write\":\"1\",\"edit\":\"1\",\"delete\":\"1\",\"sort\":\"1\"},\"reviews\":{\"read\":\"1\",\"write\":\"1\",\"edit\":\"1\",\"delete\":\"1\",\"sort\":\"1\"},\"articles\":{\"read\":\"1\",\"write\":\"1\",\"edit\":\"1\",\"delete\":\"1\"},\"contact\":{\"read\":\"1\",\"write\":\"1\",\"edit\":\"1\",\"delete\":\"1\",\"sort\":\"1\"},\"file_store\":{\"read\":\"1\",\"write\":\"1\",\"delete\":\"1\"},\"languages\":{\"read\":\"1\",\"write\":\"1\",\"edit\":\"1\",\"delete\":\"1\"},\"helper_fields\":{\"read\":\"1\",\"write\":\"1\",\"edit\":\"1\",\"delete\":\"1\"}}', '2019-08-07 16:06:20', '2020-09-27 17:02:12');
 
 -- --------------------------------------------------------
 
@@ -461,10 +500,25 @@ ALTER TABLE `articles`
   ADD KEY `articles_page_id_index` (`page_id`);
 
 --
+-- Indexes for table `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `file_store`
 --
 ALTER TABLE `file_store`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `file_store_refs`
+--
+ALTER TABLE `file_store_refs`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `file_store_refs_lang_file_id_reference_id_reference_type_unique` (`lang`,`file_id`,`reference_id`,`reference_type`),
+  ADD KEY `file_store_refs_file_id_foreign` (`file_id`),
+  ADD KEY `file_store_refs_sort_index` (`sort`);
 
 --
 -- Indexes for table `helper_fields`
@@ -577,16 +631,28 @@ ALTER TABLE `articles`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
+-- AUTO_INCREMENT for table `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `file_store`
 --
 ALTER TABLE `file_store`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
+-- AUTO_INCREMENT for table `file_store_refs`
+--
+ALTER TABLE `file_store_refs`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `helper_fields`
 --
 ALTER TABLE `helper_fields`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `languages`
@@ -610,19 +676,19 @@ ALTER TABLE `markers`
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT for table `pages`
 --
 ALTER TABLE `pages`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `reviews`
@@ -651,6 +717,12 @@ ALTER TABLE `users`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `file_store_refs`
+--
+ALTER TABLE `file_store_refs`
+  ADD CONSTRAINT `file_store_refs_file_id_foreign` FOREIGN KEY (`file_id`) REFERENCES `file_store` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `map_coordinates`

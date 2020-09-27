@@ -10,8 +10,7 @@ use App\Traits\DatabaseAction;
 use App\Traits\Sort;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Redirector;;
-use Illuminate\Validation\ValidationException;
+use Illuminate\View\View;
 
 class MenuController extends Controller
 {
@@ -23,8 +22,7 @@ class MenuController extends Controller
     ];
 
     /**
-     * MenuController constructor.
-     * @throws \Exception
+     * MenuController __construct
      */
     public function __construct()
     {
@@ -33,35 +31,34 @@ class MenuController extends Controller
         $this->viewTemplate .= '.' . $this->moduleName;
         $this->data['moduleName'] = $this->moduleName;
         $this->data['title'] = trans('default.' . $this->moduleName);
-        $this->middleware('permission');
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(): View
     {
         $this->data['items'] = Menu::lang()->orderBy('sort', 'asc')->get();
         return view($this->viewTemplate . '.show', $this->data);
     }
 
     /**
-     * @param Menu $menu
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param \App\Menu $menu
+     *
+     * @return \Illuminate\View\View
      */
-    public function add(Menu $menu)
+    public function add(Menu $menu): View
     {
-        $this->data['title'] .= getActionIcon(__FUNCTION__);
         $this->data['parentList'] = $menu->lang()->pluck('title', 'id')->toArray();
         return view($this->viewTemplate . '.add', $this->data);
     }
 
     /**
-     * @param Request $request
-     * @return RedirectResponse|Redirector
-     * @throws ValidationException
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function create(Request $request)
+    public function create(Request $request): RedirectResponse
     {
         $this->validate($request, $this->validationArray);
         $filteredRequest = $request->except('_token');
@@ -70,14 +67,14 @@ class MenuController extends Controller
     }
 
     /**
-     * @param Menu $menu
-     * @param Page $page
-     * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param \App\Menu $menu
+     * @param \App\Page $page
+     * @param int $id
+     *
+     * @return \Illuminate\View\View
      */
-    public function edit(Menu $menu, Page $page, $id)
+    public function edit(Menu $menu, Page $page, int $id): View
     {
-        $this->data['title'] .= getActionIcon(__FUNCTION__);
         $this->data['item'] = $menu->whereLangId($id)->first()->toArray();
         $this->data['parentList'] = $menu->lang()->pluck('title', 'id')->toArray();
         $this->data['pageList'] = $page->lang()->pluck('title', 'lang_id')->toArray();
@@ -85,13 +82,13 @@ class MenuController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @param Menu $menu
-     * @param $id
-     * @return RedirectResponse
-     * @throws ValidationException
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Menu $menu
+     * @param int $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Menu $menu, $id)
+    public function update(Request $request, Menu $menu, int $id): RedirectResponse
     {
         $this->validate($request, $this->validationArray);
         $menu->checkMainPage($request->main);
@@ -101,10 +98,11 @@ class MenuController extends Controller
     }
 
     /**
-     * @param $id
-     * @return RedirectResponse
+     * @param int $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function delete($id)
+    public function delete(int $id): RedirectResponse
     {
         $menu = (MODELS_PATH . ucfirst($this->moduleName))::where('lang_id', $id)->first();
         $menu->delete();

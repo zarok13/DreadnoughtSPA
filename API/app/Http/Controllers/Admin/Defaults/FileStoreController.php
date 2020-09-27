@@ -2,27 +2,36 @@
 
 namespace App\Http\Controllers\Admin\Defaults;
 
-
+use App\Contracts\AuthCustomValidationContract;
 use App\FileStore;
+use App\FileStoreRef;
 use App\Http\Controllers\Admin\Dreadnought\Controller;
+use App\Traits\AuthCustomValidation;
 use App\Traits\DatabaseAction;
 use App\Traits\Sort;
+use Illuminate\Validation\Rule;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Input;
+use Illuminate\View\View;
 
-class FileStoreController extends Controller
+class FileStoreController extends Controller implements AuthCustomValidationContract
 {
     use DatabaseAction;
     use Sort;
+    use AuthCustomValidation;
 
     protected $modelName = 'FileStore';
-    protected $imageTypeList = [1 => 'jpg', 2 => 'jpeg', 3 => 'gif', 4 => 'png'];
+    protected $imageTypeList = [
+        1 => 'jpg',
+        2 => 'jpeg',
+        3 => 'gif',
+        4 => 'png'
+    ];
 
     /**
-     * FileStoreController constructor.
-     * @throws \Exception
+     * FileStoreController __construct
      */
     public function __construct()
     {
@@ -34,30 +43,36 @@ class FileStoreController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(): View
     {
-        $this->data['items'] = FileStore::lang()->orderBy('created_at', 'desc')->get();
+        $this->data['items'] = (new FileStore())->getFileStore();
         return view($this->viewTemplate . '.show', $this->data);
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param Request $request
+     *
+     * @return \Illuminate\View\View
      */
-    public function smallIndex()
+    public function smallIndex(Request $request): View
     {
-        $this->data['items'] = FileStore::lang()->orderBy('created_at', 'desc')->get();
-        return view($this->viewTemplate . '.small_show', $this->data);
+        $this->data['items'] = (new FileStore())->getFileStore();
+        $this->data['fileReferences'] = isset($request->mode) && $request->mode == 'multiple' ? true : false;
+        $this->data['referenceType'] = $request->session()->get('flashData')['reference_type'];
+        $this->data['referenceID'] = isset($request->session()->get('flashData')['reference_id']) ? $request->session()->get('flashData')['reference_id'] : '';
+
+        return view($this->viewTemplate . '.file_manager', $this->data);
     }
 
     /**
-     * @param Request $request
-     * @param FileStore $fileStore
+     * @param \Illuminate\Http\Request $request
+     * @param \App\FileStore $fileStore
+     *
      * @return \Illuminate\Http\JsonResponse
-     * @throws \Throwable
      */
-    public function upload(Request $request, FileStore $fileStore)
+    public function upload(Request $request, FileStore $fileStore): JsonResponse
     {
         try {
             if (!$request->ajax() && !$request->isMethod('post')) {
@@ -67,14 +82,13 @@ class FileStoreController extends Controller
             foreach ($convertedRequest['files'] as $file) {
                 $this->imageUpload($file);
             }
-            $this->data['new_items'] = $fileStore->lang()->orderBy('created_at', 'desc')->get();
-            $renderTemplate = 'uploaded_files_template';
-            if (isset($request->smallWindow)) {
-                $this->data['smallWindow'] = $request->smallWindow;
-            }
+            $this->data['new_items'] = $fileStore->getFileStore();
+            $this->data['smallWindow'] = $request->smallWindow;
+            $this->data['fileReferences'] = $request->multipleAttach;
+
             return response()->json([
                 'status' => 'ok',
-                'response' => view($this->viewTemplate . '.' . $renderTemplate, $this->data)->render(),
+                'response' => view($this->viewTemplate . '.' . 'uploaded_files_template', $this->data)->render(),
             ]);
         } catch (\Exception $e) {
             return response()->json([
@@ -85,27 +99,25 @@ class FileStoreController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @param FileStore $fileStore
-     * @param $id
+     * @param \Illuminate\Http\Request $request
+     * @param \App\FileStore $fileStore
+     * @param int $id
+     *
      * @return \Illuminate\Http\JsonResponse
-     * @throws \Throwable
      */
-    public function delete(Request $request, FileStore $fileStore, $id)
+    public function delete(Request $request, FileStore $fileStore, int $id): JsonResponse
     {
         try {
             $item = (MODELS_PATH . ucfirst($this->modelName))::findOrFail($id);
             $file_path = public_path('storage/' . $item->src);
             unlink($file_path);
             $item->delete();
-            $this->data['new_items'] = $fileStore->lang()->orderBy('created_at', 'desc')->get();
-            $renderTemplate = 'uploaded_files_template';
-            if ($request->smallWindow == "true") {
-                $this->data['smallWindow'] = $request->smallWindow;
-            }
+            $this->data['new_items'] = $fileStore->getFileStore();
+            $this->data['smallWindow'] = $request->smallWindow;
+            $this->data['fileReferences'] = $request->multipleAttach;
             return response()->json([
                 'status' => 'ok',
-                'response' => view($this->viewTemplate . '.' . $renderTemplate, $this->data)->render(),
+                'response' => view($this->viewTemplate . '.' . 'uploaded_files_template', $this->data)->render(),
             ]);
         } catch (\Exception $e) {
             return response()->json([
@@ -116,20 +128,16 @@ class FileStoreController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\JsonResponse
-     * @throws \Throwable
      */
-    public function choose(Request $request)
+    public function choose(Request $request): JsonResponse
     {
-        $this->data['path'] = $request->path;
-        $this->data['inputName'] = $request->inputName;
-        $this->data['params']['class'] = 'form-control attached_file_name text_upload';
-        $this->data['params'][] = 'readonly';
         try {
             return response()->json([
                 'status' => 'ok',
-                'response' => view($this->viewTemplate . '.attached_file_template', $this->data)->render(),
+                'response' => '<input class="form-control attached_file_name text_upload" readonly name="' . $request->inputName . '" type="text" value="' . $request->path . '">',
             ]);
         } catch (\Exception $e) {
             return response()->json([
@@ -139,11 +147,107 @@ class FileStoreController extends Controller
         }
     }
 
+    public function applyReferences(Request $request, FileStoreRef $fileStoreRef)
+    {
+        try {
+            $status = STATUS_ERROR;
+            if (!$request->ajax() && !$request->isMethod('post')) {
+                throw new \Exception('Error: Http request must be post type.');
+            }
+            $fileReferences = $request->fileReferences;
+            $this->data['referenceID'] = $request->reference_id;
+            $this->data['referenceType'] = $request->reference_type;
+            if (empty($request->fileReferences)) {
+                $status = STATUS_WARNING;
+                throw new \Exception('Please select files.');
+            }
+            foreach ($fileReferences as $file) {
+                $this->validateFileReferences($request,  $this->data['referenceID'], $file, $status);
+                $fileStoreRef->insertReferences($this->lang, $file,  $this->data['referenceID'], $this->data['referenceType']);
+            }
+
+            $this->data['items'] = FileStoreRef::where('lang', $this->lang)
+                ->where('reference_type', $this->data['referenceType'])
+                ->where('reference_id',  $this->data['referenceID'])->get();
+            $status = STATUS_OK;
+            return response()->json([
+                'status' => $status,
+                'response' => view('admin.applets.forms.file_store._template', $this->data)->render(),
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => $status,
+                'message' => $e->getMessage(),
+            ]);
+        }
+    }
+
+    public function unsetReference(Request $request, FileStoreRef $fileStoreRef)
+    {
+
+        try {
+            $status = STATUS_ERROR;
+            if (!$request->ajax() && !$request->isMethod('post')) {
+                throw new \Exception('Error: Http request must be post type.');
+            }
+            $fileID = $request->file_id;
+            $this->data['referenceID'] = $request->reference_id;
+            $this->data['referenceType'] = $request->reference_type;
+
+            $fileStoreRef->where('file_id', $fileID)
+                ->where('reference_id', $this->data['referenceID'])
+                ->where('reference_type', $this->data['referenceType'])
+                ->delete();
+
+
+            $this->data['items'] = FileStoreRef::where('lang', $this->lang)
+                ->where('reference_type', $this->data['referenceType'])
+                ->where('reference_id', $this->data['referenceID'])->get();
+
+            $status = STATUS_OK;
+            return response()->json([
+                'status' => $status,
+                'response' => view('admin.applets.forms.file_store._template', $this->data)->render(),
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => $status,
+                'message' => $e->getMessage(),
+            ]);
+        }
+    }
 
     /**
-     * @param $filePath
+     * Undocumented function
+     *
+     * @param Request $request
+     * @param int $referenceID
+     * @param int $file
+     * @return \Exception
      */
-    protected function imageUpload($filePath)
+    protected function validateFileReferences(Request $request, int $referenceID, int $file, &$status)
+    {
+        $errors = $this->customErrorsValidation($request, [
+            'reference_type' => [
+                Rule::unique('file_store_refs')->where('lang', $this->lang)
+                    ->where('reference_id', $referenceID)
+                    ->where('file_id', $file)
+            ]
+        ], $this);
+        if (count($errors) > 0) {
+            $file = FileStore::find($file);
+            $file = ltrim(strstr($file->src, '/'), '/');
+            $status = STATUS_WARNING;
+            throw new \Exception($file . ' file already attached.');
+        }
+    }
+
+    /**
+     * @param [type] $filePath
+     *
+     * @return void
+     */
+    protected function imageUpload($filePath): void
     {
         $fileExtension = $filePath->getClientOriginalExtension();
         $fileType = $this->getFileTypes($fileExtension);
@@ -158,11 +262,12 @@ class FileStoreController extends Controller
     }
 
     /**
-     * @param $fileExtension
-     * @param $fileName
+     * @param string $fileExtension
+     * @param string $fileName
+     *
      * @return string
      */
-    protected function checkSimilarFileName($fileExtension, $fileName)
+    protected function checkSimilarFileName(string $fileExtension, string $fileName): string
     {
         $fileNameOnly = str_replace('.' . $fileExtension, '', $fileName);
         $renameFile = 0;
@@ -182,31 +287,29 @@ class FileStoreController extends Controller
     }
 
     /**
-     * @param $fileName
-     * @param $fileType
+     * @param string $fileName
+     * @param string $fileType
+     *
+     * @return void
      */
-    protected function dbWrite($fileName, $fileType)
+    protected function dbWrite(string $fileName, string $fileType): void
     {
         DB::transaction(function () use ($fileName, $fileType) {
-            foreach ($this->langList as $key => $value) {
-                if ($this->lang == $key) {
-                    $fileStore = new FileStore();
-                    $fileStore->lang = $key;
-                    $fileStore->src = $fileName;
-                    $fileStore->type = $fileType;
-                    $fileStore->user_id = Auth::id();
-                    $fileStore->sort = 1;
-                    $fileStore->save();
-                }
-            }
+            $fileStore = new FileStore();
+            $fileStore->src = $fileName;
+            $fileStore->type = $fileType;
+            $fileStore->user_id = Auth::id();
+            $fileStore->sort = 1;
+            $fileStore->save();
         });
     }
 
     /**
-     * @param $fileExtension
+     * @param string $fileExtension
+     *
      * @return string
      */
-    public function getFileTypes($fileExtension)
+    public function getFileTypes(string $fileExtension): string
     {
         $imageType = array_search($fileExtension, $this->imageTypeList);
         if ($imageType) {

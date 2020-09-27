@@ -1,5 +1,6 @@
 <?php
 
+use App\FileStore;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 
@@ -8,7 +9,8 @@ $lang = urlLang();
 /* Symlinks */
 Route::get('/admin/storage', function () {
     App::make('files')->link(storage_path('app/public'), public_path('storage'));
-    App::make('files')->link(base_path('blade_components'), public_path('blade_components'));
+    App::make('files')->link(base_path('scripts'), public_path('scripts'));
+    FileStore::truncate();
 });
 Route::group(['prefix' => 'admin'], function () use ($lang) {
     /* System Routes */
@@ -30,7 +32,7 @@ Route::group(['prefix' => 'admin'], function () use ($lang) {
         Route::post('/administration/roles/update', 'RolesController@update')->name('administration.roles.update');
     });
     /* Default Routes */
-    Route::group(['namespace' => 'Admin\Defaults'], function () use ($lang) {
+    Route::group(['namespace' => 'Admin\Defaults', 'middleware' => 'permission'], function () use ($lang) {
         // Menu //
         Route::get('/' . $lang . '/menu', 'MenuController@index')->name('menu');
         Route::get('/' . $lang . '/menu/add', 'MenuController@add')->name('menu.add');
@@ -59,10 +61,10 @@ Route::group(['prefix' => 'admin'], function () use ($lang) {
         Route::get('/' . $lang . '/articles/delete/{id}', 'ArticlesController@delete')->name('articles.delete');
         // Contacts //
         Route::get('/' . $lang . '/contact/{id}', 'ContactController@index')->name('contact');
-        Route::get('/' . $lang . '/contact/get_marker_form/{id}/{marker_id?}', 'ContactController@getMarkerForm')->name('contact.getMarkerForm');
-        Route::post('/' . $lang . '/contact/update_marker/{id}/{marker_id?}', 'ContactController@updateMarker')->name('contact.updateMarker');
+        Route::get('/' . $lang . '/contact/get_marker_form/{page_id}/{marker_id?}', 'ContactController@getMarkerForm')->name('contact.getMarkerForm');
+        Route::post('/' . $lang . '/contact/update_marker/{page_id}/{marker_id?}', 'ContactController@updateMarker')->name('contact.updateMarker');
         Route::delete('/' . $lang . '/contact/delete_marker/{marker_id}', 'ContactController@deleteMarker')->name('contact.deleteMarker');
-        Route::post('/' . $lang . '/contact/save_data_coordinates/{id}', 'ContactController@saveDataCoordinates')->name('contact.saveDataCoordinates');
+        Route::post('/' . $lang . '/contact/save_data_coordinates/{page_id}', 'ContactController@saveDataCoordinates')->name('contact.saveDataCoordinates');
         Route::post('/' . $lang . '/contact/sort', 'ContactController@sort')->name('contact.sort');
         // Language //
         Route::get('/' . $lang . '/languages', 'LanguageController@index')->name('languages');
@@ -85,9 +87,11 @@ Route::group(['prefix' => 'admin'], function () use ($lang) {
         Route::post('/' . $lang . '/file_store/upload', 'FileStoreController@upload')->name('file_store.upload');
         Route::delete('/' . $lang . '/file_store/delete/{id}', 'FileStoreController@delete')->name('file_store.delete');
         Route::post('/' . $lang . '/file_store/choose', 'FileStoreController@choose')->name('file_store.choose');
+        Route::post('/' . $lang . '/file_store/apply_references/{reference_type}/{reference_id}', 'FileStoreController@applyReferences')->name('file_store.applyReferences');
+        Route::delete('/' . $lang . '/file_store/unset_references/{reference_type}/{reference_id}', 'FileStoreController@unsetReference')->name('file_store.unsetReference');
     });
     /* Other Routes */
-    Route::group(['namespace' => 'Admin'], function () use ($lang) {
+    Route::group(['namespace' => 'Admin', 'middleware' => 'permission'], function () use ($lang) {
         // Sliders //
         Route::get('/' . $lang . '/sliders', 'SlidersController@index')->name('sliders');
         Route::get('/' . $lang . '/sliders/add', 'SlidersController@add')->name('sliders.add');

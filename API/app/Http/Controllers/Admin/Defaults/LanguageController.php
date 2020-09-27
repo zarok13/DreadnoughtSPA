@@ -7,8 +7,7 @@ use App\Language;
 use App\Traits\DatabaseAction;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Redirector;
-use Illuminate\Validation\ValidationException;
+use Illuminate\View\View;
 
 class LanguageController extends Controller
 {
@@ -18,8 +17,7 @@ class LanguageController extends Controller
     protected $validationArray = [];
 
     /**
-     * LanguageController constructor.
-     * @throws \Exception
+     * LanguageController __construct
      */
     public function __construct()
     {
@@ -27,35 +25,34 @@ class LanguageController extends Controller
         $this->moduleName = 'languages';
         $this->viewTemplate .= '.' . $this->moduleName;
         $this->data['moduleName'] = $this->moduleName;
-        $this->data['title'] = trans('default.'.$this->moduleName);
+        $this->data['title'] = trans('default.' . $this->moduleName);
         $this->data['dataTable'] = true;
-        $this->middleware('permission');
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(): View
     {
         $this->data['items'] = Language::lang()->orderBy('created_at', 'desc')->get();
         return view($this->viewTemplate . '.show', $this->data);
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\View\View
      */
-    public function add()
+    public function add(): View
     {
-        $this->data['title'] .= getActionIcon( __FUNCTION__);
+        $this->data['title'] .= getActionIcon(__FUNCTION__);
         return view($this->viewTemplate . '.add', $this->data);
     }
 
     /**
-     * @param Request $request
-     * @return RedirectResponse|Redirector
-     * @throws ValidationException
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function create(Request $request)
+    public function create(Request $request): RedirectResponse
     {
         $this->validate($request, $this->validationArray);
         $filteredRequest = $request->except('_token');
@@ -66,39 +63,41 @@ class LanguageController extends Controller
     }
 
     /**
-     * @param Language $language
-     * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param \App\Language $language
+     * @param int $id
+     *
+     * @return \Illuminate\View\View
      */
-    public function edit(Language $language, $id)
+    public function edit(Language $language, int $id): View
     {
-        $this->data['title'] .= getActionIcon( __FUNCTION__);
-        $this->data['item'] = $language->find($id)->toArray();
+        $this->data['item'] = $language->lang()->whereLangId($id)->first();
+        page404($this->data['item']);
         return view($this->viewTemplate . '.edit', $this->data);
     }
 
     /**
-     * @param Request $request
-     * @param $id
-     * @return RedirectResponse|Redirector
-     * @throws ValidationException
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id): RedirectResponse
     {
         $this->validate($request, $this->validationArray);
-        $this->updateMainLang($this->modelName, $id, $request->except('_token'));
+        $this->updateMainLang($this->modelName,  $id, $request->except('_token'));
         $this->data['module'] = $this->moduleName;
         return redirect()->back()->with('successUpdate', DATABASE_ACTION_UPDATE);
     }
 
     /**
-     * @param $id
-     * @return RedirectResponse
+     * @param int $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function delete($id)
+    public function delete(int $id): RedirectResponse
     {
         $menu = (MODELS_PATH . ucfirst($this->modelName))::findOrFail($id);
         $menu->delete();
-        return back();
+        return redirect()->back();
     }
 }

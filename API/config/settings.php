@@ -18,7 +18,6 @@ return [
             0 => 'default',
             1 => 'products',
             2 => 'blog',
-
         ],
         2 => [
             0 => 'default',
@@ -29,6 +28,12 @@ return [
         2 => 'textarea',
         3 => 'editor',
         4 => 'attach file',
+    ],
+    'fileStoreReferenceType' => [
+        'pages' => 1,
+        'products' => 2,
+        // 'services' => 2,
+        // 'photo_gallery' => 4,
     ],
     'defaultMarkerCoordinates' => [
         'defaultLat' => '41.719378',

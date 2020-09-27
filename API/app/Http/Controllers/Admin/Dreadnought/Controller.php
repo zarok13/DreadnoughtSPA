@@ -6,7 +6,6 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Support\Facades\Auth;
 
 class Controller extends BaseController
 {
@@ -19,8 +18,7 @@ class Controller extends BaseController
     protected $viewTemplate;
 
     /**
-     * Controller constructor.
-     * @throws \Exception
+     * Controller __construct
      */
     public function __construct()
     {
@@ -30,19 +28,19 @@ class Controller extends BaseController
         $this->data['lang'] = $this->lang;
         $this->data['langList'] = $this->langList;
         $this->data['modules'] = $this->getModules();
-        $this->middleware('adminAuth');
+        $this->middleware('admin');
     }
 
     /**
-     * @return \Illuminate\Config\Repository|mixed
+     * @return array
      */
-    private function getModules()
+    private function getModules(): array
     {
         return config('modules');
     }
 
     /**
-     *  return json format headers
+     * @return void
      */
     protected function jsonHeaders()
     {
@@ -50,8 +48,13 @@ class Controller extends BaseController
         header('Access-Control-Allow-Origin: *');
     }
 
-    public function noPermissions()
+    /**
+     * @param array $data
+     * @return array
+     */
+    protected function saveFlashData($data = [])
     {
-        return view('admin.applets.info.no_perms');
+        request()->session()->put('flashData', $data);
+        return $data;
     }
 }

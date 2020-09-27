@@ -6,21 +6,21 @@ use App\Article;
 use App\Facades\Slug;
 use App\Http\Controllers\Admin\Dreadnought\Controller;
 use App\Traits\DatabaseAction;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use \Illuminate\View\View;
 
 class ArticlesController extends Controller
 {
     use DatabaseAction;
 
     protected $modelName = 'Article';
-    protected $validationArray = [
-
-    ];
+    protected $validationArray = [];
+    protected $fileStoreReferences;
 
     /**
-     * ArticlesController constructor.
-     * @throws \Exception
+     * ArticlesController __construct
      */
     public function __construct()
     {
@@ -29,16 +29,16 @@ class ArticlesController extends Controller
         $this->viewTemplate .= '.' . $this->moduleName;
         $this->data['moduleName'] = $this->moduleName;
         $this->data['title'] = trans('default.' . $this->moduleName);
-        $this->middleware('permission');
+        $this->fileStoreReferences = setting('fileStoreReferenceType');
     }
 
-
     /**
-     * @param Article $article
-     * @param $pageID
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param \App\Article $article
+     * @param int $pageID
+     *
+     * @return \Illuminate\View\View
      */
-    public function index(Article $article, $pageID)
+    public function index(Article $article, int $pageID): View
     {
         $this->data['pageID'] = $pageID;
         $this->data['items'] = $article->lang()->where('page_id', $pageID)->orderBy('created_at', 'desc')->get();
@@ -46,23 +46,23 @@ class ArticlesController extends Controller
     }
 
     /**
-     * @param $pageID
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param int $pageID
+     *
+     * @return \Illuminate\View\View
      */
-    public function add($pageID)
+    public function add(int $pageID): View
     {
-        $this->data['title'] .= getActionIcon(__FUNCTION__);
         $this->data['pageID'] = $pageID;
         return view($this->viewTemplate . '.add', $this->data);
     }
 
     /**
-     * @param Request $request
-     * @param $pageID
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     * @throws \Illuminate\Validation\ValidationException
+     * @param \Illuminate\Http\Request $request
+     * @param int $pageID
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function create(Request $request, $pageID)
+    public function create(Request $request, int $pageID): RedirectResponse
     {
         $this->validate($request, $this->validationArray);
         $filteredRequest = $request->except('_token');
@@ -76,13 +76,13 @@ class ArticlesController extends Controller
     }
 
     /**
-     * @param Article $article
-     * @param $ID
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param \App\Article $article
+     * @param int $ID
+     *
+     * @return \Illuminate\View\View
      */
-    public function edit(Article $article, $ID)
+    public function edit(Article $article, int $ID): View
     {
-        $this->data['title'] .= getActionIcon(__FUNCTION__);
         $this->data['ID'] = $ID;
         $this->data['item'] = $article->whereLangId($ID)->first();
         $this->data['template'] = $this->data['item']->page->template_type;
@@ -90,12 +90,12 @@ class ArticlesController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @param $id
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     * @throws \Illuminate\Validation\ValidationException
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id): RedirectResponse
     {
         $this->validate($request, $this->validationArray);
         $filteredRequest = $request->except('_token');
@@ -106,13 +106,14 @@ class ArticlesController extends Controller
     }
 
     /**
-     * @param $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function delete($id)
+    public function delete(int $id): RedirectResponse
     {
         $menu = (MODELS_PATH . ucfirst($this->modelName))::findOrFail($id);
         $menu->delete();
-        return back();
+        return redirect()->back();
     }
 }

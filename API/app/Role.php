@@ -6,6 +6,7 @@ namespace App;
 class Role extends ChildModel
 {
     protected $fillable = ['*'];
+    protected $role;
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -20,9 +21,21 @@ class Role extends ChildModel
      */
     public function convertedJsonData()
     {
-        $targetRole = $this->first();
-        $actions = json_decode($targetRole->permissions,true);
+        $this->role = self::first();
+        $actions = json_decode($this->role->permissions, true);
 
         return $actions;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @return bool
+     */
+    public function allChecked(): bool
+    {
+        if (!strpos($this->role->permissions, '0'))
+            return true;
+        return false;
     }
 }

@@ -39,4 +39,14 @@ class Page extends ChildModel
         }
         return $pageTypeList[$pageType];
     }
+
+    /**
+     * @param $slug
+     * @return mixed
+     */
+    public static function getPage($slug)
+    {
+        return self::lang()
+            ->where('slug', $slug)->first();
+    }
 }
