@@ -86,7 +86,7 @@ return [
     ],
     'gallery'         => [
         'name'         => 'gallery',
-        'icon'          => 'fas fa-database',
+        'icon'          => 'fas fa-palette',
         'active'        => true,
         'system'        => false,
         'sub_menu'           => [],

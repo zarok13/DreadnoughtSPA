@@ -11,6 +11,15 @@ class Menu extends ChildModel
     protected $fillable = ['*'];
     protected $table = 'menu';
 
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function children()
+    {
+        return $this->hasMany(Category::class, 'parent_id', 'id');
+    }
+    
     /**
      * @param null $parentID
      * @return array
