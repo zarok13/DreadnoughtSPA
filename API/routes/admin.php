@@ -108,5 +108,7 @@ Route::group(['prefix' => 'admin'], function () use ($lang) {
         Route::post('/' . $lang . '/reviews/update/{id}', 'ReviewsController@update')->name('reviews.update');
         Route::get('/' . $lang . '/reviews/delete/{id}', 'ReviewsController@delete')->name('reviews.delete');
         Route::post('/' . $lang . '/reviews/sort', 'ReviewsController@sort')->name('reviews.sort');
+         // Gallery //
+         Route::get('/' . $lang . '/gallery', 'GalleryController@index')->name('gallery');
     });
 });

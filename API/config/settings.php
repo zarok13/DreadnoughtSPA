@@ -32,6 +32,7 @@ return [
     'fileStoreReferenceType' => [
         'pages' => 1,
         'products' => 2,
+        'gallery' => 3,
         // 'services' => 2,
         // 'photo_gallery' => 4,
     ],

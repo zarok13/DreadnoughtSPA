@@ -84,6 +84,18 @@ return [
             'sort' => 'sort',
         ],
     ],
+    'gallery'         => [
+        'name'         => 'gallery',
+        'icon'          => 'fas fa-database',
+        'active'        => true,
+        'system'        => false,
+        'sub_menu'           => [],
+        'actions'         => [
+            'read' => 'index',
+            // 'write' => 'upload',
+            // 'delete' => 'delete',
+        ],
+    ],
     'file_store'         => [
         'name'         => 'file_store',
         'icon'          => 'fas fa-database',

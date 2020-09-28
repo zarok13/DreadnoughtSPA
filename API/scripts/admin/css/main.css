@@ -73,7 +73,6 @@
   transform: scale(1.5);
   transition-duration: 500ms;
   transition-timing-function: ease-out;
-  cursor: pointer;
 }
 
 .files_effects embed {
@@ -127,10 +126,6 @@
   .col-sm-6 {
     width: 50%;
   }
-}
-
-embed.selected_reference {
-  opacity: 0.5;
 }
 
 div.input_icon_group {
@@ -283,14 +278,6 @@ input[type=color],
   border-color: rgba(126, 239, 104, 0.8);
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6);
   outline: 0 none;
-}
-
-.hideOnMove > .dropdown-menu > a:hover {
-  background-color: #007bff;
-}
-
-tr > td.actions:last-child {
-  width: 5px;
 }
 
 /* Roles tree view */

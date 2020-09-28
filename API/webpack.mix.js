@@ -10,7 +10,7 @@ const mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
-mix.setPublicPath('blade_components');
+mix.setPublicPath('scripts');
 
 /* Admin styles/scripts */
 mix.js('resources/admin/js/app.js', 'admin/js')

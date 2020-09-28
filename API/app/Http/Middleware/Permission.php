@@ -16,13 +16,13 @@ class Permission extends Controller
      */
     public function handle($request, Closure $next)
     {
+
         $moduleName = $request->route()->controller->moduleName;
         $methodName = $this->checkForAliases($request->route()->getActionMethod());
 
         $rolledMethod = array_search($methodName, config('modules')[$moduleName]['actions']);
-
         if (empty($rolledMethod))
-            return true;
+            return $next($request);
 
         if (!ModulePerms::check($moduleName, $rolledMethod)) {
             if ($request->ajax() == true) {

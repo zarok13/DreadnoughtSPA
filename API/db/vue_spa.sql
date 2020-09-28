@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Sep 27, 2020 at 11:06 PM
--- Server version: 10.1.37-MariaDB
--- PHP Version: 7.2.12
+-- Host: localhost
+-- Generation Time: Sep 28, 2020 at 02:29 PM
+-- Server version: 5.7.31-0ubuntu0.18.04.1
+-- PHP Version: 7.2.24-0ubuntu0.18.04.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -96,19 +96,8 @@ CREATE TABLE `file_store` (
 --
 
 INSERT INTO `file_store` (`id`, `title`, `src`, `type`, `user_id`, `sort`, `created_at`, `updated_at`) VALUES
-(1, NULL, 'images/01-boxed.jpg', 'image', 1, 1, '2020-05-05 10:38:43', '2020-05-05 10:38:43'),
-(2, NULL, 'images/beaches_panoramic2.jpg', 'image', 1, 1, '2020-05-05 10:38:57', '2020-05-05 10:38:57'),
-(3, NULL, 'images/Tulips.jpg', 'image', 1, 1, '2020-05-06 10:07:22', '2020-05-06 10:07:22'),
-(4, NULL, 'images/img-01.jpg', 'image', 1, 1, '2020-05-06 15:46:39', '2020-05-06 15:46:39'),
-(5, NULL, 'images/img-02.jpg', 'image', 1, 1, '2020-05-06 15:46:40', '2020-05-06 15:46:40'),
-(6, NULL, 'images/img-03.jpg', 'image', 1, 1, '2020-05-06 15:46:40', '2020-05-06 15:46:40'),
-(7, NULL, 'images/bio.png', 'image', 1, 1, '2020-05-07 08:33:41', '2020-05-07 08:33:41'),
-(8, NULL, 'images/blog-01.jpg', 'image', 1, 1, '2020-05-08 05:59:33', '2020-05-08 05:59:33'),
-(9, NULL, 'images/blog-02.jpg', 'image', 1, 1, '2020-05-08 08:25:55', '2020-05-08 08:25:55'),
-(10, NULL, 'images/blog-03.jpg', 'image', 1, 1, '2020-05-08 12:04:34', '2020-05-08 12:04:34'),
-(11, NULL, 'images/blog-04.jpg', 'image', 1, 1, '2020-05-08 14:19:00', '2020-05-08 14:19:00'),
-(12, NULL, 'images/blog-05.jpg', 'image', 1, 1, '2020-05-08 14:20:06', '2020-05-08 14:20:06'),
-(13, NULL, 'images/blog-06.jpg', 'image', 1, 1, '2020-05-08 14:20:30', '2020-05-08 14:20:30');
+(1, NULL, 'images/nature-q-c-1517-1337-10.jpg', 'image', 1, 1, '2020-09-28 06:10:48', '2020-09-28 06:10:48'),
+(2, NULL, 'images/nature-q-c-1517-1337-8.jpg', 'image', 1, 1, '2020-09-28 06:10:48', '2020-09-28 06:10:48');
 
 -- --------------------------------------------------------
 
@@ -331,7 +320,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (46, '2020_04_11_211225_create_sliders_table', 18),
 (47, '2020_04_12_184223_create_reviews_table', 19),
 (48, '2019_08_19_000000_create_failed_jobs_table', 20),
-(49, '2020_09_06_202520_create_file_store_refs_table', 20);
+(50, '2020_09_06_202520_create_file_store_refs_table', 21);
 
 -- --------------------------------------------------------
 
@@ -427,7 +416,7 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `title`, `permissions`, `created_at`, `updated_at`) VALUES
-(1, 'administrator', '{\"menu\":{\"read\":\"1\",\"write\":\"1\",\"edit\":\"1\",\"delete\":\"1\",\"sort\":\"1\"},\"pages\":{\"read\":\"1\",\"write\":\"1\",\"edit\":\"1\",\"delete\":\"1\",\"sort\":\"1\",\"editPage\":\"1\"},\"sliders\":{\"read\":\"1\",\"write\":\"1\",\"edit\":\"1\",\"delete\":\"1\",\"sort\":\"1\"},\"reviews\":{\"read\":\"1\",\"write\":\"1\",\"edit\":\"1\",\"delete\":\"1\",\"sort\":\"1\"},\"articles\":{\"read\":\"1\",\"write\":\"1\",\"edit\":\"1\",\"delete\":\"1\"},\"contact\":{\"read\":\"1\",\"write\":\"1\",\"edit\":\"1\",\"delete\":\"1\",\"sort\":\"1\"},\"file_store\":{\"read\":\"1\",\"write\":\"1\",\"delete\":\"1\"},\"languages\":{\"read\":\"1\",\"write\":\"1\",\"edit\":\"1\",\"delete\":\"1\"},\"helper_fields\":{\"read\":\"1\",\"write\":\"1\",\"edit\":\"1\",\"delete\":\"1\"}}', '2019-08-07 16:06:20', '2020-09-27 17:02:12');
+(1, 'administrator', '{\"menu\":{\"read\":\"1\",\"write\":\"1\",\"edit\":\"1\",\"delete\":\"1\",\"sort\":\"1\"},\"pages\":{\"read\":\"1\",\"write\":\"1\",\"edit\":\"1\",\"delete\":\"1\",\"sort\":\"1\",\"editPage\":\"1\"},\"sliders\":{\"read\":\"1\",\"write\":\"1\",\"edit\":\"1\",\"delete\":\"1\",\"sort\":\"1\"},\"reviews\":{\"read\":\"1\",\"write\":\"1\",\"edit\":\"1\",\"delete\":\"1\",\"sort\":\"1\"},\"articles\":{\"read\":\"1\",\"write\":\"1\",\"edit\":\"1\",\"delete\":\"1\"},\"contact\":{\"read\":\"1\",\"write\":\"1\",\"edit\":\"1\",\"delete\":\"1\",\"sort\":\"1\"},\"file_store\":{\"read\":\"1\",\"write\":\"1\",\"delete\":\"1\"},\"languages\":{\"read\":\"1\",\"write\":\"1\",\"edit\":\"1\",\"delete\":\"1\"},\"helper_fields\":{\"read\":\"1\",\"write\":\"1\",\"edit\":\"1\",\"delete\":\"1\"},\"gallery\":{\"read\":\"1\"}}', '2019-08-07 16:06:20', '2020-09-28 04:58:16');
 
 -- --------------------------------------------------------
 
@@ -640,7 +629,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `file_store`
 --
 ALTER TABLE `file_store`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `file_store_refs`
@@ -682,7 +671,7 @@ ALTER TABLE `menu`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `pages`

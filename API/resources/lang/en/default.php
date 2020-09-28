@@ -1,8 +1,6 @@
 <?php
 
 return [
-
-
     'dashboard' => 'Dashboard',
     'pages' => 'Pages',
     'menu' => 'Menu',
@@ -15,4 +13,5 @@ return [
     'no_perms' => 'No Permissions',
     'sliders' => 'Sliders',
     'reviews' => 'Reviews',
+    'gallery' => 'Gallery',
 ];
