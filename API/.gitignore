@@ -3,7 +3,7 @@
 /node_modules
 /public_html/hot
 /public_html/storage
-/public_html/blade_components
+/public_html/scripts
 /storage/*.key
 /vendor
 .env
