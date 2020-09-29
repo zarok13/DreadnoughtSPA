@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class Menu extends ChildModel
 {
-    protected $fillable = ['*'];
+    protected $guarded = [];
     protected $table = 'menu';
 
 
@@ -17,44 +17,36 @@ class Menu extends ChildModel
      */
     public function children()
     {
-        return $this->hasMany(Category::class, 'parent_id', 'id');
+
+        return $this->hasMany(Menu::class, 'parent_id', 'id');
     }
-    
+
     /**
-     * @param null $parentID
-     * @return array
+     * @param int $parentID
+     * @return mixed
      */
-    public function webMenu($parentID = null)
+    public function getMenuWithChild($parentID = null, $allNodes = 1)
     {
-//        $items = Cache::rememberForever('menu.' . $parentID . '.' . $this->lang, function () use ($parentID) {
-        $query = $this->select('menu.*', 'pages.slug')
-//        (SELECT count(*) from menu as m1 inner join menu as m2 on m1.parent_id = m2.lang_id) as hasChild")
+        $menu = self::select([
+            'menu.*',
+            'pages.slug',
+            'pages.page_type_id',
+            'pages.page_template_id',
+            DB::raw($allNodes . " as 'nodes'")
+        ])
             ->join('pages', 'pages.lang_id', '=', 'menu.page_id', 'left')
             ->where('menu.lang', $this->lang)
             ->where('menu.parent_id', $parentID)
             ->where('menu.hidden', false)
+            ->where('menu.title', '!=', 'Home')
             ->orderBy('menu.sort', 'asc')
-            ->get()->toArray();
-//        });
-        return $this->formatWebMenu($query);
-    }
+            ->get();
 
-    /**
-     * @param array $items
-     * @return array
-     */
-    private function formatWebMenu($items)
-    {
-        $menu = [];
-        $i = 0;
-        foreach ($items as $item) {
-            $menu[$i] = $item;
-            $count = Menu::where('parent_id', $item['lang_id'])->count();
-            $item['has_child'] = $count;
-            if ($item['has_child'] > 0) {
-                $menu[$i]['sub_menu'] = $this->webMenu($item['lang_id']);
+        foreach ($menu as $index => $item) {
+            if (is_numeric($item['page_type_id'])) {
+                $menu[$index]['page_type'] = setting('pageTypes')[$item['page_type_id']];
+                $menu[$index]['page_template'] = setting('pageTemplates')[$item['page_type_id']][$item['page_template_id']];
             }
-            $i++;
         }
         return $menu;
     }
@@ -73,12 +65,13 @@ class Menu extends ChildModel
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function page() {
+    public function page()
+    {
         return $this->belongsTo('App\Page', 'page_id');
     }
 
 
-    public function getParent($parentID) 
+    public function getParent($parentID)
     {
         return $this->select('lang_id', 'title')->where('id', $parentID)->first();
     }

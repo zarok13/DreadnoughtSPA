@@ -10,7 +10,7 @@ $lang = urlLang();
 Route::get('/admin/storage', function () {
     App::make('files')->link(storage_path('app/public'), public_path('storage'));
     App::make('files')->link(base_path('scripts'), public_path('scripts'));
-    FileStore::truncate();
+    // FileStore::truncate();
 });
 Route::group(['prefix' => 'admin'], function () use ($lang) {
     /* System Routes */

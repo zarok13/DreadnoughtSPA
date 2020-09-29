@@ -27,32 +27,32 @@ class IndexController extends Controller
     public function menu($parentID = null)
     {
         // try {
-            $query = Menu::select([
-                'menu.id',
-                'menu.lang_id',
-                'menu.title',
-                'menu.parent_id', 
-                'pages.slug',
-                'pages.page_type_id',
-                'pages.page_template_id',
-            ])
-//        (SELECT count(*) from menu as m1 inner join menu as m2 on m1.parent_id = m2.lang_id) as hasChild")
-                ->join('pages', 'pages.lang_id', '=', 'menu.page_id', 'left')
-                ->where('menu.lang', $this->lang)
-                ->where('menu.parent_id', $parentID)
-                ->where('menu.hidden', false)
-                 ->where('menu.title', '!=', 'Home')
-                ->orderBy('menu.sort', 'asc')
-                ->get()->toArray();
-//        });
-            return $this->formatWebMenu($query);
-            // } catch (\Exception $e) {
-            //     return response()->json([
-            //         'status' => false,
-            //         'message' => $e->getMessage(),
-            //     ]);
-            // }
-       
+        $query = Menu::select([
+            'menu.id',
+            'menu.lang_id',
+            'menu.title',
+            'menu.parent_id',
+            'pages.slug',
+            'pages.page_type_id',
+            'pages.page_template_id',
+        ])
+            //        (SELECT count(*) from menu as m1 inner join menu as m2 on m1.parent_id = m2.lang_id) as hasChild")
+            ->join('pages', 'pages.lang_id', '=', 'menu.page_id', 'left')
+            ->where('menu.lang', $this->lang)
+            ->where('menu.parent_id', $parentID)
+            ->where('menu.hidden', false)
+            ->where('menu.title', '!=', 'Home')
+            ->orderBy('menu.sort', 'asc')
+            ->get()->toArray();
+        //        });
+        return $this->formatWebMenu($query);
+        // } catch (\Exception $e) {
+        //     return response()->json([
+        //         'status' => false,
+        //         'message' => $e->getMessage(),
+        //     ]);
+        // }
+
     }
 
     /**
@@ -65,30 +65,31 @@ class IndexController extends Controller
         $menu = [];
         $i = 0;
         foreach ($items as $item) {
-            
+
             $menu[$i] = $item;
             $count = Menu::where('parent_id', $item['lang_id'])->count();
             $item['has_child'] = $count;
             if ($item['has_child'] > 0) {
                 $menu[$i]['sub_menu'] = $this->menu($item['lang_id']);
-//                dd($this->testMenu($item['lang_id']));
+                //                dd($this->testMenu($item['lang_id']));
             }
             $i++;
         }
+
         foreach ($menu as $index => $item) {
-                if (is_numeric($item['page_type_id'])) {
-                    $menu[$index]['page_type'] = setting('pageTypes')[$item['page_type_id']];
-                    $menu[$index]['page_template'] = setting('pageTemplates')[$item['page_type_id']][$item['page_template_id']];
-                    unset($menu[$index]['page_type_id']);
-                    unset($menu[$index]['page_template_id']);
-                }
+            if (is_numeric($item['page_type_id'])) {
+                $menu[$index]['page_type'] = setting('pageTypes')[$item['page_type_id']];
+                $menu[$index]['page_template'] = setting('pageTemplates')[$item['page_type_id']][$item['page_template_id']];
+                unset($menu[$index]['page_type_id']);
+                unset($menu[$index]['page_template_id']);
             }
-//        return response()->json([
-//                'status' => true,
-//                'data' => $menu,
-//            ]);
+        }
+        //        return response()->json([
+        //                'status' => true,
+        //                'data' => $menu,
+        //            ]);
         // dump('fsdf');
-         return $menu;
+        return $menu;
     }
 
     /**
