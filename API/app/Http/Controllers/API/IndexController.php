@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\API;
 
-
 use App\Article;
 use App\Mail\Contact;
 use App\Menu;
@@ -14,7 +13,6 @@ use Webwizo\Shortcodes\Facades\Shortcode;
 use Illuminate\Http\Request;
 use App\Mail\Message;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\DB;
 
 class IndexController extends Controller
 {
@@ -96,10 +94,10 @@ class IndexController extends Controller
      * @param Page $pages
      * @return \Illuminate\Http\JsonResponse
      */
-    public function staticContent(Page $pages)
+    public function staticContent(Request $request, Page $pages)
     {
         try {
-            $pages = $pages->lang()->where('slug', $_GET['slug'])->first();
+            $pages = $pages->lang()->where('slug', $request->slug)->first();
             return response()->json([
                 'status' => true,
                 'data' => $pages,

@@ -21,6 +21,8 @@ new Vue({
     store,
     methods: {
         async getDynamicRoutes() {
+            console.log('dasdfs');
+            console.log(PageTypes);
             // if (localStorage[GET_API_ROUTES] && localStorage[GET_API_ROUTES] !== 'undefined') {
             //   let parsedData = JSON.parse(localStorage[GET_API_ROUTES]);
             //   this.processData(parsedData);

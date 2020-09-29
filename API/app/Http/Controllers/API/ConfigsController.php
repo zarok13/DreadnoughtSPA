@@ -11,10 +11,15 @@ use Illuminate\Http\Request;
 
 class ConfigsController extends Controller
 {
+    
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function index()
     {
         $menu = (new Menu())->getMenuWithChild();
-    
         return response()->json([
             'menu' => MenuResource::collection($menu),
             'translate' => Language::pluck('value', 'keyword'),
