@@ -82,12 +82,12 @@ class IndexController extends Controller
                 unset($menu[$index]['page_template_id']);
             }
         }
-        //        return response()->json([
-        //                'status' => true,
-        //                'data' => $menu,
-        //            ]);
+               return response()->json([
+                       'status' => true,
+                       'data' => $menu,
+                   ]);
         // dump('fsdf');
-        return $menu;
+        // return $menu;
     }
 
     /**

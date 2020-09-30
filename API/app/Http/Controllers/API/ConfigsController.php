@@ -3,13 +3,11 @@
 namespace App\Http\Controllers\API;
 
 use App\HelperField;
-use App\Http\Controllers\API\Controller;
 use App\Http\Resources\MenuResource;
 use App\Language;
 use App\Menu;
-use Illuminate\Http\Request;
 
-class ConfigsController extends Controller
+class ConfigsController
 {
     
     /**

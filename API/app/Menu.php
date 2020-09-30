@@ -2,10 +2,6 @@
 
 namespace App;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
-
 class Menu extends ChildModel
 {
     protected $guarded = [];

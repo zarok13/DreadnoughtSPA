@@ -9,6 +9,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['namespace' => 'API'], function () {
     Route::get('/configs', 'ConfigsController@index');
+    Route::get('/home', 'HomeController@index');
 
     Route::get('/menu', 'IndexController@menu');
     Route::get('/slider', 'IndexController@getSlider');
