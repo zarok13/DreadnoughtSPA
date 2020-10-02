@@ -21,8 +21,8 @@ new Vue({
     store,
     methods: {
         async getDynamicRoutes() {
-            console.log('dasdfs');
-            console.log(PageTypes);
+            // console.log('dasdfs');
+            // console.log(PageTypes);
             // if (localStorage[GET_API_ROUTES] && localStorage[GET_API_ROUTES] !== 'undefined') {
             //   let parsedData = JSON.parse(localStorage[GET_API_ROUTES]);
             //   this.processData(parsedData);
@@ -30,6 +30,10 @@ new Vue({
             // } else {
             await Axios.get(API_URL + '/menu')
                 .then(data => {
+                    // console.log(data.data.data);
+                    // for(const node of data.data.data){
+                    //     console.log(node);
+                    // }
                     this.processData(data.data);
                     this.$renderRoutes.push(data.data);
                     // localStorage.setItem(GET_API_ROUTES, JSON.stringify(data));
@@ -40,8 +44,10 @@ new Vue({
             // }
         },
         processData(nodes) {
+           
+            // console.log(nodes);
             nodes.forEach(item => {
-                console.log(item)
+                // console.log(item)
                 let currentComponent = About;
 
                 if (item.page_template === PageTypes.products) {
