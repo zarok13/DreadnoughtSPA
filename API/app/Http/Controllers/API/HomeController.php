@@ -20,9 +20,11 @@ class HomeController
         $blog = $this->getSeparatedBlog();
         return response()->json([
             'sliders' => SliderResource::collection(Slider::lang()->orderBy('id', 'desc')->get()),
-            'intro1' => Shortcode::compile(hel_field('intro1')),
-            'intro2' => Shortcode::compile(hel_field('intro2')),
-            'intro3' => Shortcode::compile(hel_field('intro3')),
+            'intro' => [
+                'i1' => Shortcode::compile(hel_field('intro1')),
+                'i2' => Shortcode::compile(hel_field('intro2')),
+                'i3' => Shortcode::compile(hel_field('intro3')),
+            ],
             'blog1' => BlogResource::collection($blog['part1']),
             'blog2' => BlogResource::collection($blog['part2']),
         ]);

@@ -54,7 +54,8 @@ const state = {
 // init app getters
 const getters = {
     getHome(state) {
-        return state.home
+        const { home } = state;
+        return { home };
     },
     // getSlider(state) {
     //     return state.slider
