@@ -161,10 +161,6 @@ import {
 import {
   API_URL,
   GET_HOME,
-  // GET_SLIDER,
-  // GET_INTRO1,
-  // GET_INTRO2,
-  // GET_INTRO3,
   BLOG_LIST,
 } from "../store/modules/dreadnought.store";
 import { mapGetters } from "vuex";
@@ -210,7 +206,6 @@ export default {
   },
   async mounted() {
     await this.$store.dispatch(GET_HOME);
-    // await this.$store.dispatch(GET_SLIDER);
     initSliderCarousel();
     await this.$store.dispatch(BLOG_LIST);
     initBlogCarousel();
@@ -218,9 +213,6 @@ export default {
     this.i1 = this.home.intro.i1;
     this.i2 = this.home.intro.i2;
     this.i3 = this.home.intro.i3;
-    // this.$store.dispatch(GET_INTRO1);
-    // this.$store.dispatch(GET_INTRO2);
-    // this.$store.dispatch(GET_INTRO3);
   },
   methods: {
     containsKey(obj, key) {
