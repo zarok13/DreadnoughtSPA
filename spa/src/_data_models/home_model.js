@@ -1,3 +1,6 @@
 export const home = {
-    title1: '',
+  main: [],
+  i1: "",
+  i2: "",
+  i3: "",
 };

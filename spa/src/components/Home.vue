@@ -11,7 +11,7 @@
           >
             <div
               class="item"
-              v-for="(item, index) in getHome.home.sliders"
+              v-for="(item, index) in this.home.sliders"
               v-bind:key="index"
             >
               <div class="s-12 center">
@@ -46,20 +46,20 @@
       <!-- Section 1 -->
       <section class="section background-white">
         <div class="line">
-          <div class="margin" v-html="this.i1"></div>
+          <div class="margin" v-html="this.home.intro.i1"></div>
         </div>
       </section>
 
       <!-- Section 2 -->
       <section class="section background-primary text-center">
         <div class="line">
-          <div class="s-12 m-10 l-8 center" v-html="this.i2"></div>
+          <div class="s-12 m-10 l-8 center" v-html="this.home.intro.i2"></div>
         </div>
       </section>
 
       <!-- Section 3 -->
       <section class="section background-white">
-        <div class="full-width text-center" v-html="this.i3"></div>
+        <div class="full-width text-center" v-html="this.home.intro.i3"></div>
       </section>
       <hr class="break margin-top-bottom-0" />
 
@@ -164,6 +164,7 @@ import {
   BLOG_LIST,
 } from "../store/modules/dreadnought.store";
 import { mapGetters } from "vuex";
+import { home } from "../_data_models/home_model";
 
 export default {
   name: "home",
@@ -174,29 +175,11 @@ export default {
   data() {
     return {
       apiUrl: API_URL,
-      home: [],
-      i1: '',
-      i2: '',
-      i3: '',
+      home: home,
     };
   },
   computed: {
-    // getHome: function() {
-    //   return this.$store.getters.getHome;
-    // },
     ...mapGetters({ getHome: "getHome" }),
-    // getSlider: function() {
-    //   return this.$store.getters.getSlider;
-    // },
-    // getIntro1: function () {
-    //   return this.$store.getters.getIntro1;
-    // },
-    // getIntro2: function () {
-    //   return this.$store.getters.getIntro2;
-    // },
-    // getIntro3: function () {
-    //   return this.$store.getters.getIntro3;
-    // },
     blogPart1: function () {
       return this.$store.getters.blogPart1;
     },
@@ -205,14 +188,18 @@ export default {
     },
   },
   async mounted() {
+   
     await this.$store.dispatch(GET_HOME);
+    
+    console.log(this.home);
     initSliderCarousel();
+    this.home = this.getHome.home;
     await this.$store.dispatch(BLOG_LIST);
     initBlogCarousel();
-    this.home = this.getHome.home;
-    this.i1 = this.home.intro.i1;
-    this.i2 = this.home.intro.i2;
-    this.i3 = this.home.intro.i3;
+   
+    // this.home.i1 = this.home.intro.i1;
+    // this.home.i2 = this.home.intro.i2;
+    // this.home.i3 = this.home.intro.i3;
   },
   methods: {
     containsKey(obj, key) {
