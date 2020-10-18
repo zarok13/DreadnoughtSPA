@@ -75,7 +75,7 @@
           <div class="carousel-default owl-carousel carousel-wide-arrows">
             <div
               class="item"
-              v-for="(item, index) in blogPart1"
+              v-for="(item, index) in this.home.blogs"
               v-bind:key="index"
             >
               <div class="margin">
@@ -88,7 +88,7 @@
                             v-bind:src="
                               apiUrl.substring(0, apiUrl.length - 3) +
                               'storage/' +
-                              item.image
+                              item[0].image
                             "
                             alt
                           />
@@ -97,10 +97,10 @@
                       <div class="s-12 m-12 l-8 margin-m-bottom">
                         <h3>
                           <a class="text-dark text-primary-hover" href="/">{{
-                            item.title
+                            item[0].title
                           }}</a>
                         </h3>
-                        <p v-html="item.text"></p>
+                        <p v-html="item[0].text"></p>
                         <a class="text-more-info text-primary-hover" href="/"
                           >Read more</a
                         >
@@ -108,10 +108,7 @@
                     </div>
                   </div>
                 </div>
-                <div
-                  class="s-12 m-12 l-6"
-                  v-if="containsKey(blogPart2, parseInt(index) + 1)"
-                >
+                <div class="s-12 m-12 l-6">
                   <div class="image-border-radius">
                     <div class="margin">
                       <div class="s-12 m-12 l-4 margin-m-bottom">
@@ -120,7 +117,7 @@
                             v-bind:src="
                               apiUrl.substring(0, apiUrl.length - 3) +
                               'storage/' +
-                              blogPart2[parseInt(index) + 1].image
+                              item[1].image
                             "
                             alt
                           />
@@ -129,10 +126,10 @@
                       <div class="s-12 m-12 l-8">
                         <h3>
                           <a class="text-dark text-primary-hover" href="/">{{
-                            blogPart2[parseInt(index) + 1].title
+                            item[1].title
                           }}</a>
                         </h3>
-                        <p v-html="blogPart2[parseInt(index) + 1].text"></p>
+                        <p v-html="item[1].text"></p>
                         <a class="text-more-info text-primary-hover" href="/"
                           >Read more</a
                         >
@@ -152,19 +149,15 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+import { API_URL, GET_HOME } from "../store/modules/dreadnought.store";
+import { home } from "../_data_models/home_model";
 import Header from "../components/blocks/Header";
 import Footer from "../components/blocks/Footer";
 import {
   initSliderCarousel,
   initBlogCarousel,
 } from "../assets/js/init_carousel";
-import {
-  API_URL,
-  GET_HOME,
-  BLOG_LIST,
-} from "../store/modules/dreadnought.store";
-import { mapGetters } from "vuex";
-import { home } from "../_data_models/home_model";
 
 export default {
   name: "home",
@@ -180,30 +173,16 @@ export default {
   },
   computed: {
     ...mapGetters({ getHome: "getHome" }),
-    blogPart1: function () {
-      return this.$store.getters.blogPart1;
-    },
-    blogPart2: function () {
-      return this.$store.getters.blogPart2;
-    },
   },
   async mounted() {
-   
     await this.$store.dispatch(GET_HOME);
-    
-    console.log(this.home);
+    await this.initData();
     initSliderCarousel();
-    this.home = this.getHome.home;
-    await this.$store.dispatch(BLOG_LIST);
     initBlogCarousel();
-   
-    // this.home.i1 = this.home.intro.i1;
-    // this.home.i2 = this.home.intro.i2;
-    // this.home.i3 = this.home.intro.i3;
   },
   methods: {
-    containsKey(obj, key) {
-      return typeof obj[key] !== "undefined";
+    async initData() {
+      this.home = this.getHome.home;
     },
   },
 };

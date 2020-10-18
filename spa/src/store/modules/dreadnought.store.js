@@ -6,57 +6,46 @@ import { getExpireDate } from "../../helpers/expire_date"
 export const API_URL = 'http://localhost:8000/api'
 
 // define app store actions names
-export const GET_HOME = 'home'
-
 export const GET_API_ROUTES = 'getApiRoutes'
+export const GET_HOME = 'home'
+export const GET_CONFIGS = 'configs'
 
-// export const GET_SLIDER = 'getSlider'
-export const BLOG_LIST = 'blogList'
-export const GET_FOOTER = 'getFooter'
 export const SEND_MAIL = 'sendMail'
 export const SEND_CONTACT = 'sendContact'
 export const GET_MAPBOX_DATA = 'getMapboxData'
 export const GET_STATIC_CONTENT = 'getStaticContent'
 
 // define app store mutations names
-export const SET_HOME = 'setHome'
-
 const SET_API_ROUTES = 'setApiRoutes'
-const SET_BLOG_LIST = 'setBlogList'
-const SET_FOOTER = 'setFooter'
+const SET_HOME = 'setHome'
+const SET_CONFIGS = 'setConfigs'
+
 export const SET_LOADER = 'setLoader'
 const SET_MAPBOX_DATA = 'setMapboxDate'
 const SET_STATIC_CONTENT = 'setStaticContent'
 
 // init app state
 const state = {
-    home:[],
-    blogPart1: [],
-    blogPart2: [],
     apiRoutes: [],
-    footer: [],
+    home: [],
+    configs: [],
     loader: false,
     mapboxData: [],
-    staticContent: { },
+    staticContent: {},
 }
 
 // init app getters
 const getters = {
+    getApiRoutes(state) {
+        return state.apiRoutes
+    },
     getHome(state) {
         const { home } = state;
         return { home };
     },
-    blogPart1(state) {
-        return state.blogPart1
-    },
-    blogPart2(state) {
-        return state.blogPart2
-    },
-    getApiRoutes(state) {
-        return state.apiRoutes
-    },
-    getFooter(state) {
-        return state.footer;
+    getConfigs(state) {
+        const { configs } = state;
+        return { configs };
     },
     getLoader(state) {
         return state.loader;
@@ -75,57 +64,41 @@ const actions = {
         state.commit(SET_API_ROUTES, routeList)
     },
     async [GET_HOME](state) {
-        // if (await getDataFromLocalStorage(state, GET_HOME, SET_HOME)) {
-        //     console.log('home parsed from local storage');
-        // } else {
+        if (await getDataFromLocalStorage(state, GET_HOME, SET_HOME)) {
+            console.log('home parsed from local storage');
+        } else {
             await Axios.get(API_URL + '/home')
                 .then(data => {
-                    let home = data.data
-                    state.commit(SET_HOME, home)
+                    let home = data.data;
+                    state.commit(SET_HOME, home);
                     home.expire_date = getExpireDate(2);
                     localStorage.setItem(GET_HOME, JSON.stringify(home));
                 })
                 .catch(error => {
                     console.log(error);
                 })
+        }
+    },
+
+    async [GET_CONFIGS](state) {
+        // if (await getDataFromLocalStorage(state, GET_CONFIGS, SET_CONFIGS)) {
+        //     console.log('configs parsed from local storage');
+        // } else {
+            await Axios.get(API_URL + '/configs')
+                .then(data => {
+                    let configs = data.data
+                    state.commit(SET_CONFIGS, configs)
+                    configs.expire_date = getExpireDate(2);
+                    localStorage.setItem(GET_CONFIGS, JSON.stringify(configs));
+                })
+                .catch(error => {
+                    console.log(error);
+                })
         // }
-    },
-    async [BLOG_LIST](state) {
-        if (await getDataFromLocalStorage(state, BLOG_LIST, SET_BLOG_LIST)) {
-            console.log('blog parsed from local storage');
-        } else {
-            await Axios.get(API_URL + '/blog_list')
-                .then(data => {
-                    let blogList = data.data;
-                    state.commit(SET_BLOG_LIST, blogList)
-                    blogList.expire_date = getExpireDate(2);
-                    localStorage.setItem(BLOG_LIST, JSON.stringify(blogList));
-                })
-                .catch(error => {
-                    console.log(error);
-                })
-        }
-    },
-    
-    async [GET_FOOTER](state) {
-        if (await getDataFromLocalStorage(state, GET_FOOTER, SET_FOOTER)) {
-            console.log('footer parsed from local storage');
-        } else {
-            await Axios.get(API_URL + '/footer')
-                .then(data => {
-                    let footer = data.data
-                    state.commit(SET_FOOTER, footer)
-                    footer.expire_date = getExpireDate(2);
-                    localStorage.setItem(GET_FOOTER, JSON.stringify(footer));
-                })
-                .catch(error => {
-                    console.log(error);
-                })
-        }
     },
     async [SEND_MAIL](state, messageData) {
         await Axios.post(API_URL + '/send_message', messageData)
-            .then( data => {
+            .then(data => {
                 console.log(data.data);
             })
             .catch(error => {
@@ -134,7 +107,7 @@ const actions = {
     },
     async [SEND_CONTACT](state, contactData) {
         await Axios.post(API_URL + '/send_contact', contactData)
-            .then( data => {
+            .then(data => {
                 console.log(data.data);
             })
             .catch(error => {
@@ -145,7 +118,7 @@ const actions = {
         if (await getDataFromLocalStorage(state, GET_MAPBOX_DATA, SET_MAPBOX_DATA)) {
             console.log('mapbox parsed from local storage');
         } else {
-             await Axios.get(API_URL + '/mapbox')
+            await Axios.get(API_URL + '/mapbox')
                 .then(data => {
                     let mapbox = data.data
                     state.commit(SET_MAPBOX_DATA, mapbox)
@@ -158,7 +131,7 @@ const actions = {
         }
     },
     async [GET_STATIC_CONTENT](state, slug) {
-        await Axios.get(API_URL + '/static_content', {params: {slug: slug } })
+        await Axios.get(API_URL + '/static_content', { params: { slug: slug } })
             .then(data => {
                 let content = data.data
                 state.commit(SET_STATIC_CONTENT, content)
@@ -177,12 +150,8 @@ const mutations = {
     [SET_HOME](state, home) {
         state.home = home;
     },
-    [SET_BLOG_LIST](state, blogList) {
-        state.blogPart1 = blogList.blogPart1;
-        state.blogPart2 = blogList.blogPart2;
-    },
-    [SET_FOOTER](state, footer) {
-        state.footer = footer;
+    [SET_CONFIGS](state, configs) {
+        state.configs = configs;
     },
     [SET_LOADER](state, value) {
         state.loader = value;

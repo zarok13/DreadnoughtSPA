@@ -21,24 +21,36 @@
           <div class="margin">
             <!-- Collumn 1 -->
             <div class="s-12 m-12 l-4 margin-m-bottom-2x">
-              <h4 class="text-uppercase text-strong">{{footerData.title1}}</h4>
+              <h4 class="text-uppercase text-strong">
+                {{ this.configs.translate.footer_our_philosophy }}
+              </h4>
               <p class="text-size-20">
-                <em>
-                  "{{footerData.quote}}"
-                </em>
+                <em> "{{ this.configs.params.footer_quote }}" </em>
               </p>
               <p></p>
               <div class="line">
-                <h4 class="text-uppercase text-strong margin-top-30">{{footerData.title2}}</h4>
+                <h4 class="text-uppercase text-strong margin-top-30">
+                  {{ this.configs.translate.about_our_company }}
+                </h4>
                 <div class="margin">
                   <div class="s-12 m-12 l-4 margin-m-bottom">
                     <a class="image-hover-zoom" href="javascript:void(0)">
-                      <img v-bind:src="footerData.image" alt />
+                      <img
+                        v-bind:src="
+                          this.configs.storageURL +
+                          this.configs.params.footer_image
+                        "
+                        alt
+                      />
                     </a>
                   </div>
                   <div class="s-12 m-12 l-8 margin-m-bottom">
-                    <p>{{footerData.desc}}</p>
-                    <router-link class="text-more-info text-primary-hover" to="/contacts">Read more</router-link>
+                    <p>{{ this.configs.params.footer_desc }}</p>
+                    <router-link
+                      class="text-more-info text-primary-hover"
+                      to="/contacts"
+                      >Read more</router-link
+                    >
                   </div>
                 </div>
               </div>
@@ -46,14 +58,17 @@
 
             <!-- Collumn 2 -->
             <div class="s-12 m-12 l-4 margin-m-bottom-2x">
-              <h4 class="text-uppercase text-strong">{{footerData.contactUs}}</h4>
+              <h4 class="text-uppercase text-strong">
+                {{ this.configs.translate.contact_us }}
+              </h4>
               <div class="line">
                 <div class="s-1 m-1 l-1 text-center">
                   <i class="icon-placepin text-primary text-size-12"></i>
                 </div>
                 <div class="s-11 m-11 l-11 margin-bottom-10">
                   <p>
-                    <b>{{footerData.address}}:</b> {{footerData.addressValue}}
+                    <b>{{ this.configs.translate.address }}:</b>
+                    {{ this.configs.params.addressValue }}
                   </p>
                 </div>
               </div>
@@ -63,8 +78,11 @@
                 </div>
                 <div class="s-11 m-11 l-11 margin-bottom-10">
                   <p>
-                    <a :href="'mailto:'+footerData.emailValue" class="text-primary-hover">
-                      <b>{{footerData.email}}:</b> {{footerData.emailValue}}
+                    <a
+                      :href="'mailto:' + this.configs.params.emailValue"
+                      class="text-primary-hover"
+                    >
+                      <b>{{ this.configs.translate.email }}:</b> {{ this.configs.params.emailValue }}
                     </a>
                   </p>
                 </div>
@@ -75,7 +93,7 @@
                 </div>
                 <div class="s-11 m-11 l-11 margin-bottom-10">
                   <p>
-                    <b>{{footerData.phone}}:</b> {{footerData.phoneValue}}
+                    <b>{{ this.configs.translate.phone }}:</b> {{ this.configs.params.phoneValue }}
                   </p>
                 </div>
               </div>
@@ -85,7 +103,11 @@
                 </div>
                 <div class="s-11 m-11 l-11 margin-bottom-10">
                   <p>
-                    <a :href="footerData.twitterUrl" target="_blank" class="text-primary-hover">
+                    <a
+                      :href="this.configs.params.twitterUrl"
+                      target="_blank"
+                      class="text-primary-hover"
+                    >
                       <b>Twitter</b>
                     </a>
                   </p>
@@ -97,7 +119,11 @@
                 </div>
                 <div class="s-11 m-11 l-11">
                   <p>
-                    <a :href="footerData.facebookUrl" target="_blank" class="text-primary-hover">
+                    <a
+                      :href="this.configs.params.facebookUrl"
+                      target="_blank"
+                      class="text-primary-hover"
+                    >
                       <b>Facebook</b>
                     </a>
                   </p>
@@ -108,17 +134,22 @@
             <!-- Collumn 3 -->
             <div class="s-12 m-12 l-4">
               <h4 class="text-uppercase text-strong">Leave a Message</h4>
-              <h6 v-if="errors.length" style="color:#4287f5">Please correct the following error(s):</h6>
+              <h6 v-if="errors.length" style="color: #4287f5">
+                Please correct the following error(s):
+              </h6>
               <ul>
-                <li style="color:red" v-for="(error, index) in errors" :key="index">{{ error }}</li>
+                <li
+                  style="color: red"
+                  v-for="(error, index) in errors"
+                  :key="index"
+                >
+                  {{ error }}
+                </li>
               </ul>
               <div class="lds-ring" v-if="getLoader">
-                <h2 style="color:yellow">Sending...</h2>
+                <h2 style="color: yellow">Sending...</h2>
               </div>
-              <form 
-                class="customform text-white"
-                
-              >
+              <form class="customform text-white">
                 <div class="line">
                   <div class="margin">
                     <div class="s-12 m-12 l-6">
@@ -154,25 +185,38 @@
                 </div>
                 <div class="s-12">
                   <button
-                    :class="!getLoader ? 'submit-form button background-primary border-radius text-white' : 'submit-form button disabled border-radius text-white'"
+                    :class="
+                      !getLoader
+                        ? 'submit-form button background-primary border-radius text-white'
+                        : 'submit-form button disabled border-radius text-white'
+                    "
                     :disabled="getLoader"
-                    @click.prevent="sendMessage()">Submit Button</button>
+                    @click.prevent="sendMessage()"
+                  >
+                    Submit Button
+                  </button>
                 </div>
               </form>
             </div>
           </div>
         </div>
       </section>
-      <hr class="break margin-top-bottom-0" style="border-color: rgba(0, 38, 51, 0.80);" />
+      <hr
+        class="break margin-top-bottom-0"
+        style="border-color: rgba(0, 38, 51, 0.8)"
+      />
 
       <!-- Bottom Footer -->
       <section class="padding background-dark">
         <div class="line">
           <div class="s-12 l-6">
-            <p class="text-size-12">Copyright 2019, Vision Design - graphic zoo</p>
-            <p
-              class="text-size-12"
-            >All images have been purchased from Bigstock. Do not use the images in your website.</p>
+            <p class="text-size-12">
+              Copyright 2019, Vision Design - graphic zoo
+            </p>
+            <p class="text-size-12">
+              All images have been purchased from Bigstock. Do not use the
+              images in your website.
+            </p>
           </div>
           <div class="s-12 l-6">
             <a
@@ -190,51 +234,56 @@
   </div>
 </template>
 <script>
-import { API_URL, GET_FOOTER, SEND_MAIL, SET_LOADER } from "../../store/modules/dreadnought.store";
-import { footerData } from "../../_data_models/footer_model";
+import { mapGetters } from "vuex";
+import {
+  API_URL,
+  GET_CONFIGS,
+  SEND_MAIL,
+  SET_LOADER,
+} from "../../store/modules/dreadnought.store";
+import { configs } from "../../_data_models/configs_model";
 
 export default {
   name: "footer_block",
   data() {
     return {
       apiUrl: API_URL,
-      footerData: footerData,
+      configs: configs,
       errors: [],
-      email: '',
-      text: '',
-      name: '',
-      loading: false
-    }
+      loading: false,
+    };
   },
   computed: {
-    getFooter: function() {
-      return this.$store.getters.getFooter;
-    },
-    getLoader: function() {
+    ...mapGetters({ getConfigs: "getConfigs" }),
+    getLoader: function () {
       return this.$store.getters.getLoader;
     },
   },
   async mounted() {
-    await this.$store.dispatch(GET_FOOTER);
-    this.initData();
+    await this.$store.dispatch(GET_CONFIGS);
+    await this.initData();
+    console.log(this.configs);
   },
   methods: {
+    async initData() {
+      this.configs = this.getConfigs.configs;
+    },
     sendMessage() {
       if (!this.validateForm().length) {
-        var formData = {email: this.email, name: this.name, text: this.text}
+        var formData = { email: this.email, name: this.name, text: this.text };
         this.send(formData);
       }
     },
     validateForm() {
       this.errors = [];
       if (!this.email) {
-        this.errors.push('Email required.');
+        this.errors.push("Email required.");
       } else if (!this.validEmail(this.email)) {
-        this.errors.push('Valid email required.');
+        this.errors.push("Valid email required.");
       }
 
       if (!this.text) {
-        this.errors.push('Message required.');
+        this.errors.push("Message required.");
       }
       return this.errors;
     },
@@ -244,17 +293,14 @@ export default {
     },
     async send(formData) {
       const dataForm = new FormData();
-      dataForm.append('email', formData.email);
-      dataForm.append('name', formData.name);
-      dataForm.append('text', formData.text);
+      dataForm.append("email", formData.email);
+      dataForm.append("name", formData.name);
+      dataForm.append("text", formData.text);
       this.$store.commit(SET_LOADER, true);
       await this.$store.dispatch(SEND_MAIL, dataForm);
-      this.$store.commit(SET_LOADER, false)
+      this.$store.commit(SET_LOADER, false);
     },
-    initData() {
-      this.footerData = this.getFooter.data;
-    }
-  }
+  },
 };
 </script>
 <style scoped>

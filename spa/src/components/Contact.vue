@@ -133,7 +133,7 @@
 </template>
 <script>
 import Header from "../components/blocks/Header";
-import Footer from "../components/blocks/Footer";
+// import Footer from "../components/blocks/Footer";
 import { GET_MAPBOX_DATA } from "../store/modules/dreadnought.store";
 import { mapCoordinates } from "../_data_models/mapbox_model";
 import { 
@@ -142,13 +142,13 @@ import {
   MglNavigationControl
 } from "vue-mapbox";
 import { SEND_CONTACT, SET_LOADER } from "../store/modules/dreadnought.store";
-import { footerData } from "../_data_models/footer_model";
+// import { footerData } from "../_data_models/footer_model";
 
 export default {
   name: "contact",
   components: {
     Header,
-    Footer,
+    // Footer,
     MglMap,
     MglMarker,
     MglNavigationControl
@@ -169,7 +169,7 @@ export default {
       subject: '',
       name: '',
       loading: false,
-      contactData: footerData
+      // contactData: footerData
     };
   },
   computed: {
