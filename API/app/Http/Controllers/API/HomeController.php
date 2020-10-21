@@ -17,7 +17,6 @@ class HomeController
      */
     public function index()
     {
-        $blog = $this->getSeparatedBlog();
         return response()->json([
             'sliders' => SliderResource::collection(Slider::lang()->orderBy('id', 'desc')->get()),
             'intro' => [
@@ -25,8 +24,7 @@ class HomeController
                 'i2' => Shortcode::compile(hel_field('intro2')),
                 'i3' => Shortcode::compile(hel_field('intro3')),
             ],
-            'blog1' => BlogResource::collection($blog['part1']),
-            'blog2' => BlogResource::collection($blog['part2']),
+            'blogs' => $this->getSeparatedBlog()
         ]);
     }
 
@@ -39,14 +37,16 @@ class HomeController
     {
         $result = [];
         $blogList = Article::where('page_id', hel_field('blog_page_id'))->orderBy('created_at', 'desc')->limit(6)->get();
-        foreach ($blogList as $index => $blog) {
-            $blog['text'] = trimText($blog['text'], 100);
-            if ($index % 2 == 0) {
-                $result['part1'][] = $blog;
-            } else {
-                $result['part2'][] = $blog;
-            }
+        for ($i = 0; $i < count($blogList); $i++) {
+            $blogList[$i]['text'] = trimText($blogList[$i]['text'], 100);
+            $blogList[$i + 1]['text'] = trimText($blogList[$i + 1]['text'], 100);
+            $result[$i] = [
+                BlogResource::make($blogList[$i]),
+                BlogResource::make($blogList[$i + 1])
+            ];
+            ++$i;
         }
+
         return $result;
     }
 }

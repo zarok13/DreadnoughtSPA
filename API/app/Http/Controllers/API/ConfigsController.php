@@ -17,11 +17,11 @@ class ConfigsController
      */
     public function index()
     {
-        $menu = (new Menu())->getMenuWithChild();
         return response()->json([
-            'menu' => MenuResource::collection($menu),
+            'menu' => MenuResource::collection((new Menu())->getMenuWithChild()),
             'translate' => Language::pluck('value', 'keyword'),
             'params' => HelperField::pluck('value', 'keyword'),
+            'storageURL' => 'http://localhost:8000/storage/',
         ]);
     }
 }
