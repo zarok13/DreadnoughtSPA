@@ -68,7 +68,7 @@
                 <div class="s-11 m-11 l-11 margin-bottom-10">
                   <p>
                     <b>{{ this.configs.translate.address }}:</b>
-                    {{ this.configs.params.addressValue }}
+                    {{ this.configs.params.address }}
                   </p>
                 </div>
               </div>
@@ -138,18 +138,18 @@
                 Please correct the following error(s):
               </h6>
               <ul>
-                <li
+                <!-- <li
                   style="color: red"
                   v-for="(error, index) in errors"
                   :key="index"
                 >
-                  {{ error }}
-                </li>
+                  {{ error }} -->
+                <!-- </li> -->
               </ul>
               <div class="lds-ring" v-if="getLoader">
                 <h2 style="color: yellow">Sending...</h2>
               </div>
-              <form class="customform text-white">
+              <!-- <form class="customform text-white">
                 <div class="line">
                   <div class="margin">
                     <div class="s-12 m-12 l-6">
@@ -196,7 +196,7 @@
                     Submit Button
                   </button>
                 </div>
-              </form>
+              </form> -->
             </div>
           </div>
         </div>
@@ -260,9 +260,10 @@ export default {
     },
   },
   async mounted() {
+    console.log(this.configs)
     await this.$store.dispatch(GET_CONFIGS);
-    await this.initData();
-    console.log(this.configs);
+    this.initData();
+    // console.log(this.configs);
   },
   methods: {
     async initData() {
