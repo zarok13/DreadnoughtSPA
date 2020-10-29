@@ -36,11 +36,7 @@
                   <div class="s-12 m-12 l-4 margin-m-bottom">
                     <a class="image-hover-zoom" href="javascript:void(0)">
                       <img
-                        v-bind:src="
-                          this.configs.storageURL +
-                          this.configs.params.footer_image
-                        "
-                        alt
+                        v-bind:src="this.storageURL + this.configs.params.footer_image"
                       />
                     </a>
                   </div>
@@ -79,10 +75,10 @@
                 <div class="s-11 m-11 l-11 margin-bottom-10">
                   <p>
                     <a
-                      :href="'mailto:' + this.configs.params.emailValue"
+                      :href="'mailto:' + this.configs.params.email"
                       class="text-primary-hover"
                     >
-                      <b>{{ this.configs.translate.email }}:</b> {{ this.configs.params.emailValue }}
+                      <b>{{ this.configs.translate.email }}:</b> {{ this.configs.params.email }}
                     </a>
                   </p>
                 </div>
@@ -93,7 +89,7 @@
                 </div>
                 <div class="s-11 m-11 l-11 margin-bottom-10">
                   <p>
-                    <b>{{ this.configs.translate.phone }}:</b> {{ this.configs.params.phoneValue }}
+                    <b>{{ this.configs.translate.phone }}:</b> {{ this.configs.params.phone }}
                   </p>
                 </div>
               </div>
@@ -104,7 +100,7 @@
                 <div class="s-11 m-11 l-11 margin-bottom-10">
                   <p>
                     <a
-                      :href="this.configs.params.twitterUrl"
+                      :href="this.configs.params.twitter_url"
                       target="_blank"
                       class="text-primary-hover"
                     >
@@ -120,7 +116,7 @@
                 <div class="s-11 m-11 l-11">
                   <p>
                     <a
-                      :href="this.configs.params.facebookUrl"
+                      :href="this.configs.params.facebook_url"
                       target="_blank"
                       class="text-primary-hover"
                     >
@@ -138,24 +134,24 @@
                 Please correct the following error(s):
               </h6>
               <ul>
-                <!-- <li
+                <li
                   style="color: red"
                   v-for="(error, index) in errors"
                   :key="index"
                 >
-                  {{ error }} -->
-                <!-- </li> -->
+                  {{ error }} 
+                </li>
               </ul>
               <div class="lds-ring" v-if="getLoader">
                 <h2 style="color: yellow">Sending...</h2>
               </div>
-              <!-- <form class="customform text-white">
+              <form class="customform text-white">
                 <div class="line">
                   <div class="margin">
                     <div class="s-12 m-12 l-6">
                       <input
                         name="email"
-                        v-model="email"
+                        v-model="this.configs.forms.email"
                         class="required email border-radius"
                         placeholder="Your e-mail"
                         title="Your e-mail"
@@ -165,7 +161,7 @@
                     <div class="s-12 m-12 l-6">
                       <input
                         name="name"
-                        v-model="name"
+                        v-model="this.configs.forms.name"
                         class="name border-radius"
                         placeholder="Your name"
                         title="Your name"
@@ -177,7 +173,7 @@
                 <div class="s-12">
                   <textarea
                     name="text"
-                    v-model="text"
+                    v-model="this.configs.forms.text"
                     class="required message border-radius"
                     placeholder="Your message"
                     rows="3"
@@ -196,7 +192,7 @@
                     Submit Button
                   </button>
                 </div>
-              </form> -->
+              </form>
             </div>
           </div>
         </div>
@@ -249,25 +245,23 @@ export default {
     return {
       apiUrl: API_URL,
       configs: configs,
+      storageURL: '',
       errors: [],
       loading: false,
     };
   },
   computed: {
     ...mapGetters({ getConfigs: "getConfigs" }),
-    getLoader: function () {
-      return this.$store.getters.getLoader;
-    },
+    ...mapGetters({ getLoader: "getLoader" }),
   },
   async mounted() {
-    console.log(this.configs)
     await this.$store.dispatch(GET_CONFIGS);
     this.initData();
-    // console.log(this.configs);
   },
   methods: {
     async initData() {
-      this.configs = this.getConfigs.configs;
+      this.configs = Object.assign({}, this.configs, this.getConfigs.configs);
+      this.storageURL = this.configs.storageURL;
     },
     sendMessage() {
       if (!this.validateForm().length) {

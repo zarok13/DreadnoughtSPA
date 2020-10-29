@@ -1,12 +1,11 @@
 export const configs = {
-    storageURL: '',
-    translate: {
-        footer_our_philosophy: '',
-        address: '',
-        email: '',
-        phone: '',
-    },
-    params: {
-        
-    }
+  storageURL: "http://localhost:8000/storage/",
+  translate: {},
+  params: {},
+  forms: {
+    email: "",
+    name: "",
+    test: "",
+  },
+  errors:[]
 };
