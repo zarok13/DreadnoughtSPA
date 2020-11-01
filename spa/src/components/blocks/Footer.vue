@@ -36,7 +36,7 @@
                   <div class="s-12 m-12 l-4 margin-m-bottom">
                     <a class="image-hover-zoom" href="javascript:void(0)">
                       <img
-                        v-bind:src="this.storageURL + this.configs.params.footer_image"
+                        v-bind:src="this.storageUrl + this.configs.params.footer_image"
                       />
                     </a>
                   </div>
@@ -130,17 +130,17 @@
             <!-- Collumn 3 -->
             <div class="s-12 m-12 l-4">
               <h4 class="text-uppercase text-strong">Leave a Message</h4>
-              <h6 v-if="errors.length" style="color: #4287f5">
+              <h6 v-if="configs.errors.length" style="color: #4287f5">
                 Please correct the following error(s):
               </h6>
               <ul>
-                <li
+                <!-- <li
                   style="color: red"
-                  v-for="(error, index) in errors"
+                  v-for="(error, index) in configs.errors"
                   :key="index"
                 >
                   {{ error }} 
-                </li>
+                </li> -->
               </ul>
               <div class="lds-ring" v-if="getLoader">
                 <h2 style="color: yellow">Sending...</h2>
@@ -151,7 +151,7 @@
                     <div class="s-12 m-12 l-6">
                       <input
                         name="email"
-                        v-model="this.configs.forms.email"
+                        v-model="configs.forms.email"
                         class="required email border-radius"
                         placeholder="Your e-mail"
                         title="Your e-mail"
@@ -161,7 +161,7 @@
                     <div class="s-12 m-12 l-6">
                       <input
                         name="name"
-                        v-model="this.configs.forms.name"
+                        v-model="configs.forms.name"
                         class="name border-radius"
                         placeholder="Your name"
                         title="Your name"
@@ -173,10 +173,11 @@
                 <div class="s-12">
                   <textarea
                     name="text"
-                    v-model="this.configs.forms.text"
+                    v-model="configs.forms.text"
                     class="required message border-radius"
                     placeholder="Your message"
-                    rows="3"
+                    rows="6"
+                    style="resize: none;"
                   ></textarea>
                 </div>
                 <div class="s-12">
@@ -232,7 +233,7 @@
 <script>
 import { mapGetters } from "vuex";
 import {
-  API_URL,
+  STORAGE_URL,
   GET_CONFIGS,
   SEND_MAIL,
   SET_LOADER,
@@ -243,10 +244,8 @@ export default {
   name: "footer_block",
   data() {
     return {
-      apiUrl: API_URL,
       configs: configs,
-      storageURL: '',
-      errors: [],
+      storageUrl: '',
       loading: false,
     };
   },
@@ -259,28 +258,28 @@ export default {
     this.initData();
   },
   methods: {
-    async initData() {
+    initData() {
       this.configs = Object.assign({}, this.configs, this.getConfigs.configs);
-      this.storageURL = this.configs.storageURL;
+      this.storageUrl = STORAGE_URL;
     },
     sendMessage() {
       if (!this.validateForm().length) {
-        var formData = { email: this.email, name: this.name, text: this.text };
+        var formData = { email: this.configs.forms.email, name: this.configs.forms.name, text: this.configs.forms.text };
         this.send(formData);
       }
     },
     validateForm() {
-      this.errors = [];
-      if (!this.email) {
-        this.errors.push("Email required.");
-      } else if (!this.validEmail(this.email)) {
-        this.errors.push("Valid email required.");
+      this.configs.errors = [];
+      if (!this.configs.forms.email) {
+        this.configs.errors.push("Email required.");
+      } else if (!this.validEmail(this.configs.forms.email)) {
+        this.configs.errors.push("Valid email required.");
       }
 
-      if (!this.text) {
-        this.errors.push("Message required.");
+      if (!this.configs.forms.text) {
+        this.configs.errors.push("Message required.");
       }
-      return this.errors;
+      return this.configs.errors;
     },
     validEmail: function (email) {
       var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

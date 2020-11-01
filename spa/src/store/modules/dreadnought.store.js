@@ -3,7 +3,8 @@ import { getDataFromLocalStorage } from "../../helpers/init_local_storage"
 import { getExpireDate } from "../../helpers/expire_date"
 
 // global api url
-export const API_URL = 'http://localhost:8000/api'
+export const BASE_URL = 'http://localhost:8000/api'
+export const STORAGE_URL = "http://localhost:8000/storage/"
 
 // define app store actions names
 export const GET_API_ROUTES = 'getApiRoutes'
@@ -67,7 +68,7 @@ const actions = {
         if (await getDataFromLocalStorage(state, GET_HOME, SET_HOME)) {
             console.log('home parsed from local storage');
         } else {
-            await Axios.get(API_URL + '/home')
+            await Axios.get(BASE_URL + '/home')
                 .then(data => {
                     let home = data.data;
                     state.commit(SET_HOME, home);
@@ -84,7 +85,7 @@ const actions = {
         // if (await getDataFromLocalStorage(state, GET_CONFIGS, SET_CONFIGS)) {
         //     console.log('configs parsed from local storage');
         // } else {
-            await Axios.get(API_URL + '/configs')
+        await Axios.get(BASE_URL + '/configs')
                 .then(data => {
                     let configs = data.data
                     state.commit(SET_CONFIGS, configs)
@@ -97,7 +98,7 @@ const actions = {
         // }
     },
     async [SEND_MAIL](state, messageData) {
-        await Axios.post(API_URL + '/send_message', messageData)
+        await Axios.post(BASE_URL + '/send_message', messageData)
             .then(data => {
                 console.log(data.data);
             })
@@ -106,7 +107,7 @@ const actions = {
             })
     },
     async [SEND_CONTACT](state, contactData) {
-        await Axios.post(API_URL + '/send_contact', contactData)
+        await Axios.post(BASE_URL + '/send_contact', contactData)
             .then(data => {
                 console.log(data.data);
             })
@@ -118,7 +119,7 @@ const actions = {
         if (await getDataFromLocalStorage(state, GET_MAPBOX_DATA, SET_MAPBOX_DATA)) {
             console.log('mapbox parsed from local storage');
         } else {
-            await Axios.get(API_URL + '/mapbox')
+            await Axios.get(BASE_URL + '/mapbox')
                 .then(data => {
                     let mapbox = data.data
                     state.commit(SET_MAPBOX_DATA, mapbox)
@@ -131,7 +132,7 @@ const actions = {
         }
     },
     async [GET_STATIC_CONTENT](state, slug) {
-        await Axios.get(API_URL + '/static_content', { params: { slug: slug } })
+        await Axios.get(BASE_URL + '/static_content', { params: { slug: slug } })
             .then(data => {
                 let content = data.data
                 state.commit(SET_STATIC_CONTENT, content)

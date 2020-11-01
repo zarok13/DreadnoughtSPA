@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Article;
+use App\Http\Resources\MenuResource;
 use App\Mail\Contact;
 use App\Menu;
 use App\Slider;
@@ -82,12 +83,12 @@ class IndexController extends Controller
                 unset($menu[$index]['page_template_id']);
             }
         }
-               return response()->json([
-                       'status' => true,
-                       'data' => $menu,
-                   ]);
+        return response()->json([
+            'menu' => MenuResource::collection((new Menu())->getMenuWithChild()),
+
+        ]);
         // dump('fsdf');
-        // return $menu;
+        return $menu;
     }
 
     /**

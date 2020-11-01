@@ -150,7 +150,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { API_URL, GET_HOME } from "../store/modules/dreadnought.store";
+import { BASE_URL, GET_HOME } from "../store/modules/dreadnought.store";
 import { home } from "../_data_models/home_model";
 import Header from "../components/blocks/Header";
 import Footer from "../components/blocks/Footer";
@@ -167,7 +167,7 @@ export default {
   },
   data() {
     return {
-      apiUrl: API_URL,
+      apiUrl: BASE_URL,
       home: home,
     };
   },

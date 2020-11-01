@@ -8,11 +8,12 @@ import About from "./components/About";
 import Product from "./components/Product";
 import Contact from "./components/Contact";
 import Gallery from "./components/Gallery";
-import {PageTypes} from "./_data_models/page_types";
-import {API_URL, GET_API_ROUTES} from './store/modules/dreadnought.store'
+import { PageTypes } from "./_data_models/page_types";
+import { BASE_URL, GET_API_ROUTES } from './store/modules/dreadnought.store'
 
 Vue.config.productionTip = false
 Vue.prototype.$renderRoutes = [];
+Vue.prototype.$configs = [];
 
 
 new Vue({
@@ -26,14 +27,11 @@ new Vue({
             //   this.processData(parsedData);
             //   console.log('routes parsed from local storage');
             // } else {
-            await Axios.get(API_URL + '/menu')
+            await Axios.get(BASE_URL + '/configs')
                 .then(data => {
-                    // console.log(data.data.data);
-                    // for(const node of data.data.data){
-                    //     console.log(node);
-                    // }
-                    this.processData(data.data);
-                    this.$renderRoutes.push(data.data);
+                    this.processData(data.data.menu);
+                    this.$renderRoutes.push(data.data.menu);
+                    this.$configs.push(data.data);
                     // localStorage.setItem(GET_API_ROUTES, JSON.stringify(data));
                 })
                 .catch(error => {
@@ -42,10 +40,7 @@ new Vue({
             // }
         },
         processData(nodes) {
-           
-            // console.log(nodes);
             nodes.forEach(item => {
-                // console.log(item)
                 let currentComponent = About;
 
                 if (item.page_template === PageTypes.products) {
@@ -66,8 +61,9 @@ new Vue({
                     };
                     this.$router.addRoutes([newRoute])
                 }
-                if ('sub_menu' in item) {
-                    this.processData(item.sub_menu);
+
+                if (item.children.length > 0) {
+                    this.processData(item.children);
                 }
             })
         },
