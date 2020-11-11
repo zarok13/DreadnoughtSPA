@@ -42,7 +42,7 @@ new Vue({
         processData(nodes) {
             nodes.forEach(item => {
                 let currentComponent = About;
-
+console.log(item.page_template)
                 if (item.page_template === PageTypes.products) {
                     currentComponent = Product;
                 }
