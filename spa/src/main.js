@@ -9,7 +9,8 @@ import Product from "./components/Product";
 import Contact from "./components/Contact";
 import Gallery from "./components/Gallery";
 import { PageTypes } from "./_data_models/page_types";
-import { BASE_URL, GET_API_ROUTES } from './store/modules/dreadnought.store'
+import { BASE_URL, GET_API_ROUTES, GET_CONFIGS } from './store/modules/dreadnought.store'
+import {mapGetters} from "vuex";
 
 Vue.config.productionTip = false
 Vue.prototype.$renderRoutes = [];
@@ -22,6 +23,7 @@ new Vue({
     store,
     methods: {
         async getDynamicRoutes() {
+
             // if (localStorage[GET_API_ROUTES] && localStorage[GET_API_ROUTES] !== 'undefined') {
             //   let parsedData = JSON.parse(localStorage[GET_API_ROUTES]);
             //   this.processData(parsedData);
@@ -68,8 +70,12 @@ console.log(item.page_template)
             })
         },
     },
+    computed: {
+        ...mapGetters({ getConfigs: "getConfigs" }),
+    },
     async mounted() {
+        await this.$store.dispatch(GET_CONFIGS);
         await this.getDynamicRoutes()
-        this.$store.dispatch(GET_API_ROUTES, this.$renderRoutes)
+        await this.$store.dispatch(GET_API_ROUTES, this.$renderRoutes)
     }
 }).$mount('#app')
