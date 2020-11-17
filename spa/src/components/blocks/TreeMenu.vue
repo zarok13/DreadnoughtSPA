@@ -6,23 +6,22 @@
     <li v-for="(item, index) in nodes" :key="index">
       <router-link v-if="item.slug !== null" class="nav-link" :to="item.slug">{{ item.title }}</router-link>
       <a v-else class="nav-link" href="javascript:void(0)">{{ item.title }}</a>
-      <tree-menu :nodes="item.children" v-if="item.children && item.children.length" />
+      <tree-menu :nodes="item.children" v-if="item.children && item.children.length"/>
     </li>
   </ul>
 </template>
 <script>
-
-  export default {
-    name: 'tree-menu',
-    props: {
-      nodes: { 
-        type: Array, 
-        default: () => [] 
-      },
-      isFirst: { 
-        type: Boolean,
-        default: false 
-       },
+export default {
+  name: 'tree-menu',
+  props: {
+    nodes: {
+      type: Array,
+      default: () => []
     },
-  }
+    isFirst: {
+      type: Boolean,
+      default: false
+    },
+  },
+}
 </script>
