@@ -68,6 +68,7 @@
 </template>
 <script>
 import TreeMenu from './TreeMenu.vue';
+import {mapGetters} from "vuex";
 
 export default {
   name: "header_block",
@@ -75,13 +76,7 @@ export default {
     TreeMenu
   },
   computed: {
-    getApiRoutes: function () {
-      return this.$store.getters.getApiRoutes;
-    }
-  },
-  mounted() {
-    // console.log(this.$renderRoutes);
-    // console.log(this.getApiRoutes);
+    ...mapGetters({ getApiRoutes: "getApiRoutes" }),
   }
 };
 </script>

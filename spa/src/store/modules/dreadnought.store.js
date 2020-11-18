@@ -19,7 +19,7 @@ export const GET_STATIC_CONTENT = 'getStaticContent'
 // define app store mutations names
 const SET_API_ROUTES = 'setApiRoutes'
 const SET_HOME = 'setHome'
-const SET_CONFIGS = 'setConfigs'
+export const SET_CONFIGS = 'setConfigs'
 
 export const SET_LOADER = 'setLoader'
 const SET_MAPBOX_DATA = 'setMapboxDate'
@@ -61,7 +61,7 @@ const getters = {
 
 // app store actions
 const actions = {
-    [GET_API_ROUTES](state, routeList) {
+    async [GET_API_ROUTES](state, routeList) {
         state.commit(SET_API_ROUTES, routeList)
     },
     async [GET_HOME](state) {

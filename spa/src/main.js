@@ -9,12 +9,17 @@ import Product from "./components/Product";
 import Contact from "./components/Contact";
 import Gallery from "./components/Gallery";
 import { PageTypes } from "./_data_models/page_types";
-import { BASE_URL, GET_API_ROUTES, GET_CONFIGS } from './store/modules/dreadnought.store'
+import {
+    BASE_URL,
+    GET_API_ROUTES, GET_CONFIGS,
+    // GET_CONFIGS
+} from './store/modules/dreadnought.store'
 import {mapGetters} from "vuex";
+import {getExpireDate} from "@/helpers/expire_date";
 
 Vue.config.productionTip = false
 Vue.prototype.$renderRoutes = [];
-Vue.prototype.$configs = [];
+
 
 
 new Vue({
@@ -31,9 +36,11 @@ new Vue({
             // } else {
             await Axios.get(BASE_URL + '/configs')
                 .then(data => {
-                    this.processData(data.data.menu);
-                    this.$renderRoutes.push(data.data.menu);
-                    this.$configs.push(data.data);
+                    let configs = data.data
+                    this.processData(configs.menu);
+                    this.$renderRoutes.push(configs.menu);
+                    configs.expire_date = getExpireDate(2);
+                    localStorage.setItem(GET_CONFIGS, JSON.stringify(configs));
                     // localStorage.setItem(GET_API_ROUTES, JSON.stringify(data));
                 })
                 .catch(error => {
@@ -74,7 +81,8 @@ new Vue({
         ...mapGetters({ getConfigs: "getConfigs" }),
     },
     async mounted() {
-        await this.$store.dispatch(GET_CONFIGS);
+        console.log('fsd')
+        // await this.$store.dispatch(GET_CONFIGS);
         await this.getDynamicRoutes()
         await this.$store.dispatch(GET_API_ROUTES, this.$renderRoutes)
     }

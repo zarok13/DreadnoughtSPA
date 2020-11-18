@@ -241,6 +241,7 @@ import {
 import { configs } from "../../_data_models/configs_model";
 
 export default {
+
   name: "footer_block",
   data() {
     return {
@@ -254,12 +255,13 @@ export default {
     ...mapGetters({ getLoader: "getLoader" }),
   },
   async mounted() {
+    Vue.prototype.$configss = [];
     await this.$store.dispatch(GET_CONFIGS);
     this.initData();
   },
   methods: {
     initData() {
-      this.configs = Object.assign({}, this.configs, this.getConfigs.configs);
+      this.configs = Object.assign({}, this.configs,this.getConfigs.configs);
       this.storageUrl = STORAGE_URL;
     },
     sendMessage() {
