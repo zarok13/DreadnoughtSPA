@@ -34,6 +34,7 @@ new Vue({
             //   this.processData(parsedData);
             //   console.log('routes parsed from local storage');
             // } else {
+                //Axios header, create
             await Axios.get(BASE_URL + '/configs')
                 .then(data => {
                     let configs = data.data
