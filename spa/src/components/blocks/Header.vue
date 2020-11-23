@@ -59,7 +59,7 @@
           </div>
           <div class="top-nav s-12 l-10">
             <p class="nav-text"></p>
-            <tree-menu :nodes="this.getApiRoutes[0]" is-first></tree-menu>
+            <tree-menu :nodes="this.getConfigs.menu" is-first></tree-menu>
           </div>
         </div>
       </nav>
@@ -69,6 +69,7 @@
 <script>
 import TreeMenu from './TreeMenu.vue';
 import {mapGetters} from "vuex";
+import {GET_CONFIGS} from "@/store/modules/dreadnought.store";
 
 export default {
   name: "header_block",
@@ -76,9 +77,13 @@ export default {
     TreeMenu
   },
   computed: {
-    ...mapGetters({ getApiRoutes: "getApiRoutes" }),
+    ...mapGetters({getConfigs: "getConfigs"}),
+  },
+  async mounted(){
+    await this.$store.dispatch(GET_CONFIGS)
   }
 };
+
 </script>
 <style scoped>
 </style>

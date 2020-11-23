@@ -5,6 +5,8 @@
 </template>
 
 <script>
+// import {GET_CONFIGS} from "@/store/modules/dreadnought.store";
+
 let jQuery = require("jquery");
 window.jQuery = jQuery;
 window.$ = jQuery;
@@ -12,11 +14,9 @@ require("./assets/js/responsee");
 require("./assets/owl-carousel/owl.carousel");
 export default {
   name: "App",
-  computed: {
-    getApiUrl: function() {
-      return this.$store.getters.getApiUrl;
-    }
-  },
+  // async beforeCreate() {
+    // await this.$store.dispatch(GET_CONFIGS)
+  // },
 };
 </script>
 

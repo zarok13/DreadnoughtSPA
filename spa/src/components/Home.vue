@@ -182,7 +182,7 @@ export default {
   },
   methods: {
     async initData() {
-      this.home = this.getHome.home;
+      this.home = this.getHome;
     },
   },
 };

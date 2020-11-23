@@ -231,14 +231,15 @@
   </div>
 </template>
 <script>
+
 import { mapGetters } from "vuex";
 import {
   STORAGE_URL,
-  GET_CONFIGS,
   SEND_MAIL,
   SET_LOADER,
-} from "../../store/modules/dreadnought.store";
-import { configs } from "../../_data_models/configs_model";
+  GET_CONFIGS,
+} from "@/store/modules/dreadnought.store";
+import { configs } from "@/_data_models/configs_model";
 
 export default {
 
@@ -255,18 +256,17 @@ export default {
     ...mapGetters({ getLoader: "getLoader" }),
   },
   async mounted() {
-    Vue.prototype.$configss = [];
-    await this.$store.dispatch(GET_CONFIGS);
-    this.initData();
+    await this.$store.dispatch(GET_CONFIGS)
+    await this.initData();
   },
   methods: {
     initData() {
-      this.configs = Object.assign({}, this.configs,this.getConfigs.configs);
+      this.configs = Object.assign({}, this.configs, this.getConfigs);
       this.storageUrl = STORAGE_URL;
     },
     sendMessage() {
       if (!this.validateForm().length) {
-        var formData = { email: this.configs.forms.email, name: this.configs.forms.name, text: this.configs.forms.text };
+        let formData = { email: this.configs.forms.email, name: this.configs.forms.name, text: this.configs.forms.text };
         this.send(formData);
       }
     },

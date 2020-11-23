@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '../components/Home'
-
+let about = import('@/components/About');
 Vue.use(Router)
 const router = new Router({
     mode: 'history',
@@ -9,8 +8,33 @@ const router = new Router({
         {
             path: '/',
             name: 'home',
-            component: Home
-        }
+            component: () =>  import('@/components/Home')
+        },
+        {
+            path: '/products',
+            name: 'products',
+            component: () => import('@/components/Product')
+        },
+        {
+            path: '/gallery',
+            name: 'gallery',
+            component: () => import('@/components/Gallery')
+        },
+        {
+            path: '/contacts',
+            name: 'contact',
+            component: () => import('@/components/Contact')
+        },
+        {
+            path: '/about_us',
+            name: 'about',
+            component: () => about
+        },
+        {
+            path: '/info',
+            name: 'info',
+            component: () => about
+        },
     ]
 })
 

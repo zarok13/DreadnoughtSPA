@@ -21,9 +21,9 @@
                   <i class="icon-placepin background-primary icon-circle-small text-size-20"></i>
                 </div>
                 <div class="margin-left-80 margin-bottom">
-                  <h4 class="text-strong margin-bottom-0">{{this.contactData.address}}</h4>
+                  <h4 class="text-strong margin-bottom-0">{{this.configs.translate.address}}</h4>
                   <p>
-                    {{this.contactData.addressValue}}
+                    {{this.configs.params.address}}
                     <span  style="opacity: 0"><br />d</span>
                   </p>
                 </div>
@@ -31,9 +31,9 @@
                   <i class="icon-paperplane_ico background-primary icon-circle-small text-size-20"></i>
                 </div>
                 <div class="margin-left-80 margin-bottom">
-                  <h4 class="text-strong margin-bottom-0">{{this.contactData.email}}</h4>
+                  <h4 class="text-strong margin-bottom-0">{{this.configs.translate.email}}</h4>
                   <p>
-                    {{this.contactData.emailValue}}
+                    {{this.configs.params.email}}
                     <span  style="opacity: 0"><br />d</span>
                   </p>
                 </div>
@@ -41,9 +41,9 @@
                   <i class="icon-smartphone background-primary icon-circle-small text-size-20"></i>
                 </div>
                 <div class="margin-left-80">
-                  <h4 class="text-strong margin-bottom-0">{{this.contactData.phone}}</h4>
+                  <h4 class="text-strong margin-bottom-0">{{this.configs.translate.phone}}</h4>
                   <p>
-                    {{this.contactData.phoneValue}}
+                    {{this.configs.params.phone}}
                   </p>
                 </div>
               </div>
@@ -132,9 +132,9 @@
   </div>
 </template>
 <script>
-import Header from "../components/blocks/Header";
-// import Footer from "../components/blocks/Footer";
-import { GET_MAPBOX_DATA } from "../store/modules/dreadnought.store";
+import Header from "@/components/blocks/Header";
+import Footer from "@/components/blocks/Footer";
+import {GET_CONFIGS, GET_MAPBOX_DATA} from "../store/modules/dreadnought.store";
 import { mapCoordinates } from "../_data_models/mapbox_model";
 import { 
   MglMap, 
@@ -142,13 +142,14 @@ import {
   MglNavigationControl
 } from "vue-mapbox";
 import { SEND_CONTACT, SET_LOADER } from "../store/modules/dreadnought.store";
-// import { footerData } from "../_data_models/footer_model";
+import {mapGetters} from "vuex";
+import { configs } from "@/_data_models/configs_model";
 
 export default {
   name: "contact",
   components: {
     Header,
-    // Footer,
+    Footer,
     MglMap,
     MglMarker,
     MglNavigationControl
@@ -169,25 +170,20 @@ export default {
       subject: '',
       name: '',
       loading: false,
-      // contactData: footerData
+      configs: configs
     };
   },
   computed: {
-    getMapbox: function() {
-      return this.$store.getters.getMapbox;
-    },
-    getLoader: function() {
-      return this.$store.getters.getLoader;
-    },
-    getFooter: function() {
-      return this.$store.getters.getFooter;
-    },
+    ...mapGetters({ getConfigs: "getConfigs" }),
+    ...mapGetters({ getLoader: "getLoader" }),
+    ...mapGetters({ getMapbox: "getMapbox" }),
   },
   async mounted () {
+    await this.$store.dispatch(GET_CONFIGS)
     await this.$store.dispatch(GET_MAPBOX_DATA);
     this.mapCoordinates = this.getMapbox.data.mapCoordinates
     this.markers = this.getMarkers();
-    this.contactData = this.getFooter.data;
+    this.configs = this.getConfigs;
   },
   methods: {
     sendMessage() {

@@ -9,11 +9,9 @@ use App\Menu;
 
 class ConfigsController
 {
-    
+
     /**
-     * Undocumented function
-     *
-     * @return void
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {

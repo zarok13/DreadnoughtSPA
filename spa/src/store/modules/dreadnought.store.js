@@ -7,9 +7,9 @@ export const BASE_URL = 'http://localhost:8000/api'
 export const STORAGE_URL = "http://localhost:8000/storage/"
 
 // define app store actions names
-export const GET_API_ROUTES = 'getApiRoutes'
-export const GET_HOME = 'home'
 export const GET_CONFIGS = 'configs'
+export const GET_HOME = 'home'
+
 
 export const SEND_MAIL = 'sendMail'
 export const SEND_CONTACT = 'sendContact'
@@ -17,9 +17,9 @@ export const GET_MAPBOX_DATA = 'getMapboxData'
 export const GET_STATIC_CONTENT = 'getStaticContent'
 
 // define app store mutations names
-const SET_API_ROUTES = 'setApiRoutes'
-const SET_HOME = 'setHome'
 export const SET_CONFIGS = 'setConfigs'
+const SET_HOME = 'setHome'
+
 
 export const SET_LOADER = 'setLoader'
 const SET_MAPBOX_DATA = 'setMapboxDate'
@@ -27,7 +27,6 @@ const SET_STATIC_CONTENT = 'setStaticContent'
 
 // init app state
 const state = {
-    apiRoutes: [],
     home: [],
     configs: [],
     loader: false,
@@ -37,16 +36,11 @@ const state = {
 
 // init app getters
 const getters = {
-    getApiRoutes(state) {
-        return state.apiRoutes
-    },
     getHome(state) {
-        const { home } = state;
-        return { home };
+        return state.home;
     },
     getConfigs(state) {
-        const { configs } = state;
-        return { configs };
+        return state.configs;
     },
     getLoader(state) {
         return state.loader;
@@ -61,9 +55,6 @@ const getters = {
 
 // app store actions
 const actions = {
-    async [GET_API_ROUTES](state, routeList) {
-        state.commit(SET_API_ROUTES, routeList)
-    },
     async [GET_HOME](state) {
         if (await getDataFromLocalStorage(state, GET_HOME, SET_HOME)) {
             console.log('home parsed from local storage');
@@ -116,9 +107,9 @@ const actions = {
             })
     },
     async [GET_MAPBOX_DATA](state) {
-        if (await getDataFromLocalStorage(state, GET_MAPBOX_DATA, SET_MAPBOX_DATA)) {
-            console.log('mapbox parsed from local storage');
-        } else {
+        // if (await getDataFromLocalStorage(state, GET_MAPBOX_DATA, SET_MAPBOX_DATA)) {
+        //     console.log('mapbox parsed from local storage');
+        // } else {
             await Axios.get(BASE_URL + '/mapbox')
                 .then(data => {
                     let mapbox = data.data
@@ -129,7 +120,7 @@ const actions = {
                 .catch(error => {
                     console.log(error);
                 })
-        }
+        // }
     },
     async [GET_STATIC_CONTENT](state, slug) {
         await Axios.get(BASE_URL + '/static_content', { params: { slug: slug } })
@@ -145,9 +136,6 @@ const actions = {
 
 // app store mutations
 const mutations = {
-    [SET_API_ROUTES](state, routeList) {
-        state.apiRoutes = routeList;
-    },
     [SET_HOME](state, home) {
         state.home = home;
     },
