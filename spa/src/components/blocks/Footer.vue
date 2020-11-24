@@ -237,7 +237,7 @@ import {
   STORAGE_URL,
   SEND_MAIL,
   SET_LOADER,
-  GET_CONFIGS,
+  // GET_CONFIGS,
 } from "@/store/modules/dreadnought.store";
 import { configs } from "@/_data_models/configs_model";
 
@@ -256,7 +256,8 @@ export default {
     ...mapGetters({ getLoader: "getLoader" }),
   },
   async mounted() {
-    await this.$store.dispatch(GET_CONFIGS)
+    console.log(this.getConfigs)
+    // await this.$store.dispatch(GET_CONFIGS)
     await this.initData();
   },
   methods: {

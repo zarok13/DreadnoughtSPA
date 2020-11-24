@@ -72,12 +72,13 @@ const actions = {
         }
     },
 
-    async [GET_CONFIGS](state) {
+    [GET_CONFIGS](state) {
         // if (await getDataFromLocalStorage(state, GET_CONFIGS, SET_CONFIGS)) {
         //     console.log('configs parsed from local storage');
         // } else {
-        await Axios.get(BASE_URL + '/configs')
+        Axios.get(BASE_URL + '/configs')
                 .then(data => {
+                    console.log('fsd')
                     let configs = data.data
                     state.commit(SET_CONFIGS, configs)
                     configs.expire_date = getExpireDate(2);

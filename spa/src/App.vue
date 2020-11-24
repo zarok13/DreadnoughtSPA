@@ -5,7 +5,7 @@
 </template>
 
 <script>
-// import {GET_CONFIGS} from "@/store/modules/dreadnought.store";
+import {GET_CONFIGS} from "@/store/modules/dreadnought.store";
 
 let jQuery = require("jquery");
 window.jQuery = jQuery;
@@ -14,9 +14,9 @@ require("./assets/js/responsee");
 require("./assets/owl-carousel/owl.carousel");
 export default {
   name: "App",
-  // async beforeCreate() {
-    // await this.$store.dispatch(GET_CONFIGS)
-  // },
+  mounted() {
+    this.$store.dispatch(GET_CONFIGS)
+  },
 };
 </script>
 

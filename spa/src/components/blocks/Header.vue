@@ -69,7 +69,7 @@
 <script>
 import TreeMenu from './TreeMenu.vue';
 import {mapGetters} from "vuex";
-import {GET_CONFIGS} from "@/store/modules/dreadnought.store";
+// import {GET_CONFIGS} from "@/store/modules/dreadnought.store";
 
 export default {
   name: "header_block",
@@ -80,7 +80,8 @@ export default {
     ...mapGetters({getConfigs: "getConfigs"}),
   },
   async mounted(){
-    await this.$store.dispatch(GET_CONFIGS)
+    console.log(this.getConfigs)
+    // await this.$store.dispatch(GET_CONFIGS)
   }
 };
 
