@@ -247,7 +247,7 @@ export default {
   data() {
     return {
       configs: configs,
-      storageUrl: '',
+      storageUrl: STORAGE_URL,
       loading: false,
     };
   },
@@ -255,15 +255,15 @@ export default {
     ...mapGetters({ getConfigs: "getConfigs" }),
     ...mapGetters({ getLoader: "getLoader" }),
   },
-  async mounted() {
+  mounted() {
     console.log(this.getConfigs)
+    this.configs = Object.assign({}, this.configs, this.getConfigs);
     // await this.$store.dispatch(GET_CONFIGS)
-    await this.initData();
+    // await this.initData();
   },
   methods: {
-    initData() {
+    async initData() {
       this.configs = Object.assign({}, this.configs, this.getConfigs);
-      this.storageUrl = STORAGE_URL;
     },
     sendMessage() {
       if (!this.validateForm().length) {

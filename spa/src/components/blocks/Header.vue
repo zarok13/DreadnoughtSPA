@@ -79,10 +79,6 @@ export default {
   computed: {
     ...mapGetters({getConfigs: "getConfigs"}),
   },
-  async mounted(){
-    console.log(this.getConfigs)
-    // await this.$store.dispatch(GET_CONFIGS)
-  }
 };
 
 </script>

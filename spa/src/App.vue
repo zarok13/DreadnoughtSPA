@@ -14,7 +14,7 @@ require("./assets/js/responsee");
 require("./assets/owl-carousel/owl.carousel");
 export default {
   name: "App",
-  mounted() {
+  created() {
     this.$store.dispatch(GET_CONFIGS)
   },
 };
