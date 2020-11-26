@@ -21,8 +21,8 @@
           <div class="margin">
             <!-- Collumn 1 -->
             <div class="s-12 m-12 l-4 margin-m-bottom-2x">
-              <h4 class="text-uppercase text-strong">
-                {{ this.configs.translate.footer_our_philosophy }}
+              <h4 class="text-uppercase text-strong" v-if="this.getConfigs.translate.footer_our_philosophy != undefined">
+                {{ this.getConfigs.translate.footer_our_philosophy }}
               </h4>
               <p class="text-size-20">
                 <em> "{{ this.configs.params.footer_quote }}" </em>
