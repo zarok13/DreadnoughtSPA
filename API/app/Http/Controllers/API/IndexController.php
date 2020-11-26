@@ -87,7 +87,6 @@ class IndexController extends Controller
             'menu' => MenuResource::collection((new Menu())->getMenuWithChild()),
 
         ]);
-        // dump('fsdf');
         return $menu;
     }
 

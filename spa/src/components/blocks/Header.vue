@@ -69,7 +69,6 @@
 <script>
 import TreeMenu from './TreeMenu.vue';
 import {mapGetters} from "vuex";
-// import {GET_CONFIGS} from "@/store/modules/dreadnought.store";
 
 export default {
   name: "header_block",

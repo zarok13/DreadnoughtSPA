@@ -16,32 +16,32 @@
       </div>
 
       <!-- Main Footer -->
-      <section class="section background-dark">
+      <section class="section background-dark" v-if="this.getConfigs.expire_date != undefined">
         <div class="line">
           <div class="margin">
             <!-- Collumn 1 -->
             <div class="s-12 m-12 l-4 margin-m-bottom-2x">
-              <h4 class="text-uppercase text-strong" v-if="this.getConfigs.translate.footer_our_philosophy != undefined">
+              <h4 class="text-uppercase text-strong" >
                 {{ this.getConfigs.translate.footer_our_philosophy }}
               </h4>
               <p class="text-size-20">
-                <em> "{{ this.configs.params.footer_quote }}" </em>
+                <em> "{{ this.getConfigs.params.footer_quote }}" </em>
               </p>
               <p></p>
               <div class="line">
                 <h4 class="text-uppercase text-strong margin-top-30">
-                  {{ this.configs.translate.about_our_company }}
+                  {{ this.getConfigs.translate.about_our_company }}
                 </h4>
                 <div class="margin">
                   <div class="s-12 m-12 l-4 margin-m-bottom">
                     <a class="image-hover-zoom" href="javascript:void(0)">
                       <img
-                        v-bind:src="this.storageUrl + this.configs.params.footer_image"
+                        v-bind:src="this.storageUrl + this.getConfigs.params.footer_image"
                       />
                     </a>
                   </div>
                   <div class="s-12 m-12 l-8 margin-m-bottom">
-                    <p>{{ this.configs.params.footer_desc }}</p>
+                    <p>{{ this.getConfigs.params.footer_desc }}</p>
                     <router-link
                       class="text-more-info text-primary-hover"
                       to="/contacts"
@@ -55,7 +55,7 @@
             <!-- Collumn 2 -->
             <div class="s-12 m-12 l-4 margin-m-bottom-2x">
               <h4 class="text-uppercase text-strong">
-                {{ this.configs.translate.contact_us }}
+                {{ this.getConfigs.translate.contact_us }}
               </h4>
               <div class="line">
                 <div class="s-1 m-1 l-1 text-center">
@@ -63,8 +63,8 @@
                 </div>
                 <div class="s-11 m-11 l-11 margin-bottom-10">
                   <p>
-                    <b>{{ this.configs.translate.address }}:</b>
-                    {{ this.configs.params.address }}
+                    <b>{{ this.getConfigs.translate.address }}:</b>
+                    {{ this.getConfigs.params.address }}
                   </p>
                 </div>
               </div>
@@ -75,10 +75,10 @@
                 <div class="s-11 m-11 l-11 margin-bottom-10">
                   <p>
                     <a
-                      :href="'mailto:' + this.configs.params.email"
+                      :href="'mailto:' + this.getConfigs.params.email"
                       class="text-primary-hover"
                     >
-                      <b>{{ this.configs.translate.email }}:</b> {{ this.configs.params.email }}
+                      <b>{{ this.getConfigs.translate.email }}:</b> {{ this.getConfigs.params.email }}
                     </a>
                   </p>
                 </div>
@@ -89,7 +89,7 @@
                 </div>
                 <div class="s-11 m-11 l-11 margin-bottom-10">
                   <p>
-                    <b>{{ this.configs.translate.phone }}:</b> {{ this.configs.params.phone }}
+                    <b>{{ this.getConfigs.translate.phone }}:</b> {{ this.getConfigs.params.phone }}
                   </p>
                 </div>
               </div>
@@ -100,7 +100,7 @@
                 <div class="s-11 m-11 l-11 margin-bottom-10">
                   <p>
                     <a
-                      :href="this.configs.params.twitter_url"
+                      :href="this.getConfigs.params.twitter_url"
                       target="_blank"
                       class="text-primary-hover"
                     >
@@ -116,7 +116,7 @@
                 <div class="s-11 m-11 l-11">
                   <p>
                     <a
-                      :href="this.configs.params.facebook_url"
+                      :href="this.getConfigs.params.facebook_url"
                       target="_blank"
                       class="text-primary-hover"
                     >
@@ -237,7 +237,6 @@ import {
   STORAGE_URL,
   SEND_MAIL,
   SET_LOADER,
-  // GET_CONFIGS,
 } from "@/store/modules/dreadnought.store";
 import { configs } from "@/_data_models/configs_model";
 
@@ -255,16 +254,7 @@ export default {
     ...mapGetters({ getConfigs: "getConfigs" }),
     ...mapGetters({ getLoader: "getLoader" }),
   },
-  mounted() {
-    console.log(this.getConfigs)
-    this.configs = Object.assign({}, this.configs, this.getConfigs);
-    // await this.$store.dispatch(GET_CONFIGS)
-    // await this.initData();
-  },
   methods: {
-    async initData() {
-      this.configs = Object.assign({}, this.configs, this.getConfigs);
-    },
     sendMessage() {
       if (!this.validateForm().length) {
         let formData = { email: this.configs.forms.email, name: this.configs.forms.name, text: this.configs.forms.text };

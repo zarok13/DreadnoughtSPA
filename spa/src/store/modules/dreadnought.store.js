@@ -73,12 +73,11 @@ const actions = {
     },
 
     [GET_CONFIGS](state) {
-        // if (await getDataFromLocalStorage(state, GET_CONFIGS, SET_CONFIGS)) {
-        //     console.log('configs parsed from local storage');
-        // } else {
+        if (getDataFromLocalStorage(state, GET_CONFIGS, SET_CONFIGS)) {
+            console.log('configs parsed from local storage');
+        } else {
         Axios.get(BASE_URL + '/configs')
                 .then(data => {
-                    console.log('fsd')
                     let configs = data.data
                     state.commit(SET_CONFIGS, configs)
                     configs.expire_date = getExpireDate(2);
@@ -87,7 +86,7 @@ const actions = {
                 .catch(error => {
                     console.log(error);
                 })
-        // }
+        }
     },
     async [SEND_MAIL](state, messageData) {
         await Axios.post(BASE_URL + '/send_message', messageData)
