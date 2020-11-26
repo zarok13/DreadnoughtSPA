@@ -1,6 +1,6 @@
-var $ = require("jquery");
 export function initSliderCarousel() {
-    var owl = $('.carousel-fade-transition');
+    var owl = document.getElementsByClassName('.carousel-fade-transition');
+    console.log(owl);
     owl.owlCarousel({
         nav: true,
         dots: true,
@@ -13,7 +13,7 @@ export function initSliderCarousel() {
     });
 }
 export function initBlogCarousel() {
-    var owl = $('.carousel-default');
+    var owl = document.getElementsByClassName('.carousel-default');
     owl.owlCarousel({
         nav: true,
         dots: true,
