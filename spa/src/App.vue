@@ -7,9 +7,6 @@
 <script>
 import {GET_CONFIGS} from "@/store/modules/dreadnought.store";
 
-
-// require("./assets/js/responsee");
-// require("./assets/owl-carousel/owl.carousel");
 export default {
   name: "App",
   created() {
@@ -23,7 +20,5 @@ export default {
 @import "./assets/css/components.css";
 @import "./assets/css/icons.css";
 @import "./assets/css/responsee.css";
-@import "./assets/owl-carousel/owl.carousel.css";
-@import "./assets/owl-carousel/owl.theme.css";
 @import "./assets/css/template-style.css";
 </style>
