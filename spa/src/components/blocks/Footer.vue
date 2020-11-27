@@ -16,7 +16,7 @@
       </div>
 
       <!-- Main Footer -->
-      <section class="section background-dark" v-if="this.getConfigs.expire_date != undefined">
+      <section class="section background-dark" v-if="this.getConfigs.expire_date !== undefined">
         <div class="line">
           <div class="margin">
             <!-- Collumn 1 -->

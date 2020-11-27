@@ -3,7 +3,7 @@
     <Header/>
     <!-- MAIN -->
     <main role="main">
-      <carousel>
+      <!-- <carousel>
 
         <img src="https://placeimg.com/200/200/any?1">
 
@@ -13,27 +13,25 @@
 
         <img src="https://placeimg.com/200/200/any?4">
 
-      </carousel>
+      </carousel> -->
       <!-- Main Carousel -->
       <section class="section background-dark">
         <div class="line">
-          <div
-              class="carousel-fade-transition owl-carousel carousel-main carousel-nav-white carousel-wide-arrows"
-          >
+          <div class="carousel-fade-transition owl-carousel carousel-main carousel-nav-white carousel-wide-arrows"
+           v-if="this.getHome.sliders != undefined">
             <carousel>
               <div
                   class="item"
-                  v-for="(item, index) in this.home.sliders"
+                  v-for="(item, index) in this.getHome.sliders"
                   v-bind:key="index"
               >
-                <div class="s-12 center">
+                <div class="s-12 center"> 
                   <img
                       v-bind:src="
                     apiUrl.substring(0, apiUrl.length - 3) +
                     'storage/' +
                     item.src
                   "
-                      alt
                   />
                   <div class="carousel-content">
                     <div class="padding-2x">
