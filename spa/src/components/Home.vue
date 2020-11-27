@@ -160,6 +160,7 @@
 </template>
 
 <script>
+
 import {mapGetters} from "vuex";
 import {BASE_URL, GET_HOME} from "../store/modules/dreadnought.store";
 import {home} from "../_data_models/home_model";

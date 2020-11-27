@@ -21,6 +21,4 @@ export default {
 @import "./assets/css/icons.css";
 @import "./assets/css/responsee.css";
 @import "./assets/css/template-style.css";
-@import "./assets/owl-carousel/owl.carousel.css";
-@import "./assets/owl-carousel/owl.theme.css";
 </style>
