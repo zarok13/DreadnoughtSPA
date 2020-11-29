@@ -10,12 +10,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['namespace' => 'API'], function () {
     Route::get('/configs', 'ConfigsController@index');
     Route::get('/home', 'HomeController@index');
-
-    
-    Route::get('/mapbox', 'IndexController@mapbox');
-    Route::get('/static_content', 'IndexController@staticContent');
-
-    Route::post('/send_message', 'IndexController@sendMessage');
-    Route::post('/send_contact', 'IndexController@sendContact');
-
+    Route::get('/static_content', 'StaticController@staticContent');
+    Route::get('/mapbox', 'ContactController@mapbox');
+    Route::post('/send_message', 'ContactController@sendMessage');
+    Route::post('/send_contact', 'ContactController@sendContact');
 });

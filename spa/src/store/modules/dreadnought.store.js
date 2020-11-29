@@ -1,6 +1,6 @@
 import Axios from "axios"
-import { getDataFromLocalStorage } from "../../helpers/init_local_storage"
-import { getExpireDate } from "../../helpers/expire_date"
+import {getDataFromLocalStorage} from "../../helpers/init_local_storage"
+import {getExpireDate} from "../../helpers/expire_date"
 
 // global api url
 export const BASE_URL = 'http://localhost:8000/api'
@@ -27,7 +27,11 @@ const SET_STATIC_CONTENT = 'setStaticContent'
 
 // init app state
 const state = {
-    home: [],
+    home: {
+        sliders: [],
+        intro: [],
+        blogs: [],
+    },
     configs: [],
     loader: false,
     mapboxData: [],
@@ -36,30 +40,47 @@ const state = {
 
 // init app getters
 const getters = {
-    getHome(state) {
-        return state.home;
-    },
     getConfigs(state) {
         return state.configs;
     },
-    getLoader(state) {
-        return state.loader;
+    getHome(state) {
+        return state.home;
+    },
+    getStaticContent(state) {
+        return state.staticContent;
     },
     getMapbox(state) {
         return state.mapboxData;
     },
-    getStaticContent(state) {
-        return state.staticContent;
+    getLoader(state) {
+        return state.loader;
     },
 }
 
 // app store actions
 const actions = {
-    async [GET_HOME](state) {
-        if (await getDataFromLocalStorage(state, GET_HOME, SET_HOME)) {
+    [GET_CONFIGS](state) {
+        if (getDataFromLocalStorage(state, GET_CONFIGS, SET_CONFIGS)) {
+            console.log('configs parsed from local storage');
+        } else {
+            Axios.get(BASE_URL + '/configs')
+                .then(data => {
+                    let configs = data.data
+                    state.commit(SET_CONFIGS, configs)
+                    configs.expire_date = getExpireDate(2);
+                    localStorage.setItem(GET_CONFIGS, JSON.stringify(configs));
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+        }
+    },
+
+    [GET_HOME](state) {
+        if (getDataFromLocalStorage(state, GET_HOME, SET_HOME)) {
             console.log('home parsed from local storage');
         } else {
-            await Axios.get(BASE_URL + '/home')
+            Axios.get(BASE_URL + '/home')
                 .then(data => {
                     let home = data.data;
                     state.commit(SET_HOME, home);
@@ -72,61 +93,54 @@ const actions = {
         }
     },
 
-    [GET_CONFIGS](state) {
-        if (getDataFromLocalStorage(state, GET_CONFIGS, SET_CONFIGS)) {
-            console.log('configs parsed from local storage');
+    [GET_STATIC_CONTENT](state, slug) {
+        if (getDataFromLocalStorage(state, GET_STATIC_CONTENT + '_' + slug, SET_STATIC_CONTENT)) {
+            console.log('static content parsed from local storage');
         } else {
-        Axios.get(BASE_URL + '/configs')
+            Axios.get(BASE_URL + '/static_content', {params: {slug: slug}})
                 .then(data => {
-                    let configs = data.data
-                    state.commit(SET_CONFIGS, configs)
-                    configs.expire_date = getExpireDate(2);
-                    localStorage.setItem(GET_CONFIGS, JSON.stringify(configs));
+                    let content = data.data;
+                    state.commit(SET_STATIC_CONTENT, content);
+                    content.expire_date = getExpireDate(2);
+                    localStorage.setItem(GET_STATIC_CONTENT + '_' + slug, JSON.stringify(content));
                 })
                 .catch(error => {
                     console.log(error);
                 })
         }
     },
-    async [SEND_MAIL](state, messageData) {
-        await Axios.post(BASE_URL + '/send_message', messageData)
-            .then(data => {
-                console.log(data.data);
-            })
-            .catch(error => {
-                console.log(error);
-            })
-    },
-    async [SEND_CONTACT](state, contactData) {
-        await Axios.post(BASE_URL + '/send_contact', contactData)
-            .then(data => {
-                console.log(data.data);
-            })
-            .catch(error => {
-                console.log(error);
-            })
-    },
-    async [GET_MAPBOX_DATA](state) {
-        // if (await getDataFromLocalStorage(state, GET_MAPBOX_DATA, SET_MAPBOX_DATA)) {
-        //     console.log('mapbox parsed from local storage');
-        // } else {
-            await Axios.get(BASE_URL + '/mapbox')
+
+    [GET_MAPBOX_DATA](state) {
+        if (getDataFromLocalStorage(state, GET_MAPBOX_DATA, SET_MAPBOX_DATA)) {
+            console.log('mapbox parsed from local storage');
+        } else {
+            Axios.get(BASE_URL + '/mapbox')
                 .then(data => {
-                    let mapbox = data.data
-                    state.commit(SET_MAPBOX_DATA, mapbox)
+                    let mapbox = data.data;
+                    state.commit(SET_MAPBOX_DATA, mapbox);
                     mapbox.expire_date = getExpireDate(2);
                     localStorage.setItem(GET_MAPBOX_DATA, JSON.stringify(mapbox));
                 })
                 .catch(error => {
                     console.log(error);
                 })
-        // }
+        }
     },
-    async [GET_STATIC_CONTENT](state, slug) {
-        await Axios.get(BASE_URL + '/static_content', { params: { slug: slug } })
+
+    [SEND_MAIL](state, messageData) {
+        Axios.post(BASE_URL + '/send_message', messageData)
             .then(data => {
-                let content = data.data
-                state.commit(SET_STATIC_CONTENT, content)
+                console.log(data.data);
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    },
+
+    [SEND_CONTACT](state, contactData) {
+        Axios.post(BASE_URL + '/send_contact', contactData)
+            .then(data => {
+                console.log(data.data);
             })
             .catch(error => {
                 console.log(error);
@@ -136,20 +150,20 @@ const actions = {
 
 // app store mutations
 const mutations = {
-    [SET_HOME](state, home) {
-        state.home = home;
-    },
     [SET_CONFIGS](state, configs) {
         state.configs = configs;
     },
-    [SET_LOADER](state, value) {
-        state.loader = value;
+    [SET_HOME](state, home) {
+        state.home = home;
+    },
+    [SET_STATIC_CONTENT](state, content) {
+        state.staticContent = content;
     },
     [SET_MAPBOX_DATA](state, mapbox) {
         state.mapboxData = mapbox;
     },
-    [SET_STATIC_CONTENT](state, content) {
-        state.staticContent = content;
+    [SET_LOADER](state, value) {
+        state.loader = value;
     }
 }
 

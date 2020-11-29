@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-let about = import('@/components/About');
+let staticComponent = import('@/components/Static');
 Vue.use(Router)
 const router = new Router({
     mode: 'history',
@@ -28,12 +28,12 @@ const router = new Router({
         {
             path: '/about_us',
             name: 'about',
-            component: () => about
+            component: () => staticComponent
         },
         {
             path: '/info',
             name: 'info',
-            component: () => about
+            component: () => staticComponent
         },
     ]
 })

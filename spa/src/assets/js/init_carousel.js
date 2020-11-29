@@ -1,7 +1,6 @@
 export function initSliderCarousel() {
     var owl = document.getElementsByClassName('.carousel-fade-transition');
-    console.log(owl);
-    owl.owlCarousel({
+    owl.carousel({
         nav: true,
         dots: true,
         items: 1,
@@ -12,6 +11,7 @@ export function initSliderCarousel() {
         autoplayTimeout: 4000
     });
 }
+
 export function initBlogCarousel() {
     var owl = document.getElementsByClassName('.carousel-default');
     owl.owlCarousel({

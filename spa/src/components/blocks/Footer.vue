@@ -151,7 +151,7 @@
                     <div class="s-12 m-12 l-6">
                       <input
                         name="email"
-                        v-model="configs.forms.email"
+                        v-model="configs.email"
                         class="required email border-radius"
                         placeholder="Your e-mail"
                         title="Your e-mail"
@@ -161,7 +161,7 @@
                     <div class="s-12 m-12 l-6">
                       <input
                         name="name"
-                        v-model="configs.forms.name"
+                        v-model="configs.name"
                         class="name border-radius"
                         placeholder="Your name"
                         title="Your name"
@@ -173,7 +173,7 @@
                 <div class="s-12">
                   <textarea
                     name="text"
-                    v-model="configs.forms.text"
+                    v-model="configs.text"
                     class="required message border-radius"
                     placeholder="Your message"
                     rows="6"
