@@ -2,7 +2,7 @@
     <div>
         <Header/>
         <!-- MAIN -->
-        <main role="main">
+        <main role="main" >
             <!-- Main Carousel -->
             <section class="slider-section background-dark">
                 <div class="line">
@@ -181,6 +181,7 @@ export default {
 </script>
 
 <style scoped>
+
 .carousel-content {
     position: absolute;
     bottom: 8px;
@@ -188,7 +189,7 @@ export default {
 }
 
 .slider-section {
-    padding-top: 2rem;
+    padding-top: 3rem;
     padding-bottom: 2rem;
 }
 

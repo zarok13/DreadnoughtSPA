@@ -250,8 +250,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters({ getConfigs: "getConfigs" }),
-    ...mapGetters({ getLoader: "getLoader" }),
+    ...mapGetters({ getConfigs: "getConfigs", getLoader: "getLoader"}),
   },
   methods: {
     sendMessage() {

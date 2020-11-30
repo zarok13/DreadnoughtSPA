@@ -1,6 +1,6 @@
 import Axios from "axios"
-import {getDataFromLocalStorage} from "../../helpers/init_local_storage"
-import {getExpireDate} from "../../helpers/expire_date"
+import {getDataFromLocalStorage} from "@/helpers/init_local_storage"
+import {getExpireDate} from "@/helpers/expire_date"
 
 // global api url
 export const BASE_URL = 'http://localhost:8000/api'
@@ -13,10 +13,8 @@ export const GET_MAPBOX_DATA = 'getMapboxData'
 export const SEND_MAIL = 'sendMail'
 export const SEND_CONTACT = 'sendContact'
 
-
-
 // define app store mutations names
-export const SET_CONFIGS = 'setConfigs'
+const SET_CONFIGS = 'setConfigs'
 const SET_HOME = 'setHome'
 const SET_STATIC_CONTENT = 'setStaticContent'
 const SET_MAPBOX_DATA = 'setMapboxDate'
@@ -39,7 +37,7 @@ const state = {
     
     loader: false,
     mapboxData: [],
-    staticContent: {},
+    staticContent: [],
 }
 
 // init app getters
