@@ -4,35 +4,39 @@ import {getExpireDate} from "../../helpers/expire_date"
 
 // global api url
 export const BASE_URL = 'http://localhost:8000/api'
-export const STORAGE_URL = "http://localhost:8000/storage/"
 
 // define app store actions names
 export const GET_CONFIGS = 'configs'
 export const GET_HOME = 'home'
-
-
+export const GET_STATIC_CONTENT = 'getStaticContent'
+export const GET_MAPBOX_DATA = 'getMapboxData'
 export const SEND_MAIL = 'sendMail'
 export const SEND_CONTACT = 'sendContact'
-export const GET_MAPBOX_DATA = 'getMapboxData'
-export const GET_STATIC_CONTENT = 'getStaticContent'
+
+
 
 // define app store mutations names
 export const SET_CONFIGS = 'setConfigs'
 const SET_HOME = 'setHome'
-
-
-export const SET_LOADER = 'setLoader'
-const SET_MAPBOX_DATA = 'setMapboxDate'
 const SET_STATIC_CONTENT = 'setStaticContent'
+const SET_MAPBOX_DATA = 'setMapboxDate'
+export const SET_LOADER = 'setLoader'
+
+
 
 // init app state
 const state = {
+    configs: {
+        menu: [],
+        translate: [],
+        params: []
+    },
     home: {
         sliders: [],
         intro: [],
         blogs: [],
     },
-    configs: [],
+    
     loader: false,
     mapboxData: [],
     staticContent: {},

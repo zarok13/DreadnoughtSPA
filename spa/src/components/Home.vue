@@ -188,7 +188,7 @@ export default {
 }
 
 .slider-section {
-    padding-top: 3rem;
+    padding-top: 2rem;
     padding-bottom: 2rem;
 }
 

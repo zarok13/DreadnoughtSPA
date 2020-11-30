@@ -16,7 +16,7 @@
       </div>
 
       <!-- Main Footer -->
-      <section class="section background-dark" v-if="this.getConfigs.expire_date !== undefined">
+      <section class="section background-dark">
         <div class="line">
           <div class="margin">
             <!-- Collumn 1 -->
@@ -36,7 +36,8 @@
                   <div class="s-12 m-12 l-4 margin-m-bottom">
                     <a class="image-hover-zoom" href="javascript:void(0)">
                       <img
-                        v-bind:src="this.storageUrl + this.getConfigs.params.footer_image"
+                        v-if="this.getConfigs.params.footer_image !== undefined"
+                        v-bind:src="this.configs.storageUrl + this.getConfigs.params.footer_image"
                       />
                     </a>
                   </div>
@@ -234,7 +235,6 @@
 
 import { mapGetters } from "vuex";
 import {
-  STORAGE_URL,
   SEND_MAIL,
   SET_LOADER,
 } from "@/store/modules/dreadnought.store";
@@ -246,7 +246,6 @@ export default {
   data() {
     return {
       configs: configs,
-      storageUrl: STORAGE_URL,
       loading: false,
     };
   },
