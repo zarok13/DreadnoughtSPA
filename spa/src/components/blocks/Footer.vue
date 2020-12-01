@@ -36,7 +36,7 @@
                   <div class="s-12 m-12 l-4 margin-m-bottom">
                     <a class="image-hover-zoom" href="javascript:void(0)">
                       <img
-                        v-bind:src="this.configs.storageUrl + this.getConfigs.params.footer_image"
+                        v-bind:src="configs.storageUrl + this.getConfigs.params.footer_image"
                       />
                     </a>
                   </div>
@@ -259,17 +259,18 @@ export default {
       }
     },
     validateForm() {
-      this.configs.errors = [];
-      if (!this.configs.forms.email) {
-        this.configs.errors.push("Email required.");
-      } else if (!this.validEmail(this.configs.forms.email)) {
-        this.configs.errors.push("Valid email required.");
+      configs.errors = [];
+console.log(configs)
+      if (!configs.forms.email) {
+        configs.errors.push("Email required.");
+      } else if (!this.validEmail(configs.forms.email)) {
+        configs.errors.push("Valid email required.");
       }
 
-      if (!this.configs.forms.text) {
-        this.configs.errors.push("Message required.");
+      if (!configs.forms.text) {
+        configs.errors.push("Message required.");
       }
-      return this.configs.errors;
+      return configs.errors;
     },
     validEmail: function (email) {
       var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

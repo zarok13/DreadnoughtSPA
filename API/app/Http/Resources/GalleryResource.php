@@ -18,7 +18,7 @@ class GalleryResource extends JsonResource
             'id' => $this->id,
             'lang' => $this->lang,
             'title' => $this->title,
-            'src' => $this->src
+            'src' => $this->src,
         ];
     }
 }
