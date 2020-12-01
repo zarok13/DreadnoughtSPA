@@ -18,19 +18,12 @@ class ContactController
      */
     public function mapbox()
     {
-        try {
-            $contactID = hel_field('contact_id');
-            $mapCoordinates = MapCoordinate::select('lat', 'lng', 'zoom')->where('page_id', $contactID)->first();
-            $markers = Marker::select('lat', 'lng')->lang()->where('page_id', $contactID)->get();
-            $mapboxData['mapCoordinates'] = $mapCoordinates;
-            $mapboxData['markers'] = $markers;
-            return response()->json($mapboxData);
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => false,
-                'message' => $e->getMessage(),
-            ]);
-        }
+        $contactID = hel_field('contact_id');
+        $mapCoordinates = MapCoordinate::select('lat', 'lng', 'zoom')->where('page_id', $contactID)->first();
+        $markers = Marker::select('lat', 'lng')->lang()->where('page_id', $contactID)->get();
+        $mapboxData['mapCoordinates'] = $mapCoordinates;
+        $mapboxData['markers'] = $markers;
+        return response()->json($mapboxData);
     }
 
     /**

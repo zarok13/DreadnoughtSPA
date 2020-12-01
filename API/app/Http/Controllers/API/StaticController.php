@@ -16,14 +16,7 @@ class StaticController
      */
     public function staticContent(Request $request, Page $pages)
     {
-        try {
-            $pages = $pages->lang()->where('slug', $request->slug)->first();
-            return response()->json($pages);
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => false,
-                'message' => $e->getMessage(),
-            ]);
-        }
+        $pages = $pages->lang()->where('slug', $request->slug)->first();
+        return response()->json($pages);
     }
 }

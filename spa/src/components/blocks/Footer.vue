@@ -36,7 +36,6 @@
                   <div class="s-12 m-12 l-4 margin-m-bottom">
                     <a class="image-hover-zoom" href="javascript:void(0)">
                       <img
-                        v-if="this.getConfigs.params.footer_image !== undefined"
                         v-bind:src="this.configs.storageUrl + this.getConfigs.params.footer_image"
                       />
                     </a>

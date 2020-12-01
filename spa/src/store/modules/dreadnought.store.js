@@ -9,6 +9,7 @@ export const BASE_URL = 'http://localhost:8000/api'
 export const GET_CONFIGS = 'configs'
 export const GET_HOME = 'home'
 export const GET_STATIC_CONTENT = 'getStaticContent'
+export const GET_GALLERY = 'getGallery'
 export const GET_MAPBOX_DATA = 'getMapboxData'
 export const SEND_MAIL = 'sendMail'
 export const SEND_CONTACT = 'sendContact'
@@ -17,9 +18,9 @@ export const SEND_CONTACT = 'sendContact'
 const SET_CONFIGS = 'setConfigs'
 const SET_HOME = 'setHome'
 const SET_STATIC_CONTENT = 'setStaticContent'
+const SET_GALLERY = 'setGallery'
 const SET_MAPBOX_DATA = 'setMapboxDate'
 export const SET_LOADER = 'setLoader'
-
 
 
 // init app state
@@ -34,10 +35,10 @@ const state = {
         intro: [],
         blogs: [],
     },
-    
-    loader: false,
-    mapboxData: [],
     staticContent: [],
+    gallery: [],
+    mapboxData: [],
+    loader: false,
 }
 
 // init app getters
@@ -50,6 +51,9 @@ const getters = {
     },
     getStaticContent(state) {
         return state.staticContent;
+    },
+    getGallery(state) {
+        return state.gallery;
     },
     getMapbox(state) {
         return state.mapboxData;
@@ -79,9 +83,9 @@ const actions = {
     },
 
     [GET_HOME](state) {
-        if (getDataFromLocalStorage(state, GET_HOME, SET_HOME)) {
-            console.log('home parsed from local storage');
-        } else {
+        // if (getDataFromLocalStorage(state, GET_HOME, SET_HOME)) {
+        //     console.log('home parsed from local storage');
+        // } else {
             Axios.get(BASE_URL + '/home')
                 .then(data => {
                     let home = data.data;
@@ -92,7 +96,7 @@ const actions = {
                 .catch(error => {
                     console.log(error);
                 })
-        }
+        // }
     },
 
     [GET_STATIC_CONTENT](state, slug) {
@@ -105,6 +109,23 @@ const actions = {
                     state.commit(SET_STATIC_CONTENT, content);
                     content.expire_date = getExpireDate(2);
                     localStorage.setItem(GET_STATIC_CONTENT + '_' + slug, JSON.stringify(content));
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+        }
+    },
+
+    [GET_GALLERY](state) {
+        if (getDataFromLocalStorage(state, GET_GALLERY, SET_GALLERY)) {
+            console.log('gallery parsed from local storage');
+        } else {
+            Axios.get(BASE_URL + '/gallery')
+                .then(data => {
+                    let gallery = data.data;
+                    state.commit(SET_GALLERY, gallery);
+                    gallery.expire_date = getExpireDate(2);
+                    localStorage.setItem(GET_HOME, JSON.stringify(gallery));
                 })
                 .catch(error => {
                     console.log(error);
@@ -160,6 +181,9 @@ const mutations = {
     },
     [SET_STATIC_CONTENT](state, content) {
         state.staticContent = content;
+    },
+    [SET_GALLERY](state, gallery) {
+        state.gallery = gallery;
     },
     [SET_MAPBOX_DATA](state, mapbox) {
         state.mapboxData = mapbox;
