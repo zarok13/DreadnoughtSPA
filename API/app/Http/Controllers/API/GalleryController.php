@@ -19,6 +19,6 @@ class GalleryController
         $photos = FileStoreRef::leftJoin('file_store', 'file_store.id', '=', 'file_store_refs.file_id')
             ->where('reference_type', $referenceType)
             ->where('reference_id', 9)->get();
-        return response()->json(GalleryResource::collection($photos));
+        return response()->json(['photos' => GalleryResource::collection($photos)]);
     }
 }

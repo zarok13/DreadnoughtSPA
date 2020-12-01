@@ -4,7 +4,6 @@ import { checkExpireDate } from "./expire_date";
 export function getDataFromLocalStorage(state, name, mutation) {
     if (localStorage[name] && localStorage[name] !== 'undefined') {
         let parsedData = JSON.parse(localStorage[name]);
-        console.log((parsedData))
         if (checkExpireDate(parsedData)) {
             state.commit(mutation, parsedData);
             return true;

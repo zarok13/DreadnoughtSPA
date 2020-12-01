@@ -12,9 +12,8 @@
         <div class="section background-white">
           <div class="line">
             <div class="margin">
-
               <div
-                  v-for="(item, index) in this.getGallery" :key="index" class="s-12 m-6 l-3">
+                  v-for="(item, index) in this.getGallery.photos" :key="index" class="s-12 m-6 l-3">
                 <div class="image-with-hover-overlay image-hover-zoom margin-bottom">
                   <div class="image-hover-overlay background-primary">
                     <div class="image-hover-overlay-content text-center padding-2x">
@@ -26,7 +25,6 @@
                        title="Portfolio Image 1"/>
                 </div>
               </div>
-
             </div>
           </div>
         </div>

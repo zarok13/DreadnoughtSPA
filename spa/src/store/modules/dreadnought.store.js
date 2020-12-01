@@ -117,21 +117,20 @@ const actions = {
     },
 
     [GET_GALLERY](state) {
-        // if (getDataFromLocalStorage(state, GET_GALLERY, SET_GALLERY)) {
-        //     console.log('gallery parsed from local storage');
-        // } else {
+        if (getDataFromLocalStorage(state, GET_GALLERY, SET_GALLERY)) {
+            console.log('gallery parsed from local storage');
+        } else {
             Axios.get(BASE_URL + '/gallery')
                 .then(data => {
                     let gallery = data.data;
                     state.commit(SET_GALLERY, gallery);
                     gallery.expire_date = getExpireDate(2);
-                    console.log(gallery)
                     localStorage.setItem(GET_GALLERY, JSON.stringify(gallery));
                 })
                 .catch(error => {
                     console.log(error);
                 })
-        // }
+        }
     },
 
     [GET_MAPBOX_DATA](state) {
