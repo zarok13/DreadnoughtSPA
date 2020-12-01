@@ -201,6 +201,10 @@ $(document).ready(function () {
         var url = $(this).data('url');
         var form = $(this)[0];
         var data = new FormData(form);
+        data.append(
+            "multipleAttach",
+            $("div.uploaded_files").hasClass('multiple_attach')
+        );
         var resetFileUploader = 'input[name = "files[]"]';
         var dragAndDropContainer = '.drag-and-drop-container';
         var dragAndDroptitle = '.drag-and-drop-title';
@@ -357,6 +361,122 @@ $(document).ready(function () {
             }
         });
     });
+
+    // select multiple file
+    $("body").on("click", "embed.multiple_attach", function () {
+        if (!$(this).hasClass("selected_reference")) {
+            $(this).addClass("selected_reference");
+        } else {
+            $(this).removeClass("selected_reference");
+        }
+    });
+
+    // add files to file references
+    $("body").on("click", "a#apply_references", function (e) {
+        e.preventDefault();
+        var url = $(this).data("url");
+        let fileReferences = [];
+        let selectedReferences = $("embed.selected_reference");
+        for (let i of selectedReferences) {
+            fileReferences.push($(i).attr("id"));
+        }
+        let referenceID = url.split("/")[8];
+        let referenceType = url.split("/")[7];
+        $.ajax({
+            url: url,
+            type: "POST",
+            dataType: "json",
+            data: {
+                fileReferences: fileReferences,
+                reference_id: referenceID,
+                reference_type: referenceType
+            },
+            success: function (result) {
+                if (result.status === "ok") {
+                    $(".uploaded_files", opener.document).html(result.response);
+                    if (fileStoreWindow) {
+                        fileStoreWindow.close();
+                    }
+                } else {
+                    Swal.fire({
+                        icon: result.status == "warning" ? "warning" : "error",
+                        title:
+                            result.status == "warning" ? "Warning" : "Oops...",
+                        text: result.message,
+                        footer: "Dreadnought Project"
+                    });
+                }
+            },
+            error: function (error) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: error,
+                    footer: "Dreadnought Project"
+                });
+            }
+        });
+    });
+
+    // unset files from file references
+    $(".uploaded_files").on("click", "a.unset", function (e) {
+        e.preventDefault();
+        var url = $(this).data("url");
+        let fileID = $(this)
+            .closest("ul")
+            .parent()
+            .find("embed")
+            .attr("id");
+        let referenceID = url.split("/")[8];
+        let referenceType = url.split("/")[7];
+        var mainWrapper = "div.wrapper";
+        var imageLoader = "#image-loader";
+        $.ajax({
+            url: url,
+            type: "DELETE",
+            dataType: "json",
+            data: {
+                file_id: fileID,
+                reference_id: referenceID,
+                reference_type: referenceType
+            },
+            beforeSend: function () {
+                $(mainWrapper).fadeTo("fast", 0.2);
+                $(mainWrapper).css("pointer-events", "none");
+                $(imageLoader).show();
+            },
+            success: function (result) {
+                if (result.status === "ok") {
+                    $(".uploaded_files").html(result.response);
+                    toastr["success"](
+                        "<b>Dreadnought Project</b><br/>File has been successfully removed."
+                    );
+                } else {
+                    $(resetFileUploader).val("");
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: result.message,
+                        footer: "Dreadnought Project"
+                    });
+                }
+            },
+            error: function (error) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: error,
+                    footer: "Dreadnought Project"
+                });
+            },
+            complete: function () {
+                $(mainWrapper).fadeTo("fast", 1);
+                $(mainWrapper).css("pointer-events", "");
+                $(imageLoader).hide();
+            }
+        });
+    });
+
     // Roles tree view
     $.fn.extend({
         rolesTree: function () {

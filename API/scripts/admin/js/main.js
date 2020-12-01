@@ -93,6 +93,12 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 $(document).ready(function () {
   /* Ajax setup */
   $.ajaxSetup({
@@ -300,6 +306,7 @@ $(document).ready(function () {
     var url = $(this).data('url');
     var form = $(this)[0];
     var data = new FormData(form);
+    data.append("multipleAttach", $("div.uploaded_files").hasClass('multiple_attach'));
     var resetFileUploader = 'input[name = "files[]"]';
     var dragAndDropContainer = '.drag-and-drop-container';
     var dragAndDroptitle = '.drag-and-drop-title';
@@ -459,6 +466,124 @@ $(document).ready(function () {
         }
       }
     });
+  }); // select multiple file
+
+  $("body").on("click", "embed.multiple_attach", function () {
+    if (!$(this).hasClass("selected_reference")) {
+      $(this).addClass("selected_reference");
+    } else {
+      $(this).removeClass("selected_reference");
+    }
+  }); // add files to file references
+
+  $("body").on("click", "a#apply_references", function (e) {
+    e.preventDefault();
+    var url = $(this).data("url");
+    var fileReferences = [];
+    var selectedReferences = $("embed.selected_reference");
+
+    var _iterator = _createForOfIteratorHelper(selectedReferences),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var i = _step.value;
+        fileReferences.push($(i).attr("id"));
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    var referenceID = url.split("/")[8];
+    var referenceType = url.split("/")[7];
+    $.ajax({
+      url: url,
+      type: "POST",
+      dataType: "json",
+      data: {
+        fileReferences: fileReferences,
+        reference_id: referenceID,
+        reference_type: referenceType
+      },
+      success: function success(result) {
+        if (result.status === "ok") {
+          $(".uploaded_files", opener.document).html(result.response);
+
+          if (fileStoreWindow) {
+            fileStoreWindow.close();
+          }
+        } else {
+          Swal.fire({
+            icon: result.status == "warning" ? "warning" : "error",
+            title: result.status == "warning" ? "Warning" : "Oops...",
+            text: result.message,
+            footer: "Dreadnought Project"
+          });
+        }
+      },
+      error: function error(_error7) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: _error7,
+          footer: "Dreadnought Project"
+        });
+      }
+    });
+  }); // unset files from file references
+
+  $(".uploaded_files").on("click", "a.unset", function (e) {
+    e.preventDefault();
+    var url = $(this).data("url");
+    var fileID = $(this).closest("ul").parent().find("embed").attr("id");
+    var referenceID = url.split("/")[8];
+    var referenceType = url.split("/")[7];
+    var mainWrapper = "div.wrapper";
+    var imageLoader = "#image-loader";
+    $.ajax({
+      url: url,
+      type: "DELETE",
+      dataType: "json",
+      data: {
+        file_id: fileID,
+        reference_id: referenceID,
+        reference_type: referenceType
+      },
+      beforeSend: function beforeSend() {
+        $(mainWrapper).fadeTo("fast", 0.2);
+        $(mainWrapper).css("pointer-events", "none");
+        $(imageLoader).show();
+      },
+      success: function success(result) {
+        if (result.status === "ok") {
+          $(".uploaded_files").html(result.response);
+          toastr["success"]("<b>Dreadnought Project</b><br/>File has been successfully removed.");
+        } else {
+          $(resetFileUploader).val("");
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: result.message,
+            footer: "Dreadnought Project"
+          });
+        }
+      },
+      error: function error(_error8) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: _error8,
+          footer: "Dreadnought Project"
+        });
+      },
+      complete: function complete() {
+        $(mainWrapper).fadeTo("fast", 1);
+        $(mainWrapper).css("pointer-events", "");
+        $(imageLoader).hide();
+      }
+    });
   }); // Roles tree view
 
   $.fn.extend({
@@ -562,11 +687,11 @@ $(document).ready(function () {
           });
         }
       },
-      error: function error(_error7) {
+      error: function error(_error9) {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: _error7,
+          text: _error9,
           footer: 'Dreadnought Project'
         });
       },
@@ -619,11 +744,11 @@ $(document).ready(function () {
           });
         }
       },
-      error: function error(_error8) {
+      error: function error(_error10) {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: _error8,
+          text: _error10,
           footer: 'Dreadnought Project'
         });
       },
@@ -665,11 +790,11 @@ $(document).ready(function () {
           });
         }
       },
-      error: function error(_error9) {
+      error: function error(_error11) {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: _error9,
+          text: _error11,
           footer: 'Dreadnought Project'
         });
       },
@@ -709,11 +834,11 @@ $(document).ready(function () {
           });
         }
       },
-      error: function error(_error10) {
+      error: function error(_error12) {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: _error10,
+          text: _error12,
           footer: 'Dreadnought Project'
         });
       }

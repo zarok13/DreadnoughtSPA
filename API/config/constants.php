@@ -14,6 +14,7 @@ if (!defined('MODELS_PATH')) define('MODELS_PATH', '\\App\\');
 if (!defined('PAGE_TYPE_STATIC')) define('PAGE_TYPE_STATIC', 'static');
 if (!defined('PAGE_TYPE_ARTICLES')) define('PAGE_TYPE_ARTICLES', 'articles');
 if (!defined('PAGE_TYPE_CONTACT')) define('PAGE_TYPE_CONTACT', 'contact');
+if (!defined('PAGE_TYPE_GALLERY')) define('PAGE_TYPE_GALLERY', 'gallery');
 // database actions //
 if (!defined('DATABASE_ACTION_CREATE')) define('DATABASE_ACTION_CREATE', 'An item has been created.');
 if (!defined('DATABASE_ACTION_UPDATE')) define('DATABASE_ACTION_UPDATE', 'An item has been updated.');
