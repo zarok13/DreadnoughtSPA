@@ -22,14 +22,15 @@ class GalleryController extends Controller
     }
 
     /**
+     * @param int $id
      * @return View
      * @throws \Exception
      */
-    public function index(): View
+    public function index(int $id): View
     {
 
         $this->data['referenceType'] = setting('fileStoreReferenceType')['photo_gallery'];
-        $this->data['referenceID'] = 0;
+        $this->data['referenceID'] = $id;
         $this->data['flashData'] = $this->saveFlashData([
             'action' => __FUNCTION__,
             'reference_id' => $this->data['referenceID'],

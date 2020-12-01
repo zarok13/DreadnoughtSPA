@@ -109,6 +109,6 @@ Route::group(['prefix' => 'admin'], function () use ($lang) {
         Route::get('/' . $lang . '/reviews/delete/{id}', 'ReviewsController@delete')->name('reviews.delete');
         Route::post('/' . $lang . '/reviews/sort', 'ReviewsController@sort')->name('reviews.sort');
          // Gallery //
-         Route::get('/' . $lang . '/gallery', 'GalleryController@index')->name('gallery');
+         Route::get('/' . $lang . '/gallery/{id}', 'GalleryController@index')->name('gallery');
     });
 });
