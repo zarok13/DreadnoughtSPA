@@ -92,8 +92,6 @@ return [
         'sub_menu'           => [],
         'actions'         => [
             'read' => 'index',
-            // 'write' => 'upload',
-            // 'delete' => 'delete',
         ],
     ],
     'file_store'         => [
