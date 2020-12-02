@@ -1,10 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-class FileStoreRef extends Model
+class FileStoreRef extends ChildModel
 {
     protected $guarded = [];
     public $timestamps = false;

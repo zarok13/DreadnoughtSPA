@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App;
+namespace App\Models;
 
 
 class Article extends ChildModel
