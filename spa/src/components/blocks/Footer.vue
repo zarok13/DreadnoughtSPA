@@ -134,13 +134,13 @@
                 Please correct the following error(s):
               </h6>
               <ul>
-                <!-- <li
+                <li
                   style="color: red"
                   v-for="(error, index) in configs.errors"
                   :key="index"
                 >
-                  {{ error }} 
-                </li> -->
+                  {{ error }}
+                </li>
               </ul>
               <div class="lds-ring" v-if="getLoader">
                 <h2 style="color: yellow">Sending...</h2>
@@ -251,23 +251,25 @@ export default {
   computed: {
     ...mapGetters({ getConfigs: "getConfigs", getLoader: "getLoader"}),
   },
-  methods: {
+    mounted() {
+        // this.$store.commit(SET_LOADER, true);
+    },
+    methods: {
     sendMessage() {
       if (!this.validateForm().length) {
-        let formData = { email: this.configs.forms.email, name: this.configs.forms.name, text: this.configs.forms.text };
+        let formData = { email: configs.email, name: configs.name, text: configs.text };
         this.send(formData);
       }
     },
     validateForm() {
       configs.errors = [];
-console.log(configs)
-      if (!configs.forms.email) {
+      if (!configs.email) {
         configs.errors.push("Email required.");
-      } else if (!this.validEmail(configs.forms.email)) {
+      } else if (!this.validEmail(configs.email)) {
         configs.errors.push("Valid email required.");
       }
 
-      if (!configs.forms.text) {
+      if (!configs.text) {
         configs.errors.push("Message required.");
       }
       return configs.errors;

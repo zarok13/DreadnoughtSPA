@@ -211,27 +211,28 @@ export default {
   methods: {
     sendMessage() {
       if (!this.validateForm().length) {
+
         let formData = {
-          email: this.email,
-          name: this.name,
-          text: this.text,
-          subject: this.subject,
+          email: configs.email,
+          name: configs.name,
+          text: configs.text,
+          subject: configs.subject,
         };
         this.send(formData);
       }
     },
     validateForm() {
-      this.errors = [];
-      if (!this.email) {
-        this.errors.push("Email required.");
-      } else if (!this.validEmail(this.email)) {
-        this.errors.push("Valid email required.");
+      configs.errors = [];
+      if (!configs.email) {
+        configs.errors.push("Email required.");
+      } else if (!this.validEmail(configs.email)) {
+          configs.errors.push("Valid email required.");
       }
 
-      if (!this.text) {
-        this.errors.push("Message required.");
+      if (!configs.text) {
+        configs.errors.push("Message required.");
       }
-      return this.errors;
+      return configs.errors;
     },
     validEmail: function (email) {
       let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
