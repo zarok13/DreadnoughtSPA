@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Admin\Defaults;
 
 
 use App\Http\Controllers\Admin\Dreadnought\Controller;
-use App\MapCoordinate;
-use App\Marker;
+use App\Models\MapCoordinate;
+use App\Models\Marker;
 use App\Traits\DatabaseAction;
 use App\Traits\Sort;
 use Illuminate\Http\JsonResponse;
@@ -39,7 +39,7 @@ class ContactController extends Controller
     }
 
     /**
-     * @param \App\Marker $marker
+     * @param \App\Models\Marker $marker
      * @param int $pageID
      *
      * @return \Illuminate\View\View
@@ -57,7 +57,7 @@ class ContactController extends Controller
     }
 
     /**
-     * @param \App\Marker $marker
+     * @param \App\Models\Marker $marker
      * @param int $pageID
      * @param int $markerID
      *
@@ -146,7 +146,7 @@ class ContactController extends Controller
 
     /**
      * @param \Illuminate\Http\Request $request
-     * @param \App\Marker $marker
+     * @param \App\Models\Marker $marker
      * @param int $pageID
      * @param int $markerID
      *

@@ -13,7 +13,7 @@ trait MapCoordinate
      */
     protected function getDefaultCoordinates($pageID = null)
     {
-        $coordinates = \App\MapCoordinate::where('page_id', $pageID)->first();
+        $coordinates = \App\Models\MapCoordinate::where('page_id', $pageID)->first();
         if (!empty($coordinates)) {
             $default['lat'] = $coordinates->lat;
             $default['lng'] = $coordinates->lng;

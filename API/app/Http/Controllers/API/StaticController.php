@@ -4,7 +4,7 @@
 namespace App\Http\Controllers\API;
 
 
-use App\Page;
+use App\Models\Page;
 use Illuminate\Http\Request;
 
 class StaticController

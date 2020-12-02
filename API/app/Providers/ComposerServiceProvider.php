@@ -6,7 +6,7 @@ namespace App\Providers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
-use App\User;
+use App\Models\User;
 
 class ComposerServiceProvider extends ServiceProvider
 {

@@ -6,8 +6,8 @@ namespace App\Http\Controllers\API;
 
 use App\Mail\Contact;
 use App\Mail\Message;
-use App\MapCoordinate;
-use App\Marker;
+use App\Models\MapCoordinate;
+use App\Models\Marker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 

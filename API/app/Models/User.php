@@ -31,11 +31,11 @@ class User extends Authenticatable
     ];
 
     /**
-     * @return relation
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function role()
     {
-        return $this->belongsTo('App\Role', 'role_id');
+        return $this->belongsTo(Role::class, 'role_id');
     }
 
     /**

@@ -4,7 +4,7 @@
 namespace App\Providers;
 
 
-use App\HelperField;
+use App\Models\HelperField;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;

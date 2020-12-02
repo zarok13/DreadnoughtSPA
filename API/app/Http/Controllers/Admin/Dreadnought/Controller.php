@@ -19,6 +19,7 @@ class Controller extends BaseController
 
     /**
      * Controller __construct
+     * @throws \Exception
      */
     public function __construct()
     {

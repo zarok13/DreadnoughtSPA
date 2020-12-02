@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin\Defaults;
 
 use App\Facades\Slug;
-use App\FileStoreRef;
+use App\Models\FileStoreRef;
 use App\Http\Controllers\Admin\Dreadnought\Controller;
-use App\Page;
+use App\Models\Page;
 use App\Traits\DatabaseAction;
 use App\Traits\Sort;
 use Illuminate\Http\JsonResponse;
@@ -47,7 +47,8 @@ class PagesController extends Controller
     }
 
     /**
-     * @return \Illuminate\View\View
+     * @return View
+     * @throws \Exception
      */
     public function add(): View
     {
@@ -56,9 +57,9 @@ class PagesController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Request $request
+     * @return RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function create(Request $request): RedirectResponse
     {
@@ -74,10 +75,10 @@ class PagesController extends Controller
     }
 
     /**
-     * @param \App\Page $page
+     * @param Page $page
      * @param int $id
-     *
-     * @return \Illuminate\View\View
+     * @return View
+     * @throws \Exception
      */
     public function edit(Page $page, int $id): View
     {
@@ -87,10 +88,10 @@ class PagesController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param int $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function update(Request $request, int $id): RedirectResponse
     {
@@ -104,8 +105,7 @@ class PagesController extends Controller
 
     /**
      * @param int $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function delete(int $id): RedirectResponse
     {
@@ -115,10 +115,10 @@ class PagesController extends Controller
     }
 
     /**
-     * @param \App\Page $page
+     * @param Page $page
      * @param int $id
-     *
-     * @return \Illuminate\View\View
+     * @return View
+     * @throws \Exception
      */
     public function editPage(Page $page, int $id): View
     {
@@ -139,10 +139,10 @@ class PagesController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param int $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function updatePage(Request $request, int $id): RedirectResponse
     {
@@ -154,9 +154,9 @@ class PagesController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\JsonResponse
+     * @param Request $request
+     * @return JsonResponse
+     * @throws \Throwable
      */
     public function templateGroup(Request $request): JsonResponse
     {
@@ -177,8 +177,8 @@ class PagesController extends Controller
 
     /**
      * @param int $groupID
-     *
      * @return array
+     * @throws \Exception
      */
     public static function getTemplates(int $groupID = 0): array
     {

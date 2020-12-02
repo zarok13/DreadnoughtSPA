@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Defaults;
 
-use App\HelperField;
+use App\Models\HelperField;
 use App\Http\Controllers\Admin\Dreadnought\Controller;
 use App\Traits\DatabaseAction;
 use Illuminate\Http\JsonResponse;
@@ -67,10 +67,9 @@ class HelperFieldsController extends Controller
     }
 
     /**
-     * @param \App\HelperField $helperField
+     * @param HelperField $helperField
      * @param int $id
-     *
-     * @return void
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|View
      */
     public function edit(HelperField $helperField, int $id)
     {
@@ -105,10 +104,10 @@ class HelperFieldsController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\HelperField $helperField
-     *
-     * @return \Illuminate\Http\JsonResponse
+     * @param Request $request
+     * @param HelperField $helperField
+     * @return JsonResponse
+     * @throws \Throwable
      */
     public function typeTemplate(Request $request, HelperField $helperField): JsonResponse
     {

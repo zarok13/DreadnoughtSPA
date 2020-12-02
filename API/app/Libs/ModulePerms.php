@@ -1,17 +1,15 @@
 <?php
 
 
-namespace App\Library;
+namespace App\Libs;
 
-
-use App\Role;
 use Illuminate\Support\Facades\Auth;
 
 class ModulePerms
 {
     /**
      * @param $moduleName
-     * @param $method
+     * @param $rolledMethod
      * @return bool
      */
     public function check($moduleName, $rolledMethod)

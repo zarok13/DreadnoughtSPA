@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Dreadnought;
 
-use App\Role;
+use App\Models\Role;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -25,7 +25,7 @@ class RolesController extends Controller
     }
 
     /**
-     * @param \App\Role $role
+     * @param \App\Models\Role $role
      *
      * @return \Illuminate\View\View
      */
@@ -55,7 +55,7 @@ class RolesController extends Controller
 
     /**
      * @param \Illuminate\Http\Request $request
-     * @param \App\Role $role
+     * @param \App\Models\Role $role
      *
      * @return \Illuminate\Http\RedirectResponse
      */

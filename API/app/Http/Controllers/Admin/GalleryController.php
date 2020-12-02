@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\FileStoreRef;
+use App\Models\FileStoreRef;
 use App\Http\Controllers\Admin\Dreadnought\Controller;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -10,7 +10,8 @@ use Illuminate\View\View;
 class GalleryController extends Controller
 {
     /**
-     * MenuController constructor.
+     * GalleryController constructor.
+     * @throws \Exception
      */
     public function __construct()
     {

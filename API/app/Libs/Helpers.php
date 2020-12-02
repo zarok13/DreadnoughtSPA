@@ -151,11 +151,11 @@ if (!function_exists('getPageType')) {
     }
 }
 
-if (!function_exists('middleware404')) {
+if (!function_exists('page404')) {
     /**
      * @param null $value
      */
-    function middleware404($value = null)
+    function page404($value = null)
     {
         if (empty($value)) {
             abort(404);

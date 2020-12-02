@@ -13,7 +13,7 @@ class Role extends ChildModel
      */
     public function users()
     {
-        return $this->hasMany('App\User', 'role_id');
+        return $this->hasMany(User::class, 'role_id');
     }
 
     /**

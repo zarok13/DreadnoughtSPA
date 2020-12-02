@@ -1,6 +1,6 @@
 <?php
 
-use App\FileStore;
+use App\Models\FileStore;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 

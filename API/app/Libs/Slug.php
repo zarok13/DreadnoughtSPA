@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Library;
+namespace App\Libs;
 
 
 use Illuminate\Support\Facades\DB;

@@ -3,7 +3,7 @@
 
 namespace App\Http\Controllers\API;
 
-use App\FileStoreRef;
+use App\Models\FileStoreRef;
 use App\Http\Resources\GalleryResource;
 
 class GalleryController

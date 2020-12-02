@@ -4,7 +4,7 @@
 namespace App\Providers;
 
 
-use App\Library\ModulePerms;
+use App\Libs\ModulePerms;
 use Illuminate\Support\ServiceProvider;
 
 class ModulePermsServiceProvider extends ServiceProvider

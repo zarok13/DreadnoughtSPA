@@ -1,6 +1,6 @@
 <?php
 
-use App\FileStore;
+use App\Models\FileStore;
 use Illuminate\Database\Seeder;
 
 class FileStoreTableSeeder extends Seeder

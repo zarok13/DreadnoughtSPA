@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\Dreadnought\Controller;
-use App\Review;
+use App\Models\Review;
 use App\Traits\DatabaseAction;
 use App\Traits\Sort;
 use Illuminate\Http\RedirectResponse;
@@ -25,7 +25,8 @@ class ReviewsController extends Controller
     ];
 
     /**
-     * MenuController constructor.
+     * ReviewsController constructor.
+     * @throws \Exception
      */
     public function __construct()
     {
@@ -37,7 +38,7 @@ class ReviewsController extends Controller
     }
 
     /**
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function index(): View
     {
@@ -46,8 +47,7 @@ class ReviewsController extends Controller
     }
 
     /**
-     * @param Menu $menu
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|View
      */
     public function add()
     {
@@ -69,10 +69,9 @@ class ReviewsController extends Controller
     }
 
     /**
-     * @param \App\Review $review
+     * @param Review $review
      * @param int $id
-     *
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function edit(Review $review, int $id): View
     {
@@ -81,10 +80,10 @@ class ReviewsController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param int $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
+     * @throws ValidationException
      */
     public function update(Request $request, int $id): RedirectResponse
     {
@@ -96,8 +95,7 @@ class ReviewsController extends Controller
 
     /**
      * @param int $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function delete(int $id): RedirectResponse
     {

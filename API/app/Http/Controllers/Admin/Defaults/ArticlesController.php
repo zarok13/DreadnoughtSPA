@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Defaults;
 
-use App\Article;
+use App\Models\Article;
 use App\Facades\Slug;
 use App\Http\Controllers\Admin\Dreadnought\Controller;
 use App\Traits\DatabaseAction;
@@ -20,7 +20,8 @@ class ArticlesController extends Controller
     protected $fileStoreReferences;
 
     /**
-     * ArticlesController __construct
+     * ArticlesController constructor.
+     * @throws \Exception
      */
     public function __construct()
     {
@@ -33,10 +34,9 @@ class ArticlesController extends Controller
     }
 
     /**
-     * @param \App\Article $article
+     * @param Article $article
      * @param int $pageID
-     *
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function index(Article $article, int $pageID): View
     {
@@ -47,8 +47,7 @@ class ArticlesController extends Controller
 
     /**
      * @param int $pageID
-     *
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function add(int $pageID): View
     {
@@ -57,10 +56,10 @@ class ArticlesController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param int $pageID
-     *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function create(Request $request, int $pageID): RedirectResponse
     {
@@ -76,10 +75,9 @@ class ArticlesController extends Controller
     }
 
     /**
-     * @param \App\Article $article
+     * @param Article $article
      * @param int $ID
-     *
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function edit(Article $article, int $ID): View
     {
@@ -90,10 +88,10 @@ class ArticlesController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param int $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function update(Request $request, int $id): RedirectResponse
     {
@@ -107,8 +105,7 @@ class ArticlesController extends Controller
 
     /**
      * @param int $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function delete(int $id): RedirectResponse
     {

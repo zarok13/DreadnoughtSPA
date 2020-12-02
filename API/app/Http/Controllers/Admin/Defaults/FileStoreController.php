@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Defaults;
 
 use App\Contracts\AuthCustomValidationContract;
-use App\FileStore;
-use App\FileStoreRef;
+use App\Models\FileStore;
+use App\Models\FileStoreRef;
 use App\Http\Controllers\Admin\Dreadnought\Controller;
 use App\Traits\AuthCustomValidation;
 use App\Traits\DatabaseAction;
@@ -67,10 +67,10 @@ class FileStoreController extends Controller implements AuthCustomValidationCont
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\FileStore $fileStore
-     *
-     * @return \Illuminate\Http\JsonResponse
+     * @param Request $request
+     * @param FileStore $fileStore
+     * @return JsonResponse
+     * @throws \Throwable
      */
     public function upload(Request $request, FileStore $fileStore): JsonResponse
     {
@@ -99,11 +99,11 @@ class FileStoreController extends Controller implements AuthCustomValidationCont
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\FileStore $fileStore
+     * @param Request $request
+     * @param FileStore $fileStore
      * @param int $id
-     *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
+     * @throws \Throwable
      */
     public function delete(Request $request, FileStore $fileStore, int $id): JsonResponse
     {
@@ -128,9 +128,8 @@ class FileStoreController extends Controller implements AuthCustomValidationCont
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\JsonResponse
+     * @param Request $request
+     * @return JsonResponse
      */
     public function choose(Request $request): JsonResponse
     {
@@ -147,6 +146,12 @@ class FileStoreController extends Controller implements AuthCustomValidationCont
         }
     }
 
+    /**
+     * @param Request $request
+     * @param FileStoreRef $fileStoreRef
+     * @return JsonResponse
+     * @throws \Throwable
+     */
     public function applyReferences(Request $request, FileStoreRef $fileStoreRef)
     {
         try {
@@ -182,6 +187,12 @@ class FileStoreController extends Controller implements AuthCustomValidationCont
         }
     }
 
+    /**
+     * @param Request $request
+     * @param FileStoreRef $fileStoreRef
+     * @return JsonResponse
+     * @throws \Throwable
+     */
     public function unsetReference(Request $request, FileStoreRef $fileStoreRef)
     {
 
@@ -218,12 +229,11 @@ class FileStoreController extends Controller implements AuthCustomValidationCont
     }
 
     /**
-     * Undocumented function
-     *
      * @param Request $request
      * @param int $referenceID
      * @param int $file
-     * @return \Exception
+     * @param $status
+     * @throws \Exception
      */
     protected function validateFileReferences(Request $request, int $referenceID, int $file, &$status)
     {
@@ -243,9 +253,7 @@ class FileStoreController extends Controller implements AuthCustomValidationCont
     }
 
     /**
-     * @param [type] $filePath
-     *
-     * @return void
+     * @param $filePath
      */
     protected function imageUpload($filePath): void
     {
@@ -264,7 +272,6 @@ class FileStoreController extends Controller implements AuthCustomValidationCont
     /**
      * @param string $fileExtension
      * @param string $fileName
-     *
      * @return string
      */
     protected function checkSimilarFileName(string $fileExtension, string $fileName): string
@@ -289,8 +296,6 @@ class FileStoreController extends Controller implements AuthCustomValidationCont
     /**
      * @param string $fileName
      * @param string $fileType
-     *
-     * @return void
      */
     protected function dbWrite(string $fileName, string $fileType): void
     {
@@ -306,7 +311,6 @@ class FileStoreController extends Controller implements AuthCustomValidationCont
 
     /**
      * @param string $fileExtension
-     *
      * @return string
      */
     public function getFileTypes(string $fileExtension): string

@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Library\Slug;
+use App\Libs\Slug;
 use Illuminate\Support\ServiceProvider;
 
 class SlugServiceProvider extends ServiceProvider

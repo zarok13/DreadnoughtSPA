@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\Dreadnought\Controller;
-use App\Slider;
+use App\Models\Slider;
 use App\Traits\DatabaseAction;
 use App\Traits\Sort;
 use Illuminate\Http\RedirectResponse;
@@ -44,8 +44,7 @@ class SlidersController extends Controller
     }
 
     /**
-     * @param \App\Menu $menu
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function add(): View
     {
@@ -66,10 +65,9 @@ class SlidersController extends Controller
     }
 
     /**
-     * @param \App\Slider $slider
+     * @param Slider $slider
      * @param int $id
-     *
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function edit(Slider $slider, int $id): View
     {
@@ -78,10 +76,10 @@ class SlidersController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param int $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
+     * @throws ValidationException
      */
     public function update(Request $request, int $id):RedirectResponse
     {
@@ -93,8 +91,7 @@ class SlidersController extends Controller
 
     /**
      * @param int $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function delete(int $id):RedirectResponse
     {

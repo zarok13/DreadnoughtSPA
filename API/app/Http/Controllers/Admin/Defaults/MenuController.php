@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin\Defaults;
 
 
 use App\Http\Controllers\Admin\Dreadnought\Controller;
-use App\Menu;
-use App\Page;
+use App\Models\Menu;
+use App\Models\Page;
 use App\Traits\DatabaseAction;
 use App\Traits\Sort;
 use Illuminate\Http\RedirectResponse;
@@ -43,9 +43,8 @@ class MenuController extends Controller
     }
 
     /**
-     * @param \App\Menu $menu
-     *
-     * @return \Illuminate\View\View
+     * @param Menu $menu
+     * @return View
      */
     public function add(Menu $menu): View
     {
@@ -67,11 +66,10 @@ class MenuController extends Controller
     }
 
     /**
-     * @param \App\Menu $menu
-     * @param \App\Page $page
+     * @param Menu $menu
+     * @param Page $page
      * @param int $id
-     *
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function edit(Menu $menu, Page $page, int $id): View
     {
@@ -82,11 +80,11 @@ class MenuController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Menu $menu
+     * @param Request $request
+     * @param Menu $menu
      * @param int $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function update(Request $request, Menu $menu, int $id): RedirectResponse
     {

@@ -4,8 +4,7 @@
 namespace App\Providers;
 
 
-use App\Language;
-use Illuminate\Support\Facades\Cache;
+use App\Models\Language;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 

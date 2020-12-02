@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\API;
 
-use App\HelperField;
+use App\Models\HelperField;
 use App\Http\Resources\MenuResource;
-use App\Language;
-use App\Menu;
+use App\Models\Language;
+use App\Models\Menu;
 
 class ConfigsController
 {

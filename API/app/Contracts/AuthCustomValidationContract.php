@@ -7,11 +7,10 @@ use Illuminate\Http\Request;
 interface AuthCustomValidationContract
 {
     /**
-     * customErrorsValidation function
-     *
      * @param Request $request
-     * @param array $validationArray
+     * @param $validationArray
+     * @param $classObject
      * @return array
      */
-    public function customErrorsValidation(Request $request, array $validationArray, $classObject): array;
+    public function customErrorsValidation(Request $request, $validationArray, $classObject): array;
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\Defaults;
 
 use App\Http\Controllers\Admin\Dreadnought\Controller;
-use App\Language;
+use App\Models\Language;
 use App\Traits\DatabaseAction;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -63,7 +63,7 @@ class LanguageController extends Controller
     }
 
     /**
-     * @param \App\Language $language
+     * @param \App\Models\Language $language
      * @param int $id
      *
      * @return \Illuminate\View\View

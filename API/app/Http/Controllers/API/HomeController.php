@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Article;
+use App\Models\Article;
 use App\Http\Resources\BlogResource;
 use App\Http\Resources\SliderResource;
-use App\Slider;
+use App\Models\Slider;
 use Webwizo\Shortcodes\Facades\Shortcode;
 
 class HomeController
 {
     /**
-     * Undocumented function
-     *
-     * @return void
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
@@ -29,8 +27,6 @@ class HomeController
     }
 
     /**
-     * getSeparatedBlog function
-     *
      * @return array
      */
     public function getSeparatedBlog(): array
