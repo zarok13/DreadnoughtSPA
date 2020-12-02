@@ -21,7 +21,7 @@
           <div class="margin">
             <!-- Collumn 1 -->
             <div class="s-12 m-12 l-4 margin-m-bottom-2x">
-              <h4 class="text-uppercase text-strong" >
+              <h4 class="text-uppercase text-strong">
                 {{ this.getConfigs.translate.footer_our_philosophy }}
               </h4>
               <p class="text-size-20">
@@ -36,16 +36,17 @@
                   <div class="s-12 m-12 l-4 margin-m-bottom">
                     <a class="image-hover-zoom" href="javascript:void(0)">
                       <img
-                        v-bind:src="configs.storageUrl + this.getConfigs.params.footer_image"
+                          v-bind:src="configs.storageUrl + this.getConfigs.params.footer_image"
                       />
                     </a>
                   </div>
                   <div class="s-12 m-12 l-8 margin-m-bottom">
                     <p>{{ this.getConfigs.params.footer_desc }}</p>
                     <router-link
-                      class="text-more-info text-primary-hover"
-                      to="/contacts"
-                      >Read more</router-link
+                        class="text-more-info text-primary-hover"
+                        to="/contacts"
+                    >Read more
+                    </router-link
                     >
                   </div>
                 </div>
@@ -75,8 +76,8 @@
                 <div class="s-11 m-11 l-11 margin-bottom-10">
                   <p>
                     <a
-                      :href="'mailto:' + this.getConfigs.params.email"
-                      class="text-primary-hover"
+                        :href="'mailto:' + this.getConfigs.params.email"
+                        class="text-primary-hover"
                     >
                       <b>{{ this.getConfigs.translate.email }}:</b> {{ this.getConfigs.params.email }}
                     </a>
@@ -100,9 +101,9 @@
                 <div class="s-11 m-11 l-11 margin-bottom-10">
                   <p>
                     <a
-                      :href="this.getConfigs.params.twitter_url"
-                      target="_blank"
-                      class="text-primary-hover"
+                        :href="this.getConfigs.params.twitter_url"
+                        target="_blank"
+                        class="text-primary-hover"
                     >
                       <b>Twitter</b>
                     </a>
@@ -116,9 +117,9 @@
                 <div class="s-11 m-11 l-11">
                   <p>
                     <a
-                      :href="this.getConfigs.params.facebook_url"
-                      target="_blank"
-                      class="text-primary-hover"
+                        :href="this.getConfigs.params.facebook_url"
+                        target="_blank"
+                        class="text-primary-hover"
                     >
                       <b>Facebook</b>
                     </a>
@@ -135,9 +136,9 @@
               </h6>
               <ul>
                 <li
-                  style="color: red"
-                  v-for="(error, index) in configs.errors"
-                  :key="index"
+                    style="color: red"
+                    v-for="(error, index) in configs.errors"
+                    :key="index"
                 >
                   {{ error }}
                 </li>
@@ -150,45 +151,45 @@
                   <div class="margin">
                     <div class="s-12 m-12 l-6">
                       <input
-                        name="email"
-                        v-model="configs.email"
-                        class="required email border-radius"
-                        placeholder="Your e-mail"
-                        title="Your e-mail"
-                        type="text"
+                          name="email"
+                          v-model="configs.email"
+                          class="required email border-radius"
+                          placeholder="Your e-mail"
+                          title="Your e-mail"
+                          type="text"
                       />
                     </div>
                     <div class="s-12 m-12 l-6">
                       <input
-                        name="name"
-                        v-model="configs.name"
-                        class="name border-radius"
-                        placeholder="Your name"
-                        title="Your name"
-                        type="text"
+                          name="name"
+                          v-model="configs.name"
+                          class="name border-radius"
+                          placeholder="Your name"
+                          title="Your name"
+                          type="text"
                       />
                     </div>
                   </div>
                 </div>
                 <div class="s-12">
                   <textarea
-                    name="text"
-                    v-model="configs.text"
-                    class="required message border-radius"
-                    placeholder="Your message"
-                    rows="6"
-                    style="resize: none;"
+                      name="text"
+                      v-model="configs.text"
+                      class="required message border-radius"
+                      placeholder="Your message"
+                      rows="6"
+                      style="resize: none;"
                   ></textarea>
                 </div>
                 <div class="s-12">
                   <button
-                    :class="
+                      :class="
                       !getLoader
                         ? 'submit-form button background-primary border-radius text-white'
                         : 'submit-form button disabled border-radius text-white'
                     "
-                    :disabled="getLoader"
-                    @click.prevent="sendMessage()"
+                      :disabled="getLoader"
+                      @click.prevent="sendMessage()"
                   >
                     Submit Button
                   </button>
@@ -199,8 +200,8 @@
         </div>
       </section>
       <hr
-        class="break margin-top-bottom-0"
-        style="border-color: rgba(0, 38, 51, 0.8)"
+          class="break margin-top-bottom-0"
+          style="border-color: rgba(0, 38, 51, 0.8)"
       />
 
       <!-- Bottom Footer -->
@@ -217,12 +218,12 @@
           </div>
           <div class="s-12 l-6">
             <a
-              class="right text-size-12"
-              href="http://www.myresponsee.com"
-              title="Responsee - lightweight responsive framework"
+                class="right text-size-12"
+                href="http://www.myresponsee.com"
+                title="Responsee - lightweight responsive framework"
             >
               Design and coding
-              <br />by Responsee Team
+              <br/>by Responsee Team
             </a>
           </div>
         </div>
@@ -232,12 +233,12 @@
 </template>
 <script>
 
-import { mapGetters } from "vuex";
+import {mapGetters} from "vuex";
 import {
   SEND_MAIL,
   SET_LOADER,
 } from "@/store/modules/dreadnought.store";
-import { configs } from "@/_data_models/configs_model";
+import {configs} from "@/_data_models/configs_model";
 
 export default {
 
@@ -249,15 +250,12 @@ export default {
     };
   },
   computed: {
-    ...mapGetters({ getConfigs: "getConfigs", getLoader: "getLoader"}),
+    ...mapGetters({getConfigs: "getConfigs", getLoader: "getLoader"}),
   },
-    mounted() {
-        // this.$store.commit(SET_LOADER, true);
-    },
-    methods: {
+  methods: {
     sendMessage() {
       if (!this.validateForm().length) {
-        let formData = { email: configs.email, name: configs.name, text: configs.text };
+        let formData = {email: configs.email, name: configs.name, text: configs.text};
         this.send(formData);
       }
     },
@@ -279,13 +277,16 @@ export default {
       return re.test(email);
     },
     async send(formData) {
+
       const dataForm = new FormData();
       dataForm.append("email", formData.email);
       dataForm.append("name", formData.name);
       dataForm.append("text", formData.text);
       this.$store.commit(SET_LOADER, true);
-      await this.$store.dispatch(SEND_MAIL, dataForm);
-      this.$store.commit(SET_LOADER, false);
+      await this.$store.dispatch(SEND_MAIL, dataForm).then(() => {
+        this.$store.commit(SET_LOADER, false);
+      });
+
     },
   },
 };
