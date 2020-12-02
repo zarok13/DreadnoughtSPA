@@ -143,7 +143,7 @@
                   {{ error }}
                 </li>
               </ul>
-              <div class="lds-ring" v-if="getLoader">
+              <div class="lds-ring" v-if="loading">
                 <h2 style="color: yellow">Sending...</h2>
               </div>
               <form class="customform text-white">
@@ -184,11 +184,11 @@
                 <div class="s-12">
                   <button
                       :class="
-                      !getLoader
+                      !loading
                         ? 'submit-form button background-primary border-radius text-white'
                         : 'submit-form button disabled border-radius text-white'
                     "
-                      :disabled="getLoader"
+                      :disabled="loading"
                       @click.prevent="sendMessage()"
                   >
                     Submit Button
@@ -236,7 +236,7 @@
 import {mapGetters} from "vuex";
 import {
   SEND_MAIL,
-  SET_LOADER,
+  // SET_LOADER,
 } from "@/store/modules/dreadnought.store";
 import {configs} from "@/_data_models/configs_model";
 
@@ -251,6 +251,9 @@ export default {
   },
   computed: {
     ...mapGetters({getConfigs: "getConfigs", getLoader: "getLoader"}),
+  },
+  mounted() {
+    this.loading = true;
   },
   methods: {
     sendMessage() {
@@ -276,15 +279,17 @@ export default {
       var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
     },
-    async send(formData) {
+     send(formData) {
 
       const dataForm = new FormData();
       dataForm.append("email", formData.email);
       dataForm.append("name", formData.name);
       dataForm.append("text", formData.text);
-      this.$store.commit(SET_LOADER, true);
-      await this.$store.dispatch(SEND_MAIL, dataForm).then(() => {
-        this.$store.commit(SET_LOADER, false);
+      // this.$store.commit(SET_LOADER, true);
+       this.loading = true;
+       this.$store.dispatch(SEND_MAIL, dataForm).then(() => {
+        // this.$store.commit(SET_LOADER, false);
+         this.loading = false;
       });
 
     },
