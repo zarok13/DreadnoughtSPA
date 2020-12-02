@@ -150,8 +150,8 @@ const actions = {
         }
     },
 
-      [SEND_MAIL](state, messageData) {
-          Axios.post(BASE_URL + '/send_message', messageData)
+      async [SEND_MAIL](state, messageData) {
+          await Axios.post(BASE_URL + '/send_message', messageData)
             .then(data => {
                 console.log(data.data);
             })
