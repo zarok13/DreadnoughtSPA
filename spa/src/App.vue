@@ -1,17 +1,17 @@
 <template>
-  <div id="app">
-    <router-view :key="$route.fullPath"/>
-  </div>
+    <div id="app">
+        <router-view :key="$route.fullPath"/>
+    </div>
 </template>
 
 <script>
 import {GET_CONFIGS} from "@/store/modules/dreadnought.store";
 
 export default {
-  name: "App",
-  created() {
-    this.$store.dispatch(GET_CONFIGS)
-  },
+    name: "App",
+    created() {
+        this.$store.dispatch(GET_CONFIGS)
+    },
 };
 </script>
 

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
 let staticComponent = import('@/components/Static');
 Vue.use(Router)
 const router = new Router({
@@ -8,7 +9,7 @@ const router = new Router({
         {
             path: '/',
             name: 'home',
-            component: () =>  import('@/components/Home')
+            component: () => import('@/components/Home')
         },
         {
             path: '/products',

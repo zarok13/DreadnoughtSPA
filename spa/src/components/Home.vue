@@ -2,7 +2,7 @@
     <div>
         <Header/>
         <!-- MAIN -->
-        <main role="main" >
+        <main role="main">
             <!-- Main Carousel -->
             <section class="slider-section background-dark">
                 <div class="line">
@@ -18,12 +18,7 @@
                             v-bind:key="index"
                         >
 
-                            <img
-                                v-bind:src="
-                      apiUrl.substring(0, apiUrl.length - 3) +
-                      'storage/' +
-                      item.src
-                    "
+                            <img v-bind:src="configs.storageUrl + item.src"
                             />
                             <div class="carousel-content">
                                 <p
@@ -75,7 +70,7 @@
                             height="180px"
                             :indicators="false"
 
-                        >
+                    >
                         <SliderItem
                             class="item"
                             v-for="(item, index) in this.getHome.blogs"
@@ -88,11 +83,7 @@
                                             <div class="s-12 m-12 l-4 margin-m-bottom">
                                                 <a class="image-hover-zoom" href="/">
                                                     <img
-                                                        v-bind:src="
-                              apiUrl.substring(0, apiUrl.length - 3) +
-                              'storage/' +
-                              item[0].image
-                            "
+                                                        v-bind:src="configs.storageUrl + item[0].image"
                                                         alt
                                                     />
                                                 </a>
@@ -117,11 +108,7 @@
                                             <div class="s-12 m-12 l-4 margin-m-bottom">
                                                 <a class="image-hover-zoom" href="/">
                                                     <img
-                                                        v-bind:src="
-                              apiUrl.substring(0, apiUrl.length - 3) +
-                              'storage/' +
-                              item[1].image
-                            "
+                                                        v-bind:src="configs.storageUrl + item[1].image"
                                                         alt
                                                     />
                                                 </a>
@@ -153,7 +140,7 @@
 
 <script>
 import {mapGetters} from "vuex";
-import {BASE_URL, GET_HOME} from "@/store/modules/dreadnought.store";
+import {GET_HOME} from "@/store/modules/dreadnought.store";
 import {Slider, SliderItem} from "vue-easy-slider";
 import Header from "../components/blocks/Header";
 import Footer from "../components/blocks/Footer";
@@ -168,7 +155,7 @@ export default {
     },
     data() {
         return {
-            apiUrl: BASE_URL,
+            configs: this.$configs
         };
     },
     computed: {

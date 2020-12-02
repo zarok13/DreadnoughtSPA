@@ -132,13 +132,13 @@
                         <!-- Collumn 3 -->
                         <div class="s-12 m-12 l-4">
                             <h4 class="text-uppercase text-strong">Leave a Message</h4>
-                            <h6 v-if="configs.errors.length" style="color: #4287f5">
+                            <h6 v-if="configs.footer.errors.length" style="color: #4287f5">
                                 Please correct the following error(s):
                             </h6>
                             <ul>
                                 <li
                                     style="color: red"
-                                    v-for="(error, index) in configs.errors"
+                                    v-for="(error, index) in configs.footer.errors"
                                     :key="index"
                                 >
                                     {{ error }}
@@ -153,7 +153,7 @@
                                         <div class="s-12 m-12 l-6">
                                             <input
                                                 name="email"
-                                                v-model="configs.email"
+                                                v-model="configs.footer.email"
                                                 class="required email border-radius"
                                                 placeholder="Your e-mail"
                                                 title="Your e-mail"
@@ -163,7 +163,7 @@
                                         <div class="s-12 m-12 l-6">
                                             <input
                                                 name="name"
-                                                v-model="configs.name"
+                                                v-model="configs.footer.name"
                                                 class="name border-radius"
                                                 placeholder="Your name"
                                                 title="Your name"
@@ -175,7 +175,7 @@
                                 <div class="s-12">
                   <textarea
                       name="text"
-                      v-model="configs.text"
+                      v-model="configs.footer.text"
                       class="required message border-radius"
                       placeholder="Your message"
                       rows="6"
@@ -239,7 +239,7 @@ import {
     SEND_MAIL,
     SET_LOADER,
 } from "@/store/modules/dreadnought.store";
-import {configs} from "@/_data_models/configs_model";
+import {configs} from "@/helpers/configs";
 
 export default {
 
@@ -247,7 +247,6 @@ export default {
     data() {
         return {
             configs: configs,
-            loading: false,
         };
     },
     computed: {
@@ -256,32 +255,31 @@ export default {
     methods: {
         sendMessage() {
             if (!this.validateForm().length) {
-                let formData = {email: configs.email, name: configs.name, text: configs.text};
-                this.send(formData);
+                this.send();
             }
         },
         validateForm() {
-            configs.errors = [];
-            if (!configs.email) {
-                configs.errors.push("Email required.");
-            } else if (!this.validEmail(configs.email)) {
-                configs.errors.push("Valid email required.");
+            configs.footer.errors = [];
+            if (!configs.footer.email) {
+                configs.footer.errors.push("Email required.");
+            } else if (!this.validEmail(configs.footer.email)) {
+                configs.footer.errors.push("Valid email required.");
             }
 
-            if (!configs.text) {
-                configs.errors.push("Message required.");
+            if (!configs.footer.text) {
+                configs.footer.errors.push("Message required.");
             }
-            return configs.errors;
+            return configs.footer.errors;
         },
         validEmail: function (email) {
-            var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             return re.test(email);
         },
-        async send(formData) {
+        async send() {
             const dataForm = new FormData();
-            dataForm.append("email", formData.email);
-            dataForm.append("name", formData.name);
-            dataForm.append("text", formData.text);
+            dataForm.append("email", configs.footer.email);
+            dataForm.append("name", configs.footer.name);
+            dataForm.append("text", configs.footer.text);
             this.$store.commit(SET_LOADER, true);
             await this.$store.dispatch(SEND_MAIL, dataForm);
             this.$store.commit(SET_LOADER, false);
