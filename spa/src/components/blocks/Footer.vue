@@ -4,13 +4,13 @@
         <footer>
             <!-- Social -->
             <div class="background-primary padding text-center">
-                <a href="https://facebook.com" target="_blank">
+                <a v-bind:href="this.getConfigs.params.facebook_url" target="_blank">
                     <i class="icon-facebook_circle icon2x text-white"></i>
                 </a>
-                <a href="https://twitter.com" target="_blank">
+                <a v-bind:href="this.getConfigs.params.twitter_url" target="_blank">
                     <i class="icon-twitter_circle icon2x text-white"></i>
                 </a>
-                <a href="https://instagram.com" target="_blank">
+                <a v-bind:href="this.getConfigs.params.instagram_url" target="_blank">
                     <i class="icon-instagram_circle icon2x text-white"></i>
                 </a>
             </div>
@@ -35,7 +35,7 @@
                                 <div class="margin">
                                     <div class="s-12 m-12 l-4 margin-m-bottom">
                                         <a class="image-hover-zoom" href="javascript:void(0)">
-                                            <img
+                                            <img v-if="this.getConfigs.params.footer_image"
                                                 v-bind:src="configs.storageUrl + this.getConfigs.params.footer_image"
                                             />
                                         </a>

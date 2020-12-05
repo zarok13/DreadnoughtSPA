@@ -1,6 +1,4 @@
 import Axios from "axios"
-import {getDataFromLocalStorage} from "@/helpers/init_local_storage"
-import {getExpireDate} from "@/helpers/expire_date"
 
 // global api url
 export const BASE_URL = 'http://localhost:8000/api'
@@ -66,92 +64,62 @@ const getters = {
 // app store actions
 const actions = {
     [GET_CONFIGS](state) {
-        if (getDataFromLocalStorage(state, GET_CONFIGS, SET_CONFIGS)) {
-            console.log('configs parsed from local storage');
-        } else {
-            Axios.get(BASE_URL + '/configs')
-                .then(data => {
-                    let configs = data.data
-                    state.commit(SET_CONFIGS, configs)
-                    configs.expire_date = getExpireDate(2);
-                    localStorage.setItem(GET_CONFIGS, JSON.stringify(configs));
-                })
-                .catch(error => {
-                    console.log(error);
-                })
-        }
+        Axios.get(BASE_URL + '/configs')
+            .then(data => {
+                let configs = data.data
+                state.commit(SET_CONFIGS, configs)
+            })
+            .catch(error => {
+                console.log(error);
+            })
     },
 
     [GET_HOME](state) {
-        if (getDataFromLocalStorage(state, GET_HOME, SET_HOME)) {
-            console.log('home parsed from local storage');
-        } else {
-            Axios.get(BASE_URL + '/home')
-                .then(data => {
-                    let home = data.data;
-                    state.commit(SET_HOME, home);
-                    home.expire_date = getExpireDate(2);
-                    localStorage.setItem(GET_HOME, JSON.stringify(home));
-                })
-                .catch(error => {
-                    console.log(error);
-                })
-        }
+        Axios.get(BASE_URL + '/home')
+            .then(data => {
+                let home = data.data;
+                state.commit(SET_HOME, home);
+            })
+            .catch(error => {
+                console.log(error);
+            })
     },
 
     [GET_STATIC_CONTENT](state, slug) {
-        if (getDataFromLocalStorage(state, GET_STATIC_CONTENT + '_' + slug, SET_STATIC_CONTENT)) {
-            console.log('static content parsed from local storage');
-        } else {
-            Axios.get(BASE_URL + '/static_content', {params: {slug: slug}})
-                .then(data => {
-                    let content = data.data;
-                    state.commit(SET_STATIC_CONTENT, content);
-                    content.expire_date = getExpireDate(2);
-                    localStorage.setItem(GET_STATIC_CONTENT + '_' + slug, JSON.stringify(content));
-                })
-                .catch(error => {
-                    console.log(error);
-                })
-        }
+        Axios.get(BASE_URL + '/static_content', {params: {slug: slug}})
+            .then(data => {
+                let content = data.data;
+                state.commit(SET_STATIC_CONTENT, content);
+            })
+            .catch(error => {
+                console.log(error);
+            })
     },
 
     [GET_GALLERY](state) {
-        if (getDataFromLocalStorage(state, GET_GALLERY, SET_GALLERY)) {
-            console.log('gallery parsed from local storage');
-        } else {
-            Axios.get(BASE_URL + '/gallery')
-                .then(data => {
-                    let gallery = data.data;
-                    state.commit(SET_GALLERY, gallery);
-                    gallery.expire_date = getExpireDate(2);
-                    localStorage.setItem(GET_GALLERY, JSON.stringify(gallery));
-                })
-                .catch(error => {
-                    console.log(error);
-                })
-        }
+        Axios.get(BASE_URL + '/gallery')
+            .then(data => {
+                let gallery = data.data;
+                state.commit(SET_GALLERY, gallery);
+            })
+            .catch(error => {
+                console.log(error);
+            })
     },
 
     [GET_MAPBOX_DATA](state) {
-        if (getDataFromLocalStorage(state, GET_MAPBOX_DATA, SET_MAPBOX_DATA)) {
-            console.log('mapbox parsed from local storage');
-        } else {
-            Axios.get(BASE_URL + '/mapbox')
-                .then(data => {
-                    let mapbox = data.data;
-                    state.commit(SET_MAPBOX_DATA, mapbox);
-                    mapbox.expire_date = getExpireDate(2);
-                    localStorage.setItem(GET_MAPBOX_DATA, JSON.stringify(mapbox));
-                })
-                .catch(error => {
-                    console.log(error);
-                })
-        }
+        Axios.get(BASE_URL + '/mapbox')
+            .then(data => {
+                let mapbox = data.data;
+                state.commit(SET_MAPBOX_DATA, mapbox);
+            })
+            .catch(error => {
+                console.log(error);
+            })
     },
 
-      async [SEND_MAIL](state, messageData) {
-          await Axios.post(BASE_URL + '/send_message', messageData)
+    async [SEND_MAIL](state, messageData) {
+        await Axios.post(BASE_URL + '/send_message', messageData)
             .then(data => {
                 console.log(data.data);
             })

@@ -1,14 +1,13 @@
 <template>
     <div>
         <!-- PREMIUM FEATURES BUTTON -->
-        <a
+        <router-link to="/info"
             target="_blank"
             class="hide-s"
-            href="../template/prospera-premium-responsive-business-template/"
             style="position:fixed;top:120px;right:-14px;z-index:10;"
         >
-            <img src="img/premium-features.png" alt/>
-        </a>
+            <img src="@/assets/img/premium-features.png" alt/>
+        </router-link>
         <!-- HEADER -->
         <header role="banner">
             <!-- Top Bar -->
@@ -19,9 +18,9 @@
                             <p class="text-size-12">
                                 Contact Us: 0800 200 200 |
                                 <a
+                                    :href="'mailto:' + this.getConfigs.params.email"
                                     class="text-orange-hover"
-                                    href="mailto:contact@sampledomain.com"
-                                >contact@sampledomain.com</a>
+                                >{{ this.getConfigs.params.email}}</a>
                             </p>
                         </div>
                     </div>
@@ -29,17 +28,17 @@
                         <div class="right">
                             <ul class="top-bar-social right">
                                 <li>
-                                    <a href="https://facebook.com">
+                                    <a :href="this.getConfigs.params.facebook_url">
                                         <i class="icon-facebook_circle text-orange-hover"></i>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="https://twitter.com">
+                                    <a :href="this.getConfigs.params.twitter_url">
                                         <i class="icon-twitter_circle text-orange-hover"></i>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="https://instagram.com">
+                                    <a :href="this.getConfigs.params.instagram_url">
                                         <i class="icon-instagram_circle text-orange-hover"></i>
                                     </a>
                                 </li>
@@ -54,7 +53,7 @@
                 <div class="line">
                     <div class="s-12 l-2">
                         <router-link class="logo" to="/">
-                            <img src="../../assets/img/logo-free.png" alt/>
+                            <img src="@/assets/img/logo-free.png" alt/>
                         </router-link>
                     </div>
                     <div class="top-nav s-12 l-10">
