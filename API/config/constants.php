@@ -9,7 +9,7 @@ if (!defined('ADMIN_MODULE_SEGMENT_NUM')) define('ADMIN_MODULE_SEGMENT_NUM',3);
 // web //
 if (!defined('LANGUAGE_SEGMENT_NUM')) define('LANGUAGE_SEGMENT_NUM', 1);
 // models path //
-if (!defined('MODELS_PATH')) define('MODELS_PATH', '\\App\\');
+if (!defined('MODELS_PATH')) define('MODELS_PATH', 'App\\Models\\');
 // PageTypes
 if (!defined('PAGE_TYPE_STATIC')) define('PAGE_TYPE_STATIC', 'static');
 if (!defined('PAGE_TYPE_ARTICLES')) define('PAGE_TYPE_ARTICLES', 'articles');

@@ -16,7 +16,7 @@ export default {
 </script>
 
 <style>
-@import "http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800&subset=latin,latin-ext";
+@import "https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800&subset=latin,latin-ext";
 @import "./assets/css/components.css";
 @import "./assets/css/icons.css";
 @import "./assets/css/responsee.css";

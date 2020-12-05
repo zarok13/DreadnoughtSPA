@@ -16,21 +16,18 @@ class FileStoreRef extends ChildModel
     }
 
     /**
-     * insertReferences function
-     *
      * @param string $lang
-     * @param integer $file
-     * @param integer $referenceID
-     * @param integer $referenceType
-     * @return boolean
+     * @param int $file
+     * @param int $referenceID
+     * @param int $referenceType
      */
     public function insertReferences(string $lang, int $file, int $referenceID, int $referenceType)
     {
-        $reference = new self;
-        $reference->lang = $lang;
-        $reference->file_id = $file;
-        $reference->reference_id = $referenceID;
-        $reference->reference_type = $referenceType;
-        $reference->save();
+        $this::create([
+            'lang' => $lang,
+            'file_id' => $file,
+            'reference_id' => $referenceID,
+            'reference_type' => $referenceType
+        ]);
     }
 }

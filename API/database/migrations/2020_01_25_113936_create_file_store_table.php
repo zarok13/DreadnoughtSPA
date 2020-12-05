@@ -15,7 +15,6 @@ class CreateFileStoreTable extends Migration
     {
         Schema::create('file_store', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->char('lang',2);
             $table->string('title')->nullable();
             $table->string('src');
             $table->string('type',50);
