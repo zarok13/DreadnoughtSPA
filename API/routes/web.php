@@ -1,6 +1,6 @@
 <?php
 
 
-Route::get('/', function (){
+Route::get('/{url?}', function (){
    return view('welcome');
 });
