@@ -2,6 +2,7 @@ import Axios from "axios"
 
 // global api url
 export const BASE_URL = 'http://localhost:8000/api'
+// export const BASE_URL = 'https://dreadnought-project.herokuapp.com/api'
 
 // define app store actions names
 export const GET_CONFIGS = 'configs'

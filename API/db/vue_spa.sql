@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 4.9.5deb2
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Sep 28, 2020 at 02:29 PM
--- Server version: 5.7.31-0ubuntu0.18.04.1
--- PHP Version: 7.2.24-0ubuntu0.18.04.6
+-- Host: localhost:3306
+-- Generation Time: Dec 05, 2020 at 03:57 PM
+-- Server version: 8.0.22-0ubuntu0.20.04.3
+-- PHP Version: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -29,20 +29,20 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `articles` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `lang` char(2) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `lang_id` smallint(5) UNSIGNED DEFAULT NULL,
-  `slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `sub_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `desc` text COLLATE utf8mb4_unicode_ci,
-  `text` longtext COLLATE utf8mb4_unicode_ci,
-  `meta_desc` longtext COLLATE utf8mb4_unicode_ci,
+  `id` int UNSIGNED NOT NULL,
+  `lang` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lang_id` smallint UNSIGNED DEFAULT NULL,
+  `slug` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sub_title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `desc` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `text` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `meta_desc` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `pin` tinyint(1) DEFAULT NULL,
-  `visible` tinyint(3) UNSIGNED DEFAULT NULL,
-  `page_id` tinyint(3) UNSIGNED DEFAULT NULL,
-  `user_id` int(11) NOT NULL,
+  `visible` tinyint UNSIGNED DEFAULT NULL,
+  `page_id` tinyint UNSIGNED DEFAULT NULL,
+  `user_id` int NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -66,11 +66,11 @@ INSERT INTO `articles` (`id`, `lang`, `lang_id`, `slug`, `title`, `image`, `sub_
 --
 
 CREATE TABLE `failed_jobs` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `connection` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -81,12 +81,12 @@ CREATE TABLE `failed_jobs` (
 --
 
 CREATE TABLE `file_store` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `title` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `src` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `type` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `user_id` smallint(5) UNSIGNED NOT NULL,
-  `sort` smallint(5) UNSIGNED DEFAULT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `title` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `src` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` smallint UNSIGNED NOT NULL,
+  `sort` smallint UNSIGNED DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -96,8 +96,9 @@ CREATE TABLE `file_store` (
 --
 
 INSERT INTO `file_store` (`id`, `title`, `src`, `type`, `user_id`, `sort`, `created_at`, `updated_at`) VALUES
-(1, NULL, 'images/nature-q-c-1517-1337-10.jpg', 'image', 1, 1, '2020-09-28 06:10:48', '2020-09-28 06:10:48'),
-(2, NULL, 'images/nature-q-c-1517-1337-8.jpg', 'image', 1, 1, '2020-09-28 06:10:48', '2020-09-28 06:10:48');
+(6, NULL, 'images/lake_forest_landscape_79459_1920x1080.jpg', 'image', 1, 1, '2020-12-01 17:03:40', '2020-12-01 17:03:40'),
+(7, NULL, 'images/lake_forest_trees_183884_1920x1080.jpg', 'image', 1, 1, '2020-12-01 17:03:40', '2020-12-01 17:03:40'),
+(8, NULL, 'images/lake_forest_trees_188315_1920x1080.jpg', 'image', 1, 1, '2020-12-01 17:03:40', '2020-12-01 17:03:40');
 
 -- --------------------------------------------------------
 
@@ -106,14 +107,22 @@ INSERT INTO `file_store` (`id`, `title`, `src`, `type`, `user_id`, `sort`, `crea
 --
 
 CREATE TABLE `file_store_refs` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `lang` char(2) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `file_id` bigint(20) UNSIGNED NOT NULL,
-  `reference_id` int(11) NOT NULL,
-  `reference_type` tinyint(3) UNSIGNED NOT NULL,
-  `sort` smallint(6) NOT NULL DEFAULT '1',
+  `id` int UNSIGNED NOT NULL,
+  `lang` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `file_id` bigint UNSIGNED NOT NULL,
+  `reference_id` int NOT NULL,
+  `reference_type` tinyint UNSIGNED NOT NULL,
+  `sort` smallint NOT NULL DEFAULT '1',
   `pin` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `file_store_refs`
+--
+
+INSERT INTO `file_store_refs` (`id`, `lang`, `file_id`, `reference_id`, `reference_type`, `sort`, `pin`) VALUES
+(1, 'en', 6, 9, 3, 1, 0),
+(2, 'en', 7, 9, 3, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -122,13 +131,13 @@ CREATE TABLE `file_store_refs` (
 --
 
 CREATE TABLE `helper_fields` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `lang` char(2) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `lang_id` smallint(5) UNSIGNED NOT NULL,
-  `keyword` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `value` text COLLATE utf8mb4_unicode_ci,
-  `description` text COLLATE utf8mb4_unicode_ci,
-  `type` tinyint(3) UNSIGNED NOT NULL,
+  `id` int UNSIGNED NOT NULL,
+  `lang` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lang_id` smallint UNSIGNED NOT NULL,
+  `keyword` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `value` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `type` tinyint UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -164,12 +173,12 @@ INSERT INTO `helper_fields` (`id`, `lang`, `lang_id`, `keyword`, `value`, `descr
 --
 
 CREATE TABLE `languages` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `lang` char(2) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `lang_id` smallint(5) UNSIGNED NOT NULL,
-  `keyword` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `value` text COLLATE utf8mb4_unicode_ci,
-  `hidden` tinyint(3) UNSIGNED NOT NULL DEFAULT '0',
+  `id` int UNSIGNED NOT NULL,
+  `lang` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lang_id` smallint UNSIGNED NOT NULL,
+  `keyword` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `value` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `hidden` tinyint UNSIGNED NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -206,12 +215,12 @@ INSERT INTO `languages` (`id`, `lang`, `lang_id`, `keyword`, `value`, `hidden`, 
 --
 
 CREATE TABLE `map_coordinates` (
-  `id` smallint(5) UNSIGNED NOT NULL,
-  `lat` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `lng` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` smallint UNSIGNED NOT NULL,
+  `lat` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lng` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `zoom` decimal(8,2) NOT NULL,
-  `template_type` tinyint(4) NOT NULL,
-  `page_id` int(10) UNSIGNED NOT NULL
+  `template_type` tinyint NOT NULL,
+  `page_id` int UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -228,15 +237,15 @@ INSERT INTO `map_coordinates` (`id`, `lat`, `lng`, `zoom`, `template_type`, `pag
 --
 
 CREATE TABLE `markers` (
-  `id` smallint(5) UNSIGNED NOT NULL,
-  `lang` char(2) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `lang_id` smallint(5) UNSIGNED NOT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `desc` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `lat` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `lng` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `page_id` int(10) UNSIGNED NOT NULL,
-  `sort` smallint(5) UNSIGNED NOT NULL DEFAULT '1'
+  `id` smallint UNSIGNED NOT NULL,
+  `lang` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lang_id` smallint UNSIGNED NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `desc` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `lat` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lng` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `page_id` int UNSIGNED NOT NULL,
+  `sort` smallint UNSIGNED NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -256,15 +265,15 @@ INSERT INTO `markers` (`id`, `lang`, `lang_id`, `title`, `desc`, `lat`, `lng`, `
 --
 
 CREATE TABLE `menu` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `lang` char(2) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `lang_id` smallint(5) UNSIGNED NOT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `lang` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lang_id` smallint UNSIGNED NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `main` tinyint(1) NOT NULL DEFAULT '0',
-  `page_id` int(10) UNSIGNED DEFAULT NULL,
-  `parent_id` smallint(6) DEFAULT NULL,
-  `hidden` tinyint(3) UNSIGNED NOT NULL DEFAULT '0',
-  `sort` smallint(5) UNSIGNED NOT NULL DEFAULT '1',
+  `page_id` int UNSIGNED DEFAULT NULL,
+  `parent_id` smallint DEFAULT NULL,
+  `hidden` tinyint UNSIGNED NOT NULL DEFAULT '0',
+  `sort` smallint UNSIGNED NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -275,14 +284,15 @@ CREATE TABLE `menu` (
 
 INSERT INTO `menu` (`id`, `lang`, `lang_id`, `title`, `main`, `page_id`, `parent_id`, `hidden`, `sort`, `created_at`, `updated_at`) VALUES
 (18, 'en', 18, 'Products', 0, 2, NULL, 0, 6, NULL, '2020-03-19 04:43:21'),
-(20, 'en', 20, 'Contacts', 0, 5, NULL, 0, 9, NULL, '2020-03-25 08:00:02'),
+(20, 'en', 20, 'Contacts', 0, 5, NULL, 0, 10, NULL, '2020-03-25 08:00:02'),
 (23, 'en', 23, 'Home', 1, NULL, NULL, 0, 1, NULL, NULL),
-(25, 'en', 25, 'About Us', 0, 1, NULL, 0, 7, NULL, '2020-06-08 02:25:00'),
+(25, 'en', 25, 'About Us', 0, 1, NULL, 0, 8, NULL, '2020-06-08 02:25:00'),
 (26, 'en', 26, 'Parent', 0, NULL, NULL, 0, 2, NULL, NULL),
 (27, 'en', 27, 'test', 0, NULL, 26, 0, 3, NULL, NULL),
 (28, 'en', 28, 'test2', 0, NULL, 26, 0, 4, NULL, NULL),
 (29, 'en', 29, 'Service 1', 0, NULL, 27, 0, 5, NULL, '2020-06-10 17:04:14'),
-(30, 'en', 30, 'Info', 0, 8, 25, 0, 8, NULL, '2020-06-14 12:19:34');
+(30, 'en', 30, 'Info', 0, 8, 25, 0, 9, NULL, '2020-06-14 12:19:34'),
+(31, 'en', 31, 'Gallery', 0, 9, NULL, 0, 7, NULL, '2020-12-01 17:04:15');
 
 -- --------------------------------------------------------
 
@@ -291,9 +301,9 @@ INSERT INTO `menu` (`id`, `lang`, `lang_id`, `title`, `main`, `page_id`, `parent
 --
 
 CREATE TABLE `migrations` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int(11) NOT NULL
+  `id` int UNSIGNED NOT NULL,
+  `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -329,19 +339,19 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 --
 
 CREATE TABLE `pages` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `lang` char(2) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `lang_id` smallint(5) UNSIGNED NOT NULL,
-  `slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `title` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `desc` text COLLATE utf8mb4_unicode_ci,
-  `text` longtext COLLATE utf8mb4_unicode_ci,
-  `main_image` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `hidden` tinyint(4) DEFAULT '0',
-  `sort` smallint(5) UNSIGNED NOT NULL DEFAULT '1',
-  `user_id` smallint(5) UNSIGNED NOT NULL,
-  `page_type_id` tinyint(3) UNSIGNED DEFAULT NULL,
-  `page_template_id` tinyint(3) UNSIGNED DEFAULT NULL,
+  `id` int UNSIGNED NOT NULL,
+  `lang` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lang_id` smallint UNSIGNED NOT NULL,
+  `slug` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `desc` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `text` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `main_image` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `hidden` tinyint DEFAULT '0',
+  `sort` smallint UNSIGNED NOT NULL DEFAULT '1',
+  `user_id` smallint UNSIGNED NOT NULL,
+  `page_type_id` tinyint UNSIGNED DEFAULT NULL,
+  `page_template_id` tinyint UNSIGNED DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -351,11 +361,12 @@ CREATE TABLE `pages` (
 --
 
 INSERT INTO `pages` (`id`, `lang`, `lang_id`, `slug`, `title`, `desc`, `text`, `main_image`, `hidden`, `sort`, `user_id`, `page_type_id`, `page_template_id`, `created_at`, `updated_at`) VALUES
-(1, 'en', 1, 'about_us', 'About Us', NULL, '<h2 style=\"text-align: left;\">Investigationes demonstraverunt lectores</h2>\r\n<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.<br />Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>\r\n<p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.<br /><br /></p>\r\n<blockquote>Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima.</blockquote>\r\n<p><br />Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; background-color: #ffffff;\">&nbsp;</p>', 'images/Penguins.jpg', 0, 4, 1, 0, 0, NULL, '2020-06-14 10:33:33'),
+(1, 'en', 1, 'about_us', 'About Us', NULL, '<h2 style=\"text-align: left;\">Investigationes demonstraverunt lectores</h2>\r\n<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.<br />Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>\r\n<p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.<br /><br /></p>\r\n<blockquote>Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima.</blockquote>\r\n<p><br />Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; background-color: #ffffff;\">&nbsp;</p>', 'images/Penguins.jpg', 0, 5, 1, 0, 0, NULL, '2020-06-14 10:33:33'),
 (2, 'en', 2, 'products', 'Products', NULL, NULL, NULL, 0, 2, 1, 1, 1, NULL, '2020-03-22 15:07:10'),
-(5, 'en', 5, 'contacts', 'Contacts', NULL, NULL, NULL, 0, 3, 1, 2, 0, NULL, NULL),
+(5, 'en', 5, 'contacts', 'Contacts', NULL, NULL, NULL, 0, 4, 1, 2, 0, NULL, NULL),
 (7, 'en', 6, 'blog', 'Blog', NULL, NULL, NULL, 0, 1, 1, 1, 2, NULL, NULL),
-(8, 'en', 8, 'info', 'Info', NULL, 'Info page', NULL, 0, 5, 1, 0, 0, NULL, '2020-06-14 10:44:24');
+(8, 'en', 8, 'info', 'Info', NULL, 'Info page', NULL, 0, 6, 1, 0, 0, NULL, '2020-06-14 10:44:24'),
+(9, 'en', 9, 'gallery', 'Gallery', NULL, NULL, NULL, 0, 3, 1, 3, 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -364,8 +375,8 @@ INSERT INTO `pages` (`id`, `lang`, `lang_id`, `slug`, `title`, `desc`, `text`, `
 --
 
 CREATE TABLE `password_resets` (
-  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -376,14 +387,14 @@ CREATE TABLE `password_resets` (
 --
 
 CREATE TABLE `reviews` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `lang` char(2) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `lang_id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `image` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `review` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `visible` tinyint(3) UNSIGNED NOT NULL DEFAULT '1',
-  `sort` smallint(5) UNSIGNED NOT NULL DEFAULT '1',
+  `id` int UNSIGNED NOT NULL,
+  `lang` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lang_id` int UNSIGNED NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `review` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `visible` tinyint UNSIGNED NOT NULL DEFAULT '1',
+  `sort` smallint UNSIGNED NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -394,8 +405,8 @@ CREATE TABLE `reviews` (
 
 INSERT INTO `reviews` (`id`, `lang`, `lang_id`, `name`, `image`, `review`, `visible`, `sort`, `created_at`, `updated_at`) VALUES
 (1, 'en', 1, 'First Name', 'images/testimonial1.jpg', 'Duis gravida ligula ut purus semper, sed volutpat nisl cursus. Sed orci nisl, pellentesque et sodales a, blandit ut ipsum. Proin non lorem velit. Integer rutrum odio vitae tellus ullamcorper, id elementum mi euismod. In hac habitasse platea dictumst. Maecenas scelerisque erat vel semper rutrum. Integer lorem eros, volutpat et ligula at.', 1, 1, NULL, NULL),
-(2, 'en', 2, 'Second Name', 'images/testimonial2.jpg', 'Etiam sed magna nec purus egestas mattis. Maecenas sagittis id diam quis condimentum. Vestibulum sodales magna ac interdum pharetra. Sed eu dignissim augue, eget dignissim nisl. Donec semper interdum feugiat. Aenean quis tempus ligula. Donec sed elementum eros, id volutpat nisl. Aliquam erat volutpat. Integer sem tortor.', 1, 1, NULL, NULL),
-(3, 'en', 3, 'Third Name', 'images/testimonial1.jpg', 'Nulla a orci ipsum. Nullam id dui ut risus ornare feugiat ut vitae neque. Nulla facilisi. Sed finibus nisl quis tortor sagittis dictum. Sed ornare ornare diam, ac hendrerit felis. Nunc imperdiet sagittis mattis. Vivamus a consectetur odio. Vestibulum a odio dignissim, ornare dui quis, porta magna. Suspendisse cursus in diam eu semper. Duis felis elit, semper et facilisis ut, rutrum quis arcu. Aliquam in ligula et eros varius feugiat sed vitae ex. Fusce tempus efficitur mauris non imperdiet. Aenean nec posuere ex, nec finibus sapien. Vestibulum nec egestas lorem, at tincidunt nisl. Sed quis posuere ligula. Etiam a sodales ante.', 1, 1, NULL, NULL);
+(2, 'en', 2, 'Second Name', 'images/testimonial2.jpg', 'Etiam sed magna nec purus egestas mattis. Maecenas sagittis id diam quis condimentum. Vestibulum sodales magna ac interdum pharetra. Sed eu dignissim augue, eget dignissim nisl. Donec semper interdum feugiat. Aenean quis tempus ligula. Donec sed elementum eros, id volutpat nisl. Aliquam erat volutpat. Integer sem tortor.', 1, 2, NULL, NULL),
+(3, 'en', 3, 'Third Name', 'images/testimonial1.jpg', 'Nulla a orci ipsum. Nullam id dui ut risus ornare feugiat ut vitae neque. Nulla facilisi. Sed finibus nisl quis tortor sagittis dictum. Sed ornare ornare diam, ac hendrerit felis. Nunc imperdiet sagittis mattis. Vivamus a consectetur odio. Vestibulum a odio dignissim, ornare dui quis, porta magna. Suspendisse cursus in diam eu semper. Duis felis elit, semper et facilisis ut, rutrum quis arcu. Aliquam in ligula et eros varius feugiat sed vitae ex. Fusce tempus efficitur mauris non imperdiet. Aenean nec posuere ex, nec finibus sapien. Vestibulum nec egestas lorem, at tincidunt nisl. Sed quis posuere ligula. Etiam a sodales ante.', 1, 3, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -404,9 +415,9 @@ INSERT INTO `reviews` (`id`, `lang`, `lang_id`, `name`, `image`, `review`, `visi
 --
 
 CREATE TABLE `roles` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `title` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `permissions` text COLLATE utf8mb4_unicode_ci,
+  `id` int UNSIGNED NOT NULL,
+  `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `permissions` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -425,17 +436,17 @@ INSERT INTO `roles` (`id`, `title`, `permissions`, `created_at`, `updated_at`) V
 --
 
 CREATE TABLE `sliders` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `lang` char(2) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `lang_id` int(10) UNSIGNED NOT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `sub_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `desc` text COLLATE utf8mb4_unicode_ci,
-  `src` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `url` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `position` tinyint(3) UNSIGNED NOT NULL DEFAULT '1',
-  `visible` tinyint(3) UNSIGNED NOT NULL DEFAULT '1',
-  `sort` smallint(5) UNSIGNED NOT NULL DEFAULT '1',
+  `id` int UNSIGNED NOT NULL,
+  `lang` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lang_id` int UNSIGNED NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sub_title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `desc` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `src` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `url` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `position` tinyint UNSIGNED NOT NULL DEFAULT '1',
+  `visible` tinyint UNSIGNED NOT NULL DEFAULT '1',
+  `sort` smallint UNSIGNED NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -455,14 +466,14 @@ INSERT INTO `sliders` (`id`, `lang`, `lang_id`, `title`, `sub_title`, `desc`, `s
 --
 
 CREATE TABLE `users` (
-  `id` smallint(5) UNSIGNED NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` smallint UNSIGNED NOT NULL,
+  `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `image` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `role_id` int(10) UNSIGNED NOT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `role_id` int UNSIGNED NOT NULL,
+  `remember_token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -617,91 +628,91 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `articles`
 --
 ALTER TABLE `articles`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `file_store`
 --
 ALTER TABLE `file_store`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `file_store_refs`
 --
 ALTER TABLE `file_store_refs`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `helper_fields`
 --
 ALTER TABLE `helper_fields`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `languages`
 --
 ALTER TABLE `languages`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `map_coordinates`
 --
 ALTER TABLE `map_coordinates`
-  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `markers`
 --
 ALTER TABLE `markers`
-  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `pages`
 --
 ALTER TABLE `pages`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `sliders`
 --
 ALTER TABLE `sliders`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
