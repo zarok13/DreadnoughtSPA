@@ -15,7 +15,7 @@
                         <div class="margin text-center">
                             <div class="s-12 m-12 l-4 margin-bottom">
                                 <div class="padding-2x block-bordered border-radius">
-                                    <i class="icon-paperplane_ico icon2x text-primary margin-bottom-30"></i>
+                                    <i class="fab fa-500px icon2x text-primary margin-bottom-30"></i>
                                     <h2 class="text-thin">Lightweight</h2>
                                     <p
                                         class="margin-bottom-30"

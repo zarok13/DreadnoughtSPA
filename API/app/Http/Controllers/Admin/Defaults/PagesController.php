@@ -25,7 +25,8 @@ class PagesController extends Controller
     ];
 
     /**
-     * PagesController __construct
+     * PagesController constructor.
+     * @throws \Exception
      */
     public function __construct()
     {

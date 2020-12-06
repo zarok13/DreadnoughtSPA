@@ -5,6 +5,7 @@
     $currentData_title = null;
     $currentData_id = null;
     $currentOnchange = null;
+
     if(isset($placeholder) && !empty($placeholder)){
         $currentPlaceholder = $placeholder;
     }
@@ -28,11 +29,20 @@
     $defaultOption = isset($defaultOption) ? ['' => $defaultOption] + $currentArray : $currentArray;
 @endphp
 <div class="form-group">
-    {!! Form::label($name, $label) !!}
+    {!! Form::label($name, $label) !!} {!! (isset($params['required']) && $params['required'] == true) ? '<font color="red">*</font>' : '' !!}
     <div class="row">
         <div class="col-md-12 col-sm-12">
-            {!! Form::select($name, $defaultOption, $currentSelected, ['class' => 'form-control', 'placeholder' => !empty($currentPlaceholder) ? $currentPlaceholder : null,
-            'data-url' => $currentData_url,'data-title' => $currentData_title, 'data-id' => $currentData_id]) !!}
+            @if(isset($valueAsKey))
+                <select name="{{ $name }}" class="form-control" data-url="{{ $currentData_url }}"
+                        data-title="{{ $currentData_title }}" data-id="{{ $currentData_id }}">
+                    @foreach($defaultOption as $option)
+                        <option value="{{ $option }}">{{ $option }}</option>
+                    @endforeach
+                </select>
+            @else
+                {!! Form::select($name, $defaultOption, $currentSelected, ['class' => 'form-control', 'placeholder' => !empty($currentPlaceholder) ? $currentPlaceholder : null,
+           'data-url' => $currentData_url,'data-title' => $currentData_title, 'data-id' => $currentData_id ]) !!}
+            @endif
         </div>
     </div>
 </div>

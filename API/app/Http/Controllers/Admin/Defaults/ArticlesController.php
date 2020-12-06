@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Defaults;
 use App\Models\Article;
 use App\Facades\Slug;
 use App\Http\Controllers\Admin\Dreadnought\Controller;
+use App\Models\Page;
 use App\Traits\DatabaseAction;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -52,6 +53,11 @@ class ArticlesController extends Controller
     public function add(int $pageID): View
     {
         $this->data['pageID'] = $pageID;
+        $page = Page::whereLangId($pageID)->first();
+        $this->data['template'] = $page->template_type;
+        if ($this->data['template'] == 'products') {
+            $this->data['icons'] = $this->getFontAwesomeIcons();
+        }
         return view($this->viewTemplate . '.add', $this->data);
     }
 
@@ -71,7 +77,7 @@ class ArticlesController extends Controller
         $filteredRequest['slug'] = Slug::create('articles', 'title');
         $this->addMainLang($this->modelName, $filteredRequest);
         $this->data['module'] = $this->moduleName;
-        return redirect(route($this->moduleName))->with('successCreate', DATABASE_ACTION_CREATE);
+        return redirect()->back()->with('successCreate', DATABASE_ACTION_CREATE);
     }
 
     /**
@@ -84,6 +90,9 @@ class ArticlesController extends Controller
         $this->data['ID'] = $ID;
         $this->data['item'] = $article->whereLangId($ID)->first();
         $this->data['template'] = $this->data['item']->page->template_type;
+        if ($this->data['template'] == 'products') {
+            $this->data['icons'] = $this->getFontAwesomeIcons();
+        }
         return view($this->viewTemplate . '.edit', $this->data);
     }
 
@@ -112,5 +121,13 @@ class ArticlesController extends Controller
         $menu = (MODELS_PATH . ucfirst($this->modelName))::findOrFail($id);
         $menu->delete();
         return redirect()->back();
+    }
+
+    /**
+     * @return \Illuminate\Config\Repository|\Illuminate\Contracts\Foundation\Application|mixed
+     */
+    private function getFontAwesomeIcons()
+    {
+        return config('fontAwesomeIcons');
     }
 }

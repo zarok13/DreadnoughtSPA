@@ -20,9 +20,7 @@
                     {!! Form::open(['url' => route($moduleName.'.create', ['id' => $pageID]),'autocomplete' => 'off']) !!}
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-8">
-                                @include('admin.modules.articles._form')
-                            </div>
+                            @include('admin.modules.articles._form')
                             <div class="col-md-4 page-edit-right-column">
                                 {!! Form::submit('Create',['class' => 'btn btn-block bg-gradient-primary']) !!}
                             </div>
