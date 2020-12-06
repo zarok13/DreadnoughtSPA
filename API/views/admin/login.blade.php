@@ -3,7 +3,7 @@
 @section('content')
 <div class="login-box">
     <div class="login-logo">
-        <a href="{{ url('/') }}"><b>Dr</b>eadnought</a>
+        <a href="{{ url('/') }}"><b>Dr</b>eadnought {{ setting('version') }}</a>
     </div>
     <!-- /.login-logo -->
     <div class="card">

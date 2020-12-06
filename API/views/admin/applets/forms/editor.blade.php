@@ -1,5 +1,5 @@
+<script src="{{ asset('scripts/admin/js/tinymce.min.js') }}" referrerpolicy="origin"></script>
 @if(!isset($ajaxRequest))
-    <script src="{{ asset('scripts/admin/js/tinymce.min.js') }}" referrerpolicy="origin"></script>
     <script>
         tinymce.init({
             selector: 'textarea.editor',

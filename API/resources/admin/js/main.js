@@ -68,8 +68,8 @@ $(document).ready(function () {
         let url = getType.data('url');
         let id = getType.data('id');
         let type = $('#type :selected').val();
-        var mainWrapper = 'div.wrapper';
-        var imageLoader = '#image-loader';
+        let mainWrapper = 'div.wrapper';
+        let imageLoader = '#image-loader';
         $.ajax({
             type: 'POST',
             url: url,

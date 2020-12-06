@@ -36,5 +36,4 @@
         </div>
     </div>
 </div>
-<script src="{{ asset('scripts/admin/js/tinymce.min.js') }}" referrerpolicy="origin"></script>
 @endsection

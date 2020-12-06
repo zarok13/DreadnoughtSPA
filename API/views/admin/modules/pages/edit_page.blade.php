@@ -34,12 +34,12 @@
                                          'autofocus' => true,
                                      ]
                                 ])
-                                {{-- @include('admin.applets.forms.editor',[
+                                 @include('admin.applets.forms.editor',[
                                     'name' => 'text',
                                     'label' => 'Text',
                                     'array' => $array,
                                     'placeholder' => "Static page text..."
-                                ]) --}}
+                                ]) 
                                 @include('admin.applets.forms.attach_file',[
                                     'name' => 'main_image',
                                     'label' => 'Image',
