@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 05, 2020 at 03:57 PM
+-- Generation Time: Dec 08, 2020 at 10:12 AM
 -- Server version: 8.0.22-0ubuntu0.20.04.3
 -- PHP Version: 7.4.3
 
@@ -57,7 +57,8 @@ INSERT INTO `articles` (`id`, `lang`, `lang_id`, `slug`, `title`, `image`, `sub_
 (17, 'en', 17, 'blog-3', 'Blog 3', 'images/blog-03.jpg', NULL, NULL, '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ut efficitur enim. Donec ac eleifend ante. Nunc volutpat porttitor mauris vel pulvinar. Nunc porta facilisis blandit. Mauris in ipsum nisl. Proin convallis lorem et sem tristique, ac ullamcorper lorem posuere. Nullam a erat eleifend, feugiat tortor sit amet, ornare quam. Aliquam vehicula et neque eu elementum.</p>\r\n<p>Etiam non mi ac urna finibus venenatis. Phasellus odio tellus, maximus et mi nec, suscipit volutpat massa. Curabitur sed dui lobortis sem vehicula egestas. Suspendisse in diam felis. Nulla facilisi. Nullam vitae consequat ex. Etiam interdum id arcu eu sodales. Cras in tellus id erat fermentum commodo nec eget diam. Proin enim orci, varius at diam vitae, tempus tincidunt mauris. Aliquam commodo id nulla nec varius.</p>', NULL, NULL, NULL, 6, 1, '2020-05-08 12:04:41', '2020-05-08 13:55:25'),
 (18, 'en', 18, 'blog-4', 'Blog 4', 'images/blog-04.jpg', NULL, NULL, 'Phasellus quis tincidunt odio, quis fringilla dui. Nunc lacus dolor, interdum a imperdiet ac, blandit vitae odio. Proin fermentum purus id velit posuere viverra. In quis sollicitudin ante. Maecenas eu egestas leo. Proin turpis nulla, placerat sit amet purus a, efficitur commodo urna. Sed accumsan vel nisl vitae elementum. Mauris nisi sapien, accumsan fringilla placerat eu, viverra ut ex. Pellentesque porttitor, ipsum volutpat sodales placerat, lacus odio efficitur nunc, eget fermentum elit nisl sit amet magna. Mauris porttitor sagittis euismod. Praesent porta sagittis est. Aenean tempus pretium pharetra. Suspendisse at erat ac erat malesuada pellentesque vel vitae purus.', NULL, NULL, NULL, 6, 1, '2020-05-08 14:19:07', NULL),
 (19, 'en', 19, 'blog-5', 'Blog 5', 'images/blog-05.jpg', NULL, NULL, 'Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Phasellus gravida pretium ipsum at euismod. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis urna lacinia, ultricies nisl vel, pellentesque ante. Nunc semper dui non ornare tincidunt. Curabitur sapien felis, imperdiet sit amet euismod ut, hendrerit sit amet leo. Morbi et fringilla justo. Mauris condimentum, risus ac posuere rutrum, sem ligula vulputate sem, ut ornare augue massa sit amet augue. Quisque commodo ultricies nunc nec iaculis. Morbi sagittis augue vel dictum venenatis. In eu lacus urna. Nunc convallis justo a velit fringilla vehicula. Morbi lobortis nibh nec est tempus ullamcorper.', NULL, NULL, NULL, 6, 1, '2020-05-08 14:20:10', NULL),
-(20, 'en', 20, 'blog-6', 'Blog 6', 'images/blog-06.jpg', NULL, NULL, 'Duis non facilisis urna. Ut ultrices enim non purus consectetur consectetur. Etiam venenatis dolor dolor, id sodales nunc pharetra tincidunt. Phasellus eget tellus tincidunt, suscipit tortor in, efficitur lacus. Maecenas et orci neque. Aliquam at enim pulvinar, suscipit sapien dapibus, rhoncus sem. Donec posuere leo sed mattis hendrerit. Integer mi tortor, vehicula nec elit sed, dignissim lacinia ante. In hac habitasse platea dictumst. Vestibulum rhoncus rhoncus dui, sollicitudin viverra arcu viverra eu. Phasellus pulvinar ac dolor vel vulputate. Fusce accumsan consectetur diam eget sodales. Curabitur id nisl ac libero bibendum dapibus et eu eros. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam viverra dictum euismod.', NULL, NULL, NULL, 6, 1, '2020-05-08 14:20:35', NULL);
+(20, 'en', 20, 'blog-6', 'Blog 6', 'images/blog-06.jpg', NULL, NULL, 'Duis non facilisis urna. Ut ultrices enim non purus consectetur consectetur. Etiam venenatis dolor dolor, id sodales nunc pharetra tincidunt. Phasellus eget tellus tincidunt, suscipit tortor in, efficitur lacus. Maecenas et orci neque. Aliquam at enim pulvinar, suscipit sapien dapibus, rhoncus sem. Donec posuere leo sed mattis hendrerit. Integer mi tortor, vehicula nec elit sed, dignissim lacinia ante. In hac habitasse platea dictumst. Vestibulum rhoncus rhoncus dui, sollicitudin viverra arcu viverra eu. Phasellus pulvinar ac dolor vel vulputate. Fusce accumsan consectetur diam eget sodales. Curabitur id nisl ac libero bibendum dapibus et eu eros. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam viverra dictum euismod.', NULL, NULL, NULL, 6, 1, '2020-05-08 14:20:35', NULL),
+(21, 'en', 21, 'lightweight', 'Lightweight', 'fab fa-500px', NULL, 'Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis', '<p style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; background-color: #ffffff;\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisis dapibus efficitur. Praesent rhoncus lobortis varius. Aliquam eget ultrices odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque pulvinar a quam in pulvinar. Fusce ultrices imperdiet neque, vel convallis nulla elementum non. Pellentesque a vulputate orci. Nullam egestas placerat enim, sit amet tincidunt arcu. Proin sed eros odio.</p>\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; background-color: #ffffff;\">Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean consequat mollis pellentesque. Etiam sed libero lorem. Sed eros leo, dictum eu sollicitudin at, aliquet vulputate urna. Ut nec sodales leo. Cras non lacus enim. Pellentesque non sollicitudin ex, sit amet sollicitudin eros. Ut lacinia, diam eu placerat feugiat, augue odio cursus est, a sollicitudin tortor nulla sed arcu.</p>\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; background-color: #ffffff;\">Maecenas eget pharetra tortor. Integer viverra hendrerit tincidunt. Phasellus ex quam, tristique vel ante id, rhoncus tempor est. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Sed tincidunt, nunc nec semper ornare, arcu sem dapibus purus, et tristique velit velit quis quam. Praesent in tellus et ante tristique facilisis. Duis quis pharetra arcu, id commodo risus. Mauris pharetra nisi vitae dictum gravida. Cras quis magna justo. Vestibulum ac diam justo. Fusce ipsum lorem, elementum id tempor in, euismod eget mi.</p>\r\n<p>&nbsp;</p>', NULL, NULL, NULL, 2, 1, '2020-12-06 16:06:40', '2020-12-06 16:22:21');
 
 -- --------------------------------------------------------
 
@@ -98,7 +99,8 @@ CREATE TABLE `file_store` (
 INSERT INTO `file_store` (`id`, `title`, `src`, `type`, `user_id`, `sort`, `created_at`, `updated_at`) VALUES
 (6, NULL, 'images/lake_forest_landscape_79459_1920x1080.jpg', 'image', 1, 1, '2020-12-01 17:03:40', '2020-12-01 17:03:40'),
 (7, NULL, 'images/lake_forest_trees_183884_1920x1080.jpg', 'image', 1, 1, '2020-12-01 17:03:40', '2020-12-01 17:03:40'),
-(8, NULL, 'images/lake_forest_trees_188315_1920x1080.jpg', 'image', 1, 1, '2020-12-01 17:03:40', '2020-12-01 17:03:40');
+(8, NULL, 'images/lake_forest_trees_188315_1920x1080.jpg', 'image', 1, 1, '2020-12-01 17:03:40', '2020-12-01 17:03:40'),
+(9, NULL, 'images/lake_forest_landscape_79459_1920x1080(1).jpg', 'image', 1, 1, '2020-12-05 11:42:13', '2020-12-05 11:42:13');
 
 -- --------------------------------------------------------
 
@@ -122,7 +124,8 @@ CREATE TABLE `file_store_refs` (
 
 INSERT INTO `file_store_refs` (`id`, `lang`, `file_id`, `reference_id`, `reference_type`, `sort`, `pin`) VALUES
 (1, 'en', 6, 9, 3, 1, 0),
-(2, 'en', 7, 9, 3, 1, 0);
+(2, 'en', 7, 9, 3, 1, 0),
+(3, 'en', 9, 9, 3, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -291,7 +294,6 @@ INSERT INTO `menu` (`id`, `lang`, `lang_id`, `title`, `main`, `page_id`, `parent
 (27, 'en', 27, 'test', 0, NULL, 26, 0, 3, NULL, NULL),
 (28, 'en', 28, 'test2', 0, NULL, 26, 0, 4, NULL, NULL),
 (29, 'en', 29, 'Service 1', 0, NULL, 27, 0, 5, NULL, '2020-06-10 17:04:14'),
-(30, 'en', 30, 'Info', 0, 8, 25, 0, 9, NULL, '2020-06-14 12:19:34'),
 (31, 'en', 31, 'Gallery', 0, 9, NULL, 0, 7, NULL, '2020-12-01 17:04:15');
 
 -- --------------------------------------------------------
@@ -365,7 +367,6 @@ INSERT INTO `pages` (`id`, `lang`, `lang_id`, `slug`, `title`, `desc`, `text`, `
 (2, 'en', 2, 'products', 'Products', NULL, NULL, NULL, 0, 2, 1, 1, 1, NULL, '2020-03-22 15:07:10'),
 (5, 'en', 5, 'contacts', 'Contacts', NULL, NULL, NULL, 0, 4, 1, 2, 0, NULL, NULL),
 (7, 'en', 6, 'blog', 'Blog', NULL, NULL, NULL, 0, 1, 1, 1, 2, NULL, NULL),
-(8, 'en', 8, 'info', 'Info', NULL, 'Info page', NULL, 0, 6, 1, 0, 0, NULL, '2020-06-14 10:44:24'),
 (9, 'en', 9, 'gallery', 'Gallery', NULL, NULL, NULL, 0, 3, 1, 3, 0, NULL, NULL);
 
 -- --------------------------------------------------------
@@ -379,34 +380,6 @@ CREATE TABLE `password_resets` (
   `token` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `reviews`
---
-
-CREATE TABLE `reviews` (
-  `id` int UNSIGNED NOT NULL,
-  `lang` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `lang_id` int UNSIGNED NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `image` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `review` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `visible` tinyint UNSIGNED NOT NULL DEFAULT '1',
-  `sort` smallint UNSIGNED NOT NULL DEFAULT '1',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `reviews`
---
-
-INSERT INTO `reviews` (`id`, `lang`, `lang_id`, `name`, `image`, `review`, `visible`, `sort`, `created_at`, `updated_at`) VALUES
-(1, 'en', 1, 'First Name', 'images/testimonial1.jpg', 'Duis gravida ligula ut purus semper, sed volutpat nisl cursus. Sed orci nisl, pellentesque et sodales a, blandit ut ipsum. Proin non lorem velit. Integer rutrum odio vitae tellus ullamcorper, id elementum mi euismod. In hac habitasse platea dictumst. Maecenas scelerisque erat vel semper rutrum. Integer lorem eros, volutpat et ligula at.', 1, 1, NULL, NULL),
-(2, 'en', 2, 'Second Name', 'images/testimonial2.jpg', 'Etiam sed magna nec purus egestas mattis. Maecenas sagittis id diam quis condimentum. Vestibulum sodales magna ac interdum pharetra. Sed eu dignissim augue, eget dignissim nisl. Donec semper interdum feugiat. Aenean quis tempus ligula. Donec sed elementum eros, id volutpat nisl. Aliquam erat volutpat. Integer sem tortor.', 1, 2, NULL, NULL),
-(3, 'en', 3, 'Third Name', 'images/testimonial1.jpg', 'Nulla a orci ipsum. Nullam id dui ut risus ornare feugiat ut vitae neque. Nulla facilisi. Sed finibus nisl quis tortor sagittis dictum. Sed ornare ornare diam, ac hendrerit felis. Nunc imperdiet sagittis mattis. Vivamus a consectetur odio. Vestibulum a odio dignissim, ornare dui quis, porta magna. Suspendisse cursus in diam eu semper. Duis felis elit, semper et facilisis ut, rutrum quis arcu. Aliquam in ligula et eros varius feugiat sed vitae ex. Fusce tempus efficitur mauris non imperdiet. Aenean nec posuere ex, nec finibus sapien. Vestibulum nec egestas lorem, at tincidunt nisl. Sed quis posuere ligula. Etiam a sodales ante.', 1, 3, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -588,15 +561,6 @@ ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
 
 --
--- Indexes for table `reviews`
---
-ALTER TABLE `reviews`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `reviews_lang_lang_id_unique` (`lang`,`lang_id`),
-  ADD KEY `reviews_visible_index` (`visible`),
-  ADD KEY `reviews_sort_index` (`sort`);
-
---
 -- Indexes for table `roles`
 --
 ALTER TABLE `roles`
@@ -628,7 +592,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `articles`
 --
 ALTER TABLE `articles`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -640,13 +604,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `file_store`
 --
 ALTER TABLE `file_store`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `file_store_refs`
 --
 ALTER TABLE `file_store_refs`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `helper_fields`
@@ -689,12 +653,6 @@ ALTER TABLE `migrations`
 --
 ALTER TABLE `pages`
   MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT for table `reviews`
---
-ALTER TABLE `reviews`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `roles`
