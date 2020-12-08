@@ -15,7 +15,7 @@
                 <span style="font-size: 18px" title="{{ $item->title }}">{{ $item->title }}</span>
             </td>
             <td class="actions">
-                @include('admin.applets.actions.contacts')
+                @include('admin.modules.contact._actions')
             </td>
         </tr>
         @endforeach

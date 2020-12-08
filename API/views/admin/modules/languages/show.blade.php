@@ -22,7 +22,7 @@
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="non-sortable">
+                    <tbody id="non-sortable" >
                         @foreach($items as $index => $item)
                         <tr>
                             <td>
@@ -32,8 +32,8 @@
                             <td>
                                 {{ $item->keyword }}
                             </td>
-                            <td class="actions">
-                                @include('admin.applets.actions.default')
+                            <td class="actions" >
+                                @include('admin.modules.languages._actions')
                             </td>
                         </tr>
                         @endforeach

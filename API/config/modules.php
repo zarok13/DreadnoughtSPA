@@ -44,20 +44,6 @@ return [
             'sort' => 'sort',
         ],
     ],
-    'reviews'         => [
-        'name'          => 'reviews',
-        'icon'          => 'fas fa-comments',
-        'active'        => true,
-        'system'        => false,
-        'sub_menu'      => [],
-        'actions'       => [
-            'read' => 'index',
-            'write' => 'add',
-            'edit' => 'edit',
-            'delete' => 'delete',
-            'sort' => 'sort',
-        ],
-    ],
     'articles'         => [
         'name'         => 'articles',
         'active'        => false,

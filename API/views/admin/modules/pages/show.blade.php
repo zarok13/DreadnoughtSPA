@@ -22,7 +22,7 @@
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="sortable" style="cursor: pointer;" data-url="{{ route($moduleName . '.sort') }}">
+                    <tbody id="sortable" data-url="{{ route($moduleName . '.sort') }}">
                         @foreach($items as $item)
                         <tr id="{{ $item->lang_id }}" class="ui-state-default">
                             <td><i class="fas fa-arrows-alt fa-lg"></i> <span
@@ -37,7 +37,7 @@
                                 {{ \App\Http\Controllers\Admin\Defaults\PagesController::getTemplates($item->page_type_id)[$item->page_template_id] }}
                             </td>
                             <td class="actions">
-                                @include('admin.applets.actions.pages')
+                                @include('admin.modules.pages._actions')
                             </td>
                         </tr>
                         @endforeach

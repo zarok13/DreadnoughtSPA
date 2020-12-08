@@ -33,7 +33,7 @@
                                 {{ $item->title }}
                             </td>
                             <td class="actions">
-                                @include('admin.applets.actions.default')
+                                @include('admin.modules.articles._actions')
                             </td>
                         </tr>
                         @endforeach

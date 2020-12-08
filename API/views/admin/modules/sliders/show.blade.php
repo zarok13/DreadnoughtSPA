@@ -20,7 +20,7 @@
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="sortable" style="cursor: pointer;" data-url="{{ route($moduleName.'.sort') }}">
+                    <tbody id="sortable" data-url="{{ route($moduleName.'.sort') }}">
                         @foreach($items as $item)
                         <tr id="{{$item->lang_id}}" class="ui-state-default">
                             <td> <i class="fas fa-arrows-alt fa-lg"></i> <span
@@ -29,7 +29,7 @@
                                 {{ $item->title }}
                             </td>
                             <td class="actions">
-                                @include('admin.applets.actions.default')
+                                @include('admin.modules.sliders._actions')
                             </td>
                         </tr>
                         @endforeach

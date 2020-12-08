@@ -38,7 +38,7 @@
                                 {{ $item->description }}
                             </td>
                             <td class="actions">
-                                @include('admin.applets.actions.default')
+                                @include('admin.modules.helper_fields._actions')
                             </td>
                         </tr>
                         @endforeach
