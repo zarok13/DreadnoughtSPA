@@ -1,4 +1,4 @@
-<div class="dropdown show hideOnMove">
+<div class="dropdown hideOnMove">
     <a class="btn btn-sm btn-info " href="javascript:void(0)" role="button" id="dropdownMenuLink" data-toggle="dropdown"
         aria-haspopup="false" aria-expanded="false">
         <i class="fa fa-bars"></i>

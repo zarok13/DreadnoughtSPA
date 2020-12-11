@@ -3,13 +3,13 @@ textarea {
   resize: none;
 }
 #image-loader {
-  position:fixed;
-  width:500px;
-  height:600px;
-  margin:-300px auto auto -250px;
-  top:60%;
-  left:50%;
-  text-align:center;
+  position: fixed;
+  width: 500px;
+  height: 600px;
+  margin: -300px auto auto -250px;
+  top: 60%;
+  left: 50%;
+  text-align: center;
 }
 
 /* navbar panel costumize */
@@ -75,9 +75,17 @@ table.dreadnought-table tbody#sortable tr:nth-child(2n) {
   background: linear-gradient(to right, #e27d46, white);
 }
 
+.dropdown.hideOnMove {
+  margin-top: -7px;
+}
+
+.actions {
+  position: absolute;
+}
+
 /* page edit elements */
 .page-edit-right-column {
-  margin-top:31px;
+  margin-top: 31px;
   border-left: #c9c9c9 solid 1px;
 }
 
@@ -99,6 +107,7 @@ input[type="tel"],
 input[type="color"],
 .editor-shadow {
   border-color: rgba(126, 239, 104, 0.8);
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.075) inset,
+    0 0 8px rgba(126, 239, 104, 0.6);
   outline: 0 none;
 }

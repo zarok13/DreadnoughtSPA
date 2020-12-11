@@ -99,7 +99,7 @@
                                                     <img
                                                         v-bind:src="
                                                             configs.storageUrl +
-                                                            item[0].image
+                                                                item[0].image
                                                         "
                                                         alt
                                                     />
@@ -138,7 +138,7 @@
                                                     <img
                                                         v-bind:src="
                                                             configs.storageUrl +
-                                                            item[1].image
+                                                                item[1].image
                                                         "
                                                         alt
                                                     />
@@ -186,19 +186,19 @@ export default {
         Header,
         Footer,
         Slider,
-        SliderItem,
+        SliderItem
     },
     data() {
         return {
-            configs: this.$configs,
+            configs: this.$configs
         };
     },
     computed: {
-        ...mapGetters({ getHome: "getHome" }),
+        ...mapGetters({ getHome: "getHome" })
     },
     mounted() {
         this.$store.dispatch(GET_HOME);
-    },
+    }
 };
 </script>
 

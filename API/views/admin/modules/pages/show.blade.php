@@ -2,7 +2,7 @@
 @section('content')
 <div class="row">
     <div class="col-12">
-        <div class="card" style="overflow: hidden">
+        <div class="card">
             <div class="card-header">
                 <h3 class="card-title">
                     <a href="{{ route($moduleName . '.add') }}" class="btn btn-info"><i class="fas fa-plus fa-md"></i>
@@ -10,7 +10,7 @@
                 </h3>
             </div>
             <!-- /.card-header -->
-            <div class="card-body">
+            <div class="card-body" >
                 <table class="table table-bordered table-striped dreadnought-table" width="100%">
                     <col width="10">
                     <thead>
@@ -22,7 +22,7 @@
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="sortable" data-url="{{ route($moduleName . '.sort') }}">
+                    <tbody id="sortable" data-url="{{ route($moduleName . '.sort') }}"  >
                         @foreach($items as $item)
                         <tr id="{{ $item->lang_id }}" class="ui-state-default">
                             <td><i class="fas fa-arrows-alt fa-lg"></i> <span

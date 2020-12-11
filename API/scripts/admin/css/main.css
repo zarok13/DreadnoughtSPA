@@ -258,6 +258,14 @@ table.dreadnought-table tbody#sortable tr:nth-child(2n) {
   background: linear-gradient(to right, #e27d46, white);
 }
 
+.dropdown.hideOnMove {
+  margin-top: -7px;
+}
+
+.actions {
+  position: absolute;
+}
+
 /* page edit elements */
 
 .page-edit-right-column {
