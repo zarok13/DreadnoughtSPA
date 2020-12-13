@@ -198,7 +198,7 @@ textarea {
   margin-right: 1rem;
 }
 
-/* dreadnought table color */
+/* dreadnought table */
 
 .dreadnought-table thead {
   background: #6e9fc4;
@@ -212,24 +212,66 @@ textarea {
   color: #404040;
 }
 
-/* end dreadnought table color */
+/* END dreadnought table */
 
-/*manual sort visual effects*/
+/* sortable list */
 
-#sortable tr:hover {
-  background-color: #0094ff;
-  color: #fff;
+ul#sortable > li {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 10px;
+  margin-bottom: 10px;
+  list-style-type: none;
+  background-color: #f1f1f1;
+  border: 1px solid #c5c5c5;
 }
 
-#sortable {
+span.list_right_section {
+  position: absolute;
+  right: 0;
+  width: 600px;
+  text-align: right;
+  margin-right: 30px;
+}
+
+span.free_space {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.fa-arrows-alt {
   cursor: pointer;
 }
 
-#sortable td {
-  font-size: 1em;
-  line-height: 1.1em;
-  border: none !important;
+/* END sortable list */
+
+/* sortable list actions */
+
+.content_edit {
+  color: #4f7bda;
 }
+
+.content_edit:hover {
+  color: aqua;
+}
+
+.edit {
+  color: #a8a832;
+}
+
+.edit:hover {
+  color: aqua;
+}
+
+.remove {
+  color: red;
+}
+
+.remove:hover {
+  color: aqua;
+}
+
+/* END sortable list actions */
 
 #non-sortable tr:hover {
   background-color: #0094ff;

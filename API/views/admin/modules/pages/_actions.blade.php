@@ -1,12 +1,7 @@
-<div class="dropdown hideOnMove">
-    <a class="btn btn-sm btn-info" href="javascript:void(0)" id="dropdownMenuLink" data-toggle="dropdown"
-        aria-haspopup="false" aria-expanded="false">
-        <i class="fa fa-bars"></i>
-    </a>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" >
-        <a class="dropdown-item" href="{{ getPageTypeUrl($item->page_type_id, $item->lang_id) }}">Content</a>
-        <a class="dropdown-item" href="{{ route($moduleName . '.edit', $item->lang_id) }}">Edit</a>
-        <hr>
-        <a class="dropdown-item" href="{{ route($moduleName . '.delete', $item->lang_id) }}">Delete</a>
-    </div>
-</div>
+<span class="free_space"> </span>
+<a class="content_edit" href="{{ getPageTypeUrl($item->page_type_id, $item->lang_id) }}"><i
+        class="far fa-file-alt"></i></a>
+<span class="free_space"> </span>
+<a class="edit" href="{{ route($moduleName . '.edit', $item->lang_id) }}"><i class="fas fa-edit"></i></a>
+<span class="free_space"> </span>
+<a class="remove" href="{{ route($moduleName . '.delete', $item->lang_id) }}"><i class="far fa-trash-alt"></i></a>
