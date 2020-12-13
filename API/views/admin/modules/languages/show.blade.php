@@ -15,6 +15,7 @@
                 <table id="dreadnoughtDataTable" class="table table-bordered table-striped dreadnought-table"
                     width="100%">
                     <col width="60">
+                    <col width="900">
                     <thead>
                         <tr>
                             <th>Date</th>
@@ -22,7 +23,7 @@
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="non-sortable" >
+                    <tbody id="non-sortable">
                         @foreach($items as $index => $item)
                         <tr>
                             <td>
@@ -32,7 +33,7 @@
                             <td>
                                 {{ $item->keyword }}
                             </td>
-                            <td class="actions" >
+                            <td class="actions">
                                 @include('admin.modules.languages._actions')
                             </td>
                         </tr>

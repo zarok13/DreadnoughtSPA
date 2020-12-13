@@ -15,6 +15,7 @@
                 <table id="dreadnoughtDataTable" class="table table-bordered table-striped dreadnought-table"
                     width="100%">
                     <col width="60">
+                    <col width="900">
                     <thead>
                         <tr>
                             <th>Date</th>

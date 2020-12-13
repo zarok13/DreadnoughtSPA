@@ -304,6 +304,10 @@ table.dreadnought-table tbody#sortable tr:nth-child(2n) {
   margin-top: -7px;
 }
 
+.dropdown-item:hover {
+  background-color: #0094ff;
+}
+
 .actions {
   position: absolute;
 }

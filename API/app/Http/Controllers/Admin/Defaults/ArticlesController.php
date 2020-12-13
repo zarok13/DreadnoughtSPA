@@ -32,6 +32,7 @@ class ArticlesController extends Controller
         $this->data['moduleName'] = $this->moduleName;
         $this->data['title'] = trans('default.' . $this->moduleName);
         $this->fileStoreReferences = setting('fileStoreReferenceType');
+        $this->data['dataTable'] = true;
     }
 
     /**

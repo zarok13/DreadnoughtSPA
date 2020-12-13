@@ -11,37 +11,17 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <table class="table table-bordered table-striped dreadnought-table" width="100%">
-                    <col width="10">
-                    <thead>
-                        <tr>
-                            <th>Sort</th>
-                            <th>Title</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="sortable" data-url="{{ route($moduleName.'.sort') }}">
-                        @foreach($items as $item)
-                        <tr id="{{$item->lang_id}}" class="ui-state-default">
-                            <td><i class="fas fa-arrows-alt fa-lg"></i> <span
-                                    style="opacity: 0">{{ $item->sort }}</span></td>
-                            <td>
-                                {{ $item->title }}
-                            </td>
-                            <td class="actions">
-                                @include('admin.modules.menu._actions')
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>Sort</th>
-                            <th>Title</th>
-                            <th>Actions</th>
-                        </tr>
-                    </tfoot>
-                </table>
+                <ul id="sortable" data-url="{{ route($moduleName . '.sort') }}">
+                    @foreach($items as $item)
+                    <li id="{{ $item->lang_id }}" class="ui-state-default">
+                        <i class="fas fa-arrows-alt fa-lg"></i> <span style="opacity: 0">{{ $item->sort }}</span>
+                        {{ $item->title }}
+                        <span class="list_right_section">
+                            @include('admin.modules.menu._actions')
+                        </span>
+                    </li>
+                    @endforeach
+                </ul>
             </div>
             <!-- /.card-body -->
         </div>
