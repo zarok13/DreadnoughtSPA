@@ -90,6 +90,7 @@ class ArticlesController extends Controller
     {
         $this->data['ID'] = $ID;
         $this->data['item'] = $article->whereLangId($ID)->first();
+        $this->data['pageID'] = $this->data['item']->page_id;
         $this->data['template'] = $this->data['item']->page->template_type;
         if ($this->data['template'] == 'products') {
             $this->data['icons'] = $this->getFontAwesomeIcons();

@@ -6,6 +6,7 @@
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">
+                    @include('admin.applets.helpers.back', ['backUrl' => route('pages')])
                     <a href="{{ route($moduleName .'.add', ['id' => $pageID]) }}" class="btn btn-info"><i
                             class="fas fa-plus fa-md"></i> Add Item</a>
                 </h3>

@@ -18,7 +18,8 @@
                 <!-- general form elements -->
                 <div class="card card-warning">
                     <div class="card-header">
-                        <h3 class="card-title">Edit Item</h3>
+                        <h3 class="card-title">@include('admin.applets.helpers.back', ['backUrl' => route($moduleName)])
+                            Edit Item</h3>
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->

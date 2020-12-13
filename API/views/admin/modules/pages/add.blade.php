@@ -14,7 +14,8 @@
             <!-- general form elements -->
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Add instance</h3>
+                    <h3 class="card-title">@include('admin.applets.helpers.back', ['backUrl' => route($moduleName)])
+                        Add instance</h3>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->

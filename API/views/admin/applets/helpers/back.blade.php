@@ -1,3 +1,3 @@
-<a href="{{ $backUrl }}" title="Back" style="font-size: 35px">
-    <i class="btn btn-info fas fa-arrow-left fa-xs"></i>
+<a href="{{ $backUrl }}" title="Back" class="btn btn-info" >
+    <i style="font-size: 20px" class=" fas fa-arrow-left fa-xs"></i>
 </a>
