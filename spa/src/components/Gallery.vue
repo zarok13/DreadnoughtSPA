@@ -37,9 +37,10 @@
 </template>
 <script>
 import {mapGetters} from 'vuex';
+import {GET_GALLERY} from "@/store/modules/dreadnought.store";
 import Header from "@/components/blocks/Header";
 import Footer from "@/components/blocks/Footer";
-import {GET_GALLERY} from "@/store/modules/dreadnought.store";
+
 
 export default {
     name: "gallery",

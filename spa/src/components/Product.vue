@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Header/>
+        <Header />
         <!-- MAIN -->
         <main role="main">
             <!-- Content -->
@@ -8,93 +8,37 @@
                 <header class="section background-primary text-center">
                     <h1
                         class="text-white margin-bottom-0 text-size-50 text-thin text-line-height-1"
-                    >Free Responsive Template</h1>
+                    >
+                        Free Responsive Template
+                    </h1>
                 </header>
                 <div class="section background-white">
                     <div class="line">
                         <div class="margin text-center">
-                            <div class="s-12 m-12 l-4 margin-bottom">
-                                <div class="padding-2x block-bordered border-radius">
-                                    <i class="fab fa-500px icon2x text-primary margin-bottom-30"></i>
-                                    <h2 class="text-thin">Lightweight</h2>
-                                    <p
-                                        class="margin-bottom-30"
-                                    >Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie
-                                        consequat, vel illum dolore eu feugiat nulla facilisis</p>
-                                    <a
+                            <div
+                                v-for="(item, index) in this.getProducts"
+                                :key="index"
+                                class="s-12 m-12 l-4 margin-bottom"
+                            >
+                                <div
+                                    class="padding-2x block-bordered border-radius"
+                                >
+                                    <i
+                                        :class="
+                                            'fas ' +
+                                                item.icon +
+                                                ' icon2x text-primary margin-bottom-30'
+                                        "
+                                    ></i>
+                                    <h2 class="text-thin">{{ item.title }}</h2>
+                                    <p class="margin-bottom-30">
+                                        {{ item.desc }}
+                                    </p>
+                                    <router-link
                                         class="button border-radius background-primary text-size-12 text-white text-strong"
-                                        href="/"
-                                    >GET MORE INFO</a>
-                                </div>
-                            </div>
-                            <div class="s-12 m-12 l-4 margin-bottom">
-                                <div class="padding-2x block-bordered border-radius">
-                                    <i class="icon-display_screen icon2x text-primary margin-bottom-30"></i>
-                                    <h2 class="text-thin">Responsive</h2>
-                                    <p
-                                        class="margin-bottom-30"
-                                    >Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie
-                                        consequat, vel illum dolore eu feugiat nulla facilisis</p>
-                                    <a
-                                        class="button border-radius background-primary text-size-12 text-white text-strong"
-                                        href="/"
-                                    >GET MORE INFO</a>
-                                </div>
-                            </div>
-                            <div class="s-12 m-12 l-4 margin-bottom">
-                                <div class="padding-2x block-bordered border-radius">
-                                    <i class="icon-heart icon2x text-primary margin-bottom-30"></i>
-                                    <h2 class="text-thin">Intuitive</h2>
-                                    <p
-                                        class="margin-bottom-30"
-                                    >Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie
-                                        consequat, vel illum dolore eu feugiat nulla facilisis</p>
-                                    <a
-                                        class="button border-radius background-primary text-size-12 text-white text-strong"
-                                        href="/"
-                                    >GET MORE INFO</a>
-                                </div>
-                            </div>
-                            <div class="s-12 m-12 l-4 margin-bottom">
-                                <div class="padding-2x block-bordered border-radius">
-                                    <i class="icon-attachment icon2x text-primary margin-bottom-30"></i>
-                                    <h2 class="text-thin">Useful</h2>
-                                    <p
-                                        class="margin-bottom-30"
-                                    >Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie
-                                        consequat, vel illum dolore eu feugiat nulla facilisis</p>
-                                    <a
-                                        class="button border-radius background-primary text-size-12 text-white text-strong"
-                                        href="/"
-                                    >GET MORE INFO</a>
-                                </div>
-                            </div>
-                            <div class="s-12 m-12 l-4 margin-bottom">
-                                <div class="padding-2x block-bordered border-radius">
-                                    <i class="icon-reorder icon2x text-primary margin-bottom-30"></i>
-                                    <h2 class="text-thin">Responsive navigation</h2>
-                                    <p
-                                        class="margin-bottom-30"
-                                    >Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie
-                                        consequat, vel illum dolore eu feugiat nulla facilisis</p>
-                                    <a
-                                        class="button border-radius background-primary text-size-12 text-white text-strong"
-                                        href="/"
-                                    >GET MORE INFO</a>
-                                </div>
-                            </div>
-                            <div class="s-12 m-12 l-4">
-                                <div class="padding-2x block-bordered border-radius">
-                                    <i class="icon-mail icon2x text-primary margin-bottom-30"></i>
-                                    <h2 class="text-thin">Responsive components</h2>
-                                    <p
-                                        class="margin-bottom-30"
-                                    >Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie
-                                        consequat, vel illum dolore eu feugiat nulla facilisis</p>
-                                    <a
-                                        class="button border-radius background-primary text-size-12 text-white text-strong"
-                                        href="/"
-                                    >GET MORE INFO</a>
+                                        :to="$route.path + '/' + item.slug"
+                                        >GET MORE INFO</router-link
+                                    >
                                 </div>
                             </div>
                         </div>
@@ -103,24 +47,32 @@
             </article>
         </main>
 
-        <Footer/>
+        <Footer />
     </div>
 </template>
 <script>
-import Header from "../components/blocks/Header";
-import Footer from "../components/blocks/Footer";
+import { mapGetters } from "vuex";
+import { GET_PRODUCTS } from "@/store/modules/dreadnought.store";
+import Header from "@/components/blocks/Header";
+import Footer from "@/components/blocks/Footer";
 
 export default {
-    name: "product",
+    name: "products",
+    data() {
+        return {
+            configs: this.$configs
+        };
+    },
     components: {
         Header,
         Footer
+    },
+    computed: {
+        ...mapGetters({ getProducts: "getProducts" })
+    },
+    mounted() {
+        this.$store.dispatch(GET_PRODUCTS);
     }
-    // data() {
-    //   return {
-    //     title: "Products"
-    //   };
-    // }
 };
 </script>
 <style scoped>

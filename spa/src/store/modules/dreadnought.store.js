@@ -8,6 +8,7 @@ export const BASE_URL = 'http://localhost:8000/api'
 export const GET_CONFIGS = 'configs'
 export const GET_HOME = 'home'
 export const GET_STATIC_CONTENT = 'getStaticContent'
+export const GET_PRODUCTS = 'getProducts'
 export const GET_GALLERY = 'getGallery'
 export const GET_MAPBOX_DATA = 'getMapboxData'
 export const SEND_MAIL = 'sendMail'
@@ -17,6 +18,7 @@ export const SEND_CONTACT = 'sendContact'
 const SET_CONFIGS = 'setConfigs'
 const SET_HOME = 'setHome'
 const SET_STATIC_CONTENT = 'setStaticContent'
+const SET_PRODUCTS = 'setProducts'
 const SET_GALLERY = 'setGallery'
 const SET_MAPBOX_DATA = 'setMapboxDate'
 export const SET_LOADER = 'setLoader'
@@ -35,6 +37,7 @@ const state = {
         blogs: [],
     },
     staticContent: [],
+    products: [],
     gallery: [],
     mapboxData: [],
     loader: false,
@@ -50,6 +53,9 @@ const getters = {
     },
     getStaticContent(state) {
         return state.staticContent;
+    },
+    getProducts(state) {
+        return state.products;
     },
     getGallery(state) {
         return state.gallery;
@@ -91,6 +97,17 @@ const actions = {
             .then(data => {
                 let content = data.data;
                 state.commit(SET_STATIC_CONTENT, content);
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    },
+
+    [GET_PRODUCTS](state) {
+        Axios.get(BASE_URL + '/products')
+            .then(data => {
+                let products = data.data;
+                state.commit(SET_PRODUCTS, products);
             })
             .catch(error => {
                 console.log(error);
@@ -150,6 +167,9 @@ const mutations = {
     },
     [SET_STATIC_CONTENT](state, content) {
         state.staticContent = content;
+    },
+    [SET_PRODUCTS](state, products) {
+        state.products = products;
     },
     [SET_GALLERY](state, gallery) {
         state.gallery = gallery;

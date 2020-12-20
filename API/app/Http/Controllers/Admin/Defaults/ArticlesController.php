@@ -93,7 +93,7 @@ class ArticlesController extends Controller
         $this->data['pageID'] = $this->data['item']->page_id;
         $this->data['template'] = $this->data['item']->page->template_type;
         if ($this->data['template'] == 'products') {
-            $this->data['icons'] = $this->getFontAwesomeIcons();
+            $this->data['icons'] = config('fontAwesomeIcons');
         }
         return view($this->viewTemplate . '.edit', $this->data);
     }
@@ -123,13 +123,5 @@ class ArticlesController extends Controller
         $menu = (MODELS_PATH . ucfirst($this->modelName))::findOrFail($id);
         $menu->delete();
         return redirect()->back();
-    }
-
-    /**
-     * @return \Illuminate\Config\Repository|\Illuminate\Contracts\Foundation\Application|mixed
-     */
-    private function getFontAwesomeIcons()
-    {
-        return config('fontAwesomeIcons');
     }
 }

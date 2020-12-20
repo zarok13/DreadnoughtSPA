@@ -28,10 +28,9 @@
             'name' => 'image',
             'label' => 'Icon',
             'array' => $icons,
-            'selected' => !empty($array) ? $array['page_id'] : null,
-            'valueAsKey' => true,
+            'selected' => !empty($array) ? $array['image'] : null,
             'params' => [
-                'class' => 'form-control text',
+                'class' => 'text icon',
                     'required' => true,
                 ]
             ])

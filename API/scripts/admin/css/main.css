@@ -342,6 +342,10 @@ input[type=color],
   outline: 0 none;
 }
 
+select.icon {
+  font-family: "FontAwesome", "Second Font name";
+}
+
 /* Roles tree view */
 
 .tree ul {
