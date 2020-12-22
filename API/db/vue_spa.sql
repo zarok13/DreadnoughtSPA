@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 08, 2020 at 10:12 AM
+-- Generation Time: Dec 22, 2020 at 10:44 AM
 -- Server version: 8.0.22-0ubuntu0.20.04.3
 -- PHP Version: 7.4.3
 
@@ -58,7 +58,7 @@ INSERT INTO `articles` (`id`, `lang`, `lang_id`, `slug`, `title`, `image`, `sub_
 (18, 'en', 18, 'blog-4', 'Blog 4', 'images/blog-04.jpg', NULL, NULL, 'Phasellus quis tincidunt odio, quis fringilla dui. Nunc lacus dolor, interdum a imperdiet ac, blandit vitae odio. Proin fermentum purus id velit posuere viverra. In quis sollicitudin ante. Maecenas eu egestas leo. Proin turpis nulla, placerat sit amet purus a, efficitur commodo urna. Sed accumsan vel nisl vitae elementum. Mauris nisi sapien, accumsan fringilla placerat eu, viverra ut ex. Pellentesque porttitor, ipsum volutpat sodales placerat, lacus odio efficitur nunc, eget fermentum elit nisl sit amet magna. Mauris porttitor sagittis euismod. Praesent porta sagittis est. Aenean tempus pretium pharetra. Suspendisse at erat ac erat malesuada pellentesque vel vitae purus.', NULL, NULL, NULL, 6, 1, '2020-05-08 14:19:07', NULL),
 (19, 'en', 19, 'blog-5', 'Blog 5', 'images/blog-05.jpg', NULL, NULL, 'Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Phasellus gravida pretium ipsum at euismod. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis urna lacinia, ultricies nisl vel, pellentesque ante. Nunc semper dui non ornare tincidunt. Curabitur sapien felis, imperdiet sit amet euismod ut, hendrerit sit amet leo. Morbi et fringilla justo. Mauris condimentum, risus ac posuere rutrum, sem ligula vulputate sem, ut ornare augue massa sit amet augue. Quisque commodo ultricies nunc nec iaculis. Morbi sagittis augue vel dictum venenatis. In eu lacus urna. Nunc convallis justo a velit fringilla vehicula. Morbi lobortis nibh nec est tempus ullamcorper.', NULL, NULL, NULL, 6, 1, '2020-05-08 14:20:10', NULL),
 (20, 'en', 20, 'blog-6', 'Blog 6', 'images/blog-06.jpg', NULL, NULL, 'Duis non facilisis urna. Ut ultrices enim non purus consectetur consectetur. Etiam venenatis dolor dolor, id sodales nunc pharetra tincidunt. Phasellus eget tellus tincidunt, suscipit tortor in, efficitur lacus. Maecenas et orci neque. Aliquam at enim pulvinar, suscipit sapien dapibus, rhoncus sem. Donec posuere leo sed mattis hendrerit. Integer mi tortor, vehicula nec elit sed, dignissim lacinia ante. In hac habitasse platea dictumst. Vestibulum rhoncus rhoncus dui, sollicitudin viverra arcu viverra eu. Phasellus pulvinar ac dolor vel vulputate. Fusce accumsan consectetur diam eget sodales. Curabitur id nisl ac libero bibendum dapibus et eu eros. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam viverra dictum euismod.', NULL, NULL, NULL, 6, 1, '2020-05-08 14:20:35', NULL),
-(21, 'en', 21, 'lightweight', 'Lightweight', 'fab fa-500px', NULL, 'Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis', '<p style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; background-color: #ffffff;\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisis dapibus efficitur. Praesent rhoncus lobortis varius. Aliquam eget ultrices odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque pulvinar a quam in pulvinar. Fusce ultrices imperdiet neque, vel convallis nulla elementum non. Pellentesque a vulputate orci. Nullam egestas placerat enim, sit amet tincidunt arcu. Proin sed eros odio.</p>\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; background-color: #ffffff;\">Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean consequat mollis pellentesque. Etiam sed libero lorem. Sed eros leo, dictum eu sollicitudin at, aliquet vulputate urna. Ut nec sodales leo. Cras non lacus enim. Pellentesque non sollicitudin ex, sit amet sollicitudin eros. Ut lacinia, diam eu placerat feugiat, augue odio cursus est, a sollicitudin tortor nulla sed arcu.</p>\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; background-color: #ffffff;\">Maecenas eget pharetra tortor. Integer viverra hendrerit tincidunt. Phasellus ex quam, tristique vel ante id, rhoncus tempor est. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Sed tincidunt, nunc nec semper ornare, arcu sem dapibus purus, et tristique velit velit quis quam. Praesent in tellus et ante tristique facilisis. Duis quis pharetra arcu, id commodo risus. Mauris pharetra nisi vitae dictum gravida. Cras quis magna justo. Vestibulum ac diam justo. Fusce ipsum lorem, elementum id tempor in, euismod eget mi.</p>\r\n<p>&nbsp;</p>', NULL, NULL, NULL, 2, 1, '2020-12-06 16:06:40', '2020-12-06 16:22:21');
+(21, 'en', 21, 'lightweight', 'Lightweight', 'fa-align-left', NULL, 'Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis', '<p style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; background-color: #ffffff;\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisis dapibus efficitur. Praesent rhoncus lobortis varius. Aliquam eget ultrices odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque pulvinar a quam in pulvinar. Fusce ultrices imperdiet neque, vel convallis nulla elementum non. Pellentesque a vulputate orci. Nullam egestas placerat enim, sit amet tincidunt arcu. Proin sed eros odio.</p>\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; background-color: #ffffff;\">Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean consequat mollis pellentesque. Etiam sed libero lorem. Sed eros leo, dictum eu sollicitudin at, aliquet vulputate urna. Ut nec sodales leo. Cras non lacus enim. Pellentesque non sollicitudin ex, sit amet sollicitudin eros. Ut lacinia, diam eu placerat feugiat, augue odio cursus est, a sollicitudin tortor nulla sed arcu.</p>\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; background-color: #ffffff;\">Maecenas eget pharetra tortor. Integer viverra hendrerit tincidunt. Phasellus ex quam, tristique vel ante id, rhoncus tempor est. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Sed tincidunt, nunc nec semper ornare, arcu sem dapibus purus, et tristique velit velit quis quam. Praesent in tellus et ante tristique facilisis. Duis quis pharetra arcu, id commodo risus. Mauris pharetra nisi vitae dictum gravida. Cras quis magna justo. Vestibulum ac diam justo. Fusce ipsum lorem, elementum id tempor in, euismod eget mi.</p>\r\n<p>&nbsp;</p>', NULL, NULL, NULL, 2, 1, '2020-12-06 16:06:40', '2020-12-20 17:20:05');
 
 -- --------------------------------------------------------
 
@@ -256,10 +256,11 @@ CREATE TABLE `markers` (
 --
 
 INSERT INTO `markers` (`id`, `lang`, `lang_id`, `title`, `desc`, `lat`, `lng`, `page_id`, `sort`) VALUES
-(1, 'en', 1, 'test', 'test', '41.729552407870614', '44.75445207548097', 5, 1),
+(1, 'en', 1, 'test', 'test', '41.729552407870614', '44.75445207548097', 5, 2),
 (2, 'de', 1, 'de_test', NULL, '41.719378', '44.792526', 5, 1),
-(3, 'en', 3, 'test2', 'test2', '41.72385692311951', '44.72950994411195', 5, 2),
-(4, 'de', 3, 'de_test2', NULL, '41.719378', '44.792526', 5, 2);
+(3, 'en', 3, 'test2', 'test2', '41.72385692311951', '44.72950994411195', 5, 1),
+(4, 'de', 3, 'de_test2', NULL, '41.719378', '44.792526', 5, 2),
+(6, 'de', 5, 'de_fsf', NULL, '41.719378', '44.792526', 5, 3);
 
 -- --------------------------------------------------------
 
@@ -287,9 +288,9 @@ CREATE TABLE `menu` (
 
 INSERT INTO `menu` (`id`, `lang`, `lang_id`, `title`, `main`, `page_id`, `parent_id`, `hidden`, `sort`, `created_at`, `updated_at`) VALUES
 (18, 'en', 18, 'Products', 0, 2, NULL, 0, 6, NULL, '2020-03-19 04:43:21'),
-(20, 'en', 20, 'Contacts', 0, 5, NULL, 0, 10, NULL, '2020-03-25 08:00:02'),
+(20, 'en', 20, 'Contacts', 0, 5, NULL, 0, 8, NULL, '2020-03-25 08:00:02'),
 (23, 'en', 23, 'Home', 1, NULL, NULL, 0, 1, NULL, NULL),
-(25, 'en', 25, 'About Us', 0, 1, NULL, 0, 8, NULL, '2020-06-08 02:25:00'),
+(25, 'en', 25, 'About Us', 0, 1, NULL, 0, 9, NULL, '2020-06-08 02:25:00'),
 (26, 'en', 26, 'Parent', 0, NULL, NULL, 0, 2, NULL, NULL),
 (27, 'en', 27, 'test', 0, NULL, 26, 0, 3, NULL, NULL),
 (28, 'en', 28, 'test2', 0, NULL, 26, 0, 4, NULL, NULL),
@@ -366,7 +367,7 @@ INSERT INTO `pages` (`id`, `lang`, `lang_id`, `slug`, `title`, `desc`, `text`, `
 (1, 'en', 1, 'about_us', 'About Us', NULL, '<h2 style=\"text-align: left;\">Investigationes demonstraverunt lectores</h2>\r\n<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.<br />Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>\r\n<p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.<br /><br /></p>\r\n<blockquote>Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima.</blockquote>\r\n<p><br />Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; background-color: #ffffff;\">&nbsp;</p>', 'images/Penguins.jpg', 0, 5, 1, 0, 0, NULL, '2020-06-14 10:33:33'),
 (2, 'en', 2, 'products', 'Products', NULL, NULL, NULL, 0, 2, 1, 1, 1, NULL, '2020-03-22 15:07:10'),
 (5, 'en', 5, 'contacts', 'Contacts', NULL, NULL, NULL, 0, 4, 1, 2, 0, NULL, NULL),
-(7, 'en', 6, 'blog', 'Blog', NULL, NULL, NULL, 0, 1, 1, 1, 2, NULL, NULL),
+(7, 'en', 6, 'blog-1', 'Blog', NULL, NULL, NULL, 0, 1, 1, 1, 0, NULL, '2020-12-12 11:47:26'),
 (9, 'en', 9, 'gallery', 'Gallery', NULL, NULL, NULL, 0, 3, 1, 3, 0, NULL, NULL);
 
 -- --------------------------------------------------------
@@ -634,7 +635,7 @@ ALTER TABLE `map_coordinates`
 -- AUTO_INCREMENT for table `markers`
 --
 ALTER TABLE `markers`
-  MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `menu`

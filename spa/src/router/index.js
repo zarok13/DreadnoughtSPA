@@ -17,6 +17,11 @@ const router = new Router({
             component: () => import('@/components/Product')
         },
         {
+            path: '/products/:id',
+            name: 'products',
+            component: () => staticComponent
+        },
+        {
             path: '/gallery',
             name: 'gallery',
             component: () => import('@/components/Gallery')

@@ -6,6 +6,19 @@ namespace App\Models;
 class Page extends ChildModel
 {
     protected $fillable = ['*'];
+    // public $slug;
+
+
+    /**
+     * Undocumented function
+     *
+     * @param string $slug
+     * @return void
+     */
+    public function articles($slug)
+    {
+        return $this->hasOne(Article::class, 'page_id', 'id')->where('slug', $slug);
+    }
 
     /**
      * @return mixed

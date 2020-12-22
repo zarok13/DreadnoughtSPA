@@ -16,7 +16,16 @@ class StaticController
      */
     public function staticContent(Request $request, Page $pages)
     {
-        $pages = $pages->lang()->where('slug', $request->slug)->first();
-        return response()->json($pages);
+        $content = '';
+        $slug = $request->slug;
+        if( strpos($slug, '/')) {
+            $params = explode('/', $slug);
+            $content = $pages->getPage($params[0]);
+            $content = $content->articles($params[1])->first();
+        } else {
+            $content = $pages->getPage($slug);
+        }
+        
+        return response()->json($content);
     }
 }

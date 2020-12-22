@@ -34,7 +34,7 @@ export default {
     computed: {
         ...mapGetters({getStaticContent: 'getStaticContent'}),
         currentRouteName() {
-            return this.$route.path.replace(/\//g, "");
+            return this.$route.path.replace(/^\/|\/$/g, '');
         }
     },
     mounted() {
