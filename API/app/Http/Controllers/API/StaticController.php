@@ -6,6 +6,7 @@ namespace App\Http\Controllers\API;
 
 use App\Models\Page;
 use Illuminate\Http\Request;
+use Webwizo\Shortcodes\Facades\Shortcode;
 
 class StaticController
 {
@@ -22,9 +23,11 @@ class StaticController
             $params = explode('/', $slug);
             $content = $pages->getPage($params[0]);
             $content = $content->articles($params[1])->first();
+            dd($content);
         } else {
             $content = $pages->getPage($slug);
         }
+        // $content->text = Shortcode::compile($content->text);
         
         return response()->json($content);
     }

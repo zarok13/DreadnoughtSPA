@@ -57,7 +57,7 @@ class ArticlesController extends Controller
         $page = Page::whereLangId($pageID)->first();
         $this->data['template'] = $page->template_type;
         if ($this->data['template'] == 'products') {
-            $this->data['icons'] = $this->getFontAwesomeIcons();
+            $this->data['icons'] = config('fontAwesomeIcons');
         }
         return view($this->viewTemplate . '.add', $this->data);
     }

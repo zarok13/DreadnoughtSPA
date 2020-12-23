@@ -19,6 +19,9 @@
     'selected' => !empty($array) ? $array['type'] : null,
     'data_url' => route('helper_fields.typeTemplate'),
     'data_id' => !empty($array['lang_id']) ? $array['lang_id'] : null,
+    'params' => [
+        'class' => '',
+    ]
 ])
 <div id="type_template">
     @include('admin.modules.helper_fields._type_template', ['typeTemplate' => !empty($array['type']) ? $array['type'] : 1])

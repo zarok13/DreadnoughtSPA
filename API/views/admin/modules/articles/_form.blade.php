@@ -31,9 +31,9 @@
             'selected' => !empty($array) ? $array['image'] : null,
             'params' => [
                 'class' => 'text icon',
-                    'required' => true,
-                ]
-            ])
+                'required' => true,
+            ]
+        ])
     @endif
 
     @include('admin.applets.forms.textarea',[
