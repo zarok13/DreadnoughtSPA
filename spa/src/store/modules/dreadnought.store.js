@@ -17,7 +17,7 @@ export const SEND_CONTACT = 'sendContact'
 // define app store mutations names
 const SET_CONFIGS = 'setConfigs'
 const SET_HOME = 'setHome'
-const SET_STATIC_CONTENT = 'setStaticContent'
+export const SET_STATIC_CONTENT = 'setStaticContent'
 const SET_PRODUCTS = 'setProducts'
 const SET_GALLERY = 'setGallery'
 const SET_MAPBOX_DATA = 'setMapboxDate'

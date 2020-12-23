@@ -18,7 +18,7 @@ const router = new Router({
         },
         {
             path: '/products/:id',
-            name: 'products',
+            name: 'product',
             component: () => staticComponent
         },
         {

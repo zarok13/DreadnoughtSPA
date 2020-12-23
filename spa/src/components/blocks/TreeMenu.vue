@@ -1,10 +1,10 @@
 <template>
     <ul v-if="nodes.length" :class="{ 'right chevron': isFirst }">
         <li v-if="isFirst">
-            <router-link to="/">Home</router-link>
+            <router-link :to="'/'">Home</router-link>
         </li>
         <li v-for="(item, index) in nodes" :key="index">
-            <router-link v-if="item.slug !== null" class="nav-link" :to="item.slug">{{ item.title }}</router-link>
+            <router-link v-if="item.slug !== null" class="nav-link" :to="'/' + item.slug">{{ item.title }}</router-link>
             <a v-else class="nav-link" href="javascript:void(0)">{{ item.title }}</a>
             <tree-menu :nodes="item.children" v-if="item.children && item.children.length"/>
         </li>
