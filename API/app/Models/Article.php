@@ -6,7 +6,7 @@ namespace App\Models;
 
 class Article extends ChildModel
 {
-    protected $fillable = ['*'];
+    protected $guarded = [];
 
     public function page()
     {

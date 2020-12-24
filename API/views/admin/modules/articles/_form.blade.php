@@ -19,7 +19,7 @@
     'array'=>$array,
     'params' => [
     'class' => 'form-control text',
-        'disabled' => true,
+        'readonly' => true,
         ]
     ])
 
@@ -53,6 +53,7 @@
     'array' => $array,
     'placeholder' => "Article page text..."
     ])
+    
     @if($template != 'products')
         @include('admin.applets.forms.attach_file',[
         'name' => 'image',
@@ -63,6 +64,8 @@
             ]
         ])
     @endif
+
+    <input type="hidden" name="page_id" value="{{ $array->page_id }}">
 
 </div>
 

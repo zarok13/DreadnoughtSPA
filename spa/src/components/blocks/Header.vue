@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- PREMIUM FEATURES BUTTON -->
-        <router-link to="/info"
+        <router-link :to="this.getConfigs.params.premium_features"
             target="_blank"
             class="hide-s"
             style="position:fixed;top:120px;right:-14px;z-index:10;"

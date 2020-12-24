@@ -22,6 +22,11 @@ const router = new Router({
             component: () => staticComponent
         },
         {
+            path: '/blog/:id',
+            name: 'blog',
+            component: () => staticComponent
+        },
+        {
             path: '/gallery',
             name: 'gallery',
             component: () => import('@/components/Gallery')

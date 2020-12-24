@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Dreadnought;
 
+use App\Models\Article;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
 
@@ -25,6 +26,11 @@ class HomeController extends Controller
      */
     public function index(): View
     {
+        $articles = Article::lang()->get();
+        $productsPageID = hel_field('products_page_id');
+        
+        $this->data['productsQuantity'] = $articles->where('page_id', $productsPageID)->count();
+        $this->data['productsRoute'] = route('articles', $productsPageID);
         $this->data['homePage'] = true;
         return view('admin.base', $this->data);
     }

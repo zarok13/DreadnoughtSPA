@@ -24,7 +24,8 @@
     'label'=>'Page',
     'array'=>isset($pageList) ? $pageList : [],
     'selected' => !empty($array) ? $array['page_id'] : null,
-    'placeholder'=>'no page'
+    'placeholder'=>'no page',
+    'params' => ['class'=>'']
 ])
 
 @include('admin.applets.forms.select',[
@@ -32,6 +33,7 @@
     'label'=>'Parent',
     'array'=>isset($parentList) ? $parentList : [],
     'selected' => !empty($array) ? $array['parent_id'] : null,
-    'placeholder'=>'no parent'
+    'placeholder'=>'no parent',
+    'params' => ['class'=>'']
 ])
 

@@ -22,13 +22,14 @@ class StaticController
         if( strpos($slug, '/')) {
             $params = explode('/', $slug);
             $content = $pages->getPage($params[0]);
-            $content = $content->articles($params[1])->first();
-            dd($content);
+            $content = optional($content)->article($params[1]);
         } else {
             $content = $pages->getPage($slug);
         }
-        // $content->text = Shortcode::compile($content->text);
-        
+        if(!$content){
+            return;
+        }
+        $content->text = Shortcode::compile($content->text);
         return response()->json($content);
     }
 }

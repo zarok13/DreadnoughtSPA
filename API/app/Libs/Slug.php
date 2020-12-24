@@ -33,7 +33,7 @@ class Slug
         }
         $slug = Str::slug(request()->post($fieldName), $separator);
         $count = $this->countBySlug($slug);
-        if ($count > 0) {
+        if ($count) {
             return $this->createNewSlug($fieldName, $slug);
         }
 
@@ -46,13 +46,12 @@ class Slug
      * @param int $level
      * @return string
      */
-    protected function createNewSlug($fieldName, $slug, $level = 0)
+    protected function createNewSlug($fieldName, $slug, $level = 1)
     {
-        $level++;
         $newSlug = $slug . '-' . $level;
         $count = $this->countBySlug($newSlug);
         if ($count > 0) {
-            return $this->createNewSlug($fieldName, $slug, $level);
+            return $this->createNewSlug($fieldName, $slug, $level++);
         }
         return $newSlug;
     }
@@ -63,9 +62,6 @@ class Slug
      */
     public function countBySlug($slug)
     {
-        $query = DB::table($this->tableName)
-            ->where('slug', $slug);
-
-        return $query->count();
+        return DB::table($this->tableName)->where('slug', $slug)->where('page_id', request()->page_id)->count();
     }
 }

@@ -92,9 +92,9 @@
                                             <div
                                                 class="s-12 m-12 l-4 margin-m-bottom"
                                             >
-                                                <a
+                                                <router-link
                                                     class="image-hover-zoom"
-                                                    href="/"
+                                                    :to="$route.path + 'blog/' + item[0].slug"
                                                 >
                                                     <img
                                                         v-bind:src="
@@ -103,23 +103,23 @@
                                                         "
                                                         alt
                                                     />
-                                                </a>
+                                                </router-link>
                                             </div>
                                             <div
                                                 class="s-12 m-12 l-8 margin-m-bottom"
                                             >
                                                 <h3>
-                                                    <a
+                                                    <router-link
                                                         class="text-dark text-primary-hover"
-                                                        href="/"
-                                                        >{{ item[0].title }}</a
+                                                        :to="$route.path + 'blog/' + item[0].slug"
+                                                        >{{ item[0].title }}</router-link
                                                     >
                                                 </h3>
                                                 <p v-html="item[0].text"></p>
-                                                <a
+                                                <router-link
                                                     class="text-more-info text-primary-hover"
-                                                    href="/"
-                                                    >Read more</a
+                                                    :to="$route.path + 'blog/' + item[0].slug"
+                                                    >Read more</router-link
                                                 >
                                             </div>
                                         </div>
@@ -131,9 +131,9 @@
                                             <div
                                                 class="s-12 m-12 l-4 margin-m-bottom"
                                             >
-                                                <a
+                                                <router-link
                                                     class="image-hover-zoom"
-                                                    href="/"
+                                                    :to="$route.path + 'blog/' + item[1].slug"
                                                 >
                                                     <img
                                                         v-bind:src="
@@ -142,21 +142,21 @@
                                                         "
                                                         alt
                                                     />
-                                                </a>
+                                                </router-link>
                                             </div>
                                             <div class="s-12 m-12 l-8">
                                                 <h3>
-                                                    <a
+                                                    <router-link
                                                         class="text-dark text-primary-hover"
-                                                        href="/"
-                                                        >{{ item[1].title }}</a
+                                                        :to="$route.path + 'blog/' + item[1].slug"
+                                                        >{{ item[1].title }}</router-link
                                                     >
                                                 </h3>
                                                 <p v-html="item[1].text"></p>
-                                                <a
+                                               <router-link
                                                     class="text-more-info text-primary-hover"
-                                                    href="/"
-                                                    >Read more</a
+                                                    :to="$route.path + 'blog/' + item[1].slug"
+                                                    >Read more</router-link
                                                 >
                                             </div>
                                         </div>

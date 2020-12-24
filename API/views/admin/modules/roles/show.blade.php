@@ -11,6 +11,7 @@
                 'label' => 'Roles:',
                 'array' => isset($roleList) ? $roleList : [],
                 'selected' => null,
+                'params' => ['class'=>'']
                 ])
             </div>
             <!-- /.card-header -->

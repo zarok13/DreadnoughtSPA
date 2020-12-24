@@ -28,6 +28,7 @@
     'array' => isset($typeList) ? $typeList : [],
     'selected' => !empty($array) ? $array->page_type_id : null,
     'data_url' => route('pages.templateGroup'),
+    'params' => ['class'=>'']
 ])
 
 @include('admin.applets.forms.select',[
@@ -35,4 +36,5 @@
    'label' => 'Template of Page',
    'array' => isset($templateList) ? $templateList : [],
    'selected' => !empty($array) ? $array->page_template_id : null,
+   'params' => ['class'=>'']
 ])

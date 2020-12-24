@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.5deb2
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Dec 23, 2020 at 09:49 AM
--- Server version: 8.0.22-0ubuntu0.20.04.3
--- PHP Version: 7.4.3
+-- Host: localhost
+-- Generation Time: Dec 24, 2020 at 01:50 PM
+-- Server version: 5.7.32-0ubuntu0.18.04.1
+-- PHP Version: 7.2.24-0ubuntu0.18.04.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -29,20 +29,20 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `articles` (
-  `id` int UNSIGNED NOT NULL,
-  `lang` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `lang_id` smallint UNSIGNED DEFAULT NULL,
-  `slug` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `sub_title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `desc` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `text` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `meta_desc` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `id` int(10) UNSIGNED NOT NULL,
+  `lang` char(2) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lang_id` smallint(5) UNSIGNED DEFAULT NULL,
+  `slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sub_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `desc` text COLLATE utf8mb4_unicode_ci,
+  `text` longtext COLLATE utf8mb4_unicode_ci,
+  `meta_desc` longtext COLLATE utf8mb4_unicode_ci,
   `pin` tinyint(1) DEFAULT NULL,
-  `visible` tinyint UNSIGNED DEFAULT NULL,
-  `page_id` tinyint UNSIGNED DEFAULT NULL,
-  `user_id` int NOT NULL,
+  `visible` tinyint(3) UNSIGNED DEFAULT NULL,
+  `page_id` tinyint(3) UNSIGNED DEFAULT NULL,
+  `user_id` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -57,8 +57,10 @@ INSERT INTO `articles` (`id`, `lang`, `lang_id`, `slug`, `title`, `image`, `sub_
 (17, 'en', 17, 'blog-3', 'Blog 3', 'images/blog-03.jpg', NULL, NULL, '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ut efficitur enim. Donec ac eleifend ante. Nunc volutpat porttitor mauris vel pulvinar. Nunc porta facilisis blandit. Mauris in ipsum nisl. Proin convallis lorem et sem tristique, ac ullamcorper lorem posuere. Nullam a erat eleifend, feugiat tortor sit amet, ornare quam. Aliquam vehicula et neque eu elementum.</p>\r\n<p>Etiam non mi ac urna finibus venenatis. Phasellus odio tellus, maximus et mi nec, suscipit volutpat massa. Curabitur sed dui lobortis sem vehicula egestas. Suspendisse in diam felis. Nulla facilisi. Nullam vitae consequat ex. Etiam interdum id arcu eu sodales. Cras in tellus id erat fermentum commodo nec eget diam. Proin enim orci, varius at diam vitae, tempus tincidunt mauris. Aliquam commodo id nulla nec varius.</p>', NULL, NULL, NULL, 6, 1, '2020-05-08 12:04:41', '2020-05-08 13:55:25'),
 (18, 'en', 18, 'blog-4', 'Blog 4', 'images/blog-04.jpg', NULL, NULL, 'Phasellus quis tincidunt odio, quis fringilla dui. Nunc lacus dolor, interdum a imperdiet ac, blandit vitae odio. Proin fermentum purus id velit posuere viverra. In quis sollicitudin ante. Maecenas eu egestas leo. Proin turpis nulla, placerat sit amet purus a, efficitur commodo urna. Sed accumsan vel nisl vitae elementum. Mauris nisi sapien, accumsan fringilla placerat eu, viverra ut ex. Pellentesque porttitor, ipsum volutpat sodales placerat, lacus odio efficitur nunc, eget fermentum elit nisl sit amet magna. Mauris porttitor sagittis euismod. Praesent porta sagittis est. Aenean tempus pretium pharetra. Suspendisse at erat ac erat malesuada pellentesque vel vitae purus.', NULL, NULL, NULL, 6, 1, '2020-05-08 14:19:07', NULL),
 (19, 'en', 19, 'blog-5', 'Blog 5', 'images/blog-05.jpg', NULL, NULL, 'Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Phasellus gravida pretium ipsum at euismod. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis urna lacinia, ultricies nisl vel, pellentesque ante. Nunc semper dui non ornare tincidunt. Curabitur sapien felis, imperdiet sit amet euismod ut, hendrerit sit amet leo. Morbi et fringilla justo. Mauris condimentum, risus ac posuere rutrum, sem ligula vulputate sem, ut ornare augue massa sit amet augue. Quisque commodo ultricies nunc nec iaculis. Morbi sagittis augue vel dictum venenatis. In eu lacus urna. Nunc convallis justo a velit fringilla vehicula. Morbi lobortis nibh nec est tempus ullamcorper.', NULL, NULL, NULL, 6, 1, '2020-05-08 14:20:10', NULL),
-(20, 'en', 20, 'blog-6', 'Blog 6', 'images/blog-06.jpg', NULL, NULL, 'Duis non facilisis urna. Ut ultrices enim non purus consectetur consectetur. Etiam venenatis dolor dolor, id sodales nunc pharetra tincidunt. Phasellus eget tellus tincidunt, suscipit tortor in, efficitur lacus. Maecenas et orci neque. Aliquam at enim pulvinar, suscipit sapien dapibus, rhoncus sem. Donec posuere leo sed mattis hendrerit. Integer mi tortor, vehicula nec elit sed, dignissim lacinia ante. In hac habitasse platea dictumst. Vestibulum rhoncus rhoncus dui, sollicitudin viverra arcu viverra eu. Phasellus pulvinar ac dolor vel vulputate. Fusce accumsan consectetur diam eget sodales. Curabitur id nisl ac libero bibendum dapibus et eu eros. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam viverra dictum euismod.', NULL, NULL, NULL, 6, 1, '2020-05-08 14:20:35', NULL),
-(21, 'en', 21, 'lightweight', 'Lightweight', 'fa-align-left', NULL, 'Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis', '<p style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; background-color: #ffffff;\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisis dapibus efficitur. Praesent rhoncus lobortis varius. Aliquam eget ultrices odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque pulvinar a quam in pulvinar. Fusce ultrices imperdiet neque, vel convallis nulla elementum non. Pellentesque a vulputate orci. Nullam egestas placerat enim, sit amet tincidunt arcu. Proin sed eros odio.</p>\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; background-color: #ffffff;\">Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean consequat mollis pellentesque. Etiam sed libero lorem. Sed eros leo, dictum eu sollicitudin at, aliquet vulputate urna. Ut nec sodales leo. Cras non lacus enim. Pellentesque non sollicitudin ex, sit amet sollicitudin eros. Ut lacinia, diam eu placerat feugiat, augue odio cursus est, a sollicitudin tortor nulla sed arcu.</p>\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; background-color: #ffffff;\">Maecenas eget pharetra tortor. Integer viverra hendrerit tincidunt. Phasellus ex quam, tristique vel ante id, rhoncus tempor est. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Sed tincidunt, nunc nec semper ornare, arcu sem dapibus purus, et tristique velit velit quis quam. Praesent in tellus et ante tristique facilisis. Duis quis pharetra arcu, id commodo risus. Mauris pharetra nisi vitae dictum gravida. Cras quis magna justo. Vestibulum ac diam justo. Fusce ipsum lorem, elementum id tempor in, euismod eget mi.</p>\r\n<p>&nbsp;</p>', NULL, NULL, NULL, 2, 1, '2020-12-06 16:06:40', '2020-12-20 17:20:05');
+(20, 'en', 20, 'blog-6', 'Blog 6', 'images/blog-06.jpg', NULL, NULL, '<p>Duis non facilisis urna. Ut ultrices enim non purus consectetur consectetur. Etiam venenatis dolor dolor, id sodales nunc pharetra tincidunt. Phasellus eget tellus tincidunt, suscipit tortor in, efficitur lacus. Maecenas et orci neque. Aliquam at enim pulvinar, suscipit sapien dapibus, rhoncus sem. Donec posuere leo sed mattis hendrerit. Integer mi tortor, vehicula nec elit sed, dignissim lacinia ante. In hac habitasse platea dictumst. Vestibulum rhoncus rhoncus dui, sollicitudin viverra arcu viverra eu. Phasellus pulvinar ac dolor vel vulputate. Fusce accumsan consectetur diam eget sodales. Curabitur id nisl ac libero bibendum dapibus et eu eros. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam viverra dictum euismod.</p>', NULL, NULL, NULL, 6, 1, '2020-05-08 14:20:35', '2020-12-24 05:05:06'),
+(21, 'en', 21, 'lightweight', 'Lightweight', 'fa-align-left', NULL, 'Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis', '<p style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; background-color: #ffffff;\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisis dapibus efficitur. Praesent rhoncus lobortis varius. Aliquam eget ultrices odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque pulvinar a quam in pulvinar. Fusce ultrices imperdiet neque, vel convallis nulla elementum non. Pellentesque a vulputate orci. Nullam egestas placerat enim, sit amet tincidunt arcu. Proin sed eros odio.</p>\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; background-color: #ffffff;\">Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean consequat mollis pellentesque. Etiam sed libero lorem. Sed eros leo, dictum eu sollicitudin at, aliquet vulputate urna. Ut nec sodales leo. Cras non lacus enim. Pellentesque non sollicitudin ex, sit amet sollicitudin eros. Ut lacinia, diam eu placerat feugiat, augue odio cursus est, a sollicitudin tortor nulla sed arcu.</p>\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; background-color: #ffffff;\">Maecenas eget pharetra tortor. Integer viverra hendrerit tincidunt. Phasellus ex quam, tristique vel ante id, rhoncus tempor est. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Sed tincidunt, nunc nec semper ornare, arcu sem dapibus purus, et tristique velit velit quis quam. Praesent in tellus et ante tristique facilisis. Duis quis pharetra arcu, id commodo risus. Mauris pharetra nisi vitae dictum gravida. Cras quis magna justo. Vestibulum ac diam justo. Fusce ipsum lorem, elementum id tempor in, euismod eget mi.</p>\r\n<p>&nbsp;</p>', NULL, NULL, NULL, 2, 1, '2020-12-06 16:06:40', '2020-12-20 17:20:05'),
+(22, 'en', 22, 'product-2', 'Product 2', 'fa-balance-scale', NULL, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In molestie, odio ac auctor feugiat, turpis magna suscipit ante, a accumsan nisi eros vel erat.', '<p>[content image=\"lake_forest_landscape_79459_1920x1080.jpg\" title=\"title\" desc=\"description\"]</p>\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; background-color: #ffffff;\"><strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In molestie, odio ac auctor feugiat, turpis magna suscipit ante, a accumsan nisi eros vel erat. Sed feugiat neque sed mi interdum, id fermentum magna vulputate. Morbi non dignissim tellus. Nam porttitor dapibus nulla vel tristique. Nunc nulla dolor, posuere eu nulla ac, lobortis congue nulla. Morbi leo justo, efficitur id eros in, pretium semper sapien. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Cras tristique lorem odio, vitae lobortis est mollis bibendum. Nam finibus eros dolor. Vestibulum tristique dui in dapibus gravida.</strong></p>\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; background-color: #ffffff;\"><strong>Fusce mollis mauris cursus sapien vehicula, nec luctus velit euismod. Aliquam volutpat congue euismod. Nulla nisi dui, mattis vel iaculis finibus, cursus eget justo. Praesent feugiat erat nec nulla viverra tristique. Praesent egestas ante maximus massa finibus, vitae dapibus sapien vulputate. Aenean nibh magna, feugiat nec odio nec, feugiat tincidunt tellus. Duis hendrerit lobortis pulvinar. Sed ut viverra magna.</strong></p>\r\n<p>[/content]</p>\r\n<hr />\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; background-color: #ffffff;\">Vestibulum sit amet purus augue. Vivamus et nibh et turpis sagittis auctor. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur eget dolor eu neque tincidunt dapibus nec auctor sapien. Phasellus et varius libero, eu dignissim felis. Duis nec arcu leo. In scelerisque, felis non cursus ornare, velit tortor lobortis turpis, ut iaculis ipsum arcu non lectus. Duis odio odio, lacinia egestas ligula nec, gravida bibendum ex. Suspendisse orci metus, ullamcorper non suscipit id, commodo at erat. Etiam sed purus imperdiet, ultrices lorem id, porta turpis. Curabitur accumsan massa turpis, eu convallis sapien semper et. Etiam cursus erat lacus, id interdum neque maximus vitae. Sed ultricies feugiat urna, congue dapibus ante feugiat mollis. Sed viverra libero ac ultricies porta.</p>\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; background-color: #ffffff;\">Aenean convallis vehicula ornare. Fusce blandit odio in pulvinar luctus. Sed at tempus urna. Etiam laoreet lacinia nunc at consectetur. Etiam venenatis ex ac erat egestas convallis. Aliquam lacinia venenatis sapien, tempor rhoncus eros suscipit id. Integer vehicula, metus condimentum rutrum vestibulum, nisl massa hendrerit mauris, a fringilla lectus quam et diam. Sed semper sodales ante quis hendrerit. Ut dictum augue vel ex facilisis dictum. Ut blandit nulla mi, in congue mi consequat a. Aenean vel ipsum et est facilisis dictum. Morbi imperdiet, nunc non luctus ultrices, arcu velit dictum turpis, quis pellentesque elit massa mattis quam.</p>\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; background-color: #ffffff;\">Donec tincidunt dui lectus, a cursus ipsum iaculis ut. Ut vehicula in libero vel vestibulum. Duis sit amet elit ac felis suscipit ullamcorper. Curabitur non commodo lorem. Nulla tincidunt justo lacinia, vehicula neque a, efficitur nulla. Nam sed tempus justo. Duis neque lorem, tincidunt eu lacinia et, aliquam vel nulla. Donec ornare enim sit amet dictum ullamcorper. Quisque at ultricies purus, id scelerisque nisl. Suspendisse vestibulum mauris urna, eu aliquet turpis aliquet nec.</p>', NULL, NULL, NULL, 2, 1, '2020-12-23 10:40:28', '2020-12-24 04:23:27'),
+(23, 'en', 23, 'product-3', 'Product 3', 'fa-battery-full', NULL, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed magna libero, tristique auctor luctus dictum, sodales non arcu. Nullam eget lacus rhoncus, aliquam massa nec, ornare magna.', '<p>[content image=\"lake_forest_trees_188315_1920x1080.jpg\"]</p>\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; background-color: #ffffff;\"><em><strong>Pellentesque sit amet commodo mauris. Vestibulum pulvinar mi ut elit laoreet suscipit. Suspendisse erat ipsum, lobortis non tellus sed, gravida porta mi. Praesent faucibus ullamcorper arcu, non porttitor velit viverra et. Morbi tempus vestibulum orci, id molestie nisi efficitur nec. Aliquam dictum leo risus, in congue augue commodo quis. Suspendisse vulputate in ipsum commodo tempus. In fermentum felis cursus sem pretium mollis.</strong></em></p>\r\n<p>[/content]</p>\r\n<hr />\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; background-color: #ffffff;\">Etiam auctor aliquet velit, a varius arcu blandit in. Phasellus id erat justo. Aenean suscipit lectus eget tincidunt varius. In erat tortor, vestibulum ut iaculis quis, blandit quis ex. Praesent auctor pellentesque arcu, a aliquet lectus maximus vel. Aenean venenatis nisl bibendum, malesuada lorem eget, ornare magna. Duis egestas nulla non arcu tempor rutrum. Nunc pellentesque tristique neque ut lacinia.</p>\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; background-color: #ffffff;\">Quisque justo ante, lobortis et vehicula sit amet, finibus sed leo. Maecenas commodo tempor purus at porta. Morbi rhoncus ligula non neque egestas vulputate. Fusce posuere ligula in tortor lacinia volutpat. Morbi dapibus tincidunt erat sed rutrum. Nam id pharetra leo. Aliquam vulputate nunc eget consectetur condimentum. Nulla molestie, augue a tempus porttitor, est erat pharetra velit, at aliquet mi ex ut eros. Nunc ligula diam, viverra sed laoreet in, gravida sit amet metus. Nullam consectetur est sed magna convallis sodales a eget nisl. Morbi lacinia orci rhoncus, elementum dui quis, mollis tellus. Proin id tellus imperdiet, consequat nisi ut, pretium purus. Phasellus nec leo vitae elit accumsan elementum. Proin accumsan erat nec nulla fringilla, ac maximus enim fermentum. Donec mi est, viverra sed nisl consectetur, luctus convallis magna. Suspendisse hendrerit dolor ut ligula consectetur pretium nec at metus.</p>\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; background-color: #ffffff;\">Ut pharetra leo quis nibh fringilla cursus. Integer non sodales risus. Aliquam nulla dolor, consequat in augue sed, facilisis lobortis risus. Phasellus et nisi mattis, vehicula arcu nec, semper ex. Fusce ut ultricies purus. Maecenas quis vestibulum lectus. Nulla facilisi. Ut tempor varius tincidunt. Vivamus gravida sit amet lorem in mattis. Praesent volutpat nulla et risus pellentesque, nec maximus nulla dapibus.</p>', NULL, NULL, NULL, 2, 1, '2020-12-24 04:27:09', '2020-12-24 04:27:32');
 
 -- --------------------------------------------------------
 
@@ -67,11 +69,11 @@ INSERT INTO `articles` (`id`, `lang`, `lang_id`, `slug`, `title`, `image`, `sub_
 --
 
 CREATE TABLE `failed_jobs` (
-  `id` bigint UNSIGNED NOT NULL,
-  `connection` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -82,12 +84,12 @@ CREATE TABLE `failed_jobs` (
 --
 
 CREATE TABLE `file_store` (
-  `id` bigint UNSIGNED NOT NULL,
-  `title` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `src` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `user_id` smallint UNSIGNED NOT NULL,
-  `sort` smallint UNSIGNED DEFAULT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `title` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `src` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` smallint(5) UNSIGNED NOT NULL,
+  `sort` smallint(5) UNSIGNED DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -109,12 +111,12 @@ INSERT INTO `file_store` (`id`, `title`, `src`, `type`, `user_id`, `sort`, `crea
 --
 
 CREATE TABLE `file_store_refs` (
-  `id` int UNSIGNED NOT NULL,
-  `lang` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `file_id` bigint UNSIGNED NOT NULL,
-  `reference_id` int NOT NULL,
-  `reference_type` tinyint UNSIGNED NOT NULL,
-  `sort` smallint NOT NULL DEFAULT '1',
+  `id` int(10) UNSIGNED NOT NULL,
+  `lang` char(2) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `file_id` bigint(20) UNSIGNED NOT NULL,
+  `reference_id` int(11) NOT NULL,
+  `reference_type` tinyint(3) UNSIGNED NOT NULL,
+  `sort` smallint(6) NOT NULL DEFAULT '1',
   `pin` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -134,13 +136,13 @@ INSERT INTO `file_store_refs` (`id`, `lang`, `file_id`, `reference_id`, `referen
 --
 
 CREATE TABLE `helper_fields` (
-  `id` int UNSIGNED NOT NULL,
-  `lang` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `lang_id` smallint UNSIGNED NOT NULL,
-  `keyword` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `value` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `type` tinyint UNSIGNED NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `lang` char(2) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lang_id` smallint(5) UNSIGNED NOT NULL,
+  `keyword` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `value` text COLLATE utf8mb4_unicode_ci,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `type` tinyint(3) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -167,7 +169,8 @@ INSERT INTO `helper_fields` (`id`, `lang`, `lang_id`, `keyword`, `value`, `descr
 (16, 'en', 16, 'footer_quote', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.', 'footer quote', 2, '2020-05-29 07:28:35', NULL),
 (17, 'en', 17, 'footer_desc', 'Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat.', 'footer description', 2, '2020-05-29 07:30:30', NULL),
 (18, 'en', 18, 'footer_image', 'images/blog-04.jpg', 'footer image', 4, '2020-05-29 08:25:42', NULL),
-(19, 'en', 19, 'contact_id', '5', 'Contact page id', 1, '2020-06-07 08:17:52', NULL);
+(19, 'en', 19, 'contact_id', '5', 'Contact page id', 1, '2020-06-07 08:17:52', NULL),
+(20, 'en', 20, 'premium_features', '/products/product-2', 'Premium Features', 1, '2020-12-24 05:21:15', '2020-12-24 05:21:32');
 
 -- --------------------------------------------------------
 
@@ -176,12 +179,12 @@ INSERT INTO `helper_fields` (`id`, `lang`, `lang_id`, `keyword`, `value`, `descr
 --
 
 CREATE TABLE `languages` (
-  `id` int UNSIGNED NOT NULL,
-  `lang` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `lang_id` smallint UNSIGNED NOT NULL,
-  `keyword` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `value` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `hidden` tinyint UNSIGNED NOT NULL DEFAULT '0',
+  `id` int(10) UNSIGNED NOT NULL,
+  `lang` char(2) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lang_id` smallint(5) UNSIGNED NOT NULL,
+  `keyword` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `value` text COLLATE utf8mb4_unicode_ci,
+  `hidden` tinyint(3) UNSIGNED NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -218,12 +221,12 @@ INSERT INTO `languages` (`id`, `lang`, `lang_id`, `keyword`, `value`, `hidden`, 
 --
 
 CREATE TABLE `map_coordinates` (
-  `id` smallint UNSIGNED NOT NULL,
-  `lat` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `lng` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` smallint(5) UNSIGNED NOT NULL,
+  `lat` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lng` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `zoom` decimal(8,2) NOT NULL,
-  `template_type` tinyint NOT NULL,
-  `page_id` int UNSIGNED NOT NULL
+  `template_type` tinyint(4) NOT NULL,
+  `page_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -240,15 +243,15 @@ INSERT INTO `map_coordinates` (`id`, `lat`, `lng`, `zoom`, `template_type`, `pag
 --
 
 CREATE TABLE `markers` (
-  `id` smallint UNSIGNED NOT NULL,
-  `lang` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `lang_id` smallint UNSIGNED NOT NULL,
-  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `desc` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `lat` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `lng` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `page_id` int UNSIGNED NOT NULL,
-  `sort` smallint UNSIGNED NOT NULL DEFAULT '1'
+  `id` smallint(5) UNSIGNED NOT NULL,
+  `lang` char(2) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lang_id` smallint(5) UNSIGNED NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `desc` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `lat` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lng` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `page_id` int(10) UNSIGNED NOT NULL,
+  `sort` smallint(5) UNSIGNED NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -269,15 +272,15 @@ INSERT INTO `markers` (`id`, `lang`, `lang_id`, `title`, `desc`, `lat`, `lng`, `
 --
 
 CREATE TABLE `menu` (
-  `id` bigint UNSIGNED NOT NULL,
-  `lang` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `lang_id` smallint UNSIGNED NOT NULL,
-  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `lang` char(2) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lang_id` smallint(5) UNSIGNED NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `main` tinyint(1) NOT NULL DEFAULT '0',
-  `page_id` int UNSIGNED DEFAULT NULL,
-  `parent_id` smallint DEFAULT NULL,
-  `hidden` tinyint UNSIGNED NOT NULL DEFAULT '0',
-  `sort` smallint UNSIGNED NOT NULL DEFAULT '1',
+  `page_id` int(10) UNSIGNED DEFAULT NULL,
+  `parent_id` smallint(6) DEFAULT NULL,
+  `hidden` tinyint(3) UNSIGNED NOT NULL DEFAULT '0',
+  `sort` smallint(5) UNSIGNED NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -304,9 +307,9 @@ INSERT INTO `menu` (`id`, `lang`, `lang_id`, `title`, `main`, `page_id`, `parent
 --
 
 CREATE TABLE `migrations` (
-  `id` int UNSIGNED NOT NULL,
-  `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int NOT NULL
+  `id` int(10) UNSIGNED NOT NULL,
+  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -342,19 +345,19 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 --
 
 CREATE TABLE `pages` (
-  `id` int UNSIGNED NOT NULL,
-  `lang` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `lang_id` smallint UNSIGNED NOT NULL,
-  `slug` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `title` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `desc` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `text` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `main_image` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `hidden` tinyint DEFAULT '0',
-  `sort` smallint UNSIGNED NOT NULL DEFAULT '1',
-  `user_id` smallint UNSIGNED NOT NULL,
-  `page_type_id` tinyint UNSIGNED DEFAULT NULL,
-  `page_template_id` tinyint UNSIGNED DEFAULT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `lang` char(2) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lang_id` smallint(5) UNSIGNED NOT NULL,
+  `slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `desc` text COLLATE utf8mb4_unicode_ci,
+  `text` longtext COLLATE utf8mb4_unicode_ci,
+  `main_image` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `hidden` tinyint(4) DEFAULT '0',
+  `sort` smallint(5) UNSIGNED NOT NULL DEFAULT '1',
+  `user_id` smallint(5) UNSIGNED NOT NULL,
+  `page_type_id` tinyint(3) UNSIGNED DEFAULT NULL,
+  `page_template_id` tinyint(3) UNSIGNED DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -367,7 +370,7 @@ INSERT INTO `pages` (`id`, `lang`, `lang_id`, `slug`, `title`, `desc`, `text`, `
 (1, 'en', 1, 'about_us', 'About Us', NULL, '<h2 style=\"text-align: left;\">Investigationes demonstraverunt lectores</h2>\r\n<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.<br />Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>\r\n<p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.<br /><br /></p>\r\n<blockquote>Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima.</blockquote>\r\n<p><br />Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; background-color: #ffffff;\">&nbsp;</p>', 'images/Penguins.jpg', 0, 5, 1, 0, 0, NULL, '2020-06-14 10:33:33'),
 (2, 'en', 2, 'products', 'Products', NULL, NULL, NULL, 0, 2, 1, 1, 1, NULL, '2020-03-22 15:07:10'),
 (5, 'en', 5, 'contacts', 'Contacts', NULL, NULL, NULL, 0, 4, 1, 2, 0, NULL, NULL),
-(7, 'en', 6, 'blog-1', 'Blog', NULL, NULL, NULL, 0, 1, 1, 1, 0, NULL, '2020-12-12 11:47:26'),
+(7, 'en', 6, 'blog', 'Blog', NULL, NULL, NULL, 0, 1, 1, 1, 0, NULL, '2020-12-12 11:47:26'),
 (9, 'en', 9, 'gallery', 'Gallery', NULL, NULL, NULL, 0, 3, 1, 3, 0, NULL, NULL);
 
 -- --------------------------------------------------------
@@ -377,8 +380,8 @@ INSERT INTO `pages` (`id`, `lang`, `lang_id`, `slug`, `title`, `desc`, `text`, `
 --
 
 CREATE TABLE `password_resets` (
-  `email` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -389,9 +392,9 @@ CREATE TABLE `password_resets` (
 --
 
 CREATE TABLE `roles` (
-  `id` int UNSIGNED NOT NULL,
-  `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `permissions` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `id` int(10) UNSIGNED NOT NULL,
+  `title` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `permissions` text COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -410,17 +413,17 @@ INSERT INTO `roles` (`id`, `title`, `permissions`, `created_at`, `updated_at`) V
 --
 
 CREATE TABLE `sliders` (
-  `id` int UNSIGNED NOT NULL,
-  `lang` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `lang_id` int UNSIGNED NOT NULL,
-  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `sub_title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `desc` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `src` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `url` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `position` tinyint UNSIGNED NOT NULL DEFAULT '1',
-  `visible` tinyint UNSIGNED NOT NULL DEFAULT '1',
-  `sort` smallint UNSIGNED NOT NULL DEFAULT '1',
+  `id` int(10) UNSIGNED NOT NULL,
+  `lang` char(2) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lang_id` int(10) UNSIGNED NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sub_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `desc` text COLLATE utf8mb4_unicode_ci,
+  `src` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `url` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `position` tinyint(3) UNSIGNED NOT NULL DEFAULT '1',
+  `visible` tinyint(3) UNSIGNED NOT NULL DEFAULT '1',
+  `sort` smallint(5) UNSIGNED NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -440,14 +443,14 @@ INSERT INTO `sliders` (`id`, `lang`, `lang_id`, `title`, `sub_title`, `desc`, `s
 --
 
 CREATE TABLE `users` (
-  `id` smallint UNSIGNED NOT NULL,
-  `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` smallint(5) UNSIGNED NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `image` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `password` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `role_id` int UNSIGNED NOT NULL,
-  `remember_token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `role_id` int(10) UNSIGNED NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -593,85 +596,85 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `articles`
 --
 ALTER TABLE `articles`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `file_store`
 --
 ALTER TABLE `file_store`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `file_store_refs`
 --
 ALTER TABLE `file_store_refs`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `helper_fields`
 --
 ALTER TABLE `helper_fields`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `languages`
 --
 ALTER TABLE `languages`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `map_coordinates`
 --
 ALTER TABLE `map_coordinates`
-  MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `markers`
 --
 ALTER TABLE `markers`
-  MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `pages`
 --
 ALTER TABLE `pages`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `sliders`
 --
 ALTER TABLE `sliders`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
