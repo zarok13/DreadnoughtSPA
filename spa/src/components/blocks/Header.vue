@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- PREMIUM FEATURES BUTTON -->
-        <router-link :to="this.getConfigs.params.premium_features"
+        <router-link :to="{path: this.getConfigs.params.premium_features}"
             target="_blank"
             class="hide-s"
             style="position:fixed;top:120px;right:-14px;z-index:10;"
@@ -58,7 +58,7 @@
                     </div>
                     <div class="top-nav s-12 l-10">
                         <p class="nav-text"></p>
-                        <tree-menu :nodes="this.getConfigs.menu" is-first></tree-menu>
+                        <TreeMenu :nodes="this.getConfigs.menu" is-first></TreeMenu>
                     </div>
                 </div>
             </nav>

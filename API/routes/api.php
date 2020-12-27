@@ -8,11 +8,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['namespace' => 'API'], function () {
-    Route::get('/configs', 'ConfigsController@index');
-    Route::get('/home', 'HomeController@index');
-    Route::get('/static_content', 'StaticController@staticContent');
-    Route::get('/products', 'ProductsController@index');
-    Route::get('/gallery', 'GalleryController@index');
+    Route::get('/configs', 'ConfigsController');
+    Route::get('/home', 'HomeController');
+    Route::get('/static_content', 'StaticController');
+    Route::get('/products', 'ProductsController');
+    Route::get('/gallery', 'GalleryController');
     Route::get('/mapbox', 'ContactController@mapbox');
     Route::post('/send_message', 'ContactController@sendMessage');
     Route::post('/send_contact', 'ContactController@sendContact');

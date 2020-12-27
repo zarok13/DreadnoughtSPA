@@ -24,9 +24,9 @@ class ShortcodesServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        Shortcode::register('intro1', 'App\Shortcodes\IndexShortcode@intro1');
-        Shortcode::register('intro2', 'App\Shortcodes\IndexShortcode@intro2');
-        Shortcode::register('intro3', 'App\Shortcodes\IndexShortcode@intro3');
+        Shortcode::register('intro1', 'App\Shortcodes\HomeShortcode@intro1');
+        Shortcode::register('intro2', 'App\Shortcodes\HomeShortcode@intro2');
+        Shortcode::register('intro3', 'App\Shortcodes\HomeShortcode@intro3');
         Shortcode::register('content', 'App\Shortcodes\StaticShortcode@content');
     }
 }

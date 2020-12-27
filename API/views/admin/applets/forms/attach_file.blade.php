@@ -2,7 +2,7 @@
     $params[] .= 'readonly';
     $value = isset($array) ? $array[$name] : null;
 @endphp
-<label for="{{ $name }}">{{ $label }} {!! (isset($required) && $required != false) ? '<span>*</span>' : '' !!}</label>
+<label for="{{ $name }}">{{ $label }} {!! (isset($params['required']) && $params['required'] != false) ? '<font color="red">*</font>' : '' !!}</label>
 <div class="input_icon_group">
     <a href="{{ route('small_file_store') }}" class="upload_file_icons attach"><h5><i
                     class="far fa-file-alt fa-lg"></i></h5></a>

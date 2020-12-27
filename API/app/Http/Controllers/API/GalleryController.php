@@ -13,7 +13,7 @@ class GalleryController
      * @return \Illuminate\Http\JsonResponse
      * @throws \Exception
      */
-    public function index()
+    public function __invoke()
     {
         $referenceType = setting('fileStoreReferenceType')['photo_gallery'];
         $photos = FileStoreRef::leftJoin('file_store', 'file_store.id', '=', 'file_store_refs.file_id')

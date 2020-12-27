@@ -60,7 +60,7 @@ class FileStoreController extends Controller implements AuthCustomValidationCont
     {
         $this->data['items'] = (new FileStore())->getFileStore();
         $this->data['fileReferences'] = isset($request->mode) && $request->mode == 'multiple' ? true : false;
-        $this->data['referenceType'] = $request->session()->get('flashData')['reference_type'];
+        $this->data['referenceType'] = isset($request->session()->get('flashData')['reference_type']) ? $request->session()->get('flashData')['reference_type'] : '';
         $this->data['referenceID'] = isset($request->session()->get('flashData')['reference_id']) ? $request->session()->get('flashData')['reference_id'] : '';
 
         return view($this->viewTemplate . '.file_manager', $this->data);

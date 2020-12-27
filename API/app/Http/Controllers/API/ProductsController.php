@@ -12,7 +12,7 @@ class ProductsController
     /**
      * @return JsonResponse
      */
-    public function index(): JsonResponse
+    public function __invoke(): JsonResponse
     {
         $products = Article::where('page_id', hel_field('products_page_id'))->orderBy('created_at', 'desc')->get();
         return response()->json(ProductsResource::collection($products));

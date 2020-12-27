@@ -4,28 +4,8 @@
 namespace App\Shortcodes;
 
 
-class IndexShortcode
+class HomeShortcode
 {
-    /**
-     * @param $shortcode
-     * @param $content
-     * @param $compiler
-     * @param $name
-     * @param $viewData
-     * @return string
-     * @throws \Exception
-     */
-    public function intro1($shortcode, $content, $compiler, $name, $viewData)
-    {
-        return
-            '<div class="s-12 m-12 l-4 margin-m-bottom">
-                <img class="margin-bottom" src="'. file_store_url('images/'.$shortcode->image) .'" alt="">
-                <h2 class="text-thin">'. $shortcode->title .'</h2>
-                <p>'. $shortcode->desc .'</p>
-                <a class="text-more-info text-primary-hover" href="/">Read more</a>
-            </div>';
-    }
-
     /**
      * @param $shortcode
      * @param $content

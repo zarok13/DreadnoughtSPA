@@ -1,4 +1,6 @@
 import Axios from "axios"
+import { getDataFromLocalStorage } from "@/helpers/init_local_storage"
+import { getExpireDate } from "@/helpers/expire_date"
 
 // global api url
 export const BASE_URL = 'http://localhost:8000/api'
@@ -71,69 +73,105 @@ const getters = {
 // app store actions
 const actions = {
     [GET_CONFIGS](state) {
-        Axios.get(BASE_URL + '/configs')
-            .then(data => {
-                let configs = data.data
-                state.commit(SET_CONFIGS, configs)
-            })
-            .catch(error => {
-                console.log(error);
-            })
+        if (getDataFromLocalStorage(state, GET_CONFIGS, SET_CONFIGS)) {
+            console.log('configs parsed from local storage');
+        } else {
+            Axios.get(BASE_URL + '/configs')
+                .then(data => {
+                    let configs = data.data
+                    configs.expire_date = getExpireDate(2);
+                    localStorage.setItem(GET_CONFIGS, JSON.stringify(configs));
+                    state.commit(SET_CONFIGS, configs)
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+        }
     },
 
     [GET_HOME](state) {
-        Axios.get(BASE_URL + '/home')
-            .then(data => {
-                let home = data.data;
-                state.commit(SET_HOME, home);
-            })
-            .catch(error => {
-                console.log(error);
-            })
+        if (getDataFromLocalStorage(state, GET_HOME, SET_HOME)) {
+            console.log('home parsed from local storage');
+        } else {
+            Axios.get(BASE_URL + '/home')
+                .then(data => {
+                    let home = data.data;
+                    home.expire_date = getExpireDate(2);
+                    localStorage.setItem(GET_HOME, JSON.stringify(home));
+                    state.commit(SET_HOME, home);
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+        }
     },
 
     [GET_STATIC_CONTENT](state, slug) {
-        Axios.get(BASE_URL + '/static_content', {params: {slug: slug}})
-            .then(data => {
-                let content = data.data;
-                state.commit(SET_STATIC_CONTENT, content);
-            })
-            .catch(error => {
-                console.log(error);
-            })
+        if (getDataFromLocalStorage(state, GET_STATIC_CONTENT+ '.' + slug, SET_STATIC_CONTENT)) {
+            console.log('static content parsed from local storage');
+        } else {
+            Axios.get(BASE_URL + '/static_content', { params: { slug: slug } })
+                .then(data => {
+                    let content = data.data;
+                    content.expire_date = getExpireDate(2);
+                    localStorage.setItem(GET_STATIC_CONTENT + '.' + slug, JSON.stringify(content));
+                    state.commit(SET_STATIC_CONTENT, content);
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+        }
     },
 
     [GET_PRODUCTS](state) {
-        Axios.get(BASE_URL + '/products')
-            .then(data => {
-                let products = data.data;
-                state.commit(SET_PRODUCTS, products);
-            })
-            .catch(error => {
-                console.log(error);
-            })
+        if (getDataFromLocalStorage(state, GET_PRODUCTS, SET_PRODUCTS)) {
+            console.log('products parsed from local storage');
+        } else {
+            Axios.get(BASE_URL + '/products')
+                .then(data => {
+                    let products = data.data;
+                    products.expire_date = getExpireDate(2);
+                    localStorage.setItem(GET_PRODUCTS, JSON.stringify(products));
+                    state.commit(SET_PRODUCTS, products);
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+        }
     },
 
     [GET_GALLERY](state) {
-        Axios.get(BASE_URL + '/gallery')
-            .then(data => {
-                let gallery = data.data;
-                state.commit(SET_GALLERY, gallery);
-            })
-            .catch(error => {
-                console.log(error);
-            })
+        if (getDataFromLocalStorage(state, GET_GALLERY, SET_GALLERY)) {
+            console.log('gallary parsed from local storage');
+        } else {
+            Axios.get(BASE_URL + '/gallery')
+                .then(data => {
+                    let gallery = data.data;
+                    gallery.expire_date = getExpireDate(2);
+                    localStorage.setItem(GET_GALLERY, JSON.stringify(gallery));
+                    state.commit(SET_GALLERY, gallery);
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+        }
     },
 
     [GET_MAPBOX_DATA](state) {
-        Axios.get(BASE_URL + '/mapbox')
-            .then(data => {
-                let mapbox = data.data;
-                state.commit(SET_MAPBOX_DATA, mapbox);
-            })
-            .catch(error => {
-                console.log(error);
-            })
+        if (getDataFromLocalStorage(state, GET_MAPBOX_DATA, SET_MAPBOX_DATA)) {
+            console.log('mapbox parsed from local storage');
+        } else {
+            Axios.get(BASE_URL + '/mapbox')
+                .then(data => {
+                    let mapbox = data.data;
+                    mapbox.expire_date = getExpireDate(2);
+                    localStorage.setItem(GET_MAPBOX_DATA, JSON.stringify(mapbox));
+                    state.commit(SET_MAPBOX_DATA, mapbox);
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+        }
     },
 
     async [SEND_MAIL](state, messageData) {

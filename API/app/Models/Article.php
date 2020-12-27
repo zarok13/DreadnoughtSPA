@@ -8,33 +8,23 @@ class Article extends ChildModel
 {
     protected $guarded = [];
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function page()
     {
         return $this->belongsTo(Page::class, 'page_id','lang_id');
     }
 
     /**
-     * @param int $pageID
-     * @return mixed
-     */
-    public function Items(int $pageID)
-    {
-        return self::where('page_id', $pageID)->orderBy('created_at', 'desc')->get();
-    }
-
-    /**
-     * @param int $langID
-     * @param string $secondSlug
+     * Undocumented function
      *
-     * @return mixed
+     * @return void
      */
-    public function otherItems(int $langID, string $secondSlug)
+    public function getProductsList()
     {
-        return self::lang()
-            ->where('page_id', $langID)
-            ->where('slug', '!=', $secondSlug)
-            ->orderBy('created_at', 'desc')
-            ->limit(4)
-            ->get();
+        return self::lang()->where('page_id', hel_field('products_page_id'))->pluck('title', 'id')->toArray();
     }
 }

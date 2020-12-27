@@ -15,7 +15,7 @@ class StaticController
      * @param Page $pages
      * @return \Illuminate\Http\JsonResponse
      */
-    public function staticContent(Request $request, Page $pages)
+    public function __invoke(Request $request, Page $pages)
     {
         $content = '';
         $slug = $request->slug;

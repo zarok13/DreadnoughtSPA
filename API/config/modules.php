@@ -44,6 +44,20 @@ return [
             'sort' => 'sort',
         ],
     ],
+    'banners'         => [
+        'name'          => 'banners',
+        'icon'          => 'fas fa-band-aid',
+        'active'        => true,
+        'system'        => false,
+        'sub_menu'      => [],
+        'actions'       => [
+            'read' => 'index',
+            'write' => 'add',
+            'edit' => 'edit',
+            'delete' => 'delete',
+            'sort' => 'sort',
+        ],
+    ],
     'articles'         => [
         'name'         => 'articles',
         'active'        => false,

@@ -39,7 +39,24 @@
             <!-- Section 1 -->
             <section class="section background-white">
                 <div class="line">
-                    <div class="margin" v-html="this.getHome.intro.i1"></div>
+                    <div class="margin">
+                        <div
+                            class="s-12 m-12 l-4 margin-m-bottom"
+                            v-for="(item, index) in this.getHome.banners" :key="index"
+                        >
+                            <img
+                                class="margin-bottom" :src="configs.storageUrl + item.image"
+                                alt=""
+                            />
+                            <h2 class="text-thin">{{ item.title }}</h2>
+                            <p>{{ item.desc }}</p>
+                            <a
+                                class="text-more-info text-primary-hover"
+                                :href="item.url"
+                                >Read more</a
+                            >
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -94,7 +111,11 @@
                                             >
                                                 <router-link
                                                     class="image-hover-zoom"
-                                                    :to="$route.path + 'blog/' + item[0].slug"
+                                                    :to="
+                                                        $route.path +
+                                                            'blog/' +
+                                                            item[0].slug
+                                                    "
                                                 >
                                                     <img
                                                         v-bind:src="
@@ -111,14 +132,24 @@
                                                 <h3>
                                                     <router-link
                                                         class="text-dark text-primary-hover"
-                                                        :to="$route.path + 'blog/' + item[0].slug"
-                                                        >{{ item[0].title }}</router-link
+                                                        :to="
+                                                            $route.path +
+                                                                'blog/' +
+                                                                item[0].slug
+                                                        "
+                                                        >{{
+                                                            item[0].title
+                                                        }}</router-link
                                                     >
                                                 </h3>
                                                 <p v-html="item[0].text"></p>
                                                 <router-link
                                                     class="text-more-info text-primary-hover"
-                                                    :to="$route.path + 'blog/' + item[0].slug"
+                                                    :to="
+                                                        $route.path +
+                                                            'blog/' +
+                                                            item[0].slug
+                                                    "
                                                     >Read more</router-link
                                                 >
                                             </div>
@@ -133,7 +164,11 @@
                                             >
                                                 <router-link
                                                     class="image-hover-zoom"
-                                                    :to="$route.path + 'blog/' + item[1].slug"
+                                                    :to="
+                                                        $route.path +
+                                                            'blog/' +
+                                                            item[1].slug
+                                                    "
                                                 >
                                                     <img
                                                         v-bind:src="
@@ -148,14 +183,24 @@
                                                 <h3>
                                                     <router-link
                                                         class="text-dark text-primary-hover"
-                                                        :to="$route.path + 'blog/' + item[1].slug"
-                                                        >{{ item[1].title }}</router-link
+                                                        :to="
+                                                            $route.path +
+                                                                'blog/' +
+                                                                item[1].slug
+                                                        "
+                                                        >{{
+                                                            item[1].title
+                                                        }}</router-link
                                                     >
                                                 </h3>
                                                 <p v-html="item[1].text"></p>
-                                               <router-link
+                                                <router-link
                                                     class="text-more-info text-primary-hover"
-                                                    :to="$route.path + 'blog/' + item[1].slug"
+                                                    :to="
+                                                        $route.path +
+                                                            'blog/' +
+                                                            item[1].slug
+                                                    "
                                                     >Read more</router-link
                                                 >
                                             </div>
@@ -174,7 +219,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import { GET_HOME } from "@/store/modules/dreadnought.store";
 import { Slider, SliderItem } from "vue-easy-slider";
 import Header from "../components/blocks/Header";
@@ -196,8 +241,11 @@ export default {
     computed: {
         ...mapGetters({ getHome: "getHome" })
     },
+    methods:{
+        ...mapActions({ initHome: GET_HOME })
+    },
     mounted() {
-        this.$store.dispatch(GET_HOME);
+        this.initHome();
     }
 };
 </script>

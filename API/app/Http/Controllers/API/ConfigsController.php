@@ -13,7 +13,7 @@ class ConfigsController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function __invoke()
     {
         return response()->json([
             'menu' => MenuResource::collection((new Menu())->getMenuWithChild()),
