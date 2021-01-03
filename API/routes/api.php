@@ -14,6 +14,6 @@ Route::group(['namespace' => 'API'], function () {
     Route::get('/products', 'ProductsController');
     Route::get('/gallery', 'GalleryController');
     Route::get('/mapbox', 'ContactController@mapbox');
-    Route::post('/send_message', 'ContactController@sendMessage');
-    Route::post('/send_contact', 'ContactController@sendContact');
+    Route::post('/send_message_footer', 'ContactController@sendMessage');
+    Route::post('/send_message_contact', 'ContactController@sendContact');
 });

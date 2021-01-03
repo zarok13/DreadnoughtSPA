@@ -1,6 +1,10 @@
 @extends('admin.login_wrapper')
 
 @section('content')
+@php
+    $language = app()->getLocale();
+@endphp
+
 <div class="login-box">
     <div class="login-logo">
         <a href="{{ url('/') }}"><b>Dr</b>eadnought {{ setting('version') }}</a>
@@ -10,7 +14,7 @@
         <div class="card-body login-card-body">
             <p class="login-box-msg">{{  lang('admin_login_text') }}</p>
 
-            {!! Form::open(['route' => 'login','autocomplete' => 'on', 'id' => 'dreadnought_login']) !!}
+            {!! Form::open(['route' => ['login', $language],'autocomplete' => 'on', 'id' => 'dreadnought_login']) !!}
             <div class="input-group mb-3">
                 {!! Form::text('email',null,['class' => 'form-control', 'placeholder' => 'Email', 'autofocus']) !!}
                 <div class="input-group-append">

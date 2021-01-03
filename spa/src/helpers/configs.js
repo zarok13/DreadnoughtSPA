@@ -3,7 +3,7 @@ export const configs = {
         email: "",
         name: "",
         text: "",
-        errors: []
+        errors: [],
     },
     contact: {
         email: "",

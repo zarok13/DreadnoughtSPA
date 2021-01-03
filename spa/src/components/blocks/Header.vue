@@ -1,13 +1,6 @@
 <template>
     <div>
-        <!-- PREMIUM FEATURES BUTTON -->
-        <router-link :to="{path: this.getConfigs.params.premium_features}"
-            target="_blank"
-            class="hide-s"
-            style="position:fixed;top:120px;right:-14px;z-index:10;"
-        >
-            <img src="@/assets/img/premium-features.png" alt/>
-        </router-link>
+        <slot name="premium_features"></slot>
         <!-- HEADER -->
         <header role="banner">
             <!-- Top Bar -->

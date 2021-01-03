@@ -16,7 +16,7 @@
                     <div class="line">
                         <div class="margin text-center">
                             <div
-                                v-for="(item, index) in this.getProducts"
+                                v-for="(item, index) in this.getProducts.products"
                                 :key="index"
                                 class="s-12 m-12 l-4 margin-bottom"
                             >

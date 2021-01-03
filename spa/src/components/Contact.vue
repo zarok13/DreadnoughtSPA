@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Header/>
+        <Header />
 
         <!-- MAIN -->
         <main role="main">
@@ -18,7 +18,9 @@
                         <div class="margin">
                             <!-- Company Information -->
                             <div class="s-12 m-12 l-6">
-                                <h2 class="text-uppercase text-strong margin-bottom-30">
+                                <h2
+                                    class="text-uppercase text-strong margin-bottom-30"
+                                >
                                     Company Information
                                 </h2>
                                 <div class="float-left">
@@ -32,7 +34,7 @@
                                     </h4>
                                     <p>
                                         {{ this.getConfigs.params.address }}
-                                        <span style="opacity: 0"><br/>d</span>
+                                        <span style="opacity: 0"><br />d</span>
                                     </p>
                                 </div>
                                 <div class="float-left">
@@ -46,7 +48,7 @@
                                     </h4>
                                     <p>
                                         {{ this.getConfigs.params.email }}
-                                        <span style="opacity: 0"><br/>d</span>
+                                        <span style="opacity: 0"><br />d</span>
                                     </p>
                                 </div>
                                 <div class="float-left">
@@ -65,16 +67,22 @@
                             </div>
                             <!-- Contact Form -->
                             <div class="s-12 m-12 l-6">
-                                <h2 class="text-uppercase text-strong margin-bottom-30">
+                                <h2
+                                    class="text-uppercase text-strong margin-bottom-30"
+                                >
                                     Contact Us
                                 </h2>
-                                <h6 v-if="configs.contact.errors.length" style="color: #4287f5">
+                                <h6
+                                    v-if="configs.contact.errors.length"
+                                    style="color: #4287f5"
+                                >
                                     Please correct the following error(s):
                                 </h6>
                                 <ul>
                                     <li
                                         style="color: red"
-                                        v-for="(error, index) in configs.contact.errors"
+                                        v-for="(error, index) in configs.contact
+                                            .errors"
                                         :key="index"
                                     >
                                         {{ error }}
@@ -83,13 +91,15 @@
                                 <div class="lds-ring" v-if="getLoader">
                                     <h2 style="color: yellow">Sending...</h2>
                                 </div>
-                                <form class="customform">
+                                <form class="customform" @submit.prevent="sendMessage()">
                                     <div class="line">
                                         <div class="margin">
                                             <div class="s-12 m-12 l-6">
                                                 <input
                                                     name="email"
-                                                    v-model="configs.contact.email"
+                                                    v-model="
+                                                        configs.contact.email
+                                                    "
                                                     class="required email border-radius"
                                                     placeholder="Your e-mail"
                                                     title="Your e-mail"
@@ -99,7 +109,9 @@
                                             <div class="s-12 m-12 l-6">
                                                 <input
                                                     name="name"
-                                                    v-model="configs.contact.name"
+                                                    v-model="
+                                                        configs.contact.name
+                                                    "
                                                     class="name border-radius"
                                                     placeholder="Your name"
                                                     title="Your name"
@@ -119,25 +131,33 @@
                                         />
                                     </div>
                                     <div class="s-12">
-                    <textarea
-                        name="text"
-                        v-model="configs.contact.text"
-                        class="required message border-radius"
-                        placeholder="Your message"
-                        rows="3"
-                    ></textarea>
+                                        <textarea
+                                            name="text"
+                                            v-model="configs.contact.text"
+                                            class="required message border-radius"
+                                            placeholder="Your message"
+                                            rows="3"
+                                        ></textarea>
                                     </div>
-                                    <div class="s-12 m-12 l-4">
+                                    <div class="s-12 m-12 l-4" v-if="!sended">
                                         <button
+                                            type="submit"
                                             :class="
-                        !getLoader
-                          ? 'submit-form button background-primary border-radius text-white'
-                          : 'submit-form button disabled border-radius text-white'
-                      "
-                                            :disabled="getLoader"
-                                            @click.prevent="sendMessage()"
+                                                !this.getLoader
+                                                    ? 'submit-form button background-primary border-radius text-white'
+                                                    : 'submit-form button disabled border-radius text-white'
+                                            "
+                                            :disabled="this.getLoader"
                                         >
-                                            Submit Button
+                                            Send Message
+                                        </button>
+                                    </div>
+                                    <div class="s-12" v-else>
+                                        <button
+                                            class="submit-form button disabled border-radius text-white"
+                                            disabled
+                                        >
+                                            Message sent!
                                         </button>
                                     </div>
                                 </form>
@@ -162,94 +182,61 @@
                         color="green"
                     >
                     </MglMarker>
-                    <MglNavigationControl position="top-right"/>
+                    <MglNavigationControl position="top-right" />
                 </MglMap>
             </div>
         </main>
-        <Footer/>
+        <Footer />
     </div>
 </template>
 <script>
-import {mapGetters} from "vuex";
-import {MglMap, MglMarker, MglNavigationControl} from "vue-mapbox";
+import { mapGetters } from "vuex";
+import { MglMap, MglMarker, MglNavigationControl } from "vue-mapbox";
 import Header from "@/components/blocks/Header";
 import Footer from "@/components/blocks/Footer";
 import {
     GET_MAPBOX_DATA,
-    SEND_CONTACT,
-    SET_LOADER,
 } from "@/store/modules/dreadnought.store";
-
+import messageFormMixin from "../assets/js/messageFormMixin"
 
 export default {
     name: "contact",
+    mixins: [messageFormMixin],
     components: {
         Header,
         Footer,
         MglMap,
         MglMarker,
-        MglNavigationControl,
+        MglNavigationControl
     },
     data() {
         return {
-            configs: this.$configs,
+            type: 'contact'
         };
     },
     computed: {
         ...mapGetters({
             getConfigs: "getConfigs",
             getMapbox: "getMapbox",
-            getLoader: "getLoader",
-        }),
+            getLoader: "getLoader"
+        })
     },
     mounted() {
         this.$store.dispatch(GET_MAPBOX_DATA);
     },
     methods: {
-        sendMessage() {
-            if (!this.validateForm().length) {
-                this.send();
-            }
-        },
-        validateForm() {
-            this.configs.contact.errors = [];
-            if (!this.configs.contact.email) {
-                this.configs.contact.errors.push("Email required.");
-            } else if (!this.validEmail(this.configs.contact.email)) {
-                this.configs.contact.errors.push("Valid email required.");
-            }
-
-            if (!this.configs.contact.text) {
-                this.configs.contact.errors.push("Message required.");
-            }
-            return this.configs.contact.errors;
-        },
-        validEmail: function (email) {
-            let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            return re.test(email);
-        },
-        async send() {
-            const dataForm = new FormData();
-            dataForm.append("email", this.configs.contact.email);
-            dataForm.append("name", this.configs.contact.name);
-            dataForm.append("text", this.configs.contact.text);
-            dataForm.append("subject", this.configs.contact.subject);
-            this.$store.commit(SET_LOADER, true);
-            await this.$store.dispatch(SEND_CONTACT, dataForm);
-            this.$store.commit(SET_LOADER, false);
-        },
         onMapLoaded(event) {
             const asyncActions = event.component.actions;
             asyncActions.flyTo({
                 center: [
                     this.getMapbox.mapCoordinates.lng,
-                    this.getMapbox.mapCoordinates.lat,
+                    this.getMapbox.mapCoordinates.lat
                 ],
                 zoom: this.getMapbox.mapCoordinates.zoom,
-                speed: 1,
+                speed: 1
             });
-        },
-    },
+        }
+    }
 };
 </script>
 <style scoped>

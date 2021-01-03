@@ -22,7 +22,7 @@ class Controller extends BaseController
      * @throws \Exception
      */
     public function __construct()
-    {
+    {   
         $this->viewTemplate = 'admin.modules';
         $this->lang = urlLang();
         $this->langList = setting('langList');

@@ -3,8 +3,8 @@ import { getDataFromLocalStorage } from "@/helpers/init_local_storage"
 import { getExpireDate } from "@/helpers/expire_date"
 
 // global api url
-export const BASE_URL = 'http://localhost:8000/api'
-// export const BASE_URL = 'https://dreadnought-project.herokuapp.com/api'
+export const BASE_URL = 'http://localhost:8000/api/'
+// export const BASE_URL = 'https://dreadnought-project.herokuapp.com/api/'
 
 // define app store actions names
 export const GET_CONFIGS = 'configs'
@@ -13,8 +13,6 @@ export const GET_STATIC_CONTENT = 'getStaticContent'
 export const GET_PRODUCTS = 'getProducts'
 export const GET_GALLERY = 'getGallery'
 export const GET_MAPBOX_DATA = 'getMapboxData'
-export const SEND_MAIL = 'sendMail'
-export const SEND_CONTACT = 'sendContact'
 
 // define app store mutations names
 const SET_CONFIGS = 'setConfigs'
@@ -69,14 +67,18 @@ const getters = {
         return state.loader;
     },
 }
-
+var request = Axios.create({
+    baseURL: BASE_URL,
+    timeout: 10000,
+    headers: {'Content-Type': 'application/json',}
+  });
 // app store actions
 const actions = {
     [GET_CONFIGS](state) {
         if (getDataFromLocalStorage(state, GET_CONFIGS, SET_CONFIGS)) {
             console.log('configs parsed from local storage');
         } else {
-            Axios.get(BASE_URL + '/configs')
+            request.get('configs')
                 .then(data => {
                     let configs = data.data
                     configs.expire_date = getExpireDate(2);
@@ -93,7 +95,7 @@ const actions = {
         if (getDataFromLocalStorage(state, GET_HOME, SET_HOME)) {
             console.log('home parsed from local storage');
         } else {
-            Axios.get(BASE_URL + '/home')
+            request.get('home')
                 .then(data => {
                     let home = data.data;
                     home.expire_date = getExpireDate(2);
@@ -110,7 +112,7 @@ const actions = {
         if (getDataFromLocalStorage(state, GET_STATIC_CONTENT+ '.' + slug, SET_STATIC_CONTENT)) {
             console.log('static content parsed from local storage');
         } else {
-            Axios.get(BASE_URL + '/static_content', { params: { slug: slug } })
+            request.get('static_content', { params: { slug: slug } })
                 .then(data => {
                     let content = data.data;
                     content.expire_date = getExpireDate(2);
@@ -127,7 +129,7 @@ const actions = {
         if (getDataFromLocalStorage(state, GET_PRODUCTS, SET_PRODUCTS)) {
             console.log('products parsed from local storage');
         } else {
-            Axios.get(BASE_URL + '/products')
+            request.get('products')
                 .then(data => {
                     let products = data.data;
                     products.expire_date = getExpireDate(2);
@@ -144,7 +146,7 @@ const actions = {
         if (getDataFromLocalStorage(state, GET_GALLERY, SET_GALLERY)) {
             console.log('gallary parsed from local storage');
         } else {
-            Axios.get(BASE_URL + '/gallery')
+            request.get('gallery')
                 .then(data => {
                     let gallery = data.data;
                     gallery.expire_date = getExpireDate(2);
@@ -161,7 +163,7 @@ const actions = {
         if (getDataFromLocalStorage(state, GET_MAPBOX_DATA, SET_MAPBOX_DATA)) {
             console.log('mapbox parsed from local storage');
         } else {
-            Axios.get(BASE_URL + '/mapbox')
+            request.get('mapbox')
                 .then(data => {
                     let mapbox = data.data;
                     mapbox.expire_date = getExpireDate(2);
@@ -172,26 +174,6 @@ const actions = {
                     console.log(error);
                 })
         }
-    },
-
-    async [SEND_MAIL](state, messageData) {
-        await Axios.post(BASE_URL + '/send_message', messageData)
-            .then(data => {
-                console.log(data.data);
-            })
-            .catch(error => {
-                console.log(error);
-            })
-    },
-
-    async [SEND_CONTACT](state, contactData) {
-        await Axios.post(BASE_URL + '/send_contact', contactData)
-            .then(data => {
-                console.log(data.data);
-            })
-            .catch(error => {
-                console.log(error);
-            })
     },
 }
 

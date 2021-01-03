@@ -1,6 +1,17 @@
 <template>
     <div>
-        <Header />
+        <Header>
+            <!-- PREMIUM FEATURES BUTTON -->
+            <router-link
+                slot="premium_features"
+                :to="{ path: this.getConfigs.params.premium_features }"
+                target="_blank"
+                class="hide-s"
+                style="position:fixed;top:120px;right:-14px;z-index:10;"
+            >
+                <img src="@/assets/img/premium-features.png" alt />
+            </router-link>
+        </Header>
         <!-- MAIN -->
         <main role="main">
             <!-- Main Carousel -->
@@ -42,10 +53,12 @@
                     <div class="margin">
                         <div
                             class="s-12 m-12 l-4 margin-m-bottom"
-                            v-for="(item, index) in this.getHome.banners" :key="index"
+                            v-for="(item, index) in this.getHome.banners"
+                            :key="index"
                         >
                             <img
-                                class="margin-bottom" :src="configs.storageUrl + item.image"
+                                class="margin-bottom"
+                                :src="configs.storageUrl + item.image"
                                 alt=""
                             />
                             <h2 class="text-thin">{{ item.title }}</h2>
@@ -239,9 +252,9 @@ export default {
         };
     },
     computed: {
-        ...mapGetters({ getHome: "getHome" })
+        ...mapGetters({ getHome: "getHome", getConfigs: "getConfigs" })
     },
-    methods:{
+    methods: {
         ...mapActions({ initHome: GET_HOME })
     },
     mounted() {
