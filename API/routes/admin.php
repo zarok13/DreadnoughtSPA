@@ -26,7 +26,7 @@ Route::get('storage', function () {
     // FileStore::truncate();
 });
 
-Route::redirect('/', '/admin/'.app()->getLocale().'/home');
+Route::redirect('/', '/admin/' . app()->getLocale() . '/home');
 
 
 /* System Routes */
@@ -37,7 +37,7 @@ Route::group(['namespace' => 'Admin\Auth'], function () use ($lang) {
 });
 
 
-Route::group(['middleware' => 'auth'], function () use ($lang) {
+Route::group(['middleware' => 'auth:admin'], function () use ($lang) {
     Route::group(['namespace' => 'Admin\Dreadnought'], function () use ($lang) {
         Route::get('/' . $lang . '/home', [HomeController::class, 'index'])->name('home');
         // clear_cache
@@ -46,9 +46,11 @@ Route::group(['middleware' => 'auth'], function () use ($lang) {
         Route::get('/no_permissions', [HomeController::class, 'noPermissions'])->name('noPermissions');
         /* Administration */
         // Roles
-        Route::get('/administration/roles', 'RolesController@index')->name('administration.roles');
-        Route::post('/administration/roles/create', 'RolesController@create')->name('administration.roles.create');
-        Route::post('/administration/roles/update', 'RolesController@update')->name('administration.roles.update');
+        Route::group(['prefix' => 'administration', 'middleware' => 'super_user'], function () {
+            Route::get('roles', 'RolesController@index')->name('administration.roles');
+            Route::post('roles/create', 'RolesController@create')->name('administration.roles.create');
+            Route::post('roles/update', 'RolesController@update')->name('administration.roles.update');
+        });
     });
     /* Default Routes */
     Route::group(['namespace' => 'Admin\Defaults', 'middleware' => 'permission'], function () use ($lang) {

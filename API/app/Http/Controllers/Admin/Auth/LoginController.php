@@ -27,7 +27,8 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware('guest:admin')->except('logout');
+        $this->middleware('auth:admin')->only('logout');
     }
 
     /**
@@ -49,6 +50,11 @@ class LoginController extends Controller
         return redirect('/admin');
     }
 
+    /**
+     * Admin Guard
+     *
+     * @return void
+     */
     protected function guard()
     {
         return Auth::guard('admin');

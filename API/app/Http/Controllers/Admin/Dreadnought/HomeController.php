@@ -30,7 +30,7 @@ class HomeController extends Controller
         $productsPageID = hel_field('products_page_id');
         
         $this->data['productsQuantity'] = $articles->where('page_id', $productsPageID)->count();
-        $this->data['productsRoute'] = route('articles', $productsPageID);
+        $this->data['productsRoute'] = !empty($productsPageID) ? route('articles', $productsPageID) : null;
         $this->data['homePage'] = true;
         return view('admin.base', $this->data);
     }
