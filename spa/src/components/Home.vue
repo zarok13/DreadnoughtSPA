@@ -233,7 +233,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import { GET_HOME } from "@/store/modules/dreadnought.store";
+import vuex_constants from "@/helpers/constants"
 import { Slider, SliderItem } from "vue-easy-slider";
 import Header from "../components/blocks/Header";
 import Footer from "../components/blocks/Footer";
@@ -254,11 +254,11 @@ export default {
     computed: {
         ...mapGetters({ getHome: "getHome", getConfigs: "getConfigs" })
     },
-    methods: {
-        ...mapActions({ initHome: GET_HOME })
-    },
     mounted() {
         this.initHome();
+    },
+    methods: {
+        ...mapActions({ initHome: vuex_constants.GET_HOME })
     }
 };
 </script>

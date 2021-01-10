@@ -21,10 +21,10 @@
     </div>
 </template>
 <script>
-import {mapGetters} from 'vuex';
+import { mapGetters, mapActions, mapMutations } from "vuex";
 import Header from "@/components/blocks/Header";
 import Footer from "@/components/blocks/Footer";
-import {GET_STATIC_CONTENT, SET_STATIC_CONTENT} from "@/store/modules/dreadnought.store";
+import vuex_constants from "@/helpers/constants";
 
 export default {
     name: "about",
@@ -33,16 +33,19 @@ export default {
         Footer
     },
     computed: {
-        ...mapGetters({getStaticContent: 'getStaticContent'}),
+        ...mapGetters({ getStaticContent: "getStaticContent" }),
+
         currentRouteName() {
-            return this.$route.path.replace(/^\/|\/$/g, '');
+            return this.$route.path.replace(/^\/|\/$/g, "");
         }
     },
-   
-   
     mounted() {
-        this.$store.commit(SET_STATIC_CONTENT, []);
-        this.$store.dispatch(GET_STATIC_CONTENT, this.currentRouteName);        
+        this.setStatic([]);
+        this.initStatic(this.currentRouteName);
+    },
+    methods: {
+        ...mapActions({initStatic: vuex_constants.GET_STATIC_CONTENT}),
+        ...mapMutations({setStatic: vuex_constants.SET_STATIC_CONTENT})
     }
 };
 </script>

@@ -1,4 +1,5 @@
-import { SET_LOADER, BASE_URL } from "@/store/modules/dreadnought.store";
+import { BASE_URL } from "@/store/modules/dreadnought.store";
+import vuex_constants from "@/helpers/constants"
 import Cookies from "js-cookie";
 import Axios from "axios"
 import { mapMutations } from "vuex";
@@ -22,7 +23,7 @@ export default {
     },
 
     methods: {
-        ...mapMutations({ setLoader: SET_LOADER }),
+        ...mapMutations({ setLoader: vuex_constants.SET_LOADER }),
         sendMessage() {
             if (!this.validateForm().length) {
                 this.send();

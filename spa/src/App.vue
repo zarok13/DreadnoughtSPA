@@ -5,13 +5,17 @@
 </template>
 
 <script>
-import {GET_CONFIGS} from "@/store/modules/dreadnought.store";
+import {mapActions} from 'vuex';
+import vuex_constants from "@/helpers/constants"
 
 export default {
     name: "App",
     created() {
-        this.$store.dispatch(GET_CONFIGS)
+        this.initConfigs();
     },
+    methods:{
+        ...mapActions({initConfigs: vuex_constants.GET_CONFIGS})
+    }
 };
 </script>
 

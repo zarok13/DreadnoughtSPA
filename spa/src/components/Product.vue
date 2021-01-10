@@ -16,7 +16,8 @@
                     <div class="line">
                         <div class="margin text-center">
                             <div
-                                v-for="(item, index) in this.getProducts.products"
+                                v-for="(item, index) in this.getProducts
+                                    .products"
                                 :key="index"
                                 class="s-12 m-12 l-4 margin-bottom"
                             >
@@ -51,8 +52,8 @@
     </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
-import { GET_PRODUCTS } from "@/store/modules/dreadnought.store";
+import { mapGetters, mapActions } from "vuex";
+import vuex_constants from "@/helpers/constants";
 import Header from "@/components/blocks/Header";
 import Footer from "@/components/blocks/Footer";
 
@@ -71,7 +72,11 @@ export default {
         ...mapGetters({ getProducts: "getProducts" })
     },
     mounted() {
-        this.$store.dispatch(GET_PRODUCTS);
+        this.initProducts();
+        
+    },
+    methods: {
+        ...mapActions({ initProducts: vuex_constants.GET_PRODUCTS })
     }
 };
 </script>

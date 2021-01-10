@@ -2,10 +2,10 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import { configs } from "@/helpers/configs";
+import development from "@/helpers/configs.json";
 
 Vue.config.productionTip = false;
-Vue.prototype.$configs = configs;
+Vue.prototype.$configs = development;
 
 new Vue({
     render: h => h(App),

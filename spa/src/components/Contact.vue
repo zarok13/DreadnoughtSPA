@@ -190,14 +190,12 @@
     </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { MglMap, MglMarker, MglNavigationControl } from "vue-mapbox";
 import Header from "@/components/blocks/Header";
 import Footer from "@/components/blocks/Footer";
-import {
-    GET_MAPBOX_DATA,
-} from "@/store/modules/dreadnought.store";
-import messageFormMixin from "../assets/js/messageFormMixin"
+import vuex_constants from "@/helpers/constants";
+import messageFormMixin from "../assets/js/messageFormMixin";
 
 export default {
     name: "contact",
@@ -222,9 +220,11 @@ export default {
         })
     },
     mounted() {
-        this.$store.dispatch(GET_MAPBOX_DATA);
+        this.initMapbox()
     },
     methods: {
+        ...mapActions({initMapbox: vuex_constants.GET_MAPBOX_DATA}),
+        
         onMapLoaded(event) {
             const asyncActions = event.component.actions;
             asyncActions.flyTo({

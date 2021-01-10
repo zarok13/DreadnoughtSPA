@@ -1,6 +1,6 @@
 <?php
 
 
-// Route::get('/{url?}/{id?}', function (){
-//    return view('welcome');
-// });
+Route::get('/{url?}/{id?}', function (){
+   return view('welcome');
+});
