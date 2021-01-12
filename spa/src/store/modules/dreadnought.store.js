@@ -3,9 +3,15 @@ import { getDataFromLocalStorage } from "@/helpers/init_local_storage"
 import { getExpireDate } from "@/helpers/expire_date"
 import vuex_constants from "@/helpers/constants"
 // global api url
-export const BASE_URL = 'http://localhost:8000/api/'
+const BASE_DOMAIN = 'http://localhost:8000'
+export const BASE_URL = `${BASE_DOMAIN}/api/`
 // export const BASE_URL = 'https://dreadnought-project.herokuapp.com/api/'
 
+var request = Axios.create({
+    baseURL: BASE_URL,
+    timeout: 10000,
+    headers: {'Content-Type': 'application/json',}
+  });
 
 
 // init app state
@@ -51,11 +57,7 @@ const getters = {
         return state.loader;
     },
 }
-var request = Axios.create({
-    baseURL: BASE_URL,
-    timeout: 10000,
-    headers: {'Content-Type': 'application/json',}
-  });
+
 // app store actions
 const actions = {
     [vuex_constants.GET_CONFIGS](state) {
@@ -143,22 +145,25 @@ const actions = {
         }
     },
 
-    [vuex_constants.GET_MAPBOX_DATA](state) {
-        if (getDataFromLocalStorage(state, vuex_constants.GET_MAPBOX_DATA, vuex_constants.SET_MAPBOX_DATA)) {
-            console.log('mapbox parsed from local storage');
-        } else {
-            request.get('mapbox')
-                .then(data => {
-                    let mapbox = data.data;
-                    mapbox.expire_date = getExpireDate(2);
-                    localStorage.setItem(vuex_constants.GET_MAPBOX_DATA, JSON.stringify(mapbox));
-                    state.commit(vuex_constants.SET_MAPBOX_DATA, mapbox);
-                })
-                .catch(error => {
-                    console.log(error);
-                })
+   
+    [vuex_constants.GET_MAPBOX_DATA]() {
+// console.log(this.$configs);
+        // this.$api.contacts.vuex_constants.GET_MAPBOX_DATA(state);
+    //     if (getDataFromLocalStorage(state, vuex_constants.GET_MAPBOX_DATA, vuex_constants.SET_MAPBOX_DATA)) {
+    //         console.log('mapbox parsed from local storage');
+    //     } else {
+    //         request.get('mapbox')
+    //             .then(data => {
+    //                 let mapbox = data.data;
+    //                 mapbox.expire_date = getExpireDate(2);
+    //                 localStorage.setItem(vuex_constants.GET_MAPBOX_DATA, JSON.stringify(mapbox));
+    //                 state.commit(vuex_constants.SET_MAPBOX_DATA, mapbox);
+    //             })
+    //             .catch(error => {
+    //                 console.log(error);
+    //             })
         }
-    },
+    // },
 }
 
 // app store mutations
