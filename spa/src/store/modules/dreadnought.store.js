@@ -2,6 +2,9 @@ import Axios from "axios"
 import { getDataFromLocalStorage } from "@/helpers/init_local_storage"
 import { getExpireDate } from "@/helpers/expire_date"
 import vuex_constants from "@/helpers/constants"
+import { RepositoryFactory } from '@/api/RepositoryFactory'
+const ContactsRepository = RepositoryFactory.get("contacts");
+
 // global api url
 const BASE_DOMAIN = 'http://localhost:8000'
 export const BASE_URL = `${BASE_DOMAIN}/api/`
@@ -146,24 +149,22 @@ const actions = {
     },
 
    
-    [vuex_constants.GET_MAPBOX_DATA]() {
-// console.log(this.$configs);
-        // this.$api.contacts.vuex_constants.GET_MAPBOX_DATA(state);
-    //     if (getDataFromLocalStorage(state, vuex_constants.GET_MAPBOX_DATA, vuex_constants.SET_MAPBOX_DATA)) {
-    //         console.log('mapbox parsed from local storage');
-    //     } else {
-    //         request.get('mapbox')
-    //             .then(data => {
-    //                 let mapbox = data.data;
-    //                 mapbox.expire_date = getExpireDate(2);
-    //                 localStorage.setItem(vuex_constants.GET_MAPBOX_DATA, JSON.stringify(mapbox));
-    //                 state.commit(vuex_constants.SET_MAPBOX_DATA, mapbox);
-    //             })
-    //             .catch(error => {
-    //                 console.log(error);
-    //             })
+    [vuex_constants.GET_MAPBOX_DATA](state) {
+        if (getDataFromLocalStorage(state, vuex_constants.GET_MAPBOX_DATA, vuex_constants.SET_MAPBOX_DATA)) {
+            console.log('mapbox parsed from local storage');
+        } else {
+            ContactsRepository[vuex_constants.GET_MAPBOX_DATA]()
+                .then(data => {
+                    let mapbox = data.data;
+                    mapbox.expire_date = getExpireDate(2);
+                    // localStorage.setItem(vuex_constants.GET_MAPBOX_DATA, JSON.stringify(mapbox));
+                    state.commit(vuex_constants.SET_MAPBOX_DATA, mapbox);
+                })
+                .catch(error => {
+                    console.log(error);
+                })
         }
-    // },
+    },
 }
 
 // app store mutations
