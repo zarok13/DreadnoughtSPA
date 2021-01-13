@@ -14,6 +14,7 @@ const SET_PRODUCTS = 'setProducts'
 const SET_GALLERY = 'setGallery'
 const SET_MAPBOX_DATA = 'setMapboxDate'
 const SET_LOADER = 'setLoader'
+const SEND_CONTACT_MAIL = 'sendContactMail'
 
 export default {
     // define app store actions names
@@ -32,4 +33,5 @@ export default {
     SET_GALLERY: SET_GALLERY,
     SET_MAPBOX_DATA: SET_MAPBOX_DATA,
     SET_LOADER: SET_LOADER,
+    SEND_CONTACT_MAIL: SEND_CONTACT_MAIL,
 }

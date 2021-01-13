@@ -8,12 +8,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['namespace' => 'API'], function () {
-    Route::get('/configs', 'ConfigsController');
-    Route::get('/home', 'HomeController');
-    Route::get('/static_content', 'StaticController');
-    Route::get('/products', 'ProductsController');
-    Route::get('/gallery', 'GalleryController');
-    Route::get('/mapbox', 'ContactController@mapbox');
-    Route::post('/send_message_footer', 'ContactController@sendMessage');
-    Route::post('/send_message_contact', 'ContactController@sendContact');
+    Route::get('configs', 'ConfigsController');
+    Route::get('home', 'HomeController');
+    Route::get('static_content', 'StaticController');
+    Route::get('products', 'ProductsController');
+    Route::get('gallery', 'GalleryController');
+    Route::get('contact/mapbox', 'ContactController@mapbox');
+    Route::post('contact/send_message_footer', 'ContactController@sendMessage');
+    Route::post('contact/send_message_contact', 'ContactController@sendContact');
 });

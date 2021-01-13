@@ -157,7 +157,7 @@ const actions = {
                 .then(data => {
                     let mapbox = data.data;
                     mapbox.expire_date = getExpireDate(2);
-                    // localStorage.setItem(vuex_constants.GET_MAPBOX_DATA, JSON.stringify(mapbox));
+                    localStorage.setItem(vuex_constants.GET_MAPBOX_DATA, JSON.stringify(mapbox));
                     state.commit(vuex_constants.SET_MAPBOX_DATA, mapbox);
                 })
                 .catch(error => {

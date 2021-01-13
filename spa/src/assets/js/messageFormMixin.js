@@ -1,14 +1,9 @@
-import { BASE_URL } from "@/store/modules/dreadnought.store";
 import vuex_constants from "@/helpers/constants"
 import Cookies from "js-cookie";
-import Axios from "axios"
 import { mapMutations } from "vuex";
+import { RepositoryFactory } from '@/api/RepositoryFactory'
+const ContactsRepository = RepositoryFactory.get("contacts");
 
-var request = Axios.create({
-    baseURL: BASE_URL,
-    timeout: 10000,
-    headers: { 'Content-Type': 'application/json', }
-});
 
 export default {
     data() {
@@ -55,7 +50,7 @@ export default {
                 dataForm.append("subject", this.configs[this.type].subject);
 
                 this.setLoader(true);
-                await request.post('send_message_' + this.type, dataForm)
+                await ContactsRepository[vuex_constants.SEND_CONTACT_MAIL](this.type, dataForm)
                     .then(() => {
                         Cookies.set(this.type + 'Message', true, { expires: 7 });
                         this.sended = Cookies.get(this.type + 'Message');
