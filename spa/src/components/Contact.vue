@@ -73,7 +73,7 @@
                                     Contact Us
                                 </h2>
                                 <h6
-                                    v-if="configs.contact.errors.length"
+                                    v-if="this.contact.errors.length"
                                     style="color: #4287f5"
                                 >
                                     Please correct the following error(s):
@@ -81,8 +81,7 @@
                                 <ul>
                                     <li
                                         style="color: red"
-                                        v-for="(error, index) in configs.contact
-                                            .errors"
+                                        v-for="(error, index) in this.contact.errors"
                                         :key="index"
                                     >
                                         {{ error }}
@@ -98,7 +97,7 @@
                                                 <input
                                                     name="email"
                                                     v-model="
-                                                        configs.contact.email
+                                                        contact.email
                                                     "
                                                     class="required email border-radius"
                                                     placeholder="Your e-mail"
@@ -110,7 +109,7 @@
                                                 <input
                                                     name="name"
                                                     v-model="
-                                                        configs.contact.name
+                                                        contact.name
                                                     "
                                                     class="name border-radius"
                                                     placeholder="Your name"
@@ -123,7 +122,7 @@
                                     <div class="s-12">
                                         <input
                                             name="subject"
-                                            v-model="configs.contact.subject"
+                                            v-model="contact.subject"
                                             class="subject border-radius"
                                             placeholder="Subject"
                                             title="Subject"
@@ -133,7 +132,7 @@
                                     <div class="s-12">
                                         <textarea
                                             name="text"
-                                            v-model="configs.contact.text"
+                                            v-model="contact.text"
                                             class="required message border-radius"
                                             placeholder="Your message"
                                             rows="3"
@@ -169,8 +168,8 @@
             <!-- MAP -->
             <div id="map">
                 <MglMap
-                    :accessToken="configs.accessToken"
-                    :mapStyle.sync="configs.mapStyle"
+                    :accessToken="env.accessToken"
+                    :mapStyle.sync="env.mapStyle"
                     @load="onMapLoaded"
                     :attributionControl="false"
                     :scrollZoom="false"
@@ -194,8 +193,8 @@ import { mapActions, mapGetters } from "vuex";
 import { MglMap, MglMarker, MglNavigationControl } from "vue-mapbox";
 import Header from "@/components/blocks/Header";
 import Footer from "@/components/blocks/Footer";
-import vuex_constants from "@/helpers/constants";
-import messageFormMixin from "../assets/js/messageFormMixin";
+import constants from "@/helpers/constants";
+import messageFormMixin from "@/components/mixins/messageFormMixin";
 
 export default {
     name: "contact",
@@ -209,7 +208,8 @@ export default {
     },
     data() {
         return {
-            type: 'contact'
+            env: this.$env,
+            type: 'contact',
         };
     },
     computed: {
@@ -223,7 +223,7 @@ export default {
         this.initMapbox()
     },
     methods: {
-        ...mapActions({initMapbox: vuex_constants.GET_MAPBOX_DATA}),
+        ...mapActions({initMapbox: constants.GET_MAPBOX_DATA}),
         
         onMapLoaded(event) {
             const asyncActions = event.component.actions;

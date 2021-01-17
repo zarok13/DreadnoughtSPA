@@ -1,20 +1,20 @@
 <template>
     <div id="app">
-        <router-view :key="$route.fullPath"/>
+        <router-view :key="$route.fullPath" />
     </div>
 </template>
 
 <script>
-import {mapActions} from 'vuex';
-import vuex_constants from "@/helpers/constants"
+import { mapActions } from "vuex";
+import constants from "@/helpers/constants";
 
 export default {
     name: "App",
     created() {
         this.initConfigs();
     },
-    methods:{
-        ...mapActions({initConfigs: vuex_constants.GET_CONFIGS})
+    methods: {
+        ...mapActions({ initConfigs: constants.GET_CONFIGS })
     }
 };
 </script>

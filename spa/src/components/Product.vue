@@ -53,16 +53,14 @@
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
-import vuex_constants from "@/helpers/constants";
+import constants from "@/helpers/constants";
 import Header from "@/components/blocks/Header";
 import Footer from "@/components/blocks/Footer";
 
 export default {
     name: "products",
     data() {
-        return {
-            configs: this.$configs
-        };
+        return {};
     },
     components: {
         Header,
@@ -73,10 +71,9 @@ export default {
     },
     mounted() {
         this.initProducts();
-        
     },
     methods: {
-        ...mapActions({ initProducts: vuex_constants.GET_PRODUCTS })
+        ...mapActions({ initProducts: constants.GET_PRODUCTS })
     }
 };
 </script>

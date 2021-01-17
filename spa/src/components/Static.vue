@@ -24,7 +24,7 @@
 import { mapGetters, mapActions, mapMutations } from "vuex";
 import Header from "@/components/blocks/Header";
 import Footer from "@/components/blocks/Footer";
-import vuex_constants from "@/helpers/constants";
+import constants from "@/helpers/constants";
 
 export default {
     name: "about",
@@ -44,8 +44,8 @@ export default {
         this.initStatic(this.currentRouteName);
     },
     methods: {
-        ...mapActions({initStatic: vuex_constants.GET_STATIC_CONTENT}),
-        ...mapMutations({setStatic: vuex_constants.SET_STATIC_CONTENT})
+        ...mapActions({initStatic: constants.GET_STATIC_CONTENT}),
+        ...mapMutations({setStatic: constants.SET_STATIC_CONTENT})
     }
 };
 </script>

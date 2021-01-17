@@ -29,7 +29,7 @@
                             v-for="(item, index) in this.getHome.sliders"
                             v-bind:key="index"
                         >
-                            <img v-bind:src="configs.storageUrl + item.src" />
+                            <img v-bind:src="env.storageUrl + item.src" />
                             <div class="carousel-content">
                                 <p
                                     class="text-white text-s-size-20 text-m-size-40 text-l-size-60 margin-bottom-40 text-thin text-line-height-1"
@@ -58,7 +58,7 @@
                         >
                             <img
                                 class="margin-bottom"
-                                :src="configs.storageUrl + item.image"
+                                :src="env.storageUrl + item.image"
                                 alt=""
                             />
                             <h2 class="text-thin">{{ item.title }}</h2>
@@ -132,7 +132,7 @@
                                                 >
                                                     <img
                                                         v-bind:src="
-                                                            configs.storageUrl +
+                                                            env.storageUrl +
                                                                 item[0].image
                                                         "
                                                         alt
@@ -185,7 +185,7 @@
                                                 >
                                                     <img
                                                         v-bind:src="
-                                                            configs.storageUrl +
+                                                            env.storageUrl +
                                                                 item[1].image
                                                         "
                                                         alt
@@ -233,7 +233,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import vuex_constants from "@/helpers/constants"
+import constants from "@/helpers/constants"
 import { Slider, SliderItem } from "vue-easy-slider";
 import Header from "../components/blocks/Header";
 import Footer from "../components/blocks/Footer";
@@ -248,7 +248,7 @@ export default {
     },
     data() {
         return {
-            configs: this.$configs
+            env: this.$env
         };
     },
     computed: {
@@ -258,7 +258,7 @@ export default {
         this.initHome();
     },
     methods: {
-        ...mapActions({ initHome: vuex_constants.GET_HOME })
+        ...mapActions({ initHome: constants.GET_HOME })
     }
 };
 </script>

@@ -39,7 +39,7 @@
                                     </div>
                                     <img
                                         v-bind:src="
-                                            configs.storageUrl + item.src
+                                            env.storageUrl + item.src
                                         "
                                         title="Portfolio Image 1"
                                     />
@@ -56,7 +56,7 @@
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
-import vuex_constants from "@/helpers/constants";
+import constants from "@/helpers/constants";
 import Header from "@/components/blocks/Header";
 import Footer from "@/components/blocks/Footer";
 
@@ -64,7 +64,7 @@ export default {
     name: "gallery",
     data() {
         return {
-            configs: this.$configs
+            env: this.$env
         };
     },
     components: {
@@ -78,7 +78,7 @@ export default {
         this.initGallery();
     },
     methods: {
-        ...mapActions({ initGallery: vuex_constants.GET_GALLERY })
+        ...mapActions({ initGallery: constants.GET_GALLERY })
     }
 };
 </script>

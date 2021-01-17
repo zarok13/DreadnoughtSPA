@@ -63,7 +63,7 @@
                                                         .footer_image
                                                 "
                                                 v-bind:src="
-                                                    configs.storageUrl +
+                                                    env.storageUrl +
                                                         this.getConfigs.params
                                                             .footer_image
                                                 "
@@ -203,7 +203,7 @@
                                 Leave a Message
                             </h4>
                             <h6
-                                v-if="configs.footer.errors.length"
+                                v-if="this.footer.errors.length"
                                 style="color: #4287f5"
                             >
                                 Please correct the following error(s):
@@ -211,7 +211,7 @@
                             <ul>
                                 <li
                                     style="color: red"
-                                    v-for="(error, index) in configs.footer
+                                    v-for="(error, index) in this.footer
                                         .errors"
                                     :key="index"
                                 >
@@ -230,7 +230,7 @@
                                         <div class="s-12 m-12 l-6">
                                             <input
                                                 name="email"
-                                                v-model="configs.footer.email"
+                                                v-model="footer.email"
                                                 class="required email border-radius"
                                                 placeholder="Your e-mail"
                                                 title="Your e-mail"
@@ -240,7 +240,7 @@
                                         <div class="s-12 m-12 l-6">
                                             <input
                                                 name="name"
-                                                v-model="configs.footer.name"
+                                                v-model="footer.name"
                                                 class="name border-radius"
                                                 placeholder="Your name"
                                                 title="Your name"
@@ -252,7 +252,7 @@
                                 <div class="s-12">
                                     <textarea
                                         name="text"
-                                        v-model="configs.footer.text"
+                                        v-model="footer.text"
                                         class="required message border-radius"
                                         placeholder="Your message"
                                         rows="6"
@@ -318,13 +318,15 @@
     </div>
 </template>
 <script>
-import messageFormMixin from "../../assets/js/messageFormMixin"
+
 import { mapGetters } from "vuex";
+import messageFormMixin from "@/components/mixins/messageFormMixin"
 export default {
     name: "footer_block",
     mixins: [messageFormMixin],
     data() {
         return {
+            env: this.$env,
             type: "footer"
         };
     },

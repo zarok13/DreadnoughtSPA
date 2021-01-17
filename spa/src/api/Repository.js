@@ -1,10 +1,18 @@
 import Axios from 'axios';
 
-const BASE_DOMAIN = 'http://localhost:8000';
-const BASE_URL = `${BASE_DOMAIN}/api/`;
+import production from "@/helpers/production/env";
+import development from "@/helpers/development/env";
+
+let env = '';
+if (process.env.NODE_ENV === "production") {
+    env = Object.freeze(production);
+} else {
+    env = Object.freeze(development);
+}
+
 
 export default Axios.create({
-  baseURL: BASE_URL,
+  baseURL: env.baseUrl,
   timeout: 10000,
   headers: {'Content-Type': 'application/json',}
 });
