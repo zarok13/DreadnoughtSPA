@@ -123,7 +123,7 @@ function actionDataInit(state, getter, setter, repository, params = null) {
             .then(data => {
                 let mapbox = data.data;
                 mapbox.expire_date = getExpireDate(2);
-                // localStorage.setItem(constants.GET_MAPBOX_DATA, JSON.stringify(mapbox));
+                localStorage.setItem(getter, JSON.stringify(mapbox));
                 state.commit(setter, mapbox);
             })
             .catch(error => {
