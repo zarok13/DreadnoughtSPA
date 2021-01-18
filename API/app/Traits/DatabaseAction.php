@@ -5,16 +5,6 @@ namespace App\Traits;
 trait DatabaseAction
 {
     ////////////////// ADD ///////////////////
-    /**
-     * @param $modelName
-     * @param array $request
-     * @return null
-     */
-    public function addInCurrentLanguage($modelName, array $request)
-    {
-        $itemID = $this->addMainLang($modelName, $request);
-        return $itemID;
-    }
 
     /**
      * @param $modelName
@@ -44,6 +34,7 @@ trait DatabaseAction
                 $data = $request;
                 $data['lang'] = $key;
                 $data['lang_id'] = $lang_id ? ($lang_id->id + 1) : 1;
+                $data['sort'] = $lang_id ? ($lang_id->sort + 1) : 1;
                 return $model::insertGetId($data);
             }
         }
