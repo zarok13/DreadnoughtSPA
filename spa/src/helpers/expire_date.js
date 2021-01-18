@@ -27,7 +27,7 @@ export function getExpireDate(minuteCount = 2) {
     let today = new Date();
     today.getDate();
     let dd = today.getDate();
-    let mm = today.getMonth();
+    let mm = today.getMonth() + 1;
     let yyyy = today.getFullYear();
     if (dd < 10) {
         dd = '0' + dd;

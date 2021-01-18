@@ -116,14 +116,15 @@ const actions = {
 
 
 function actionDataInit(state, getter, setter, repository, params = null) {
-    if (getDataFromLocalStorage(state, getter, setter)) {
-        console.log(getter + ' parsed from local storage');
+    let localStor = params !== null ? getter + '.' + params[0] : getter;
+    if (getDataFromLocalStorage(state, localStor, setter)) {
+        console.log(localStor + ' parsed from local storage');
     } else {
         repository[getter](params)
             .then(data => {
                 let mapbox = data.data;
                 mapbox.expire_date = getExpireDate(2);
-                localStorage.setItem(getter, JSON.stringify(mapbox));
+                localStorage.setItem(localStor, JSON.stringify(mapbox));
                 state.commit(setter, mapbox);
             })
             .catch(error => {
