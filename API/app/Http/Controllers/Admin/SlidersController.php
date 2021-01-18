@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Admin\Dreadnought\Controller;
 use App\Models\Slider;
 use App\Traits\DatabaseAction;
+use App\Traits\Deletable;
 use App\Traits\Sort;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Redirector;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
@@ -16,6 +16,7 @@ class SlidersController extends Controller
 {
     use DatabaseAction;
     use Sort;
+    use Deletable;
 
     protected $modelName = 'Slider';
     protected $validationArray = [
@@ -87,16 +88,5 @@ class SlidersController extends Controller
         $filteredRequest = $request->except('_token');
         $this->updateMainLang($this->modelName, $id, $filteredRequest);
         return redirect()->back()->with('successUpdate', DATABASE_ACTION_UPDATE);
-    }
-
-    /**
-     * @param int $id
-     * @return RedirectResponse
-     */
-    public function delete(int $id):RedirectResponse
-    {
-        $menu = (MODELS_PATH . ucfirst($this->modelName))::where('lang_id', $id)->first();
-        $menu->delete();
-        return redirect()->route($this->moduleName);
     }
 }

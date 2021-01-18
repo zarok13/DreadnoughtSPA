@@ -7,6 +7,7 @@ use App\Models\FileStoreRef;
 use App\Http\Controllers\Admin\Dreadnought\Controller;
 use App\Models\Page;
 use App\Traits\DatabaseAction;
+use App\Traits\Deletable;
 use App\Traits\Sort;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -18,6 +19,7 @@ class PagesController extends Controller
 {
     use DatabaseAction;
     use Sort;
+    use Deletable;
 
     protected $modelName = 'Page';
     protected $validationArray = [
@@ -102,17 +104,6 @@ class PagesController extends Controller
         $this->updateMainLang('page', $id, $filteredRequest);
         $this->data['module'] = $this->moduleName;
         return redirect()->back()->with('successUpdate', DATABASE_ACTION_UPDATE);
-    }
-
-    /**
-     * @param int $id
-     * @return RedirectResponse
-     */
-    public function delete(int $id): RedirectResponse
-    {
-        $menu = (MODELS_PATH . ucfirst($this->modelName))::findOrFail($id);
-        $menu->delete();
-        return redirect()->back();
     }
 
     /**

@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\Dreadnought\Controller;
 use App\Models\Article;
 use App\Models\Slider;
 use App\Traits\DatabaseAction;
+use App\Traits\Deletable;
 use App\Traits\Sort;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -16,6 +17,7 @@ class BannersController extends Controller
 {
     use DatabaseAction;
     use Sort;
+    use Deletable;
 
     protected $modelName = 'Banner';
     protected $validationArray = [
@@ -90,16 +92,5 @@ class BannersController extends Controller
         $filteredRequest = $request->except('_token');
         $this->updateMainLang($this->modelName, $id, $filteredRequest);
         return redirect()->back()->with('successUpdate', DATABASE_ACTION_UPDATE);
-    }
-
-    /**
-     * @param int $id
-     * @return RedirectResponse
-     */
-    public function delete(int $id):RedirectResponse
-    {
-        $menu = (MODELS_PATH . ucfirst($this->modelName))::where('lang_id', $id)->first();
-        $menu->delete();
-        return redirect()->route($this->moduleName);
     }
 }

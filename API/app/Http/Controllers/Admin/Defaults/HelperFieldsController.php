@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Defaults;
 use App\Models\HelperField;
 use App\Http\Controllers\Admin\Dreadnought\Controller;
 use App\Traits\DatabaseAction;
+use App\Traits\Deletable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -13,6 +14,7 @@ use Illuminate\View\View;
 class HelperFieldsController extends Controller
 {
     use DatabaseAction;
+    use Deletable;
 
     protected $modelName = 'helperField';
     protected $validationArray = [
@@ -89,18 +91,6 @@ class HelperFieldsController extends Controller
         $this->updateMainLang($this->modelName, $id, $request->except('_token'));
         $this->data['module'] = $this->moduleName;
         return redirect()->back()->with('successUpdate', DATABASE_ACTION_UPDATE);
-    }
-
-    /**
-     * @param int $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function delete(int $id): RedirectResponse
-    {
-        $menu = (MODELS_PATH . ucfirst($this->modelName))::findOrFail($id);
-        $menu->delete();
-        return redirect()->back();
     }
 
     /**

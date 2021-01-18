@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\Dreadnought\Controller;
 use App\Models\Menu;
 use App\Models\Page;
 use App\Traits\DatabaseAction;
+use App\Traits\Deletable;
 use App\Traits\Sort;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -16,6 +17,7 @@ class MenuController extends Controller
 {
     use DatabaseAction;
     use Sort;
+    use Deletable;
 
     protected $validationArray = [
         'title' => 'required'
@@ -93,17 +95,5 @@ class MenuController extends Controller
         $filteredRequest = $request->except('_token');
         $this->updateMainLang($this->moduleName, $id, $filteredRequest);
         return redirect()->back()->with('successUpdate', DATABASE_ACTION_UPDATE);
-    }
-
-    /**
-     * @param int $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function delete(int $id): RedirectResponse
-    {
-        $menu = (MODELS_PATH . ucfirst($this->moduleName))::where('lang_id', $id)->first();
-        $menu->delete();
-        return redirect()->route($this->moduleName);
     }
 }

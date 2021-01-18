@@ -7,6 +7,7 @@ use App\Facades\Slug;
 use App\Http\Controllers\Admin\Dreadnought\Controller;
 use App\Models\Page;
 use App\Traits\DatabaseAction;
+use App\Traits\Deletable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,6 +16,7 @@ use \Illuminate\View\View;
 class ArticlesController extends Controller
 {
     use DatabaseAction;
+    use Deletable;
 
     protected $modelName = 'Article';
     protected $validationArray = [];
@@ -112,16 +114,5 @@ class ArticlesController extends Controller
         $this->updateMainLang($this->modelName, $id, $filteredRequest);
         $this->data['module'] = $this->moduleName;
         return redirect()->back()->with('successUpdate', DATABASE_ACTION_UPDATE);
-    }
-
-    /**
-     * @param int $id
-     * @return RedirectResponse
-     */
-    public function delete(int $id): RedirectResponse
-    {
-        $menu = (MODELS_PATH . ucfirst($this->modelName))::findOrFail($id);
-        $menu->delete();
-        return redirect()->back();
     }
 }

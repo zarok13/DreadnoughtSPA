@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Defaults;
 use App\Http\Controllers\Admin\Dreadnought\Controller;
 use App\Models\Language;
 use App\Traits\DatabaseAction;
+use App\Traits\Deletable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -12,6 +13,7 @@ use Illuminate\View\View;
 class LanguageController extends Controller
 {
     use DatabaseAction;
+    use Deletable;
 
     protected $modelName = 'language';
     protected $validationArray = [];
@@ -87,17 +89,5 @@ class LanguageController extends Controller
         $this->updateMainLang($this->modelName,  $id, $request->except('_token'));
         $this->data['module'] = $this->moduleName;
         return redirect()->back()->with('successUpdate', DATABASE_ACTION_UPDATE);
-    }
-
-    /**
-     * @param int $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function delete(int $id): RedirectResponse
-    {
-        $menu = (MODELS_PATH . ucfirst($this->modelName))::findOrFail($id);
-        $menu->delete();
-        return redirect()->back();
     }
 }
