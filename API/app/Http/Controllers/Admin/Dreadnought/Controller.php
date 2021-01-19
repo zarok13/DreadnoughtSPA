@@ -29,7 +29,6 @@ class Controller extends BaseController
         $this->data['lang'] = $this->lang;
         $this->data['langList'] = $this->langList;
         $this->data['modules'] = $this->getModules();
-        $this->middleware('admin');
     }
 
     /**

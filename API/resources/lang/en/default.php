@@ -14,6 +14,6 @@ return [
     'sliders' => 'Sliders',
     'reviews' => 'Reviews',
     'gallery' => 'Gallery',
-    'banners' => 'Banenrs',
+    'banners' => 'Banners',
     'translates' => 'Translates',
 ];

@@ -8,6 +8,9 @@
                     <a href="{{ route($moduleName .'.add') }}" class="btn btn-info"><i class="fas fa-plus fa-md"></i>
                         Add Item</a>
                 </h3>
+                @foreach (setting('langList') as $lowerCase => $upperCase)
+                    <a href="{{ url('admin/' . $lowerCase . '/' . $moduleName) }}">{{ $lowerCase }}</a>
+                @endforeach
             </div>
             <!-- /.card-header -->
             <div class="card-body">

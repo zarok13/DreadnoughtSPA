@@ -11,6 +11,11 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="{{ env('APP_URL') }}" target="_blank" title="Go to site">
+                <span class="btn btn-outline-success"><i class="fas fa-globe fa-lg"></i></span>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link " target="_blank" href="{{ route('clearCache') }}" title="Cache Cleaner">
                 <span class="btn btn-outline-success"><i class="fas fa-recycle fa-lg"></i></span>
             </a>
