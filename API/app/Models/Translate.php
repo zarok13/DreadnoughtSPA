@@ -3,7 +3,7 @@
 namespace App\Models;
 
 
-class Language extends ChildModel
+class Translate extends ChildModel
 {
     protected $fillable = ['*'];
 }

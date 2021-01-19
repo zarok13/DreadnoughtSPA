@@ -6,7 +6,7 @@ use App\Http\Controllers\Admin\Defaults\ArticlesController;
 use App\Http\Controllers\Admin\Defaults\ContactController;
 use App\Http\Controllers\Admin\Defaults\FileStoreController;
 use App\Http\Controllers\Admin\Defaults\HelperFieldsController;
-use App\Http\Controllers\Admin\Defaults\LanguageController;
+use App\Http\Controllers\Admin\Defaults\TranslatesController;
 use App\Http\Controllers\Admin\Defaults\MenuController;
 use App\Http\Controllers\Admin\Defaults\PagesController;
 use App\Http\Controllers\Admin\Dreadnought\HomeController;
@@ -87,13 +87,13 @@ Route::group(['middleware' => 'auth:admin'], function () use ($lang) {
         Route::delete('/' . $lang . '/contact/delete_marker/{marker_id}', [ContactController::class, 'deleteMarker'])->name('contact.deleteMarker');
         Route::post('/' . $lang . '/contact/save_data_coordinates/{page_id}', [ContactController::class, 'saveDataCoordinates'])->name('contact.saveDataCoordinates');
         Route::post('/' . $lang . '/contact/sort', [ContactController::class/*  */, 'sort'])->name('contact.sort');
-        // Language
-        Route::get('/' . $lang . '/languages', [LanguageController::class, 'index'])->name('languages');
-        Route::get('/' . $lang . '/languages/add', [LanguageController::class, 'add'])->name('languages.add');
-        Route::post('/' . $lang . '/languages/create', [LanguageController::class, 'create'])->name('languages.create');
-        Route::get('/' . $lang . '/languages/edit/{id}', [LanguageController::class, 'edit'])->name('languages.edit');
-        Route::post('/' . $lang . '/languages/update/{id}', [LanguageController::class, 'update'])->name('languages.update');
-        Route::get('/' . $lang . '/languages/delete/{id}', [LanguageController::class, 'delete'])->name('languages.delete');
+        // Translates
+        Route::get('/' . $lang . '/translates', [TranslatesController::class, 'index'])->name('translates');
+        Route::get('/' . $lang . '/translates/add', [TranslatesController::class, 'add'])->name('translates.add');
+        Route::post('/' . $lang . '/translates/create', [TranslatesController::class, 'create'])->name('translates.create');
+        Route::get('/' . $lang . '/translates/edit/{id}', [TranslatesController::class, 'edit'])->name('translates.edit');
+        Route::post('/' . $lang . '/translates/update/{id}', [TranslatesController::class, 'update'])->name('translates.update');
+        Route::get('/' . $lang . '/translates/delete/{id}', [TranslatesController::class, 'delete'])->name('translates.delete');
         // Helper Fields
         Route::get('/' . $lang . '/helper_fields', [HelperFieldsController::class, 'index'])->name('helper_fields');
         Route::get('/' . $lang . '/helper_fields/add', [HelperFieldsController::class, 'add'])->name('helper_fields.add');

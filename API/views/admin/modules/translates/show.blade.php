@@ -34,7 +34,7 @@
                                 {{ $item->keyword }}
                             </td>
                             <td class="actions">
-                                @include('admin.modules.languages._actions')
+                                @include('admin.modules.' . $moduleName . '._actions')
                             </td>
                         </tr>
                         @endforeach

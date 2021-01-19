@@ -15,4 +15,5 @@ return [
     'reviews' => 'Reviews',
     'gallery' => 'Gallery',
     'banners' => 'Banenrs',
+    'translates' => 'Translates',
 ];

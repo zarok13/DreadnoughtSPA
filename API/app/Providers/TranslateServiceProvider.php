@@ -5,10 +5,11 @@ namespace App\Providers;
 
 
 use App\Models\Language;
+use App\Models\Translate;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 
-class LanguageServiceProvider extends ServiceProvider
+class TranslateServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
@@ -26,15 +27,15 @@ class LanguageServiceProvider extends ServiceProvider
      * @param Language $language
      * @return void
      */
-    public function boot(Language $language)
+    public function boot(Translate $translate)
     {
         try {
             DB::connection()->getPdo();
 //            $_language = Cache::rememberForever('language.all.'.urlLang(), function () use($language) {
 //                return $language->lang()->pluck('value', 'keyword')->all();
-            $_language = $language->lang()->pluck('value', 'keyword')->all();
+            $_language = $translate->lang()->pluck('value', 'keyword')->all();
 //            });
-            config()->set('languages', $_language);
+            config()->set('translates', $_language);
         }  catch (\Exception $e) {
 
         }

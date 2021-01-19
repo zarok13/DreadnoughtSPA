@@ -4,18 +4,19 @@ namespace App\Http\Controllers\Admin\Defaults;
 
 use App\Http\Controllers\Admin\Dreadnought\Controller;
 use App\Models\Language;
+use App\Models\Translate;
 use App\Traits\DatabaseAction;
 use App\Traits\Deletable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class LanguageController extends Controller
+class TranslatesController extends Controller
 {
     use DatabaseAction;
     use Deletable;
 
-    protected $modelName = 'language';
+    protected $modelName = 'translate';
     protected $validationArray = [];
 
     /**
@@ -24,7 +25,7 @@ class LanguageController extends Controller
     public function __construct()
     {
         parent::__construct();
-        $this->moduleName = 'languages';
+        $this->moduleName = 'translates';
         $this->viewTemplate .= '.' . $this->moduleName;
         $this->data['moduleName'] = $this->moduleName;
         $this->data['title'] = trans('default.' . $this->moduleName);
@@ -36,7 +37,7 @@ class LanguageController extends Controller
      */
     public function index(): View
     {
-        $this->data['items'] = Language::lang()->orderBy('created_at', 'desc')->get();
+        $this->data['items'] = Translate::lang()->orderBy('created_at', 'desc')->get();
         return view($this->viewTemplate . '.show', $this->data);
     }
 
@@ -70,9 +71,9 @@ class LanguageController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function edit(Language $language, int $id): View
+    public function edit(Translate $translate, int $id): View
     {
-        $this->data['item'] = $language->lang()->whereLangId($id)->first();
+        $this->data['item'] = $translate->lang()->whereLangId($id)->first();
         page404($this->data['item']);
         return view($this->viewTemplate . '.edit', $this->data);
     }

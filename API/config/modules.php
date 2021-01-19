@@ -106,8 +106,8 @@ return [
             'delete' => 'delete',
         ],
     ],
-    'languages'         => [
-        'name'         => 'languages',
+    'translates'         => [
+        'name'         => 'translates',
         'icon'          => 'fas fa-language',
         'active'        => true,
         'system'        => true,

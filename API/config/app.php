@@ -176,7 +176,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\ComposerServiceProvider::class,
-        App\Providers\LanguageServiceProvider::class,
+        App\Providers\TranslateServiceProvider::class,
         App\Providers\HelperFieldsServiceProvider::class,
         App\Providers\SlugServiceProvider::class,
         App\Providers\ModulePermsServiceProvider::class,
