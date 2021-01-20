@@ -17,6 +17,8 @@
                     <h3 class="card-title">@include('admin.applets.helpers.back', ['backUrl' => route($moduleName, ['id'
                         => $pageID])])
                         Edit Page Content</h3>
+                        {{-- {{ dd('fsd') }} --}}
+                        @include('admin.applets.lang.clone')
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->

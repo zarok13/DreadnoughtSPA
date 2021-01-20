@@ -3,8 +3,8 @@
 return [
     'version' => '1.0',
     'langList' => [
-        'en' => 'EN',
-        'de' => 'DE'
+        'en' => 'English',
+        'de' => 'Deutsch'
     ],
     'pageTypes' => [
         0 => PAGE_TYPE_STATIC,
