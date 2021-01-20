@@ -29,13 +29,7 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <li>
-            @foreach (setting('langList') as $lowerCase => $title)
-                <a href="{{ url('admin/' . $lowerCase . '/' . $moduleName) }}" title="{{ $title }}">
-                    <span class="btn btn-outline-secondary fa-lg">{{ $lowerCase }}</span>
-                </a>
-                &nbsp;
-                &nbsp;
-            @endforeach
+            @include('admin.applets.lang.content')
         </li>
         <li>
             <!-- SEARCH FORM -->

@@ -91,8 +91,10 @@ class ArticlesController extends Controller
     public function edit(Article $article, int $ID): View
     {
         $this->data['ID'] = $ID;
-        $this->data['item'] = $article->whereLangId($ID)->first();
-        $this->data['pageID'] = $this->data['item']->page_id;
+        $this->data['item'] = $article->lang()->whereLangId($ID)->first();
+        $this->data['pageID'] = optional($this->data['item'])->page_id;
+        page404($this->data['pageID']);
+        
         $this->data['template'] = $this->data['item']->page->template_type;
         if ($this->data['template'] == 'products') {
             $this->data['icons'] = config('fontAwesomeIcons');
@@ -115,4 +117,18 @@ class ArticlesController extends Controller
         $this->data['module'] = $this->moduleName;
         return redirect()->back()->with('successUpdate', DATABASE_ACTION_UPDATE);
     }
+
+    public function clone($itemID,$cloneLang, ArticleRefPage $articleRefPage)
+    {
+        $filteredRequest = Article::whereItemID($itemID)->first()->toArray();
+        $filteredRequest['item_id'] = $itemID;
+        unset($filteredRequest['id']);
+        unset($filteredRequest['updated_at']);
+        $filteredRequest['title'] = $cloneLang.'_'.$filteredRequest['title'];
+        $this->addInCurrentLanguage('article',$filteredRequest,$cloneLang);
+        $pageIDs = $articleRefPage->getReferenceList($itemID);
+        $articleRefPage->addReference($itemID,$pageIDs,$cloneLang);
+        return redirect(route('articles.edit',['item_id' => $itemID]));
+    }
+
 }
