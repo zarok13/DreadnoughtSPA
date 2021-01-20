@@ -80,6 +80,7 @@ Route::group(['middleware' => 'auth:admin'], function () use ($lang) {
         Route::get('/' . $lang . '/articles/edit/{id}', [ArticlesController::class, 'edit'])->name('articles.edit');
         Route::post('/' . $lang . '/articles/update/{id}', [ArticlesController::class, 'update'])->name('articles.update');
         Route::get('/' . $lang . '/articles/delete/{id}', [ArticlesController::class, 'delete'])->name('articles.delete');
+        Route::get('/'.$lang.'/articles/clone/{id}/{lang}', 'ArticlesController@clone')->name('articles.cloneArticle');
         // Contacts
         Route::get('/' . $lang . '/contact/{id}', [ContactController::class, 'index'])->name('contact');
         Route::get('/' . $lang . '/contact/get_marker_form/{page_id}/{marker_id?}', [ContactController::class, 'getMarkerForm'])->name('contact.getMarkerForm');

@@ -88,17 +88,19 @@ class ArticlesController extends Controller
      * @param int $ID
      * @return View
      */
-    public function edit(Article $article, int $ID): View
+    public function edit(Article $article, int $id): View
     {
-        $this->data['ID'] = $ID;
-        $this->data['item'] = $article->lang()->whereLangId($ID)->first();
+        $this->data['ID'] = $id;
+        $this->data['item'] = $article->lang()->whereLangId($id)->first();
         $this->data['pageID'] = optional($this->data['item'])->page_id;
         page404($this->data['pageID']);
-        
+
         $this->data['template'] = $this->data['item']->page->template_type;
         if ($this->data['template'] == 'products') {
             $this->data['icons'] = config('fontAwesomeIcons');
         }
+
+        $this->data['clonableLangs'] = $this->getCloneLangList($id);
         return view($this->viewTemplate . '.edit', $this->data);
     }
 
@@ -118,17 +120,50 @@ class ArticlesController extends Controller
         return redirect()->back()->with('successUpdate', DATABASE_ACTION_UPDATE);
     }
 
-    public function clone($itemID,$cloneLang, ArticleRefPage $articleRefPage)
+    /**
+     * Undocumented function
+     *
+     * @param int $itemID
+     * @param char $cloneLang
+     * @param ArticleRefPage $articleRefPage
+     * @return void
+     */
+    public function clone($itemID, $cloneLang)
     {
-        $filteredRequest = Article::whereItemID($itemID)->first()->toArray();
-        $filteredRequest['item_id'] = $itemID;
+        $filteredRequest = Article::lang()->whereLangId($itemID)->first()->toArray();
+        $filteredRequest['lang_id'] = $itemID;
         unset($filteredRequest['id']);
         unset($filteredRequest['updated_at']);
-        $filteredRequest['title'] = $cloneLang.'_'.$filteredRequest['title'];
-        $this->addInCurrentLanguage('article',$filteredRequest,$cloneLang);
-        $pageIDs = $articleRefPage->getReferenceList($itemID);
-        $articleRefPage->addReference($itemID,$pageIDs,$cloneLang);
-        return redirect(route('articles.edit',['item_id' => $itemID]));
+        $filteredRequest['created_at'] = now();
+        $filteredRequest['user_id'] = Auth::id();
+        // $filteredRequest['page_id'] = $pageID;
+        $filteredRequest['slug'] = Slug::create('articles', 'title');
+        $filteredRequest['title'] = $cloneLang . '_' . $filteredRequest['title'];
+        $filteredRequest['lang'] = $cloneLang;
+        $this->addMainLang($this->modelName, $filteredRequest);
+        // $this->addInCurrentLanguage($this->modelName, $filteredRequest, $cloneLang);
+        // $pageIDs = $articleRefPage->getReferenceList($itemID);
+        // $articleRefPage->addReference($itemID,$pageIDs,$cloneLang);
+        return redirect(route('articles.edit', ['item_id' => $itemID]));
     }
 
+    /**
+     * @param $itemID
+     * @return array
+     * @throws \Exception
+     */
+    protected function getCloneLangList($id)
+    {
+        $langList = setting('langList');
+        $cloneLangList = [];
+        foreach ($langList as $index => $value) {
+            if($index != $this->lang) {
+                if(!Article::whereLangId($id)->whereLang($index)->exists()) {
+                    $cloneLangList[] = $index;
+                }
+            }
+        }
+
+        return $cloneLangList;
+    }
 }

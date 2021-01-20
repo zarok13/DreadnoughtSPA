@@ -34,7 +34,7 @@ trait DatabaseAction
                 $data = $request;
                 $data['lang'] = $key;
                 $data['lang_id'] = $lang_id ? ($lang_id->id + 1) : 1;
-                $data['sort'] = $lang_id ? ($lang_id->sort + 1) : 1;
+                // $data['sort'] = $lang_id ? ($lang_id->sort + 1) : 1;
                 return $model::insertGetId($data);
             }
         }
@@ -59,6 +59,7 @@ trait DatabaseAction
                 }
                 $data['lang'] = $key;
                 $data['lang_id'] = $itemID;
+                // $data['sort'] = $lang_id ? ($lang_id->sort + 1) : 1;
                 $model::insert($data);
             }
         }

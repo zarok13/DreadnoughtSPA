@@ -3,15 +3,9 @@
     <a>Clone</a>
     &nbsp;
     &nbsp;
-    @foreach (setting('langList') as $lang => $title)
-    @php
-        $exists = 'info';
-        if($modelName::where('lang', $lang)->where('lang_id', $ID)->exists()){
-            $exists = 'success';
-        }
-    @endphp
-        <a href="{{ url('admin/' . $lang . '/' . $moduleName) }}" title="{{ $title }}">
-            <span class="btn btn-" . $exists ." fa-lg">{{ $lang }}</span>
+    @foreach ($clonableLangs as $lang)
+        <a href="{{ route('articles.cloneArticle',['id' => $ID,'lang' => $lang]) }}" title="{{ $lang }}">
+            <span class="btn btn-warning fa-lg">{{ strtoupper($lang) }}</span>
         </a>
     &nbsp;
     &nbsp;
