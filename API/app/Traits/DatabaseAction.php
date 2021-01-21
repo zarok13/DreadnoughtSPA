@@ -25,16 +25,19 @@ trait DatabaseAction
      * @param $request
      * @return null
      */
-    protected function addMainLang($modelName, $request)
+    protected function addMainLang($modelName, $request, $cloneLang = null)
     {
+        if (!empty($cloneLang)) {
+            $currentLang = $cloneLang;
+        } else {
+            $currentLang = $this->lang;
+        }
         $model = MODELS_PATH . ucfirst($modelName);
         $lang_id = $model::orderBy('id', 'desc')->first();
         foreach ($this->langList as $key => $value) {
-            if ($this->lang == $key) {
+            if ($currentLang == $key) {
                 $data = $request;
                 $data['lang'] = $key;
-                $data['lang_id'] = $lang_id ? ($lang_id->id + 1) : 1;
-                // $data['sort'] = $lang_id ? ($lang_id->sort + 1) : 1;
                 return $model::insertGetId($data);
             }
         }
@@ -59,7 +62,6 @@ trait DatabaseAction
                 }
                 $data['lang'] = $key;
                 $data['lang_id'] = $itemID;
-                // $data['sort'] = $lang_id ? ($lang_id->sort + 1) : 1;
                 $model::insert($data);
             }
         }

@@ -128,23 +128,21 @@ class ArticlesController extends Controller
      * @param ArticleRefPage $articleRefPage
      * @return void
      */
-    public function clone($itemID, $cloneLang)
+    public function clone($id, $cloneLang)
     {
-        $filteredRequest = Article::lang()->whereLangId($itemID)->first()->toArray();
-        $filteredRequest['lang_id'] = $itemID;
+        $filteredRequest = Article::lang()->whereLangId($id)->first()->toArray();
+        $filteredRequest['lang_id'] = $id;
         unset($filteredRequest['id']);
         unset($filteredRequest['updated_at']);
         $filteredRequest['created_at'] = now();
         $filteredRequest['user_id'] = Auth::id();
-        // $filteredRequest['page_id'] = $pageID;
         $filteredRequest['slug'] = Slug::create('articles', 'title');
         $filteredRequest['title'] = $cloneLang . '_' . $filteredRequest['title'];
-        $filteredRequest['lang'] = $cloneLang;
-        $this->addMainLang($this->modelName, $filteredRequest);
+        $this->addMainLang($this->modelName, $filteredRequest, $cloneLang);
         // $this->addInCurrentLanguage($this->modelName, $filteredRequest, $cloneLang);
-        // $pageIDs = $articleRefPage->getReferenceList($itemID);
-        // $articleRefPage->addReference($itemID,$pageIDs,$cloneLang);
-        return redirect(route('articles.edit', ['item_id' => $itemID]));
+        // $pageIDs = $articleRefPage->getReferenceList($id);
+        // $articleRefPage->addReference($id,$pageIDs,$cloneLang);
+        return redirect(route('articles.edit', ['id' => $id]));
     }
 
     /**
@@ -157,8 +155,8 @@ class ArticlesController extends Controller
         $langList = setting('langList');
         $cloneLangList = [];
         foreach ($langList as $index => $value) {
-            if($index != $this->lang) {
-                if(!Article::whereLangId($id)->whereLang($index)->exists()) {
+            if ($index != $this->lang) {
+                if (!Article::whereLangId($id)->whereLang($index)->exists()) {
                     $cloneLangList[] = $index;
                 }
             }

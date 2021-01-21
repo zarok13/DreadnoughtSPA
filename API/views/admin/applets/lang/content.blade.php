@@ -7,7 +7,7 @@
         $segments[1] = $lang;
     @endphp
     <a href="{{ url(implode('/', $segments)) }}" title="{{ $title }}">
-        <span class="btn btn-outline-{{ $lang == $currentLang ? 'success' : 'secondary' }} fa-lg">{{ strtoupper($lang) }}</span>
+        <span class="btn btn-{{ $lang == $currentLang ? 'primary' : 'outline-secondary' }} fa-lg">{{ strtoupper($lang) }}</span>
     </a>
     &nbsp;
     &nbsp;

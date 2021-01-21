@@ -46,7 +46,7 @@ Route::group(['middleware' => 'auth:admin'], function () use ($lang) {
         Route::get('/no_permissions', [HomeController::class, 'noPermissions'])->name('noPermissions');
         /* Administration */
         // Roles
-        Route::group(['prefix' => 'administration', 'middleware' => 'super_user'], function () {
+        Route::group(['prefix' => $lang.'/administration', 'middleware' => 'super_user'], function () {
             Route::get('roles', 'RolesController@index')->name('administration.roles');
             Route::post('roles/create', 'RolesController@create')->name('administration.roles.create');
             Route::post('roles/update', 'RolesController@update')->name('administration.roles.update');
