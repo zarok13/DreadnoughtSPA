@@ -26,18 +26,17 @@ class Slug
      */
     public function create($tableName, $fieldName, $separator = '-')
     {
-        $slug = request()->post('slug');
+        $slug = request()->slug;
         $this->tableName = $tableName;
-        if (!empty($slug)) {
-            return $slug;
-        }
-        $slug = Str::slug(request()->post($fieldName), $separator);
+  
+        $slug = Str::slug(request()->{$fieldName}, $separator);
         $count = $this->countBySlug($slug);
+        dd($count());
         if ($count) {
             return $this->createNewSlug($fieldName, $slug);
         }
 
-        return $slug;
+        // return $slug;
     }
 
     /**
@@ -62,6 +61,6 @@ class Slug
      */
     public function countBySlug($slug)
     {
-        return DB::table($this->tableName)->where('slug', $slug)->where('page_id', request()->page_id)->count();
+        return DB::table($this->tableName)->where('lang', $this->lang)->where('slug', $slug)->where('page_id', request()->page_id)->count();
     }
 }
