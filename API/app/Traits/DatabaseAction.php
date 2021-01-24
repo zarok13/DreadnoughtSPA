@@ -38,6 +38,7 @@ trait DatabaseAction
             if ($currentLang == $key) {
                 $data = $request;
                 $data['lang'] = $key;
+                $data['lang_id'] = $key;
                 return $model::insertGetId($data);
             }
         }
@@ -51,7 +52,7 @@ trait DatabaseAction
      * @param $emptyFieldList
      * @param $titleField
      */
-    protected function addSecondLanguageItems($modelName, $itemID, array $request, $emptyFieldList, $titleField)
+    protected function cdaddSecondLanguageItems($modelName, $itemID, array $request, $emptyFieldList, $titleField)
     {
         $model = MODELS_PATH . ucfirst($modelName);
         foreach ($this->langList as $key => $value) {

@@ -19,7 +19,7 @@
     'array'=>$array,
     'params' => [
     'class' => 'form-control text',
-        'readonly' => true,
+       
         ]
     ])
 
@@ -65,7 +65,7 @@
         ])
     @endif
 
-    <input type="hidden" name="page_id" value="{{ $array->page_id }}">
+    <input type="hidden" name="page_id" value="{{ $pageID }}">
 
 </div>
 

@@ -2,6 +2,10 @@
 
 return [
     'version' => '1.0',
+    'locales' => [
+        0 => 'en_US',
+        1 => 'de_DE'
+    ],
     'langList' => [
         'en' => 'English',
         'de' => 'Deutsch'

@@ -12,13 +12,6 @@ class Slug
     protected $tableName;
 
     /**
-     * Slug constructor.
-     */
-    public function __construct()
-    {
-    }
-
-    /**
      * @param $tableName
      * @param $fieldName
      * @param string $separator
@@ -28,15 +21,17 @@ class Slug
     {
         $slug = request()->slug;
         $this->tableName = $tableName;
-  
+        if ($slug) {
+            return Str::slug($slug, $separator);
+        }
         $slug = Str::slug(request()->{$fieldName}, $separator);
         $count = $this->countBySlug($slug);
-        dd($count());
+
         if ($count) {
             return $this->createNewSlug($fieldName, $slug);
         }
 
-        // return $slug;
+        return $slug;
     }
 
     /**
@@ -61,6 +56,8 @@ class Slug
      */
     public function countBySlug($slug)
     {
-        return DB::table($this->tableName)->where('lang', $this->lang)->where('slug', $slug)->where('page_id', request()->page_id)->count();
+        return DB::table($this->tableName)
+            ->where('slug', $slug)
+            ->count();
     }
 }

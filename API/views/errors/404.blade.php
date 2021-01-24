@@ -28,7 +28,9 @@
             <h3><i class="fas fa-exclamation-triangle text-warning"></i> Oops! Page not found.</h3>
             <p>
                 We could not find the page you were looking for.
-                Meanwhile, you may <a href="{{ route('home') }}">return to dashboard</a> or try using the search form.
+                Meanwhile, you may <a href="{{ url()->previous() }}" title="Back" class="btn btn-info" >
+                    Back</i>
+                </a> or <a href="{{ route('home') }}">return to dashboard</a> or try using the search form.
             </p>
             <form class="search-form">
                 <div class="input-group">
