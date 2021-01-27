@@ -33,13 +33,13 @@ trait DatabaseAction
             $currentLang = $this->lang;
         }
         $model = MODELS_PATH . ucfirst($modelName);
-        $lang_id = $model::orderBy('id', 'desc')->first();
         foreach ($this->langList as $key => $value) {
             if ($currentLang == $key) {
                 $data = $request;
                 $data['lang'] = $key;
-                $data['lang_id'] = $key;
-                return $model::insertGetId($data);
+                $item = $model::create($data);
+                $item->update(['lang_id' => $item->id]);
+                return $item;
             }
         }
         return null;
@@ -52,7 +52,7 @@ trait DatabaseAction
      * @param $emptyFieldList
      * @param $titleField
      */
-    protected function cdaddSecondLanguageItems($modelName, $itemID, array $request, $emptyFieldList, $titleField)
+    protected function addSecondLanguageItems($modelName, $itemID, array $request, $emptyFieldList, $titleField)
     {
         $model = MODELS_PATH . ucfirst($modelName);
         foreach ($this->langList as $key => $value) {
