@@ -71,7 +71,7 @@ class PagesController extends Controller
         $filteredRequest['slug'] = Slug::create('pages', 'title');
         $filteredRequest['user_id'] = Auth::id();
         $filteredRequest['sort'] = $this->getMaxSort();
-        $this->addMainLang('page', $filteredRequest);
+        $this->addForCurrentLanguage('page', $filteredRequest);
         $this->data['module'] = $this->moduleName;
 
         return redirect(route($this->moduleName))->with('successCreate', DATABASE_ACTION_CREATE);

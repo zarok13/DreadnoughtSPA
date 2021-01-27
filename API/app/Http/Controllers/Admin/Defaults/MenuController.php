@@ -63,7 +63,7 @@ class MenuController extends Controller
     {
         $this->validate($request, $this->validationArray);
         $filteredRequest = $request->except('_token');
-        $this->addMainLang($this->moduleName, $filteredRequest);
+        $this->addForCurrentLanguage($this->moduleName, $filteredRequest);
         return redirect(route($this->moduleName))->with('successCreate', DATABASE_ACTION_CREATE);
     }
 

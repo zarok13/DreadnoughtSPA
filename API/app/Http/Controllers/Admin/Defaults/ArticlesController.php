@@ -78,7 +78,7 @@ class ArticlesController extends Controller
         $filteredRequest['user_id'] = Auth::id();
         $filteredRequest['page_id'] = $pageID;
         $filteredRequest['slug'] = Slug::create('articles', 'title');
-        $this->addMainLang($this->modelName, $filteredRequest);
+        $this->addForCurrentLanguage($this->modelName, $filteredRequest);
         $this->data['module'] = $this->moduleName;
         return redirect()->back()->with('successCreate', DATABASE_ACTION_CREATE);
     }
@@ -131,18 +131,16 @@ class ArticlesController extends Controller
     public function clone($id, $cloneLang)
     {
         $filteredRequest = Article::lang()->whereLangId($id)->first()->toArray();
+        
         $filteredRequest['lang_id'] = $id;
         unset($filteredRequest['id']);
         unset($filteredRequest['updated_at']);
         $filteredRequest['created_at'] = now();
         $filteredRequest['user_id'] = Auth::id();
-        $filteredRequest['slug'] = Slug::create('articles', 'title');
         $filteredRequest['title'] = $cloneLang . '_' . $filteredRequest['title'];
-        $this->addMainLang($this->modelName, $filteredRequest, $cloneLang);
-        // $this->addInCurrentLanguage($this->modelName, $filteredRequest, $cloneLang);
-        // $pageIDs = $articleRefPage->getReferenceList($id);
-        // $articleRefPage->addReference($id,$pageIDs,$cloneLang);
-        return redirect(route('articles.edit', ['id' => $id]));
+        $this->addForCurrentLanguage($this->modelName, $filteredRequest, $cloneLang);
+
+        return redirect()->back()->with('successCreate', DATABASE_ACTION_CREATE);
     }
 
     /**

@@ -166,7 +166,7 @@ class ContactController extends Controller
                 $filteredRequest['lng'] = $this->defaultMarkerCoordinates['defaultLng'];
                 $filteredRequest['page_id'] = $pageID;
                 $filteredRequest['sort'] = $this->getMaxSort('page_id=' . $pageID, false);
-                $this->addInAllLanguage($this->modelName, $filteredRequest, ['desc'], $titleField = 'title');
+                $this->addForAllLanguages($this->modelName, $filteredRequest, ['desc'], $titleField = 'title');
             }
             $this->data['markerList'] = $marker->getList($pageID);
             $this->data['options'] = $this->getDefaultCoordinates($pageID);

@@ -60,7 +60,7 @@ class TranslatesController extends Controller
         $this->validate($request, $this->validationArray);
         $filteredRequest = $request->except('_token');
         $filteredRequest['created_at'] = now();
-        $this->addMainLang($this->modelName, $filteredRequest);
+        $this->addForCurrentLanguage($this->modelName, $filteredRequest);
         $this->data['module'] = $this->moduleName;
         return redirect(route($this->moduleName))->with('successCreate', DATABASE_ACTION_CREATE);
     }

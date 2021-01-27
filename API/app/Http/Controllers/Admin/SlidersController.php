@@ -61,7 +61,7 @@ class SlidersController extends Controller
     {
         $this->validate($request, $this->validationArray);
         $filteredRequest = $request->except('_token');
-        $this->addInAllLanguage($this->modelName, $filteredRequest, []);
+        $this->addForAllLanguages($this->modelName, $filteredRequest, []);
         return redirect(route($this->moduleName))->with('successCreate', DATABASE_ACTION_CREATE);
     }
 

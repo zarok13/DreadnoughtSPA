@@ -13,10 +13,10 @@ trait DatabaseAction
      * @param string $titleField
      * @return null
      */
-    public function addInAllLanguage($modelName, array $request, $emptyFieldList, $titleField = 'title')
+    public function addForAllLanguages($modelName, array $request, $emptyFieldList, $titleField = 'title')
     {
-        $langID = $this->addMainLang($modelName, $request);
-        $this->addSecondLanguageItems($modelName, $langID, $request, $emptyFieldList, $titleField);
+        $langID = $this->addForCurrentLanguage($modelName, $request);
+        $this->addFormOtherLanguages($modelName, $langID, $request, $emptyFieldList, $titleField);
         return $langID;
     }
 
@@ -25,7 +25,7 @@ trait DatabaseAction
      * @param $request
      * @return null
      */
-    protected function addMainLang($modelName, $request, $cloneLang = null)
+    protected function addForCurrentLanguage($modelName, $request, $cloneLang = null)
     {
         if (!empty($cloneLang)) {
             $currentLang = $cloneLang;
@@ -38,7 +38,10 @@ trait DatabaseAction
                 $data = $request;
                 $data['lang'] = $key;
                 $item = $model::create($data);
-                $item->update(['lang_id' => $item->id]);
+                
+                if (empty($cloneLang)) {
+                    $item->update(['lang_id' => $item->id]);
+                }
                 return $item;
             }
         }
@@ -52,7 +55,7 @@ trait DatabaseAction
      * @param $emptyFieldList
      * @param $titleField
      */
-    protected function addSecondLanguageItems($modelName, $itemID, array $request, $emptyFieldList, $titleField)
+    protected function addFormOtherLanguages($modelName, $itemID, array $request, $emptyFieldList, $titleField)
     {
         $model = MODELS_PATH . ucfirst($modelName);
         foreach ($this->langList as $key => $value) {
