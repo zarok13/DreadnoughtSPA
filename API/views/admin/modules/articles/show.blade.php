@@ -4,6 +4,13 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
+            <div class="card-body">
+                @include('admin.messages.errors')
+                @include('admin.messages.messages')
+            </div>
+        </div>
+        <div class="card">
+            
             <div class="card-header">
                 <h3 class="card-title">
                     @include('admin.applets.helpers.back', ['backUrl' => route('pages')])

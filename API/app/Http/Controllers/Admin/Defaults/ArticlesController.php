@@ -79,9 +79,9 @@ class ArticlesController extends Controller
         $filteredRequest['user_id'] = Auth::id();
         $filteredRequest['page_id'] = $pageID;
         $filteredRequest['slug'] = Slug::create('articles', 'title');
-        $this->addForCurrentLanguage($this->modelName, $filteredRequest);
+        $this->addForAllLanguages($this->modelName, $filteredRequest, []);
         $this->data['module'] = $this->moduleName;
-        return redirect()->back()->with('successCreate', DATABASE_ACTION_CREATE);
+        return redirect()->route($this->moduleName, ['id' => $pageID])->with('successCreate', DATABASE_ACTION_CREATE);
     }
 
     /**

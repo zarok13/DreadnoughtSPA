@@ -42,7 +42,7 @@ trait DatabaseAction
                 if (empty($cloneLang)) {
                     $item->update(['lang_id' => $item->id]);
                 }
-                return $item;
+                return $item->id;
             }
         }
         return null;
