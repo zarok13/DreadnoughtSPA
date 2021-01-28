@@ -35,6 +35,7 @@ class ArticlesController extends Controller
         $this->data['title'] = trans('default.' . $this->moduleName);
         $this->fileStoreReferences = setting('fileStoreReferenceType');
         $this->data['dataTable'] = true;
+        $this->deleteForLanguage = true;
     }
 
     /**
