@@ -8,11 +8,11 @@
                 </button>
             </div>
             <div class="modal-body">
-                ...
+                <p>Are you sure to remove this {{ $item->title }}</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger">Delete</button>
+                <a href="{{ route($moduleName . '.delete', $item->lang_id)}}" class="btn btn-danger">Delete </a>
             </div>
         </div>
     </div>
