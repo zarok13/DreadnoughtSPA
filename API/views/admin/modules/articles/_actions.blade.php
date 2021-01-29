@@ -6,6 +6,10 @@
     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
         <a class="dropdown-item" href="{{ route($moduleName . '.edit', $item->lang_id) }}">Edit</a>
         <hr>
-        <a class="dropdown-item" href="{{ route($moduleName . '.delete', $item->lang_id) }}">Delete</a>
+        <a class="dropdown-item" href="javasctipt:void(0)" data-toggle="modal"
+            data-target="#confirm_delete">Delete</a>              
     </div>
 </div>
+
+@include('admin.modules.articles._modal')
+{{-- href="{{ route($moduleName . '.delete', $item->lang_id) }}" --}}

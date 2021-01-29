@@ -10,6 +10,7 @@
                            'label' => 'Template Type',
                            'array' => isset($templateTypes) ? $templateTypes : [],
                            'selected' => !empty($selectedTemplateType) ? $selectedTemplateType : null,
+                           'params' => ['class' => '']
                         ])
                         <div class="contact_tools_links">                           
                             <a class="get_marker_form" href="{{ route('contact.getMarkerForm', ['page_id' => $pageID]) }}"
