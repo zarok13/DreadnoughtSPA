@@ -40,10 +40,10 @@
                             </td>
                             <td>
                                 {{ $item->title }}
-                            </td>
-                            <td class="actions">
+                            </td> 
+                             <td class="actions">
                                 @include('admin.modules.articles._actions')
-                            </td>
+                             </td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -60,4 +60,5 @@
         </div>
     </div>
 </div>
+@include('admin.modules.articles._modal')
 @endsection

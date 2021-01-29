@@ -11,5 +11,5 @@
     </div>
 </div>
 
-@include('admin.modules.articles._modal')
+
 {{-- href="{{ route($moduleName . '.delete', $item->lang_id) }}" --}}
