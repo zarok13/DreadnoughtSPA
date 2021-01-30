@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+function _createForOfIteratorHelper(o) { if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) { var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var it, normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
@@ -843,6 +843,51 @@ $(document).ready(function () {
         });
       }
     });
+  }); //confirm to delete an item
+
+  $('body').on('click', '.confirm_to_delete', function (e) {
+    e.preventDefault();
+    var url = $(this).attr('href');
+    var mainWrapper = 'div.wrapper';
+    var imageLoader = '#image-loader';
+    $.ajax({
+      type: 'GET',
+      url: url,
+      dataType: 'json',
+      data: {},
+      beforeSend: function beforeSend() {
+        $(mainWrapper).fadeTo("fast", 0.2);
+        $(mainWrapper).css('pointer-events', 'none');
+        $(imageLoader).show();
+      },
+      success: function success(result) {
+        console.log(result);
+
+        if (result.status == 'ok') {
+          console.log(result.response); // $(".modal-content").html(result.response);
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: result.message,
+            footer: 'Dreadnought Project'
+          });
+        }
+      },
+      error: function error(_error13) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: _error13,
+          footer: 'Dreadnought Project'
+        });
+      },
+      complete: function complete() {
+        $(mainWrapper).fadeTo("fast", 1);
+        $(mainWrapper).css('pointer-events', '');
+        $(imageLoader).hide();
+      }
+    });
   });
 });
 
@@ -855,7 +900,7 @@ $(document).ready(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/others/DreadnoughtSPA/API/resources/admin/js/main.js */"./resources/admin/js/main.js");
+module.exports = __webpack_require__(/*! /var/www/html/independent/dreadnoughtSPA/API/resources/admin/js/main.js */"./resources/admin/js/main.js");
 
 
 /***/ })

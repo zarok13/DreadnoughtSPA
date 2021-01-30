@@ -732,4 +732,50 @@ $(document).ready(function () {
             }
         });
     });
+
+    //confirm to delete an item
+    $('body').on('click', '.confirm_to_delete', function (e) {
+        e.preventDefault();
+        let url = $(this).attr('href');
+        let mainWrapper = 'div.wrapper';
+        let imageLoader = '#image-loader';
+        $.ajax({
+            type: 'GET',
+            url: url,
+            dataType: 'json',
+            data: {},
+            beforeSend: function () {
+                $(mainWrapper).fadeTo("fast", 0.2);
+                $(mainWrapper).css('pointer-events', 'none');
+                $(imageLoader).show();
+            },
+            success: function (result) {
+                console.log(result);
+                if (result.status == 'ok') {
+                    console.log(result.response);
+                    // $(".modal-content").html(result.response);
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: result.message,
+                        footer: 'Dreadnought Project'
+                    });
+                }
+            },
+            error: function (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: error,
+                    footer: 'Dreadnought Project'
+                });
+            },
+            complete: function () {
+                $(mainWrapper).fadeTo("fast", 1);
+                $(mainWrapper).css('pointer-events', '');
+                $(imageLoader).hide();
+            }
+        });
+    });
 });
