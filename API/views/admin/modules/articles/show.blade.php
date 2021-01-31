@@ -60,4 +60,5 @@
         </div>
     </div>
 </div>
+@include('admin.applets.helpers._deletion_modal')
 @endsection

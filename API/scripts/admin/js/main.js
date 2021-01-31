@@ -848,9 +848,9 @@ $(document).ready(function () {
   $('body').on('click', '.delete_an_item', function (e) {
     e.preventDefault();
     var id = $(this).attr('id').split('_');
-    $('div.modal-body > p').html('Are you sure to remove this item ' + id[0] + '.');
+    $('div.modal-body > p').html('Are you sure to remove this item ' + id.slice(0, -1).join('_') + '.');
     var modalHrefArray = $('div.modal #deletion_confirm').attr('href').split('/');
-    modalHrefArray[modalHrefArray.length - 1] = id[1];
+    modalHrefArray[modalHrefArray.length - 1] = id[id.length - 1];
     modalHrefArray = modalHrefArray.join('/');
     $('div.modal #deletion_confirm').attr('href', modalHrefArray);
   });

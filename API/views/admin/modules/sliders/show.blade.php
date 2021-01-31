@@ -17,7 +17,7 @@
                         <i class="fas fa-arrows-alt fa-lg"></i> <span style="opacity: 0">{{ $item->sort }}</span>
                         {{ $item->title }}
                         <span class="list_right_section">
-                            @include('admin.modules.menu._actions')
+                            @include('admin.modules.sliders._actions')
                         </span>
                     </li>
                     @endforeach
@@ -27,4 +27,5 @@
         </div>
     </div>
 </div>
+@include('admin.applets.helpers._deletion_modal')
 @endsection
