@@ -843,51 +843,16 @@ $(document).ready(function () {
         });
       }
     });
-  }); //confirm to delete an item
+  }); //Deletion confirm
 
-  $('body').on('click', '.confirm_to_delete', function (e) {
+  $('body').on('click', '.delete_an_item', function (e) {
     e.preventDefault();
-    var url = $(this).attr('href');
-    var mainWrapper = 'div.wrapper';
-    var imageLoader = '#image-loader';
-    $.ajax({
-      type: 'GET',
-      url: url,
-      dataType: 'json',
-      data: {},
-      beforeSend: function beforeSend() {
-        $(mainWrapper).fadeTo("fast", 0.2);
-        $(mainWrapper).css('pointer-events', 'none');
-        $(imageLoader).show();
-      },
-      success: function success(result) {
-        console.log(result);
-
-        if (result.status == 'ok') {
-          console.log(result.response); // $(".modal-content").html(result.response);
-        } else {
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: result.message,
-            footer: 'Dreadnought Project'
-          });
-        }
-      },
-      error: function error(_error13) {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: _error13,
-          footer: 'Dreadnought Project'
-        });
-      },
-      complete: function complete() {
-        $(mainWrapper).fadeTo("fast", 1);
-        $(mainWrapper).css('pointer-events', '');
-        $(imageLoader).hide();
-      }
-    });
+    var id = $(this).attr('id').split('_');
+    $('div.modal-body > p').html('Are you sure to remove this item ' + id[0] + '.');
+    var modalHrefArray = $('div.modal #deletion_confirm').attr('href').split('/');
+    modalHrefArray[modalHrefArray.length - 1] = id[1];
+    modalHrefArray = modalHrefArray.join('/');
+    $('div.modal #deletion_confirm').attr('href', modalHrefArray);
   });
 });
 

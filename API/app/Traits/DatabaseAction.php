@@ -27,21 +27,24 @@ trait DatabaseAction
      */
     protected function addForCurrentLanguage($modelName, $request, $cloneLang = null)
     {
+
         if (!empty($cloneLang)) {
             $currentLang = $cloneLang;
         } else {
             $currentLang = $this->lang;
         }
+
         $model = MODELS_PATH . ucfirst($modelName);
         foreach ($this->langList as $key => $value) {
             if ($currentLang == $key) {
                 $data = $request;
                 $data['lang'] = $key;
-                $item = $model::create($data);
-                
                 if (empty($cloneLang)) {
-                    $item->update(['lang_id' => $item->id]);
-                }
+                    $data['lang_id'] = 0;
+                }                
+                $item = $model::create($data);
+
+                $item->update(['lang_id' => $item->id]);
                 return $item->id;
             }
         }

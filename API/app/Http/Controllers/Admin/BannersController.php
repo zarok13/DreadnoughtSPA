@@ -21,7 +21,7 @@ class BannersController extends Controller
 
     protected $modelName = 'Banner';
     protected $validationArray = [
-        'title' => 'required'
+        'title' => 'required',
     ];
 
     /**
@@ -65,6 +65,8 @@ class BannersController extends Controller
     {
         $this->validate($request, $this->validationArray);
         $filteredRequest = $request->except('_token');
+        $maxSort = Banner::where('lang', $this->lang)->max('sort');
+        $filteredRequest['sort'] = $maxSort + 1;
         $this->addForCurrentLanguage($this->modelName, $filteredRequest);
         return redirect(route($this->moduleName))->with('successCreate', DATABASE_ACTION_CREATE);
     }

@@ -6,7 +6,7 @@
     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
         <a class="dropdown-item" href="{{ route($moduleName . '.edit', $item->lang_id) }}">Edit</a>
         <hr>
-        <a class="dropdown-item confirm_to_delete" href="{{ route($moduleName . '.delete', $item->lang_id) }}" data-toggle="modal"
-            data-target="#confirm_delete">Delete</a>              
+        <a class="dropdown-item delete_an_item" id="{{ $item->title . '_' . $item->lang_id }}" href="jovascript:void(0)"
+            data-toggle="modal" data-target="#confirm_delete">Delete</a>
     </div>
 </div>

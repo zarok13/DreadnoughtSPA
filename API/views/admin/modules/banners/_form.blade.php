@@ -27,7 +27,6 @@
     'array'=>$array,
     'params' => [
         'class' => 'form-control text',
-        'required' => true,
         'autofocus' => true,
     ]
 ])

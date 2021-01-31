@@ -62,7 +62,6 @@ class HelperFieldsController extends Controller
     {
         $this->validate($request, $this->validationArray);
         $filteredRequest = $request->except('_token');
-        $filteredRequest['created_at'] = now();
         $this->addForCurrentLanguage($this->modelName, $filteredRequest);
         $this->data['module'] = $this->moduleName;
         return redirect(route($this->moduleName))->with('successCreate', DATABASE_ACTION_CREATE);

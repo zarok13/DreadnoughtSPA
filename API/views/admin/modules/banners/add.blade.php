@@ -2,6 +2,12 @@
 @section('content')
 
 <div class="container-fluid">
+	<div class="card">
+        <div class="card-body">
+            @include('admin.messages.errors')
+            @include('admin.messages.messages')
+        </div>
+    </div>	 
 	<div class="row justify-content-center">
 		<!-- left column -->
 		<div class="col-md-6">

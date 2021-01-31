@@ -19,7 +19,7 @@ class CreateBannersTable extends Migration
             $table->unsignedInteger('lang_id');
             $table->string('url',255)->nullable();
             $table->integer('product_id')->nullable();
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->string('title',255);
             $table->text('desc')->nullable();
             $table->unsignedSmallInteger('sort')->default(1)->index();

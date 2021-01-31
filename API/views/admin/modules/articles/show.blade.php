@@ -60,5 +60,4 @@
         </div>
     </div>
 </div>
-@include('admin.modules.articles._modal')
 @endsection

@@ -122,7 +122,7 @@ $(document).ready(function () {
                                 description: '',
                                 content: '[image src="image.jpg" top_title="About" title="სათაური" desc="მინი აღწერა"][/image]'
                             },
-                            {title: 'text', description: '', content: '[text]content[/text]'},
+                            { title: 'text', description: '', content: '[text]content[/text]' },
                         ],
                     });
                 } else {
@@ -606,7 +606,7 @@ $(document).ready(function () {
             type: 'POST',
             url: url,
             dataType: 'json',
-            data: {title: title, desc: desc},
+            data: { title: title, desc: desc },
             beforeSend: function () {
                 $('.marker_modal').modal('toggle');
                 $(mainWrapper).fadeTo("fast", 0.2);
@@ -694,67 +694,26 @@ $(document).ready(function () {
         });
     });
     // save data coordinates
-    $('body').on('click','#save_data_coordinates',function (e) {
+    $('body').on('click', '#save_data_coordinates', function (e) {
         e.preventDefault();
         let url = $(this).attr('href');
         let template_type = $("#template_type option:selected").val();
         let myForm = document.getElementById('data_coordinates');
         let formData = new FormData(myForm);
         console.log(myForm);
-        formData.append('template_type',template_type);
+        formData.append('template_type', template_type);
         $.ajax({
-            type:'POST',
+            type: 'POST',
             url: url,
             dataType: 'json',
             data: formData,
             processData: false,
             contentType: false,
-            success: function(result) {
-                if(result.status === 'ok') {
+            success: function (result) {
+                if (result.status === 'ok') {
                     toastr["success"]("<b>Dreadnought Project</b><br/>New data coordinates have been successfully saved.");
                 }
-                else{
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: result.message,
-                        footer: 'Dreadnought Project'
-                    });
-                }
-            },
-            error: function(error) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: error,
-                    footer: 'Dreadnought Project'
-                });
-            }
-        });
-    });
-
-    //confirm to delete an item
-    $('body').on('click', '.confirm_to_delete', function (e) {
-        e.preventDefault();
-        let url = $(this).attr('href');
-        let mainWrapper = 'div.wrapper';
-        let imageLoader = '#image-loader';
-        $.ajax({
-            type: 'GET',
-            url: url,
-            dataType: 'json',
-            data: {},
-            beforeSend: function () {
-                $(mainWrapper).fadeTo("fast", 0.2);
-                $(mainWrapper).css('pointer-events', 'none');
-                $(imageLoader).show();
-            },
-            success: function (result) {
-                console.log(result);
-                if (result.status == 'ok') {
-                    console.log(result.response);
-                    // $(".modal-content").html(result.response);
-                } else {
+                else {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
@@ -770,12 +729,18 @@ $(document).ready(function () {
                     text: error,
                     footer: 'Dreadnought Project'
                 });
-            },
-            complete: function () {
-                $(mainWrapper).fadeTo("fast", 1);
-                $(mainWrapper).css('pointer-events', '');
-                $(imageLoader).hide();
             }
         });
+    });
+
+    //Deletion confirm
+    $('body').on('click', '.delete_an_item', function (e) {
+        e.preventDefault();
+        let id = $(this).attr('id').split('_');
+        $('div.modal-body > p').html('Are you sure to remove this item ' + id[0] + '.');
+        let modalHrefArray = $('div.modal #deletion_confirm').attr('href').split('/');
+        modalHrefArray[modalHrefArray.length - 1] = id[1];
+        modalHrefArray = modalHrefArray.join('/');
+        $('div.modal #deletion_confirm').attr('href', modalHrefArray);
     });
 });
