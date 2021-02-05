@@ -34,18 +34,19 @@ export default {
     },
     computed: {
         ...mapGetters({ getStaticContent: "getStaticContent" }),
-
         currentRouteName() {
             return this.$route.path.replace(/^\/|\/$/g, "");
         }
     },
     mounted() {
-        this.setStatic([]);
         this.initStatic(this.currentRouteName);
     },
+    beforeDestroy() {
+        this.setStatic([]);
+    },
     methods: {
-        ...mapActions({initStatic: constants.GET_STATIC_CONTENT}),
-        ...mapMutations({setStatic: constants.SET_STATIC_CONTENT})
+        ...mapActions({ initStatic: constants.GET_STATIC_CONTENT }),
+        ...mapMutations({ setStatic: constants.SET_STATIC_CONTENT })
     }
 };
 </script>

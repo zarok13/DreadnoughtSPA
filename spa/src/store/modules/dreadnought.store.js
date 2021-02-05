@@ -1,5 +1,5 @@
-import { getDataFromLocalStorage } from "@/helpers/init_local_storage"
-import { getExpireDate } from "@/helpers/expire_date"
+// import { getDataFromLocalStorage } from "@/helpers/init_local_storage"
+// import { getExpireDate } from "@/helpers/expire_date"
 import constants from "@/helpers/constants"
 
 import { RepositoryFactory} from '@/api/RepositoryFactory'
@@ -116,21 +116,21 @@ const actions = {
 
 
 function actionDataInit(state, getter, setter, repository, params = null) {
-    let localStor = params !== null ? getter + '.' + params[0] : getter;
-    if (getDataFromLocalStorage(state, localStor, setter)) {
-        console.log(localStor + ' parsed from local storage');
-    } else {
+    // let localStor = params !== null ? getter + '.' + params[0] : getter;
+    // if (getDataFromLocalStorage(state, localStor, setter)) {
+    //     console.log(localStor + ' parsed from local storage');
+    // } else {
         repository[getter](params)
             .then(data => {
-                let mapbox = data.data;
-                mapbox.expire_date = getExpireDate(2);
-                localStorage.setItem(localStor, JSON.stringify(mapbox));
-                state.commit(setter, mapbox);
+                let init = data.data;
+                // init.expire_date = getExpireDate(2);
+                // localStorage.setItem(localStor, JSON.stringify(init));
+                state.commit(setter, init);
             })
             .catch(error => {
                 console.log(error);
             })
-    }
+    // }
 }
 
 // app store mutations

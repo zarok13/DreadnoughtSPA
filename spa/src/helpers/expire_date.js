@@ -15,7 +15,7 @@ export function checkExpireDate(parsedData) {
         mm = '0' + mm;
     }
     today = yyyy + '-' + mm + '-' + dd + '-' + minutes;
-console.log(expireDate , today)
+
     if (expireDate > today) {
         return true;
     }

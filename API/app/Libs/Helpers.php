@@ -84,7 +84,7 @@ if (!function_exists('lang')) {
      */
     function lang($keyword)
     {
-        return config('languages.' . $keyword);
+        return config('translates.' . $keyword);
     }
 }
 
