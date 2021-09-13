@@ -1,6 +1,6 @@
-###Dreadnought Project
+### Dreadnought Project
 
-##How to run:
+## How to run:
 ```
 dreadnought-project.herokuapp.com/admin/storage(create symbolic links)
 dreadnought-project.herokuapp.com/admin (back end)
